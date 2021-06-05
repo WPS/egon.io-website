@@ -67,10 +67,10 @@ Click on ![Gear Button](/images/gear.png) to open the icon configuration. Config
 
 If you import a Domain Story from a `.dst` file, your icon configuration will change automatically to the one with which the Domain Story was created - even if you do not have the corresponding `.domain` file.
 
-**Beta feature:** If you want to use icons that are not in the predefined set that comes with the modeler, you can upload your own icons. Different image formats are allowed, but you will achieve best results with SVG because it is scalable (like the icons that come with the modeler). Also, we recommend to use square images because they look better in the pallet and the context pad. If you want a consistent look, consider using the same icon set that we use for the predefined icons: https://material.io/resources/icons/?style=outline
+**Beta feature:** If you want to use icons that are not in the predefined set that comes with the modeler, you can upload your own icons. Different image formats are allowed, but you will achieve best results with SVG because it is scalable (like the icons that come with the modeler). Also, we recommend to use square images because they look better in the pallet and the context pad. If you want a consistent look, consider using the same icon set that we use for the predefined icons—[Google's Material icons](https://material.io/resources/icons/?style=outline)
 
 # Examples
-You can (download these examples)[https://github.com/WPS/egon.io-examples] and import them into Egon.io. 
+You can [download these examples](https://github.com/WPS/egon.io-examples) and import them into Egon.io. 
 
 # License
-The Domain Story Modeler is licensed under GPLv3.0. For more information about licensing, please (refer to the development repository)[https://github.com/WPS/domain-story-modeler].
+The Domain Story Modeler is licensed under GPLv3.0. For more information about licensing, please [refer to the development repository](https://github.com/WPS/domain-story-modeler).
