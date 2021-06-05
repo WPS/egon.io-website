@@ -1,1 +1,6 @@
 theme: jekyll-theme-slate
+title: Egon.io–The Domain Story Modeler
+description: Egon.io is an open-source tool for visualizing domain stories that runs in your browser.
+show_downloads: true
+github:
+  zip_url: https://github.com/WPS/domain-story-modeler/releases/download/v1.2.1/Domain.Story.Modeler.v1.2.1.zip
