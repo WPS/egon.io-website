@@ -17,7 +17,7 @@ GEM
     commonmarker (0.17.13)
       ruby-enum (~> 0.5)
     concurrent-ruby (1.1.9)
-    dnsruby (1.61.9)
+    dnsruby (1.61.7)
       simpleidn (~> 0.1)
     em-websocket (0.5.3)
       eventmachine (>= 0.12.9)
@@ -222,26 +222,28 @@ GEM
     kramdown-parser-gfm (1.1.0)
       kramdown (~> 2.0)
     liquid (4.0.3)
-    listen (3.7.1)
+    listen (3.7.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     mercenary (0.3.6)
+    mini_portile2 (2.7.1)
     minima (2.5.1)
       jekyll (>= 3.5, < 5.0)
       jekyll-feed (~> 0.9)
       jekyll-seo-tag (~> 2.1)
     minitest (5.15.0)
     multipart-post (2.1.1)
-    nokogiri (1.13.1-arm64-darwin)
+    nokogiri (1.13.0)
+      mini_portile2 (~> 2.7.0)
       racc (~> 1.4)
-    octokit (4.22.0)
+    octokit (4.21.0)
       faraday (>= 0.9)
       sawyer (~> 0.8.0, >= 0.5.3)
     pathutil (0.16.2)
       forwardable-extended (~> 2.6)
     public_suffix (4.0.6)
     racc (1.6.0)
-    rb-fsevent (0.11.1)
+    rb-fsevent (0.11.0)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     rexml (3.2.5)
@@ -272,10 +274,10 @@ GEM
       unf_ext
     unf_ext (0.0.8)
     unicode-display_width (1.8.0)
-    zeitwerk (2.5.4)
+    zeitwerk (2.5.3)
 
 PLATFORMS
-  arm64-darwin-21
+  ruby
 
 DEPENDENCIES
   github-pages
@@ -283,4 +285,4 @@ DEPENDENCIES
   jekyll-include-cache
 
 BUNDLED WITH
-   2.3.7
+   2.1.4
