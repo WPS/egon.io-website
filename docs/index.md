@@ -1,7 +1,30 @@
-**[Try online!](https://www.wps.de/modeler/)**
+---
+permalink: /
+title: "Egon.io"
+layout: splash
+header: 
+  overlay_color: "#f59542"
+  overlay_image: /images/sunflower-1.jpeg
+
+external_links:
+  - title: "Use Online!"
+    excerpt: "![](/images/feature-row-egon-height-500px.png)<br> Run Egon.io in your browser without downloading anything. <br> [Use Egon.io](https://www.wps.de/modeler/)"
+
+  - title: "Download latest version"
+    excerpt: "![](/images/feature-row-egon-height-500px.png)<br> Download a ZIP file to run Egon.io locally in your browse. <br> [Download Egon.io](https://github.com/WPS/domain-story-modeler/releases/download/v1.2.1/Domain.Story.Modeler.v1.2.1.zip)"
+
+  - title: "Developer Repo"
+    excerpt: "![](/images/feature-row-egon-height-500px.png)<br> Contribute feature requests, bug reports, and pull requests. <br> [GitHub Repo](https://github.com/WPS/domain-story-modeler)"
+
+  - title: "More about Domain Storytelling"
+    excerpt: "![](/images/feature-row-egon-height-500px.png)<br> Read intros to Domain Storytelling and other modelling tools. A book written by a community of practitioners. <br> [Visit Leanpub](https://leanpub.com/visualcollaborationtools)"
+---
+
 
 # About Domain Storytelling
-Domain Storytelling is a collaborative, visual, and agile way to build domain-driven software. Read more about this modeling technique on [domainstorytelling.org](https://domainstorytelling.org/).
+Domain Storytelling is a collaborative, visual, and agile way to build domain-driven software.
+
+{% include feature_row id="external_links" %}
 
 # How to use Egon.io
 
