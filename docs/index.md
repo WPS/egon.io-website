@@ -7,23 +7,26 @@ header:
   overlay_image: /images/sunflower-1.jpeg
 
 external_links:
-  - title: "Use Online!"
-    excerpt: "![](/images/feature-row-egon-height-500px.png)<br> Run Egon.io in your browser without downloading anything. <br> [Use Egon.io](https://www.wps.de/modeler/)"
-
-  - title: "Download latest version"
-    excerpt: "![](/images/feature-row-egon-height-500px.png)<br> Download a ZIP file to run Egon.io locally in your browse. <br> [Download Egon.io](https://github.com/WPS/domain-story-modeler/releases/download/v1.2.1/Domain.Story.Modeler.v1.2.1.zip)"
-
-  - title: "Developer Repo"
-    excerpt: "![](/images/feature-row-egon-height-500px.png)<br> Contribute feature requests, bug reports, and pull requests. <br> [GitHub Repo](https://github.com/WPS/domain-story-modeler)"
+  - btn_label: "Use Online"
+    btn_class: "btn btn--primary btn--x-large"
+    url: "https://www.wps.de/modeler/"
+  - btn_label: "Download latest"
+    btn_class: "btn btn--info btn--x-large"
+    url: "https://github.com/WPS/domain-story-modeler/releases/download/v1.2.1/Domain.Story.Modeler.v1.2.1.zip"
+  - btn_label: "View Source"
+    btn_class: "btn btn--info btn--x-large"
+    url: "https://github.com/WPS/domain-story-modeler"
 ---
-
-
-# About Domain Storytelling
-Domain Storytelling is a collaborative, visual, and agile way to build domain-driven software.
 
 {% include feature_row id="external_links" %}
 
-# How to use Egon.io
+[Domain Storytelling](https://domainstorytelling.org) is a collaborative, visual, and agile way to build domain-driven software. Egon.io is a lightweight tool to support it.
+
+{::comment}
+[Use Online!](https://www.wps.de/modeler/){: .btn .btn--primary .btn--x-large .align-center}
+{:/comment}
+
+# How to Use
 
 ## Recommended browsers
 **Important:** We recommend Mozilla Firefox or browsers based on Chromium (Google Chrome, Microsoft Edge). Egon.io requires that your browser allows third party cookies (How to turn on third party cookies in [Firefox](https://support.mozilla.org/en-US/kb/disable-third-party-cookies) and [Chrome](https://support.google.com/chrome/answer/95647?co=GENIE.Platform%3DDesktop&hl=en)). We rely on storing your modeler's configuration in your browser. That enabled us to develop a cool feature that allows you to choose which icons you want to use for modeling (see below).
