@@ -15,9 +15,6 @@ external_links:
 
   - title: "Developer Repo"
     excerpt: "![](/images/feature-row-egon-height-500px.png)<br> Contribute feature requests, bug reports, and pull requests. <br> [GitHub Repo](https://github.com/WPS/domain-story-modeler)"
-
-  - title: "More about Domain Storytelling"
-    excerpt: "![](/images/feature-row-egon-height-500px.png)<br> Read intros to Domain Storytelling and other modelling tools. A book written by a community of practitioners. <br> [Visit Leanpub](https://leanpub.com/visualcollaborationtools)"
 ---
 
 
