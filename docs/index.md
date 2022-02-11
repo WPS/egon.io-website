@@ -1,11 +1,14 @@
 ---
 permalink: /
 title: "Egon.io"
-description: "A lightweight tool to support [Domain Storytelling](https://domainstorytelling.org)"
 layout: splash
 header: 
   overlay_color: "#f59542"
   overlay_image: /images/sunflower-1.jpeg
+excerpt: "A lightweight tool to support [Domain Storytelling](https://domainstorytelling.org)"
+
+buttons: 
+  - excerpt: "[Use Online](https://www.wps.de/modeler/){: .btn .btn--primary .btn--x-large} [Download Latest](https://github.com/WPS/domain-story-modeler/releases/download/v1.2.1/Domain.Story.Modeler.v1.2.1.zip){: .btn .btn--info .btn--x-large} [View Source](https://github.com/WPS/domain-story-modeler){: .btn .btn--info .btn--x-large} [Read Docs](/howto){: .btn .btn--info .btn--x-large}"
 
 external_links:
   - btn_label: "Use Online"
@@ -22,9 +25,9 @@ external_links:
     url: "https://github.com/WPS/domain-story-modeler"
 ---
 
-A lightweight tool to support [Domain Storytelling](https://domainstorytelling.org)
-
 {::comment}
+{% include feature_row id="buttons" type="center" %}
+
 {% include feature_row id="external_links" %}
 
 [Domain Storytelling](https://domainstorytelling.org) is a collaborative, visual, and agile way to build domain-driven software. Egon.io is a lightweight tool to support it.
@@ -34,7 +37,9 @@ A lightweight tool to support [Domain Storytelling](https://domainstorytelling.o
 [Download Latest](https://github.com/WPS/domain-story-modeler/releases/download/v1.2.1/Domain.Story.Modeler.v1.2.1.zip){: .btn .btn--info .btn--x-large .align-right}
 [View Source](https://github.com/WPS/domain-story-modeler){: .btn .btn--info .btn--x-large .align-right}
 [Read Docs](/howto){: .btn .btn--info .btn--x-large .align-right}
+{: .center}
 
+{::comment}
 ## Examples
 
 You can [download these examples](https://github.com/WPS/egon.io-examples) and import them into Egon.io.
@@ -42,3 +47,4 @@ You can [download these examples](https://github.com/WPS/egon.io-examples) and i
 ## License
 
 The Domain Story Modeler is licensed under GPLv3.0. For more information about licensing, please [refer to the development repository](https://github.com/WPS/domain-story-modeler).
+{:/comment}
