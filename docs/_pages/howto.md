@@ -11,6 +11,8 @@ toc_sticky: true
 
 ## Palette
 
+![The palette for a cinema domain](/images/screenshots/palette.png){:height="100px" width="100px" .align-right}
+
 Shows the icons you can choose to record your domain story (actors and work objects), a rectangular shape to group icons into logical units, and two useful modeling tools:
 
 - The lasso tool lets you select several icons at once to move them easily.
@@ -19,9 +21,11 @@ Shows the icons you can choose to record your domain story (actors and work obje
 ## Headline
 
 Click on the headline to change the name of the domain story and describe it. The description can contain information about assumptions (e.g. that the domain story describes a "happy path" scenario) and variations (e.g. optional activities).
-Use `ctrl`+`enter` or `alt+enter` to add line breaks to the description.
+Use `ctrl`+`enter` or `alt`+`enter` to add line breaks to the description.
 
 ## Context Menu
+
+![The context menu for an actor cashier](/images/screenshots/context-menu.png){:height="300px" width="300px" .align-right}
 
 If you drop an icon from the palette into the canvas you will see a context menu with three sections:
 
