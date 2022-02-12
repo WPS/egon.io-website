@@ -5,7 +5,7 @@ layout: splash
 header: 
   overlay_color: "#f59542"
   overlay_image: /images/sunflower-1.jpeg
-excerpt: "A lightweight tool to support [Domain Storytelling](https://domainstorytelling.org)"
+excerpt: "A lightweight tool to support [*Domain Storytelling*](https://domainstorytelling.org)"
 
 buttons: 
   - excerpt: "[Use Online](https://www.wps.de/modeler/){: .btn .btn--primary .btn--x-large} [Download Latest](https://github.com/WPS/domain-story-modeler/releases/download/v1.2.1/Domain.Story.Modeler.v1.2.1.zip){: .btn .btn--info .btn--x-large} [View Source](https://github.com/WPS/domain-story-modeler){: .btn .btn--info .btn--x-large} [Read Docs](/howto){: .btn .btn--info .btn--x-large}"
@@ -36,6 +36,7 @@ external_links:
 [Use Online](https://www.wps.de/modeler/){: .btn .btn--primary .btn--x-large}
 [Download Latest](https://github.com/WPS/domain-story-modeler/releases/download/v1.2.1/Domain.Story.Modeler.v1.2.1.zip){: .btn .btn--info .btn--x-large .align-right}
 [View Source](https://github.com/WPS/domain-story-modeler){: .btn .btn--info .btn--x-large .align-right}
+[See Examples](https://github.com/WPS/egon.io-examples){: .btn .btn--info .btn--x-large .align-right}
 [Read Docs](/howto){: .btn .btn--info .btn--x-large .align-right}
 {: .center}
 
