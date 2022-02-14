@@ -4,11 +4,18 @@ title: "Egon.io"
 layout: splash
 header: 
   overlay_color: "#f59542"
-  overlay_image: /images/sunflower-1.jpeg
+#  overlay_image: /images/schiele/krumau-an-der-moldau.jpg
+#  overlay_image: /images/schiele/crescent-of-houses.jpg
+  overlay_image: /images/schiele/hauswand-am-fluss.jpg
+#  actions:
+#    - label: "Use Online"
+#      url: "https://www.wps.de/modeler/"
+  caption: "Photo: [**Frans Vandewalle**](https://www.flickr.com/photos/snarfel/6679805047/in/photostream/)"
+#  caption: "**Egon Schiele**: *Hauswand am Fluß*, Photo: [**Frans Vandewalle**](https://www.flickr.com/photos/snarfel/6679805047/in/photostream/)"
 excerpt: "A lightweight tool to support [*Domain Storytelling*](https://domainstorytelling.org)"
 
 buttons: 
-  - excerpt: "[Use Online](https://www.wps.de/modeler/){: .btn .btn--primary .btn--x-large} [Download Latest](https://github.com/WPS/domain-story-modeler/releases/download/v1.2.1/Domain.Story.Modeler.v1.2.1.zip){: .btn .btn--info .btn--x-large} [View Source](https://github.com/WPS/domain-story-modeler){: .btn .btn--info .btn--x-large} [Read Docs](/howto){: .btn .btn--info .btn--x-large}"
+  - excerpt: "[Use Online](https://www.wps.de/modeler/){: .btn .btn--primary .btn--x-large} [Download Latest](https://github.com/WPS/domain-story-modeler/releases){: .btn .btn--info .btn--x-large} [View Source](https://github.com/WPS/domain-story-modeler){: .btn .btn--info .btn--x-large} [Read Docs](/howto){: .btn .btn--info .btn--x-large}"
 
 external_links:
   - btn_label: "Use Online"
