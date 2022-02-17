@@ -40,11 +40,11 @@ external_links:
 [Domain Storytelling](https://domainstorytelling.org) is a collaborative, visual, and agile way to build domain-driven software. Egon.io is a lightweight tool to support it.
 {:/comment}
 
-[Use Online](https://www.wps.de/modeler/){: .btn .btn--primary .btn--x-large}
-[Download Latest](https://github.com/WPS/domain-story-modeler/releases/download/v1.2.1/Domain.Story.Modeler.v1.2.1.zip){: .btn .btn--info .btn--x-large .align-right}
-[View Source](https://github.com/WPS/domain-story-modeler){: .btn .btn--info .btn--x-large .align-right}
-[See Examples](https://github.com/WPS/egon.io-examples){: .btn .btn--info .btn--x-large .align-right}
-[Read Docs](/howto){: .btn .btn--info .btn--x-large .align-right}
+[<i class="fas fa-play"></i> Use Online](https://www.wps.de/modeler/){: .btn .btn--primary .btn--x-large}
+[<i class="fas fa-download"></i> Download](https://github.com/WPS/domain-story-modeler/releases/latest){: .btn .btn--info .btn--x-large}
+[<i class="fas fa-code"></i> Source](https://github.com/WPS/domain-story-modeler){: .btn .btn--info .btn--x-large}
+[<i class="fas fa-portrait"></i> Examples](https://github.com/WPS/egon.io-examples){: .btn .btn--info .btn--x-large}
+[<i class="fas fa-book"></i> Docs](/howto){: .btn .btn--info .btn--x-large}
 {: .center}
 
 {::comment}
