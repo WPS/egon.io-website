@@ -14,8 +14,8 @@ description              : "An open-source tool for visualizing domain stories."
 url                      : "https://egon.io/" 
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : "WPS/egon.io-website" # GitHub username/repo-name
-teaser                   : /images/header_dst.jpg # path of fallback teaser image, e.g. "/images/500x300.png"
-logo                     : /images/logo/square/dst_logo_transparent_no-text.png # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
+teaser                   : /assets/images/header_dst.jpg # path of fallback teaser image, e.g. "/assets/images/500x300.png"
+logo                     : /assets/images/logo/square/dst_logo_transparent_no-text.png # path of logo image to display in the masthead, e.g. "/assets/assets/images/88x88.png"
 masthead_title           : # overrides the website title displayed in the masthead, use " " for no title
 breadcrumbs              : false # true, false (default)
 words_per_minute         : 200
