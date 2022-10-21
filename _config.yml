@@ -45,6 +45,9 @@ footer:
     - label: "Imprint"
       icon: "fas fa-balance-scale"
       url: "https://www.wps.de/impressum/"
+    - label: "Privacy"
+      icon: "fas fa-user-shield"
+      url: "https://www.wps.de/en/privacy-policy"
 
 atom_feed:
   hide: true
