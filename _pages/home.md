@@ -9,18 +9,18 @@ header:
   overlay_image: /assets/images/schiele/hauswand-am-fluss.jpg
 #  actions:
 #    - label: "Use Online"
-#      url: "https://www.wps.de/modeler/"
+#      url: "app"
   caption: "Photo: [**Frans Vandewalle**](https://www.flickr.com/photos/snarfel/6679805047/in/photostream/)"
 #  caption: "**Egon Schiele**: *Hauswand am Fluß*, Photo: [**Frans Vandewalle**](https://www.flickr.com/photos/snarfel/6679805047/in/photostream/)"
 excerpt: "A lightweight tool to support [*Domain Storytelling*](https://domainstorytelling.org)"
 
 buttons: 
-  - excerpt: "[Use Online](https://www.wps.de/modeler/){: .btn .btn--primary .btn--x-large} [Download Latest](https://github.com/WPS/domain-story-modeler/releases){: .btn .btn--info .btn--x-large} [View Source](https://github.com/WPS/domain-story-modeler){: .btn .btn--info .btn--x-large} [Read Docs](/howto){: .btn .btn--info .btn--x-large}"
+  - excerpt: "[Use Online](app){: .btn .btn--primary .btn--x-large} [Download Latest](https://github.com/WPS/domain-story-modeler/releases){: .btn .btn--info .btn--x-large} [View Source](https://github.com/WPS/domain-story-modeler){: .btn .btn--info .btn--x-large} [Read Docs](/howto){: .btn .btn--info .btn--x-large}"
 
 external_links:
   - btn_label: "Use Online"
     btn_class: "btn btn--primary btn--x-large"
-    url: "https://www.wps.de/modeler/"
+    url: "app"
   - btn_label: "Download Latest"
     btn_class: "btn btn--info btn--x-large"
     url: "https://github.com/WPS/domain-story-modeler/releases/download/v1.2.1/Domain.Story.Modeler.v1.2.1.zip"
@@ -40,7 +40,7 @@ external_links:
 [Domain Storytelling](https://domainstorytelling.org) is a collaborative, visual, and agile way to build domain-driven software. Egon.io is a lightweight tool to support it.
 {:/comment}
 
-[<i class="fas fa-play"></i> Use Online](https://www.wps.de/modeler/){: .btn .btn--primary .btn--x-large}
+[<i class="fas fa-play"></i> Use Online](app){: .btn .btn--primary .btn--x-large}
 [<i class="fas fa-download"></i> Download](https://github.com/WPS/domain-story-modeler/releases/latest){: .btn .btn--info .btn--x-large}
 [<i class="fas fa-code"></i> Source](https://github.com/WPS/domain-story-modeler){: .btn .btn--info .btn--x-large}
 [<i class="fas fa-portrait"></i> Examples](https://github.com/WPS/egon.io-examples){: .btn .btn--info .btn--x-large}
