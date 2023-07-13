@@ -820,3 +820,17 @@ input {
 .djs-search-overlay {
   background: #42aebb;
 }
+
+#DSGVO{
+  position: absolute;
+  z-index: 1;
+  bottom: 0px;
+  right: 10px;
+  height: 2em;
+  width: 20em;
+  display: flex;
+}
+
+#Datenschutz{
+  margin-right: 2em;
+}
