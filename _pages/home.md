@@ -17,10 +17,16 @@ excerpt: "A lightweight tool to support [*Domain Storytelling*](https://domainst
 buttons: 
   - excerpt: "[Use Online](app){: .btn .btn--primary .btn--x-large} [Download Latest](https://github.com/WPS/domain-story-modeler/releases){: .btn .btn--info .btn--x-large} [View Source](https://github.com/WPS/domain-story-modeler){: .btn .btn--info .btn--x-large} [Read Docs](/howto){: .btn .btn--info .btn--x-large}"
 
+#  - btn_label: "Use Online"
+#    btn_class: "btn btn--primary btn--x-large"
+#    url: "app"
 external_links:
-  - btn_label: "Use Online"
+  - btn_label: "Use version 1 Online"
     btn_class: "btn btn--primary btn--x-large"
-    url: "app"
+    url: "app-v1"
+  - btn_label: "Use BETA version 2 Online"
+    btn_class: "btn btn--primary btn--x-large"
+    url: "app-v2"
   - btn_label: "Download Latest"
     btn_class: "btn btn--info btn--x-large"
     url: "https://github.com/WPS/domain-story-modeler/releases/download/v1.2.1/Domain.Story.Modeler.v1.2.1.zip"
