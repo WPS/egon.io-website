@@ -3081,7 +3081,7 @@ function appendCSSStyleCheat(customIcons) {
   customIconDict.appendDict(customIcons);
   let customIconDictKeys = customIconDict.keysArray();
   customIconDictKeys.forEach(name => {
-    if (configuration.getAppendedIconDictionary().has(name)) {
+    if (iconDictionary.getAppendedIconDictionary().has(name)) {
       let src = customIconDict.get(name);
       const iconStyle = ".icon-domain-story-" + name.toLowerCase() + "::before{" + " display: block;" + ' content: url("data:image/svg+xml;utf8,' + wrapSRCInSVG(src) + '");' + " margin: 3px;}";
       sheetEl.sheet.insertRule(iconStyle, sheetEl.sheet.cssRules.length);
