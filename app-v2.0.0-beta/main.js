@@ -4904,11 +4904,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function ExportDialogComponent_button_12_Template(rf, ctx) {
+function ExportDialogComponent_button_17_Template(rf, ctx) {
   if (rf & 1) {
     const _r4 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "button", 3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function ExportDialogComponent_button_12_Template_button_click_0_listener() {
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function ExportDialogComponent_button_17_Template_button_click_0_listener() {
       const restoredCtx = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r4);
       const i_r2 = restoredCtx.index;
       const ctx_r3 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
@@ -4928,12 +4928,13 @@ class ExportDialogComponent {
   constructor(dialogRef, data) {
     this.dialogRef = dialogRef;
     this.withTitle = new rxjs_internal_BehaviorSubject__WEBPACK_IMPORTED_MODULE_2__.BehaviorSubject(true);
+    this.useWhiteBackground = new rxjs_internal_BehaviorSubject__WEBPACK_IMPORTED_MODULE_2__.BehaviorSubject(true);
     this.title = data.title;
     this.options = data.options;
   }
   ngOnInit() {}
   doOption(i) {
-    this.options[i].fn(this.withTitle.value);
+    this.options[i].fn(this.withTitle.value, this.useWhiteBackground.value);
     this.close();
   }
   close() {
@@ -4943,6 +4944,10 @@ class ExportDialogComponent {
     // @ts-ignore
     this.withTitle.next($event.target.checked);
   }
+  updateUseWhiteBackground($event) {
+    // @ts-ignore
+    this.useWhiteBackground.next($event.target.checked);
+  }
 }
 ExportDialogComponent.ɵfac = function ExportDialogComponent_Factory(t) {
   return new (t || ExportDialogComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__.MatDialogRef), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__.MAT_DIALOG_DATA));
@@ -4950,8 +4955,8 @@ ExportDialogComponent.ɵfac = function ExportDialogComponent_Factory(t) {
 ExportDialogComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({
   type: ExportDialogComponent,
   selectors: [["app-export-dialog"]],
-  decls: 13,
-  vars: 5,
+  decls: 18,
+  vars: 8,
   consts: [["type", "checkbox", 3, "checked", "change"], ["mat-flat-button", "", 3, "click"], ["mat-stroked-button", "", "class", "mr-1", 3, "title", "click", 4, "ngFor", "ngForOf"], ["mat-stroked-button", "", 1, "mr-1", 3, "title", "click"]],
   template: function ExportDialogComponent_Template(rf, ctx) {
     if (rf & 1) {
@@ -4964,24 +4969,35 @@ ExportDialogComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODUL
       });
       _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipe"](5, "async");
       _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](6, " Add title and description into image ");
+      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](6, " Add title and description to image ");
+      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](7, "br");
+      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](8, "label")(9, "input", 0);
+      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("change", function ExportDialogComponent_Template_input_change_9_listener($event) {
+        return ctx.updateUseWhiteBackground($event);
+      });
+      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipe"](10, "async");
+      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](11, " Add white background to SVG (default: transparent) ");
       _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]()();
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](7, "mat-dialog-actions");
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](8, "br");
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](9, "div")(10, "button", 1);
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function ExportDialogComponent_Template_button_click_10_listener() {
+      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](12, "mat-dialog-actions");
+      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](13, "br");
+      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](14, "div")(15, "button", 1);
+      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function ExportDialogComponent_Template_button_click_15_listener() {
         return ctx.close();
       });
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](11, "Cancel");
+      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](16, "Cancel");
       _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](12, ExportDialogComponent_button_12_Template, 2, 2, "button", 2);
+      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](17, ExportDialogComponent_button_17_Template, 2, 2, "button", 2);
       _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]()();
     }
     if (rf & 2) {
       _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
       _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](ctx.title);
       _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("checked", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipeBind1"](5, 3, ctx.withTitle));
+      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("checked", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipeBind1"](5, 4, ctx.withTitle));
+      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](5);
+      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("checked", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipeBind1"](10, 6, ctx.useWhiteBackground));
       _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](8);
       _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx.options);
     }
@@ -6249,10 +6265,10 @@ class HeaderButtonsComponent {
   /** Open Dialogs **/
   openDownloadDialog() {
     if (this.exportService.isDomainStoryExportable()) {
-      const SVGDownloadOption = new _Domain_Dialog_exportDialogData__WEBPACK_IMPORTED_MODULE_0__.ExportOption('SVG', 'Download an SVG-Image with the Domain-Story embedded. Can be used to save and share your Domain-Story.', withTitle => this.exportService.downloadSVG(withTitle));
-      const EGNDownloadOption = new _Domain_Dialog_exportDialogData__WEBPACK_IMPORTED_MODULE_0__.ExportOption('EGN', 'Download an EGN-File with the Domain-Story. Can be used to save and share your Domain-Story.', withTitle => this.exportService.downloadDST());
-      const PNGDownloadOption = new _Domain_Dialog_exportDialogData__WEBPACK_IMPORTED_MODULE_0__.ExportOption('PNG', 'Donwload a PNG-Image of the DOmain-Story. This does not include the Domain-Story!', withTitle => this.exportService.downloadPNG(withTitle));
-      const HTMLDownloadOption = new _Domain_Dialog_exportDialogData__WEBPACK_IMPORTED_MODULE_0__.ExportOption('HTML-Presentation', 'Download an HTML-Presentation. This does not include the Domain-Story!', withTitle => this.exportService.downloadHTMLPresentation());
+      const SVGDownloadOption = new _Domain_Dialog_exportDialogData__WEBPACK_IMPORTED_MODULE_0__.ExportOption('SVG', 'Download an SVG-Image with the Domain-Story embedded. Can be used to save and share your Domain-Story.', (withTitle, useWhiteBackground) => this.exportService.downloadSVG(withTitle, useWhiteBackground));
+      const EGNDownloadOption = new _Domain_Dialog_exportDialogData__WEBPACK_IMPORTED_MODULE_0__.ExportOption('EGN', 'Download an EGN-File with the Domain-Story. Can be used to save and share your Domain-Story.', (withTitle, useWhiteBackground) => this.exportService.downloadDST());
+      const PNGDownloadOption = new _Domain_Dialog_exportDialogData__WEBPACK_IMPORTED_MODULE_0__.ExportOption('PNG', 'Donwload a PNG-Image of the DOmain-Story. This does not include the Domain-Story!', (withTitle, useWhiteBackground) => this.exportService.downloadPNG(withTitle));
+      const HTMLDownloadOption = new _Domain_Dialog_exportDialogData__WEBPACK_IMPORTED_MODULE_0__.ExportOption('HTML-Presentation', 'Download an HTML-Presentation. This does not include the Domain-Story!', (withTitle, useWhiteBackground) => this.exportService.downloadHTMLPresentation());
       const config = new _angular_material_dialog__WEBPACK_IMPORTED_MODULE_17__.MatDialogConfig();
       config.disableClose = false;
       config.autoFocus = true;
@@ -8350,10 +8366,10 @@ class ExportService {
     }
     document.body.removeChild(element);
   }
-  downloadSVG(withTitle) {
+  downloadSVG(withTitle, useWhiteBackground) {
     const story = this.getStoryForDownload();
     const dst = this.createConfigAndDST(story);
-    const svgData = this.svgService.createSVGData(this.title, this.description, dst, withTitle);
+    const svgData = this.svgService.createSVGData(this.title, this.description, dst, withTitle, useWhiteBackground);
     this.downloadFile(svgData, 'data:application/bpmn20-xml;charset=UTF-8,', (0,src_app_Utils_sanitizer__WEBPACK_IMPORTED_MODULE_0__.sanitizeForDesktop)(this.title), '.egn.svg', true);
   }
   downloadPNG(withTitle) {
@@ -8857,7 +8873,7 @@ class SvgService {
     this.modelerService = modelerService;
     this.cacheData = '';
   }
-  createSVGData(title, description, dst, withTitle) {
+  createSVGData(title, description, dst, withTitle, useWhiteBackground) {
     this.cacheData = this.modelerService.getEncoded();
     let data = structuredClone(this.cacheData);
     let viewBoxIndex = data.indexOf('width="');
@@ -8888,8 +8904,10 @@ class SvgService {
       height += extraHeight + 80;
     }
     const svgIndex = data.indexOf('width="');
-    const backgroundColorWhite = 'style="background-color:white" ';
-    data = [data.slice(0, svgIndex), backgroundColorWhite, data.slice(svgIndex)].join('');
+    if (useWhiteBackground) {
+      const backgroundColorWhite = 'style="background-color:white" ';
+      data = [data.slice(0, svgIndex), backgroundColorWhite, data.slice(svgIndex)].join('');
+    }
     const bounds = this.createBounds(width, height, xLeft, yUp, xRight, yDown, withTitle);
     const dataStart = data.substring(0, viewBoxIndex);
     viewBoxIndex = data.indexOf('" version');
