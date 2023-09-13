@@ -1,0 +1,5 @@
+main:
+  - title: "Home"
+    url: /
+  - title: "User Guide"
+    url: /howto
