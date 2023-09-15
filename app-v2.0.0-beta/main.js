@@ -3288,7 +3288,7 @@ function activityUpdateHandler(commandStack, eventBus) {
 }
 // reverts the automatic changed done by the automatic number-generation at editing
 function revertAutomaticNumberGenerationChange(iDWithNumber, eventBus) {
-  let activities = canvasElementRegistry.getActivitesFromActors();
+  let activities = canvasElementRegistry?.getActivitesFromActors();
   for (let i = activities.length - 1; i >= 0; i--) {
     for (let j = iDWithNumber.length - 1; j >= 0; j--) {
       if (iDWithNumber[j].id.includes(activities[i].businessObject.id)) {
@@ -7600,9 +7600,12 @@ class DomainCustomizationService {
       this.updateIcon(true, false, actor);
       this.selectActor(actor);
       this.deselectWorkobject(actor);
+      const icon = this.iconDictionaryService.getFullDictionary().get(actor);
+      this.iconDictionaryService.getActorsDictionary().add(icon, actor);
     } else {
       this.deselectActor(actor);
       this.updateIcon(false, false, actor);
+      this.iconDictionaryService.getActorsDictionary().delete(actor);
     }
   }
   setAsWorkobject(isWorkobject, workobject) {
@@ -7610,9 +7613,12 @@ class DomainCustomizationService {
       this.updateIcon(false, true, workobject);
       this.selectWorkObject(workobject);
       this.deselectActor(workobject);
+      const icon = this.iconDictionaryService.getFullDictionary().get(workobject);
+      this.iconDictionaryService.getWorkObjectsDictionary().add(icon, workobject);
     } else {
       this.deselectWorkobject(workobject);
       this.updateIcon(false, false, workobject);
+      this.iconDictionaryService.getWorkObjectsDictionary().delete(workobject);
     }
   }
   selectActor(actor) {
