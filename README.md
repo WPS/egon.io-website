@@ -22,3 +22,9 @@ To run a server locally:
 ```fish
 docker compose up
 ```
+
+### Deployment
+1. Create folgder in root-directory. The name should be *app-xxx*, where xxx is the same as in the version-tag in the package.json of the **egon.io** project
+2. Unzip the contents into the created folder. Do not unzip the root folder of the zip, but the contents of the folder (assets, bpmn files, etc.)
+3. Change the tag in the **app-v2** file to your version tag
+4. Commit and push your changes. This will trigger the pipeline and deploy the new version, when successful
