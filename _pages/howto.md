@@ -6,9 +6,6 @@ toc: true
 toc_sticky: true
 ---
 
-**Recommended browsers:** We recommend Mozilla Firefox or browsers based on Chromium (Google Chrome, Microsoft Edge). Egon.io requires that your browser allows third party cookies (How to turn on third party cookies in [Firefox](https://support.mozilla.org/en-US/kb/disable-third-party-cookies) and [Chrome](https://support.google.com/chrome/answer/95647?co=GENIE.Platform%3DDesktop&hl=en)). We rely on storing your modeler's configuration in your browser. That enabled us to develop a cool feature that allows you to choose which icons you want to use for modeling (see below).
-{: .notice}
-
 ## Palette
 
 ![The palette for a cinema domain](/assets/images/screenshots/palette.png){:height="100px" width="100px" .align-right}
