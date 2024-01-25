@@ -17,6 +17,7 @@ There is no login or registration required to use Egon. Egon runs completely in 
 Egon is available as...:
  - [Online version](https://egon.io/): Just click *Use Online* and start modeling.
  - Standalone version: Best suited for offline use on a laptop. Download the [latest version](https://github.com/WPS/egon.io/releases) as `.zip` file, extract it, and open `index.html` in your browser.
+  
 <!-- 
  TODO: include this as soon as the Docker container is publicly available
  - Docker image: You can run Egon as Docker container using [this image](https://github.com/WPS/egon.io/pkgs/container/egon.io).
@@ -25,6 +26,7 @@ Egon is available as...:
 ## Headline
 
 Click on the headline to change the title of the Domain Story. Add a description to document assumptions (e.g., what has happened before the story starts) and variations (e.g., optional activities). Use `shift`+`enter` to add line breaks to the description.
+
 <!-- 
 Left of the title is an arrow button that lets you hide the description to gain more space for modeling. 
 -->
@@ -111,6 +113,6 @@ To adapt the icon set to your domain, click on ![Gear Button](/assets/images/but
 
 You can share your icon set with other users by exporting it as `.domain` file. We recommend to name your icon set before you export it (e.g., use the name of the domain or sub-domain that you are modeling). Other users can then import your `.domain` file. This is also useful if you model a lot of different domains and want to switch between different icon sets.
 
-If you import a Domain Story from a `.dst` file, your icon set will change automatically to the one with which the Domain Story was created - even if you do not have the corresponding `.domain` file.
+If you import a Domain Story from a `.dst` or `.dst.svg` file, your icon set will change automatically to the one with which the Domain Story was created -- even if you do not have the corresponding `.domain` file.
 
 In addition to the built-in icons, you can upload your own icons and then select them. Different image formats are allowed, but you will achieve best results with SVG because it is scalable (like the icons that come with the modeler). Also, we recommend to use square images because they look better in the pallet and the context pad. If you want a consistent look, consider using the same icon set that we use for the predefined icons—[Google's Material icons](https://fonts.google.com/icons?icon.set=Material+Icons).
