@@ -27,9 +27,7 @@ Egon is available as...:
 
 Click on the headline to change the title of the Domain Story. Add a description to document assumptions (e.g., what has happened before the story starts) and variations (e.g., optional activities). Use `shift`+`enter` to add line breaks to the description.
 
-<!-- 
 Left of the title is an arrow button that lets you hide the description to gain more space for modeling. 
--->
 
 ## Palette
 
@@ -80,20 +78,18 @@ To rename multiple work objects or activities, click the dictionary button ![Dic
 
 To save your Domain Story, download it as a file by clicking the export button ![Export Button](/assets/images/buttons/archive.png). The following file formats are available:
 
-- `.dst`: A text file (JSON) that contains just the "source code" of your Domain Story in a format that can later be importet by you or other Egon users.
-- `.svg`: A scalable image. Great for adding your Domain Story in collaborative whiteboards like Miro. This image also contains an embedded `.dst` file.
+- `.egn`: A text file that contains the "source code" of your Domain Story. It can later be importet by you or other Egon users. Egon uses the JSON format and produces files that are propely formatted. This makes it easy to keep track of changes when the files are kept in a source code repository like *git*.
+- `.egn.svg`: A scalable image. Great for adding your Domain Story in collaborative whiteboards like Miro. This image also contains an embedded `.dst` file.
 - `.png`: An image, e.g. for embedding in documents.
 - `.html`: A presentation that lets people replay the story in their browser without the need of using Egon.
 
-To load a previously created Domain Story, import a `.dst` or `.dst.svg` file using the upload button ![Upload Button](/assets/images/buttons/unarchive.png).
+To load a previously created Domain Story, import a `.egn` or `.egn.svg` file using the upload button ![Upload Button](/assets/images/buttons/unarchive.png).
 
-<!-- 
 ## Auto-Save and Creating new Domain Stories
 
 Since saving Domain Stories by exporting them as files is a bit cumbersome, you can turn on the *auto-save* feature in the general settings. Egon runs completely in your browser and this is also where your current Domain Story is stored: In your browser's local storage. You can choose the saving interval (in seconds) between saving drafts and how many drafts are kept in storage. Drafts can be restored, overwriting the current state of your Domain Story.
 
 When you activate auto-save and later open Egon in your browser, it will restore the Domain Story that you last worked on. To create a new Domain Story, click the *New* button.
--->
 
 ## Replay
 
@@ -113,6 +109,6 @@ To adapt the icon set to your domain, click on ![Gear Button](/assets/images/but
 
 You can share your icon set with other users by exporting it as `.domain` file. We recommend to name your icon set before you export it (e.g., use the name of the domain or sub-domain that you are modeling). Other users can then import your `.domain` file. This is also useful if you model a lot of different domains and want to switch between different icon sets.
 
-If you import a Domain Story from a `.dst` or `.dst.svg` file, your icon set will change automatically to the one with which the Domain Story was created -- even if you do not have the corresponding `.domain` file.
+If you import a Domain Story from a `.egn` or `.egn.svg` file, your icon set will change automatically to the one with which the Domain Story was created -- even if you do not have the corresponding `.domain` file.
 
 In addition to the built-in icons, you can upload your own icons and then select them. Different image formats are allowed, but you will achieve best results with SVG because it is scalable (like the icons that come with the modeler). Also, we recommend to use square images because they look better in the pallet and the context pad. If you want a consistent look, consider using the same icon set that we use for the predefined icons—[Google's Material icons](https://fonts.google.com/icons?icon.set=Material+Icons).
