@@ -4,4 +4,4 @@ main:
   - title: "User Guide (v2)"
     url: /howto
   - title: "User Guide (v1)"
-  url: /howto_v1
+    url: /howto_v1
