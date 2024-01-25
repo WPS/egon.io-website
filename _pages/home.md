@@ -30,7 +30,8 @@ excerpt: "A lightweight tool to support [*Domain Storytelling*](https://domainst
 [<i class="fas fa-download"></i> Download](https://github.com/WPS/domain-story-modeler/releases/latest){: .btn .btn--info .btn--x-large}
 [<i class="fas fa-code"></i> Source](https://github.com/WPS/domain-story-modeler){: .btn .btn--info .btn--x-large}
 [<i class="fas fa-portrait"></i> Examples](https://github.com/WPS/egon.io-examples){: .btn .btn--info .btn--x-large}
-[<i class="fas fa-book"></i> User Guide](/howto){: .btn .btn--info .btn--x-large}
+[<i class="fas fa-book"></i> User Guide (v2)](/howto){: .btn .btn--info .btn--x-large}
+[<i class="fas fa-book"></i> User Guide (v1)](/howto_v1){: .btn .btn--info .btn--x-large}
 {: .center}
 
 {::comment}
