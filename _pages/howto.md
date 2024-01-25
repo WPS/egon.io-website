@@ -12,6 +12,16 @@ Egon is a tool speficially designed to model Domain Stories. It is **not** a gen
 
 There is no login or registration required to use Egon. Egon runs completely in your browser and it does not save your data in the cloud.
 
+## Launching Egon
+
+Egon is available as...:
+ - [Online version](https://egon.io/): Just click *Use Online* and start modeling.
+ - Standalone version: Best suited for offline use on a laptop. Download the [latest version](https://github.com/WPS/egon.io/releases) as `.zip` file, extract it, and open `index.html` in your browser.
+<!-- 
+ TODO: include this as soon as the Docker container is publicly available
+ - Docker image: You can run Egon as Docker container using [this image](https://github.com/WPS/egon.io/pkgs/container/egon.io).
+-->
+
 ## Headline
 
 Click on the headline to change the title of the Domain Story. Add a description to document assumptions (e.g., what has happened before the story starts) and variations (e.g., optional activities). Use `shift`+`enter` to add line breaks to the description.
@@ -31,7 +41,7 @@ The pallete consist of four sections that contain (from top to bottom):
       - The lasso tool lets you select several icons at once to move them easily.
       - The space tool creates or removes space. Click and drag the crosshair to the right or down to create space, or drag to the left or to the top to remove space.
 
-To add an actor, work object, or group to the canvas, click on it and then click again on an empty part of the canvas.
+To add an actor, work object, or group to the canvas, click on it and then click again on an empty part of the canvas. On the canvaes, Egon will draw the icons for actors larger than the ones for work objects so that is easier to distinguish them.
 
 Annotations and activities can only be created from the context menu (see next section).
 
@@ -92,12 +102,15 @@ Editing is disabled in replay mode, but you can zoom (ctrl + mouse wheel up and 
 
 Click on ![Keyboard Button](/assets/images/buttons/keyboard.png) to display all available keyboard shortcuts.
 
-## Configuring the Icon Set
+## Customizing the Icon Set
 
-We recommend that the icon set is adapted to the domain that you model. You can configure the palette accordingly and share that configuration:
+To adapt the icon set to your domain, click on ![Gear Button](/assets/images/buttons/gear.png) to open the icon customization:
 
-Click on ![Gear Button](/assets/images/buttons/gear.png) to open the icon configuration. Configure your icon set by naming it, selecting which icons should be used as actors or as work objects and order these icons (using drag&drop). You can export your configuration as `.domain` file. To switch between configurations, import a different `.domain` file.
+- Egon comes with built-in icons. Select which ones want in your pallette. An icon can either be used as work object **or** as actor. 
+- Use drag&drop to change the order in which the selected icons appear in the pallette.
 
-If you import a Domain Story from a `.dst` file, your icon configuration will change automatically to the one with which the Domain Story was created - even if you do not have the corresponding `.domain` file.
+You can share your icon set with other users by exporting it as `.domain` file. We recommend to name your icon set before you export it (e.g., use the name of the domain or sub-domain that you are modeling). Other users can then import your `.domain` file. This is also useful if you model a lot of different domains and want to switch between different icon sets.
 
-**Beta feature:** If you want to use icons that are not in the predefined set that comes with the modeler, you can upload your own icons. Different image formats are allowed, but you will achieve best results with SVG because it is scalable (like the icons that come with the modeler). Also, we recommend to use square images because they look better in the pallet and the context pad. If you want a consistent look, consider using the same icon set that we use for the predefined icons—[Google's Material icons](https://material.io/resources/icons/?style=outline)
+If you import a Domain Story from a `.dst` file, your icon set will change automatically to the one with which the Domain Story was created - even if you do not have the corresponding `.domain` file.
+
+In addition to the built-in icons, you can upload your own icons and then select them. Different image formats are allowed, but you will achieve best results with SVG because it is scalable (like the icons that come with the modeler). Also, we recommend to use square images because they look better in the pallet and the context pad. If you want a consistent look, consider using the same icon set that we use for the predefined icons—[Google's Material icons](https://fonts.google.com/icons?icon.set=Material+Icons).
