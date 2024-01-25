@@ -23,7 +23,22 @@ To run a server locally:
 docker compose up
 ```
 
+Or to rebuild the Docker image:
+
+```fish
+docker compose up --build
+```
+
+If it stops working for some reason, run:
+
+```fish
+docker compose build --no-cache
+```
+
+And then try again.
+
 ### Deployment
+
 1. Create folder in root-directory. The name should be *app-xxx*, where xxx is the same as in the version-tag in the package.json of the **egon.io** project
 2. Unzip the contents into the created folder. Do not unzip the root folder of the zip, but the contents of the folder (assets, bpmn files, etc.)
 3. Change the symbolic link that **app-v2** links to: `rm app-v2 && ln -s app-v2.<TAG> app-v2`
