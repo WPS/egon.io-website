@@ -3783,9 +3783,9 @@ class Configuration {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   APPENDED_ICONS_TAG: () => (/* binding */ APPENDED_ICONS_TAG),
-/* harmony export */   DEFAULT_AUTOSAVES_AMOUNT: () => (/* binding */ DEFAULT_AUTOSAVES_AMOUNT),
 /* harmony export */   DEFAULT_AUTOSAVES_ENABLED: () => (/* binding */ DEFAULT_AUTOSAVES_ENABLED),
 /* harmony export */   DEFAULT_AUTOSAVES_INTERVAL: () => (/* binding */ DEFAULT_AUTOSAVES_INTERVAL),
+/* harmony export */   DEFAULT_AUTOSAVES_MAX_DRAFTS: () => (/* binding */ DEFAULT_AUTOSAVES_MAX_DRAFTS),
 /* harmony export */   DOMAIN_CONFIGURATION_TAG: () => (/* binding */ DOMAIN_CONFIGURATION_TAG),
 /* harmony export */   IMPLICIT_ROOT_ID: () => (/* binding */ IMPLICIT_ROOT_ID),
 /* harmony export */   INITIAL_DESCRIPTION: () => (/* binding */ INITIAL_DESCRIPTION),
@@ -3805,7 +3805,7 @@ const APPENDED_ICONS_TAG = 'appendedIcons';
 const DOMAIN_CONFIGURATION_TAG = 'domainConfigurationTag';
 /** AUTOSAVE DEFAULTS **/
 const DEFAULT_AUTOSAVES_ENABLED = true;
-const DEFAULT_AUTOSAVES_AMOUNT = 5;
+const DEFAULT_AUTOSAVES_MAX_DRAFTS = 5;
 const DEFAULT_AUTOSAVES_INTERVAL = 30;
 /** SNACKBAR **/
 const SNACKBAR_DURATION = 2000;
@@ -4508,12 +4508,12 @@ function AutosaveOptionsComponent_mat_card_0_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](9, "Enabled");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]()();
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](10, "div", 5)(11, "mat-label");
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](12, "Interval");
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](12, "Interval [sec]");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelement"](13, "input", 6, 7);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](15, "div", 5)(16, "mat-label");
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](17, "Amount");
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](17, "Max. Drafts");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelement"](18, "input", 6, 8);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
@@ -4536,7 +4536,7 @@ function AutosaveOptionsComponent_mat_card_0_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](7);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("value", configuration_r1.interval);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](5);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("value", configuration_r1.amount);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("value", configuration_r1.maxDrafts);
   }
 }
 class AutosaveOptionsComponent {
@@ -4544,10 +4544,10 @@ class AutosaveOptionsComponent {
     this.autosaveConfiguration = autosaveConfiguration;
     this.snackbar = snackbar;
   }
-  save(activated, amount, interval) {
+  save(activated, maxDrafts, interval) {
     if (this.autosaveConfiguration.setConfiguration({
       activated,
-      amount,
+      maxDrafts,
       interval
     })) {
       this.snackbar.open('Settings for Autosave saved', undefined, {
@@ -4569,7 +4569,7 @@ class AutosaveOptionsComponent {
     selectors: [["app-autosave-options"]],
     decls: 2,
     vars: 3,
-    consts: [[4, "ngIf"], [1, "cardContent"], [1, "alignSelfCenter"], ["type", "checkbox", 3, "checked"], ["activated", ""], [1, "inputContainer"], ["min", "1", "type", "number", 1, "numberInput", 3, "value"], ["interval", ""], ["amount", ""], ["mat-raised-button", "", "color", "primary", 1, "saveButton", 3, "click"]],
+    consts: [[4, "ngIf"], [1, "cardContent"], [1, "alignSelfCenter"], ["type", "checkbox", 3, "checked"], ["activated", ""], [1, "inputContainer"], ["min", "1", "type", "number", 1, "numberInput", 3, "value"], ["interval", ""], ["drafts", ""], ["mat-raised-button", "", "color", "primary", 1, "saveButton", 3, "click"]],
     template: function AutosaveOptionsComponent_Template(rf, ctx) {
       if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](0, AutosaveOptionsComponent_mat_card_0_Template, 22, 3, "mat-card", 0);
@@ -4736,7 +4736,7 @@ class AutosavedDraftsComponent {
     template: function AutosavedDraftsComponent_Template(rf, ctx) {
       if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "mat-accordion")(1, "mat-expansion-panel")(2, "mat-expansion-panel-header")(3, "mat-panel-title");
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](4, " Autosaves ");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](4, "History");
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](5, "mat-panel-description");
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](6);
@@ -6863,7 +6863,7 @@ const AUTOSAVE_CONFIGURATION_TAG = 'autosaveConfiguration';
 const defaultConfiguration = {
   activated: src_app_Domain_Common_constants__WEBPACK_IMPORTED_MODULE_0__.DEFAULT_AUTOSAVES_ENABLED,
   interval: src_app_Domain_Common_constants__WEBPACK_IMPORTED_MODULE_0__.DEFAULT_AUTOSAVES_INTERVAL,
-  amount: src_app_Domain_Common_constants__WEBPACK_IMPORTED_MODULE_0__.DEFAULT_AUTOSAVES_AMOUNT
+  maxDrafts: src_app_Domain_Common_constants__WEBPACK_IMPORTED_MODULE_0__.DEFAULT_AUTOSAVES_MAX_DRAFTS
 };
 class AutosaveConfigurationService {
   constructor(storageService) {
@@ -6982,7 +6982,7 @@ class AutosaveService {
   updateConfiguration(configuration) {
     this.stopTimer();
     if (configuration.activated) {
-      this.startTimer(configuration.interval, configuration.amount);
+      this.startTimer(configuration.interval, configuration.maxDrafts);
     }
   }
   stopTimer() {
@@ -6991,20 +6991,20 @@ class AutosaveService {
       this.autosaveTimer = undefined;
     }
   }
-  startTimer(interval, amount) {
+  startTimer(interval, maxDrafts) {
     this.autosaveTimer = setInterval(() => {
-      const drafts = this.loadCurrentDrafts();
+      const savedDrafts = this.loadCurrentDrafts();
       const newDraft = this.createDraft();
-      let isChanged = amount > 0;
-      if (drafts.length > 0) {
-        isChanged = isChanged && !this.isSame(newDraft, drafts[0]);
+      let isChanged = maxDrafts > 0;
+      if (savedDrafts.length > 0) {
+        isChanged = isChanged && !this.isSame(newDraft, savedDrafts[0]);
       }
       if (isChanged && !this.isDraftEmpty(newDraft)) {
-        drafts.unshift(newDraft);
-        while (drafts.length > amount) {
-          drafts.pop();
+        savedDrafts.unshift(newDraft);
+        while (savedDrafts.length > maxDrafts) {
+          savedDrafts.pop();
         }
-        this.writeDrafts(drafts);
+        this.writeDrafts(savedDrafts);
         this.snackbar.open('Draft Saved', undefined, {
           panelClass: _Domain_Common_constants__WEBPACK_IMPORTED_MODULE_2__.SNACKBAR_INFO,
           duration: _Domain_Common_constants__WEBPACK_IMPORTED_MODULE_2__.SNACKBAR_DURATION
