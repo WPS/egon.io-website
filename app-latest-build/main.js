@@ -10864,7 +10864,7 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 const environment = {
   production: false,
-  version: 'dev'
+  version: '2.0.0-beta4'
 };
 /*
  * For easier debugging in development mode, you can import the following file
