@@ -8842,7 +8842,6 @@ class PngService {
   }
   /**
    * Calculate the Width and Height of the Bounding Box for the PNG so no Parts are cut off
-   * TODO Longer Iconnames can still be cut of, when the Element is the lowest Object on the canvas, same for Activities
    */
   calculateWidthAndHeight(box) {
     if (box.xLeft < 0) {
