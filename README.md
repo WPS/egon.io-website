@@ -37,9 +37,15 @@ docker compose build --no-cache
 
 And then try again.
 
-### Deployment
+### Deployment of Egon.io Online Version
 
+#### Production Version
+
+#### Beta Versions
 1. Create folder in root-directory. The name should be *app-xxx*, where xxx is the same as in the version-tag in the package.json of the **egon.io** project
 2. Unzip the contents into the created folder. Do not unzip the root folder of the zip, but the contents of the folder (assets, bpmn files, etc.)
 3. Change the symbolic link that **app-v2** links to: `rm app-v2 && ln -s app-v2.<TAG> app-v2`
 4. Commit and push your changes. This will trigger the pipeline and deploy the new version, when successful
+
+#### Latest Build
+Works fully automated. 
