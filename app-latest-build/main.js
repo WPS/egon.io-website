@@ -3798,8 +3798,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /** DEFAULT VALUES **/
 const INITIAL_TITLE = '< title >';
-const INITIAL_DESCRIPTION = '< description >';
-const INITIAL_DOMAIN_NAME = '[icons: default]';
+const INITIAL_DESCRIPTION = '';
+const INITIAL_DOMAIN_NAME = 'default';
 /** LocalStorageTags **/
 const APPENDED_ICONS_TAG = 'appendedIcons';
 const DOMAIN_CONFIGURATION_TAG = 'domainConfigurationTag';
@@ -5848,7 +5848,7 @@ class DomainDetailsComponent {
     template: function DomainDetailsComponent_Template(rf, ctx) {
       if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](0, "div", 0)(1, "div", 1)(2, "h3");
-        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](3, "Icon Set name");
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](3, "Icon Set Name");
         _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](4, "form")(5, "mat-form-field", 2)(6, "input", 3);
         _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵlistener"]("input", function DomainDetailsComponent_Template_input_input_6_listener($event) {
@@ -5857,14 +5857,14 @@ class DomainDetailsComponent {
         _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵpipe"](7, "async");
         _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]()()()();
         _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](8, "div", 4)(9, "h3");
-        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](10, "Order of actors");
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](10, "Order of Actors");
         _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](11, "mat-list");
         _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtemplate"](12, DomainDetailsComponent_mat_list_item_12_Template, 2, 1, "mat-list-item", 5);
         _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵpipe"](13, "async");
         _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]()();
         _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](14, "div", 6)(15, "h3");
-        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](16, "Order of work objects");
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](16, "Order of Work Objects");
         _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](17, "mat-list");
         _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtemplate"](18, DomainDetailsComponent_mat_list_item_18_Template, 2, 1, "mat-list-item", 5);
@@ -10864,7 +10864,7 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 const environment = {
   production: false,
-  version: '2.0.0-beta4'
+  version: '2.0.0-dev'
 };
 /*
  * For easier debugging in development mode, you can import the following file
