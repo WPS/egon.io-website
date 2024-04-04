@@ -115,3 +115,7 @@ You can share your icon set with other users by exporting it as `.domain` file. 
 If you import a Domain Story from a `.egn` or `.egn.svg` file, your icon set will change automatically to the one with which the Domain Story was created -- even if you do not have the corresponding `.domain` file.
 
 In addition to the built-in icons, you can upload your own icons and then select them. Different image formats are allowed, but you will achieve best results with SVG because it is scalable (like the icons that come with the modeler). Also, we recommend to use square images because they look better in the pallet and the context pad. If you want a consistent look, consider using the same icon set that we use for the predefined icons—[Google's Material icons](https://fonts.google.com/icons?icon.set=Material+Icons).
+
+## Touch Support
+
+We do **not** actively support touch devices. Egon.io v2.0 (and v1.x) does work on touch devices so some extent because it is built on top of a modeling framework with basic touch support. However, this framework has completely dropped its support for touch devices in recent versions. Egon.io will likely be updated to a current version of the framework which in turn means that Egon.io too will lose touch support. We currently do not have plans to add touch support ourselves.
