@@ -2885,7 +2885,7 @@ function numberBoxDefinitions(element) {
   let position = (0,_labeling_position__WEBPACK_IMPORTED_MODULE_0__.labelPosition)(element.waypoints);
   let angle = 0;
   if (element.waypoints.length > 1) {
-    angle = (0,_Utils_mathExtensions__WEBPACK_IMPORTED_MODULE_1__.angleBetween)(element.waypoints[0], element.waypoints[1]);
+    angle = (0,_Utils_mathExtensions__WEBPACK_IMPORTED_MODULE_1__.angleBetween)(element.waypoints[element.waypoints.length - 2], element.waypoints[element.waypoints.length - 1]);
   }
   let x = position.x;
   let y = position.y;
