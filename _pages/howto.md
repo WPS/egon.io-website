@@ -16,8 +16,10 @@ There is no login or registration required to use Egon. Egon runs completely in 
 
 Egon is available as...:
  - [Online version](https://egon.io/): Just click *Use Online* and start modeling.
- - Standalone version: Best suited for offline use on a laptop. Download the [latest version](https://github.com/WPS/egon.io/releases) as `.zip` file, extract it, and open `index.html` in your browser.
+ - Docker image: tbd
   
+Developers have more options, see developer's [readme](https://github.com/WPS/egon.io/).
+
 <!-- 
  TODO: include this as soon as the Docker container is publicly available
  - Docker image: You can run Egon as Docker container using [this image](https://github.com/WPS/egon.io/pkgs/container/egon.io).
