@@ -8961,13 +8961,8 @@ class SvgService {
       width += 300;
     }
     const {
-      insertText,
-      extraHeight
+      insertText
     } = (0,src_app_Service_Export_exportUtil__WEBPACK_IMPORTED_MODULE_0__.createTitleAndDescriptionSVGElement)(title, description, xLeft, yUp, width);
-    if (withTitle) {
-      // to display the title and description in the SVG-file, we need to add a container for the text-elements
-      height += extraHeight + 80;
-    }
     const bounds = this.createBounds(width, height, xLeft, yUp, xRight, yDown, withTitle);
     const dataStart = data.substring(0, viewBoxIndex);
     viewBoxIndex = data.indexOf('" version');
