@@ -7780,9 +7780,9 @@ class DomainCustomizationService {
         }
       });
       if (!changedActors.length && !changedWorkobjects.length) {
-        this.changedDomainCofiguration = changedDomain;
+        this.changedDomainConfiguration = changedDomain;
         this.updateIcons(changedDomain);
-        this.storageService.setStoredDomainConfiguration(this.changedDomainCofiguration);
+        this.storageService.setStoredDomainConfiguration(this.changedDomainConfiguration);
         this.snackbar.open(imported ? 'Configuration imported successfully' : 'Configuration saved sucessfully', undefined, {
           duration: _Domain_Common_constants__WEBPACK_IMPORTED_MODULE_3__.SNACKBAR_DURATION,
           panelClass: _Domain_Common_constants__WEBPACK_IMPORTED_MODULE_3__.SNACKBAR_SUCCESS
@@ -7815,8 +7815,8 @@ class DomainCustomizationService {
     this.configurationService.exportConfiguration();
   }
   getAndClearSavedConfiguration() {
-    const temp = this.changedDomainCofiguration;
-    this.changedDomainCofiguration = undefined;
+    const temp = this.changedDomainConfiguration;
+    this.changedDomainConfiguration = undefined;
     return temp;
   }
   createDomainConfiguration() {
@@ -7857,11 +7857,11 @@ class DomainCustomizationService {
     iconBehaviourSubject.next(icon);
   }
   updateAllIconBehaviourSubjects() {
-    const customDomainCofiguration = this.domainConfigurationTypes.value;
+    const customDomainConfiguration = this.domainConfigurationTypes.value;
     this.allIconListItems.keysArray().forEach(iconName => {
-      if (customDomainCofiguration.actors.includes(iconName)) {
+      if (customDomainConfiguration.actors.includes(iconName)) {
         this.updateIcon(true, false, iconName);
-      } else if (customDomainCofiguration.workObjects.includes(iconName)) {
+      } else if (customDomainConfiguration.workObjects.includes(iconName)) {
         this.updateIcon(false, true, iconName);
       } else {
         this.updateIcon(false, false, iconName);
