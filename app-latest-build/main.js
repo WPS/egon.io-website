@@ -8816,7 +8816,7 @@ class PngService {
     const {
       insertText,
       extraHeight
-    } = (0,src_app_Service_Export_exportUtil__WEBPACK_IMPORTED_MODULE_0__.createTitleAndDescriptionSVGElement)(title, description, box.xLeft, box.yUp + 20, this.width);
+    } = (0,src_app_Service_Export_exportUtil__WEBPACK_IMPORTED_MODULE_0__.createTitleAndDescriptionSVGElement)(title, description, box.xLeft + 10, box.yUp + 20, this.width);
     if (withTitle) {
       this.height += extraHeight;
     }
