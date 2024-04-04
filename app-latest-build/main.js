@@ -10578,18 +10578,18 @@ class AppComponent {
     this.version = _environments_environment__WEBPACK_IMPORTED_MODULE_2__.environment.version;
     this.showSettings$ = new rxjs__WEBPACK_IMPORTED_MODULE_13__.BehaviorSubject(false);
     this.showDescription$ = new rxjs__WEBPACK_IMPORTED_MODULE_13__.BehaviorSubject(true);
-    document.onkeydown = e => {
+    document.addEventListener('keydown', e => {
       if (e.ctrlKey && e.key === 's') {
+        e.preventDefault();
+        e.stopPropagation();
         if (this.exportService.isDomainStoryExportable()) {
           this.exportService.downloadDST();
         }
-        e.preventDefault();
-        e.stopPropagation();
       }
       if (e.ctrlKey && e.key === 'l') {
-        document.getElementById('import')?.click();
         e.preventDefault();
         e.stopPropagation();
+        document.getElementById('import')?.click();
       }
       if (e.key === 'ArrowRight' && this.replayStateService.getReplayOn()) {
         e.preventDefault();
@@ -10601,7 +10601,7 @@ class AppComponent {
         e.stopPropagation();
         replayService.previousStep();
       }
-    };
+    });
   }
   ngOnInit() {
     this.showDescription$ = this.titleService.showDescription$;
