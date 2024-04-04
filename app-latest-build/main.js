@@ -10574,12 +10574,12 @@ function AppComponent_app_settings_1_Template(rf, ctx) {
   }
 }
 class AppComponent {
-  constructor(settingsService, dialogService, titleService, exportService, replayStateSerice, replayService) {
+  constructor(settingsService, dialogService, titleService, exportService, replayStateService, replayService) {
     this.settingsService = settingsService;
     this.dialogService = dialogService;
     this.titleService = titleService;
     this.exportService = exportService;
-    this.replayStateSerice = replayStateSerice;
+    this.replayStateService = replayStateService;
     this.version = _environments_environment__WEBPACK_IMPORTED_MODULE_2__.environment.version;
     this.showSettings$ = new rxjs__WEBPACK_IMPORTED_MODULE_13__.BehaviorSubject(false);
     this.showDescription$ = new rxjs__WEBPACK_IMPORTED_MODULE_13__.BehaviorSubject(true);
@@ -10596,12 +10596,12 @@ class AppComponent {
         e.preventDefault();
         e.stopPropagation();
       }
-      if (e.key === 'ArrowRight' && this.replayStateSerice.getReplayOn()) {
+      if (e.key === 'ArrowRight' && this.replayStateService.getReplayOn()) {
         e.preventDefault();
         e.stopPropagation();
         replayService.nextStep();
       }
-      if (e.key === 'ArrowLeft' && this.replayStateSerice.getReplayOn()) {
+      if (e.key === 'ArrowLeft' && this.replayStateService.getReplayOn()) {
         e.preventDefault();
         e.stopPropagation();
         replayService.previousStep();
@@ -10625,9 +10625,9 @@ class AppComponent {
   static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵdefineComponent"]({
     type: AppComponent,
     selectors: [["app-root"]],
-    decls: 28,
+    decls: 34,
     vars: 36,
-    consts: [["role", "main", 1, "content"], [4, "ngIf"], ["type", "color", "id", "colorPicker", 2, "display", "none"], ["src", "./favicon.ico", "height", "24", "alt", "Egon Logo"], ["href", "https://egon.io", "target", "_blank"], ["href", "https://github.com/WPS/egon.io/releases/latest", "target", "_blank"], ["src", "./assets/logo/wps-icon.ico", "height", "24", "alt", "WPS Logo"], ["href", "https://www.wps.de/", "target", "_blank"]],
+    consts: [["role", "main", 1, "content"], [4, "ngIf"], ["type", "color", "id", "colorPicker", 2, "display", "none"], ["src", "./favicon.ico", "height", "24", "alt", "Egon Logo"], ["href", "https://egon.io", "target", "_blank"], ["href", "https://github.com/WPS/egon.io/releases/latest", "target", "_blank"], ["src", "./assets/logo/wps-icon.ico", "height", "24", "alt", "WPS Logo"], ["href", "https://www.wps.de/", "target", "_blank"], ["href", "https://www.wps.de/datenschutz/", "target", "_blank"], ["href", "https://www.wps.de/impressum/", "target", "_blank"]],
     template: function AppComponent_Template(rf, ctx) {
       if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵelementStart"](0, "div", 0);
@@ -10662,6 +10662,12 @@ class AppComponent {
         _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵelement"](25, "img", 6);
         _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵelementStart"](26, "a", 7);
         _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵtext"](27, "WPS");
+        _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵelementEnd"]()();
+        _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵelementStart"](28, "span")(29, "a", 8);
+        _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵtext"](30, "Privacy");
+        _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵelementEnd"]()();
+        _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵelementStart"](31, "span")(32, "a", 9);
+        _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵtext"](33, "Imprint");
         _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵelementEnd"]()()()();
       }
       if (rf & 2) {
