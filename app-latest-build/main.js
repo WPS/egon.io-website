@@ -10339,9 +10339,10 @@ class TitleService {
   reset() {
     this.updateTitleAndDescription(_Domain_Common_constants__WEBPACK_IMPORTED_MODULE_1__.INITIAL_TITLE, _Domain_Common_constants__WEBPACK_IMPORTED_MODULE_1__.INITIAL_DESCRIPTION, false);
   }
-  updateTitle(title) {
-    this.titleSubject.next(title ?? this.titleSubject.value);
-    document.title = title ?? this.titleSubject.value + ' - egon.io';
+  updateTitle(inputTitle) {
+    const title = !inputTitle || inputTitle.trim().length === 0 ? _Domain_Common_constants__WEBPACK_IMPORTED_MODULE_1__.INITIAL_TITLE : inputTitle;
+    this.titleSubject.next(title);
+    document.title = title === _Domain_Common_constants__WEBPACK_IMPORTED_MODULE_1__.INITIAL_TITLE ? 'egon.io' : title;
   }
   updateDescription(description) {
     this.descriptionSubject.next(description ?? this.descriptionSubject.value);
