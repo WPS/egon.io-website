@@ -6241,9 +6241,9 @@ class HeaderButtonsComponent {
   openDownloadDialog() {
     if (this.exportService.isDomainStoryExportable()) {
       const SVGDownloadOption = new _Domain_Dialog_exportDialogData__WEBPACK_IMPORTED_MODULE_0__.ExportOption('SVG', 'Download an SVG-Image with the Domain-Story embedded. Can be used to save and share your Domain-Story.', (withTitle, useWhiteBackground) => this.exportService.downloadSVG(withTitle, useWhiteBackground));
-      const EGNDownloadOption = new _Domain_Dialog_exportDialogData__WEBPACK_IMPORTED_MODULE_0__.ExportOption('EGN', 'Download an EGN-File with the Domain-Story. Can be used to save and share your Domain-Story.', (withTitle, useWhiteBackground) => this.exportService.downloadDST());
-      const PNGDownloadOption = new _Domain_Dialog_exportDialogData__WEBPACK_IMPORTED_MODULE_0__.ExportOption('PNG', 'Donwload a PNG-Image of the DOmain-Story. This does not include the Domain-Story!', (withTitle, useWhiteBackground) => this.exportService.downloadPNG(withTitle));
-      const HTMLDownloadOption = new _Domain_Dialog_exportDialogData__WEBPACK_IMPORTED_MODULE_0__.ExportOption('HTML-Presentation', 'Download an HTML-Presentation. This does not include the Domain-Story!', (withTitle, useWhiteBackground) => this.exportService.downloadHTMLPresentation());
+      const EGNDownloadOption = new _Domain_Dialog_exportDialogData__WEBPACK_IMPORTED_MODULE_0__.ExportOption('EGN', 'Download an EGN-File with the Domain-Story. Can be used to save and share your Domain-Story.', () => this.exportService.downloadDST());
+      const PNGDownloadOption = new _Domain_Dialog_exportDialogData__WEBPACK_IMPORTED_MODULE_0__.ExportOption('PNG', 'Download a PNG-Image of the Domain-Story. This does not include the Domain-Story!', withTitle => this.exportService.downloadPNG(withTitle));
+      const HTMLDownloadOption = new _Domain_Dialog_exportDialogData__WEBPACK_IMPORTED_MODULE_0__.ExportOption('HTML-Presentation', 'Download an HTML-Presentation. This does not include the Domain-Story!', () => this.exportService.downloadHTMLPresentation());
       const config = new _angular_material_dialog__WEBPACK_IMPORTED_MODULE_17__.MatDialogConfig();
       config.disableClose = false;
       config.autoFocus = true;
@@ -6281,6 +6281,7 @@ class HeaderButtonsComponent {
   createNewDomainStory() {
     this.titleService.reset();
     this.renderService.reset();
+    this.dirtyFlagService.makeClean();
   }
   /** Replay functions **/
   startReplay() {
