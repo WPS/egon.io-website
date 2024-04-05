@@ -6166,7 +6166,7 @@ function HeaderButtonsComponent_div_2_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵlistener"]("click", function HeaderButtonsComponent_div_2_Template_button_click_1_listener() {
       _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵrestoreView"](_r3);
       const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵnextContext"]();
-      return _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵresetView"](ctx_r1.previousStep());
+      return _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵresetView"](ctx_r1.previousSentence());
     });
     _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵelementStart"](2, "span", 2);
     _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵtext"](3, " skip_previous ");
@@ -6175,7 +6175,7 @@ function HeaderButtonsComponent_div_2_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵlistener"]("click", function HeaderButtonsComponent_div_2_Template_button_click_4_listener() {
       _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵrestoreView"](_r3);
       const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵnextContext"]();
-      return _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵresetView"](ctx_r1.nextStep());
+      return _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵresetView"](ctx_r1.nextSentence());
     });
     _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵelementStart"](5, "span", 2);
     _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵtext"](6, " skip_next ");
@@ -6285,11 +6285,11 @@ class HeaderButtonsComponent {
   stopReplay() {
     this.replayService.stopReplay();
   }
-  previousStep() {
-    this.replayService.previousStep();
+  previousSentence() {
+    this.replayService.previousSentence();
   }
-  nextStep() {
-    this.replayService.nextStep();
+  nextSentence() {
+    this.replayService.nextSentence();
   }
   isExportable() {
     return this.titleService.hasTitleOrDescription() || this.exportService.isDomainStoryExportable();
@@ -6302,7 +6302,7 @@ class HeaderButtonsComponent {
     selectors: [["app-header-buttons"]],
     decls: 4,
     vars: 6,
-    consts: [[4, "ngIf"], ["id", "buttonStartReplay", "title", "Start replay", 1, "headerButton", 3, "click", "disabled"], [1, "material-icons", "materialIconButton"], ["id", "buttonImport", "title", "Import story from file", "onclick", "document.getElementById('import').click();", 1, "headerButton"], ["type", "file", "accept", ".dst, .dst.svg, .egn, .egn.svg", "id", "import", "onclick", "this.value=null;", "name", "file", 2, "display", "none", 3, "change"], ["id", "export", "title", "Export story as .egn, .svg or .png file", 1, "headerButton", 3, "click", "disabled"], ["class", "material-icons-outlined materialIconButton", 4, "ngIf"], ["class", "material-icons materialIconButton", 4, "ngIf"], ["title", "Label Dictionary", 1, "headerButton", 3, "click", "disabled"], ["title", "Label Dictionary", 1, "material-icons", "materialIconButton"], ["title", "Settings", 1, "headerButton", 3, "click"], ["title", "Change Icons and Settings", 1, "material-icons", "materialIconButton"], ["title", "Show keyboard shortcuts", 1, "headerButton", 3, "click"], ["title", "Create a new domain story", 1, "headerButton", 3, "click"], [1, "material-icons-outlined", "materialIconButton"], ["title", "Previous Step", 1, "headerButton", 3, "click"], ["title", "NextStep", 1, "headerButton", 3, "click"], ["title", "Stop replay", 1, "headerButton", 3, "click"]],
+    consts: [[4, "ngIf"], ["id", "buttonStartReplay", "title", "Start replay", 1, "headerButton", 3, "click", "disabled"], [1, "material-icons", "materialIconButton"], ["id", "buttonImport", "title", "Import story from file", "onclick", "document.getElementById('import').click();", 1, "headerButton"], ["type", "file", "accept", ".dst, .dst.svg, .egn, .egn.svg", "id", "import", "onclick", "this.value=null;", "name", "file", 2, "display", "none", 3, "change"], ["id", "export", "title", "Export story as .egn, .svg or .png file", 1, "headerButton", 3, "click", "disabled"], ["class", "material-icons-outlined materialIconButton", 4, "ngIf"], ["class", "material-icons materialIconButton", 4, "ngIf"], ["title", "Label Dictionary", 1, "headerButton", 3, "click", "disabled"], ["title", "Label Dictionary", 1, "material-icons", "materialIconButton"], ["title", "Settings", 1, "headerButton", 3, "click"], ["title", "Change Icons and Settings", 1, "material-icons", "materialIconButton"], ["title", "Show keyboard shortcuts", 1, "headerButton", 3, "click"], ["title", "Create a new domain story", 1, "headerButton", 3, "click"], [1, "material-icons-outlined", "materialIconButton"], ["title", "Previous sentence", 1, "headerButton", 3, "click"], ["title", "Next sentence", 1, "headerButton", 3, "click"], ["title", "Stop replay", 1, "headerButton", 3, "click"]],
     template: function HeaderButtonsComponent_Template(rf, ctx) {
       if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵtemplate"](0, HeaderButtonsComponent_div_0_Template, 25, 15, "div", 0);
@@ -6396,7 +6396,7 @@ function HeaderComponent_span_13_Template(rf, ctx) {
   if (rf & 2) {
     const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵadvance"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtextInterpolate1"](" Sentence: ", _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵpipeBind1"](2, 1, ctx_r1.stepDescription$), "");
+    _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtextInterpolate1"](" Sentence: ", _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵpipeBind1"](2, 1, ctx_r1.sentenceDescription$), "");
   }
 }
 function HeaderComponent_mat_card_17_Template(rf, ctx) {
@@ -6422,7 +6422,7 @@ class HeaderComponent {
     this.description$ = this.titleService.description$;
     this.showDescription$ = this.titleService.showDescription$;
     this.isReplay$ = this.replayStateService.replayOn$;
-    this.stepDescription$ = (0,rxjs__WEBPACK_IMPORTED_MODULE_7__.combineLatest)([this.replayService.currentStep$, this.replayService.maxStepNumber$]).pipe((0,rxjs__WEBPACK_IMPORTED_MODULE_8__.map)(([step, count]) => `${step}/${count}`));
+    this.sentenceDescription$ = (0,rxjs__WEBPACK_IMPORTED_MODULE_7__.combineLatest)([this.replayService.currentSentence$, this.replayService.maxSentenceNumber$]).pipe((0,rxjs__WEBPACK_IMPORTED_MODULE_8__.map)(([sentence, count]) => `${sentence}/${count}`));
     this.showDescription = this.titleService.showDescription$;
   }
   openHeaderDialog() {
@@ -6442,7 +6442,7 @@ class HeaderComponent {
     selectors: [["app-header"]],
     decls: 19,
     vars: 15,
-    consts: [["color", "primary", 1, "toolbar"], ["class", "headerButton", "title", "Hide Description", 3, "click", 4, "ngIf"], ["class", "headerButton", "title", "Show Description", 3, "click", 4, "ngIf"], [1, "mr-10"], ["title", "Edit Title and Description", 1, "headline", 3, "click"], [1, "material-icons", "materialIconButton", "editIcon"], [1, "titleSpacer"], ["title", "Replay Step", 4, "ngIf"], [1, "buttonSpacer"], ["class", "smallScrollbar description", 4, "ngIf"], ["title", "Hide Description", 1, "headerButton", 3, "click"], [1, "material-icons", "materialIconButton", "toggle"], ["title", "Show Description", 1, "headerButton", 3, "click"], ["title", "Replay Step"], [1, "smallScrollbar", "description"], [1, "descriptionText"]],
+    consts: [["color", "primary", 1, "toolbar"], ["class", "headerButton", "title", "Hide Description", 3, "click", 4, "ngIf"], ["class", "headerButton", "title", "Show Description", 3, "click", 4, "ngIf"], [1, "mr-10"], ["title", "Edit Title and Description", 1, "headline", 3, "click"], [1, "material-icons", "materialIconButton", "editIcon"], [1, "titleSpacer"], ["title", "Replay Sentence", 4, "ngIf"], [1, "buttonSpacer"], ["class", "smallScrollbar description", 4, "ngIf"], ["title", "Hide Description", 1, "headerButton", 3, "click"], [1, "material-icons", "materialIconButton", "toggle"], ["title", "Show Description", 1, "headerButton", 3, "click"], ["title", "Replay Sentence"], [1, "smallScrollbar", "description"], [1, "descriptionText"]],
     template: function HeaderComponent_Template(rf, ctx) {
       if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementStart"](0, "mat-toolbar", 0)(1, "mat-toolbar-row");
@@ -7248,7 +7248,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /**
- * Manipulates the DOM during replay to only show the elements of the current Step
+ * Manipulates the DOM during replay to only show the elements of the current Sentence
  */
 class DomManipulationService {
   constructor(elementRegistryService) {
@@ -7262,9 +7262,9 @@ class DomManipulationService {
       domObject.style.display = 'block';
     });
   }
-  showStep(replayStep, previousStep) {
+  showSentence(replaySentence, previousSentence) {
     this.removeHighlights();
-    const notShown = this.getAllNotShown(replayStep.objects);
+    const notShown = this.getAllNotShown(replaySentence.objects);
     notShown.forEach(element => {
       const domObject = document.querySelector('[data-element-id=' + element.id + ']');
       if (domObject) {
@@ -7272,8 +7272,8 @@ class DomManipulationService {
         domObject.style.display = 'none';
       }
     });
-    this.hightlightStep(previousStep ? replayStep.objects.filter(o => !previousStep.objects.includes(o)) : replayStep.objects);
-    replayStep.objects.forEach(element => {
+    this.highlightSentence(previousSentence ? replaySentence.objects.filter(o => !previousSentence.objects.includes(o)) : replaySentence.objects);
+    replaySentence.objects.forEach(element => {
       const domObject = document.querySelector('[data-element-id=' + element.id + ']');
       if (domObject) {
         // @ts-ignore
@@ -7314,8 +7314,8 @@ class DomManipulationService {
       connectionDomObject.style.strokeWidth = '1.5';
     });
   }
-  hightlightStep(stepObjects) {
-    stepObjects.filter(e => e.type === src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.elementTypes.ACTIVITY).forEach(activity => {
+  highlightSentence(sentenceObjects) {
+    sentenceObjects.filter(e => e.type === src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.elementTypes.ACTIVITY).forEach(activity => {
       const querySelector = document.querySelector('[data-element-id=' + activity.id + ']');
       if (querySelector) {
         const activityDomObject = querySelector.getElementsByTagName('polyline')[0];
@@ -8573,7 +8573,7 @@ class HtmlPresentationService {
       _this.replayService.startReplay();
       try {
         const result = yield _this.modeler.saveSVG({});
-        _this.fixActivityMarkersForEachStep(result, _this.replayService.getCurrentStepNumber());
+        _this.fixActivityMarkersForEachSentence(result, _this.replayService.getCurrentSentenceNumber());
         svgData.push({
           content: HtmlPresentationService.createSVGData(result.svg),
           transition: 'slide'
@@ -8581,11 +8581,11 @@ class HtmlPresentationService {
       } catch (err) {
         alert('There was an error exporting the SVG.\n' + err);
       }
-      while (_this.replayService.getCurrentStepNumber() < _this.replayService.getMaxStepNumber()) {
-        _this.replayService.nextStep();
+      while (_this.replayService.getCurrentSentenceNumber() < _this.replayService.getMaxSentenceNumber()) {
+        _this.replayService.nextSentence();
         try {
           const result = yield _this.modeler.saveSVG({});
-          _this.fixActivityMarkersForEachStep(result, _this.replayService.getCurrentStepNumber());
+          _this.fixActivityMarkersForEachSentence(result, _this.replayService.getCurrentSentenceNumber());
           svgData.push({
             content: HtmlPresentationService.createSVGData(result.svg),
             transition: 'slide'
@@ -8648,13 +8648,13 @@ class HtmlPresentationService {
     return 'width="100%"' + ' height="100%" ' + ' preserveAspectRatio="xMidYMid meet"' + ' viewBox="' + xLeft + ' ' + yUp + ' ' + (xLeft + width) + ' ' + (yUp + height);
   }
   /**
-   * There is a Problem in the HTML-Presentation, where the Arrow-Heads of the Activities are not shown after the 4th Step
-   * This is due to the fact, that the marker for the Arrow-Head is defined in each Step with the same ID
-   * When the 5th step is reached, the first marker is set to display none, which propagates to all other markers
+   * There is a Problem in the HTML-Presentation, where the Arrow-Heads of the Activities are not shown after the 4th sentence
+   * This is due to the fact, that the marker for the Arrow-Head is defined in each sentence with the same ID
+   * When the 5th sentence is reached, the first marker is set to display none, which propagates to all other markers
    *
-   * To fix this, for each Step the marker and its references are renamed
+   * To fix this, for each sentence the marker and its references are renamed
    */
-  fixActivityMarkersForEachStep(result, sectionIndex) {
+  fixActivityMarkersForEachSentence(result, sectionIndex) {
     const defs = result.svg.substring(result.svg.indexOf('<defs>'), result.svg.indexOf('</defs>') + 7);
     const split = defs.split('<marker ');
     let newDefs = split[0];
@@ -10065,50 +10065,50 @@ class ReplayService {
     this.storyCreatorService = storyCreatorService;
     this.snackbar = snackbar;
     this.story = [];
-    this.currentStep = new rxjs__WEBPACK_IMPORTED_MODULE_4__.BehaviorSubject(-1);
-    this.maxStepNumber = new rxjs__WEBPACK_IMPORTED_MODULE_4__.BehaviorSubject(0);
-    this.currentStep$ = this.currentStep.asObservable();
-    this.maxStepNumber$ = this.maxStepNumber.asObservable();
+    this.currentSentence = new rxjs__WEBPACK_IMPORTED_MODULE_4__.BehaviorSubject(-1);
+    this.maxSentenceNumber = new rxjs__WEBPACK_IMPORTED_MODULE_4__.BehaviorSubject(0);
+    this.currentSentence$ = this.currentSentence.asObservable();
+    this.maxSentenceNumber$ = this.maxSentenceNumber.asObservable();
   }
   isReplayable() {
     return this.storyCreatorService.traceActivitiesAndCreateStory().length > 0;
   }
   initializeReplay() {
-    this.currentStep.next(1);
+    this.currentSentence.next(1);
     this.story = this.storyCreatorService.traceActivitiesAndCreateStory();
-    this.maxStepNumber.next(this.story.length);
+    this.maxSentenceNumber.next(this.story.length);
   }
-  getCurrentStepNumber() {
-    return this.currentStep.value;
+  getCurrentSentenceNumber() {
+    return this.currentSentence.value;
   }
-  getMaxStepNumber() {
-    return this.maxStepNumber.value;
+  getMaxSentenceNumber() {
+    return this.maxSentenceNumber.value;
   }
-  nextStep() {
-    if (this.currentStep.value < this.story.length) {
-      this.currentStep.next(this.currentStep.value + 1);
-      this.showCurrentStep();
+  nextSentence() {
+    if (this.currentSentence.value < this.story.length) {
+      this.currentSentence.next(this.currentSentence.value + 1);
+      this.showCurrentSentence();
     }
   }
-  previousStep() {
-    if (this.currentStep.value > 1) {
-      this.currentStep.next(this.currentStep.value - 1);
-      this.showCurrentStep();
+  previousSentence() {
+    if (this.currentSentence.value > 1) {
+      this.currentSentence.next(this.currentSentence.value - 1);
+      this.showCurrentSentence();
     }
   }
-  showCurrentStep() {
-    this.domManipulationService.showStep(this.story[this.currentStep.value - 1], this.currentStep.value > 1 ? this.story[this.currentStep.value - 2] : undefined);
+  showCurrentSentence() {
+    this.domManipulationService.showSentence(this.story[this.currentSentence.value - 1], this.currentSentence.value > 1 ? this.story[this.currentSentence.value - 2] : undefined);
   }
   startReplay() {
     this.initializeReplay();
     if (this.story?.length) {
-      const missingSteps = this.storyCreatorService.getMissingSteps(this.story);
-      if (missingSteps.length === 0) {
+      const missingSentences = this.storyCreatorService.getMissingSentences(this.story);
+      if (missingSentences.length === 0) {
         this.replayStateService.setReplayState(true);
-        this.domManipulationService.showStep(this.story[this.currentStep.getValue() - 1]);
+        this.domManipulationService.showSentence(this.story[this.currentSentence.getValue() - 1]);
       } else {
-        const steps = missingSteps.join(', ');
-        this.snackbar.open(steps.length === 1 ? `The Domain Story is not complete. Step ${steps} is missing.` : `The Domain Story is not complete. Steps ${steps} are missing.`, undefined, {
+        const sentence = missingSentences.join(', ');
+        this.snackbar.open(sentence.length === 1 ? `The Domain Story is not complete. Sentence ${sentence} is missing.` : `The Domain Story is not complete. Sentences ${sentence} are missing.`, undefined, {
           duration: _Domain_Common_constants__WEBPACK_IMPORTED_MODULE_0__.SNACKBAR_DURATION * 2,
           panelClass: _Domain_Common_constants__WEBPACK_IMPORTED_MODULE_0__.SNACKBAR_INFO
         });
@@ -10121,8 +10121,8 @@ class ReplayService {
     }
   }
   stopReplay() {
-    this.currentStep.next(-1);
-    this.maxStepNumber.next(0);
+    this.currentSentence.next(-1);
+    this.maxSentenceNumber.next(0);
     this.replayStateService.setReplayState(false);
     this.domManipulationService.showAll();
   }
@@ -10171,45 +10171,45 @@ class StoryCreatorService {
       tracedActivityMap.set(`${activityNumber - 1}`, tracedItem);
     });
     for (let i = 0; i <= Math.max(...tracedActivityMap.keysArray().map(it => Number(it))); i++) {
-      this.createStep(tracedActivityMap, i, story);
+      this.createSentence(tracedActivityMap, i, story);
     }
-    this.addGroupStep(story);
+    this.addGroupSentence(story);
     return story;
   }
-  createStep(tracedActivityMap, i, story) {
-    const stepObjects = this.getStepObjects(tracedActivityMap.get(`${i}`) || []);
-    const highlightedElements = stepObjects.map(t => t.id);
+  createSentence(tracedActivityMap, i, story) {
+    const sentenceObjects = this.getSentenceObjects(tracedActivityMap.get(`${i}`) || []);
+    const highlightedElements = sentenceObjects.map(t => t.id);
     if (i > 0) {
       story[i - 1].objects.forEach(object => {
-        if (!stepObjects.includes(object)) {
-          stepObjects.push(object);
+        if (!sentenceObjects.includes(object)) {
+          sentenceObjects.push(object);
         }
       });
     }
     story[i] = {
       highlightedObjects: highlightedElements,
-      objects: stepObjects
+      objects: sentenceObjects
     };
   }
-  getMissingSteps(story) {
+  getMissingSentences(story) {
     if (!story || story.length === 0) {
       return [];
     }
-    const missingSteps = [];
+    const missingSentences = [];
     for (let i = 0; i < story.length; i++) {
       if (!story[i] || !(story[i].objects.length > 0) || story[i].highlightedObjects.length === 0 || story[i].objects.filter(element => element.type === _Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.elementTypes.ACTIVITY).length <= 0) {
-        missingSteps.push(i + 1);
+        missingSentences.push(i + 1);
       }
     }
-    return missingSteps;
+    return missingSentences;
   }
-  getStepObjects(tracedActivity) {
+  getSentenceObjects(tracedActivity) {
     const initialSource = [];
     const activities = tracedActivity;
     const targetObjects = [];
-    tracedActivity.forEach(parallelStep => {
-      initialSource.push(parallelStep.source);
-      const firstTarget = parallelStep.target;
+    tracedActivity.forEach(parallelSentence => {
+      initialSource.push(parallelSentence.source);
+      const firstTarget = parallelSentence.target;
       targetObjects.push(firstTarget);
       // check the outgoing activities for each target
       for (const checkTarget of targetObjects) {
@@ -10228,7 +10228,7 @@ class StoryCreatorService {
     return initialSource.map(e => e.businessObject).concat(activities.map(a => a.businessObject)).concat(targetObjects.map(t => t.businessObject));
   }
   /** Groups should be shown at the End of the Story **/
-  addGroupStep(story) {
+  addGroupSentence(story) {
     const groups = this.elementRegistryService.getAllGroups();
     if (groups.length > 0) {
       story.push({
@@ -10615,12 +10615,12 @@ class AppComponent {
       if ((e.key === 'ArrowRight' || e.key === 'ArrowUp') && this.replayStateService.getReplayOn()) {
         e.preventDefault();
         e.stopPropagation();
-        replayService.nextStep();
+        replayService.nextSentence();
       }
       if ((e.key === 'ArrowLeft' || e.key === 'ArrowDown') && this.replayStateService.getReplayOn()) {
         e.preventDefault();
         e.stopPropagation();
-        replayService.previousStep();
+        replayService.previousSentence();
       }
     });
   }
