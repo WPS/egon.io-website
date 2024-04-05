@@ -6149,10 +6149,19 @@ function HeaderButtonsComponent_div_0_Template(rf, ctx) {
   }
   if (rf & 2) {
     const ctx_r0 = _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵadvance"](9);
-    _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵproperty"]("ngIf", !_angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵpipeBind1"](10, 2, ctx_r0.isDirty$));
+    _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵclassProp"]("disabled", !ctx_r0.replayService.isReplayable());
+    _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵproperty"]("disabled", !ctx_r0.replayService.isReplayable());
+    _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵadvance"](7);
+    _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵclassProp"]("disabled", !ctx_r0.isExportable());
+    _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵproperty"]("disabled", !ctx_r0.isExportable());
+    _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵproperty"]("ngIf", !_angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵpipeBind1"](10, 11, ctx_r0.isDirty$));
     _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵproperty"]("ngIf", _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵpipeBind1"](12, 4, ctx_r0.isDirty$));
+    _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵproperty"]("ngIf", _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵpipeBind1"](12, 13, ctx_r0.isDirty$));
+    _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵadvance"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵclassProp"]("disabled", !ctx_r0.exportService.isDomainStoryExportable());
+    _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵproperty"]("disabled", !ctx_r0.exportService.isDomainStoryExportable());
   }
 }
 function HeaderButtonsComponent_div_2_Template(rf, ctx) {
@@ -6286,6 +6295,9 @@ class HeaderButtonsComponent {
   nextStep() {
     this.replayService.nextStep();
   }
+  isExportable() {
+    return this.titleService.hasTitleOrDescription() || this.exportService.isDomainStoryExportable();
+  }
   static #_ = this.ɵfac = function HeaderButtonsComponent_Factory(t) {
     return new (t || HeaderButtonsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdirectiveInject"](_Service_Settings_settings_service__WEBPACK_IMPORTED_MODULE_6__.SettingsService), _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdirectiveInject"](_Service_Modeler_modeler_service__WEBPACK_IMPORTED_MODULE_7__.ModelerService), _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdirectiveInject"](_Service_Replay_replay_state_service__WEBPACK_IMPORTED_MODULE_8__.ReplayStateService), _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdirectiveInject"](_Service_DirtyFlag_dirty_flag_service__WEBPACK_IMPORTED_MODULE_9__.DirtyFlagService), _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdirectiveInject"](_Service_Dialog_dialog_service__WEBPACK_IMPORTED_MODULE_10__.DialogService), _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdirectiveInject"](_Service_Replay_replay_service__WEBPACK_IMPORTED_MODULE_11__.ReplayService), _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdirectiveInject"](_Service_Export_export_service__WEBPACK_IMPORTED_MODULE_12__.ExportService), _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdirectiveInject"](_Service_Import_import_domain_story_service__WEBPACK_IMPORTED_MODULE_13__.ImportDomainStoryService), _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdirectiveInject"](_Service_Title_title_service__WEBPACK_IMPORTED_MODULE_14__.TitleService), _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdirectiveInject"](_Service_Renderer_renderer_service__WEBPACK_IMPORTED_MODULE_15__.RendererService), _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdirectiveInject"](_angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_18__.MatSnackBar));
   };
@@ -6294,10 +6306,10 @@ class HeaderButtonsComponent {
     selectors: [["app-header-buttons"]],
     decls: 4,
     vars: 6,
-    consts: [[4, "ngIf"], ["id", "buttonStartReplay", "title", "Start replay", 1, "headerButton", 3, "click"], [1, "material-icons", "materialIconButton"], ["id", "buttonImport", "title", "Import story from file", "onclick", "document.getElementById('import').click();", 1, "headerButton"], ["type", "file", "accept", ".dst, .dst.svg, .egn, .egn.svg", "id", "import", "onclick", "this.value=null;", "name", "file", 2, "display", "none", 3, "change"], ["id", "export", "title", "Export story as .egn, .svg or .png file", 1, "headerButton", 3, "click"], ["class", "material-icons-outlined materialIconButton", 4, "ngIf"], ["class", "material-icons materialIconButton", 4, "ngIf"], ["title", "Label Dictionary", 1, "headerButton", 3, "click"], ["title", "Label Dictionary", 1, "material-icons", "materialIconButton"], ["title", "Settings", 1, "headerButton", 3, "click"], ["title", "Change Icons and Settings", 1, "material-icons", "materialIconButton"], ["title", "Show keyboard shortcuts", 1, "headerButton", 3, "click"], ["title", "Create a new domain story", 1, "headerButton", 3, "click"], [1, "material-icons-outlined", "materialIconButton"], ["title", "Previous Step", 1, "headerButton", 3, "click"], ["title", "NextStep", 1, "headerButton", 3, "click"], ["title", "Stop replay", 1, "headerButton", 3, "click"]],
+    consts: [[4, "ngIf"], ["id", "buttonStartReplay", "title", "Start replay", 1, "headerButton", 3, "disabled", "click"], [1, "material-icons", "materialIconButton"], ["id", "buttonImport", "title", "Import story from file", "onclick", "document.getElementById('import').click();", 1, "headerButton"], ["type", "file", "accept", ".dst, .dst.svg, .egn, .egn.svg", "id", "import", "onclick", "this.value=null;", "name", "file", 2, "display", "none", 3, "change"], ["id", "export", "title", "Export story as .egn, .svg or .png file", 1, "headerButton", 3, "disabled", "click"], ["class", "material-icons-outlined materialIconButton", 4, "ngIf"], ["class", "material-icons materialIconButton", 4, "ngIf"], ["title", "Label Dictionary", 1, "headerButton", 3, "disabled", "click"], ["title", "Label Dictionary", 1, "material-icons", "materialIconButton"], ["title", "Settings", 1, "headerButton", 3, "click"], ["title", "Change Icons and Settings", 1, "material-icons", "materialIconButton"], ["title", "Show keyboard shortcuts", 1, "headerButton", 3, "click"], ["title", "Create a new domain story", 1, "headerButton", 3, "click"], [1, "material-icons-outlined", "materialIconButton"], ["title", "Previous Step", 1, "headerButton", 3, "click"], ["title", "NextStep", 1, "headerButton", 3, "click"], ["title", "Stop replay", 1, "headerButton", 3, "click"]],
     template: function HeaderButtonsComponent_Template(rf, ctx) {
       if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵtemplate"](0, HeaderButtonsComponent_div_0_Template, 25, 6, "div", 0);
+        _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵtemplate"](0, HeaderButtonsComponent_div_0_Template, 25, 15, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵpipe"](1, "async");
         _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵtemplate"](2, HeaderButtonsComponent_div_2_Template, 10, 0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵpipe"](3, "async");
@@ -6309,7 +6321,7 @@ class HeaderButtonsComponent {
       }
     },
     dependencies: [_angular_common__WEBPACK_IMPORTED_MODULE_19__.NgIf, _angular_common__WEBPACK_IMPORTED_MODULE_19__.AsyncPipe],
-    styles: ["span[_ngcontent-%COMP%] {\n  font-size: 15pt;\n  color: white;\n}\n\n#dictionaryButton[_ngcontent-%COMP%] {\n  opacity: 0.2;\n  pointer-events: none;\n}\n\n.headerButton[_ngcontent-%COMP%]:hover {\n  cursor: pointer;\n  color: white;\n}\n\n.materialIconButton[_ngcontent-%COMP%]:hover {\n  color: lightgrey;\n}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL3NyYy9hcHAvUHJlc2VudGF0aW9uL0hlYWRlci9oZWFkZXItYnV0dG9ucy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGVBQUE7RUFDQSxZQUFBO0FBQ0Y7O0FBRUE7RUFDRSxZQUFBO0VBQ0Esb0JBQUE7QUFDRjs7QUFFQTtFQUNFLGVBQUE7RUFDQSxZQUFBO0FBQ0Y7O0FBRUE7RUFDRSxnQkFBQTtBQUNGIiwic291cmNlc0NvbnRlbnQiOlsic3BhbiB7XG4gIGZvbnQtc2l6ZTogMTVwdDtcbiAgY29sb3I6IHdoaXRlO1xufVxuXG4jZGljdGlvbmFyeUJ1dHRvbiB7XG4gIG9wYWNpdHk6IDAuMjtcbiAgcG9pbnRlci1ldmVudHM6IG5vbmU7XG59XG5cbi5oZWFkZXJCdXR0b246aG92ZXIge1xuICBjdXJzb3I6IHBvaW50ZXI7XG4gIGNvbG9yOiB3aGl0ZTtcbn1cblxuLm1hdGVyaWFsSWNvbkJ1dHRvbjpob3ZlciB7XG4gIGNvbG9yOiBsaWdodGdyZXk7XG59XG4iXSwic291cmNlUm9vdCI6IiJ9 */"]
+    styles: ["span[_ngcontent-%COMP%] {\n  font-size: 15pt;\n  color: white;\n}\n\n#dictionaryButton[_ngcontent-%COMP%] {\n  opacity: 0.2;\n  pointer-events: none;\n}\n\n.headerButton[_ngcontent-%COMP%]:hover {\n  cursor: pointer;\n}\n.headerButton[_ngcontent-%COMP%]:hover   span[_ngcontent-%COMP%] {\n  color: white;\n}\n\n.disabled[_ngcontent-%COMP%]   span[_ngcontent-%COMP%], .disabled[_ngcontent-%COMP%]:hover   span[_ngcontent-%COMP%] {\n  cursor: initial;\n  color: gray;\n}\n\n.materialIconButton[_ngcontent-%COMP%]:hover {\n  color: lightgrey;\n}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL3NyYy9hcHAvUHJlc2VudGF0aW9uL0hlYWRlci9oZWFkZXItYnV0dG9ucy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGVBQUE7RUFDQSxZQUFBO0FBQ0Y7O0FBRUE7RUFDRSxZQUFBO0VBQ0Esb0JBQUE7QUFDRjs7QUFFQTtFQUNFLGVBQUE7QUFDRjtBQUNFO0VBQ0UsWUFBQTtBQUNKOztBQUdBOztFQUVFLGVBQUE7RUFDQSxXQUFBO0FBQUY7O0FBR0E7RUFDRSxnQkFBQTtBQUFGIiwic291cmNlc0NvbnRlbnQiOlsic3BhbiB7XG4gIGZvbnQtc2l6ZTogMTVwdDtcbiAgY29sb3I6IHdoaXRlO1xufVxuXG4jZGljdGlvbmFyeUJ1dHRvbiB7XG4gIG9wYWNpdHk6IDAuMjtcbiAgcG9pbnRlci1ldmVudHM6IG5vbmU7XG59XG5cbi5oZWFkZXJCdXR0b246aG92ZXIge1xuICBjdXJzb3I6IHBvaW50ZXI7XG5cbiAgc3BhbiB7XG4gICAgY29sb3I6IHdoaXRlO1xuICB9XG59XG5cbi5kaXNhYmxlZCBzcGFuLFxuLmRpc2FibGVkOmhvdmVyIHNwYW4ge1xuICBjdXJzb3I6IGluaXRpYWw7XG4gIGNvbG9yOiBncmF5O1xufVxuXG4ubWF0ZXJpYWxJY29uQnV0dG9uOmhvdmVyIHtcbiAgY29sb3I6IGxpZ2h0Z3JleTtcbn1cbiJdLCJzb3VyY2VSb290IjoiIn0= */"]
   });
 }
 
@@ -10068,6 +10080,9 @@ class ReplayService {
     this.currentStep$ = this.currentStep.asObservable();
     this.maxStepNumber$ = this.maxStepNumber.asObservable();
   }
+  isReplayable() {
+    return this.storyCreatorService.traceActivitiesAndCreateStory().length > 0;
+  }
   initializeReplay() {
     this.currentStep.next(1);
     this.story = this.storyCreatorService.traceActivitiesAndCreateStory();
@@ -10292,8 +10307,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   TitleService: () => (/* binding */ TitleService)
 /* harmony export */ });
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ 47530);
-/* harmony import */ var _Domain_Common_constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../Domain/Common/constants */ 45219);
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../environments/environment */ 20553);
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../environments/environment */ 20553);
+/* harmony import */ var _Domain_Common_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../Domain/Common/constants */ 45219);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 51197);
 /* harmony import */ var _CommandStack_command_stack_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../CommandStack/command-stack.service */ 70847);
 
@@ -10304,9 +10319,9 @@ __webpack_require__.r(__webpack_exports__);
 class TitleService {
   constructor(commandStackService) {
     this.commandStackService = commandStackService;
-    this.titleSubject = new rxjs__WEBPACK_IMPORTED_MODULE_3__.BehaviorSubject(_Domain_Common_constants__WEBPACK_IMPORTED_MODULE_0__.INITIAL_TITLE);
-    this.descriptionSubject = new rxjs__WEBPACK_IMPORTED_MODULE_3__.BehaviorSubject(_Domain_Common_constants__WEBPACK_IMPORTED_MODULE_0__.INITIAL_DESCRIPTION);
-    this.domainNameSubject = new rxjs__WEBPACK_IMPORTED_MODULE_3__.BehaviorSubject(_Domain_Common_constants__WEBPACK_IMPORTED_MODULE_0__.INITIAL_DOMAIN_NAME);
+    this.titleSubject = new rxjs__WEBPACK_IMPORTED_MODULE_3__.BehaviorSubject(_Domain_Common_constants__WEBPACK_IMPORTED_MODULE_1__.INITIAL_TITLE);
+    this.descriptionSubject = new rxjs__WEBPACK_IMPORTED_MODULE_3__.BehaviorSubject(_Domain_Common_constants__WEBPACK_IMPORTED_MODULE_1__.INITIAL_DESCRIPTION);
+    this.domainNameSubject = new rxjs__WEBPACK_IMPORTED_MODULE_3__.BehaviorSubject(_Domain_Common_constants__WEBPACK_IMPORTED_MODULE_1__.INITIAL_DOMAIN_NAME);
     this.showDescriptionSubject = new rxjs__WEBPACK_IMPORTED_MODULE_3__.BehaviorSubject(true);
     this.title$ = this.titleSubject.asObservable();
     this.description$ = this.descriptionSubject.asObservable();
@@ -10322,7 +10337,7 @@ class TitleService {
     }
   }
   reset() {
-    this.updateTitleAndDescription(_Domain_Common_constants__WEBPACK_IMPORTED_MODULE_0__.INITIAL_TITLE, _Domain_Common_constants__WEBPACK_IMPORTED_MODULE_0__.INITIAL_DESCRIPTION, false);
+    this.updateTitleAndDescription(_Domain_Common_constants__WEBPACK_IMPORTED_MODULE_1__.INITIAL_TITLE, _Domain_Common_constants__WEBPACK_IMPORTED_MODULE_1__.INITIAL_DESCRIPTION, false);
   }
   updateTitle(title) {
     this.titleSubject.next(title ?? this.titleSubject.value);
@@ -10347,7 +10362,10 @@ class TitleService {
     return this.domainNameSubject.value;
   }
   getVersion() {
-    return _environments_environment__WEBPACK_IMPORTED_MODULE_1__.environment.version;
+    return _environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.version;
+  }
+  hasTitleOrDescription() {
+    return this.getTitle().trim().length > 0 && this.getTitle() !== _Domain_Common_constants__WEBPACK_IMPORTED_MODULE_1__.INITIAL_TITLE || this.getDescription().trim().length > 0 && this.getDescription() !== _Domain_Common_constants__WEBPACK_IMPORTED_MODULE_1__.INITIAL_DESCRIPTION;
   }
   fireTitleAndDescriptionUpdate(newTitle, newDescription) {
     const context = {
