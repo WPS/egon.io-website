@@ -10165,7 +10165,7 @@ class StoryCreatorService {
       tracedItem.push(activity);
       tracedActivityMap.set(`${activityNumber - 1}`, tracedItem);
     });
-    for (let i = 0; i < tracedActivityMap.keysArray().length; i++) {
+    for (let i = 0; i <= Math.max(...tracedActivityMap.keysArray().map(it => Number(it))); i++) {
       this.createStep(tracedActivityMap, i, story);
     }
     this.addGroupStep(story);
@@ -10191,11 +10191,9 @@ class StoryCreatorService {
       return [];
     }
     const missingSteps = [];
-    let complete = true;
     for (let i = 0; i < story.length; i++) {
-      if (!story[i] || !(story[i].objects.length > 0) || story[i].objects.filter(element => element.type === _Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.elementTypes.ACTIVITY).length <= 0) {
+      if (!story[i] || !(story[i].objects.length > 0) || story[i].highlightedObjects.length === 0 || story[i].objects.filter(element => element.type === _Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.elementTypes.ACTIVITY).length <= 0) {
         missingSteps.push(i + 1);
-        complete = false;
       }
     }
     return missingSteps;
