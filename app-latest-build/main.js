@@ -3979,10 +3979,10 @@ class IconConfiguration {
     });
     (0,src_app_Domain_Icon_Set_Configuration_allIcons__WEBPACK_IMPORTED_MODULE_1__.overrideAppendedIcons)(appen);
   }
-  createCustomConf(domainConfiguration) {
-    this.domainName = domainConfiguration.name;
-    let actors = domainConfiguration.actors;
-    let workObjects = domainConfiguration.workObjects;
+  createCustomConf(iconSetConfiguration) {
+    this.domainName = iconSetConfiguration.name;
+    let actors = iconSetConfiguration.actors;
+    let workObjects = iconSetConfiguration.workObjects;
     this.appendSRCFile(actors.keysArray(), actors, workObjects.keysArray(), workObjects);
     return new src_app_Domain_Common_configuration__WEBPACK_IMPORTED_MODULE_2__.Configuration(actors.keysArray(), workObjects.keysArray());
   }
@@ -5407,8 +5407,8 @@ class IconListItemComponent {
   get id() {
     return 'domain-configuration-icon-' + this.iconName;
   }
-  constructor(domainCustomizationService) {
-    this.domainCustomizationService = domainCustomizationService;
+  constructor(iconSetCustomizationService) {
+    this.iconSetCustomizationService = iconSetCustomizationService;
     this.iconName = '';
     this.iconInitiated = false;
     // @ts-ignore
@@ -5418,7 +5418,7 @@ class IconListItemComponent {
     this.isNone = true;
   }
   ngOnInit() {
-    this.icon = this.domainCustomizationService.getIconForName(this.iconName);
+    this.icon = this.iconSetCustomizationService.getIconForName(this.iconName);
     if (!this.icon) {
       return;
     }
@@ -5442,13 +5442,13 @@ class IconListItemComponent {
     }
   }
   toggleNone() {
-    this.domainCustomizationService.setAsUnassigned(this.iconName, this.icon.value.isActor);
+    this.iconSetCustomizationService.setAsUnassigned(this.iconName, this.icon.value.isActor);
   }
   toggleActor() {
-    this.domainCustomizationService.setAsActor(true, this.iconName);
+    this.iconSetCustomizationService.setAsActor(true, this.iconName);
   }
   toggleWorkobject() {
-    this.domainCustomizationService.setAsWorkobject(true, this.iconName);
+    this.iconSetCustomizationService.setAsWorkobject(true, this.iconName);
   }
   static #_ = this.ɵfac = function IconListItemComponent_Factory(t) {
     return new (t || IconListItemComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_Service_IconSetConfiguration_icon_set_customization_service__WEBPACK_IMPORTED_MODULE_0__.IconSetCustomizationService));
@@ -6758,15 +6758,15 @@ function SettingsComponent_app_icon_set_configuration_17_Template(rf, ctx) {
   }
 }
 class SettingsComponent {
-  constructor(settingsService, modelerService, domainCustomizationService) {
+  constructor(settingsService, modelerService, iconSetCustomizationService) {
     this.settingsService = settingsService;
     this.modelerService = modelerService;
-    this.domainCustomizationService = domainCustomizationService;
+    this.iconSetCustomizationService = iconSetCustomizationService;
     this.showGeneralSettings = new rxjs__WEBPACK_IMPORTED_MODULE_6__.BehaviorSubject(false);
-    this.showDomainCustomization = new rxjs__WEBPACK_IMPORTED_MODULE_6__.BehaviorSubject(true);
+    this.showIconSetCustomization = new rxjs__WEBPACK_IMPORTED_MODULE_6__.BehaviorSubject(true);
   }
   close() {
-    const savedConfiguration = this.domainCustomizationService.getAndClearSavedConfiguration();
+    const savedConfiguration = this.iconSetCustomizationService.getAndClearSavedConfiguration();
     if (savedConfiguration) {
       this.modelerService.restart(savedConfiguration);
     }
@@ -6774,11 +6774,11 @@ class SettingsComponent {
   }
   openGeneralSettings() {
     this.showGeneralSettings.next(true);
-    this.showDomainCustomization.next(false);
+    this.showIconSetCustomization.next(false);
   }
-  openDomainCustomization() {
+  openIconSetCustomization() {
     this.showGeneralSettings.next(false);
-    this.showDomainCustomization.next(true);
+    this.showIconSetCustomization.next(true);
   }
   static #_ = this.ɵfac = function SettingsComponent_Factory(t) {
     return new (t || SettingsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](src_app_Service_Settings_settings_service__WEBPACK_IMPORTED_MODULE_0__.SettingsService), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](src_app_Service_Modeler_modeler_service__WEBPACK_IMPORTED_MODULE_1__.ModelerService), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](_Service_IconSetConfiguration_icon_set_customization_service__WEBPACK_IMPORTED_MODULE_2__.IconSetCustomizationService));
@@ -6801,7 +6801,7 @@ class SettingsComponent {
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](6, "div", 4)(7, "button", 5);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipe"](8, "async");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function SettingsComponent_Template_button_click_7_listener() {
-          return ctx.openDomainCustomization();
+          return ctx.openIconSetCustomization();
         });
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](9, "span", 6);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](10, "Customize Icons for Your Domain");
@@ -6822,13 +6822,13 @@ class SettingsComponent {
       }
       if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](7);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵclassProp"]("highlight", _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipeBind1"](8, 6, ctx.showDomainCustomization));
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵclassProp"]("highlight", _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipeBind1"](8, 6, ctx.showIconSetCustomization));
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](4);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵclassProp"]("highlight", _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipeBind1"](12, 8, ctx.showGeneralSettings));
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](4);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngIf", _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipeBind1"](16, 10, ctx.showGeneralSettings));
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngIf", _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipeBind1"](18, 12, ctx.showDomainCustomization));
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngIf", _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipeBind1"](18, 12, ctx.showIconSetCustomization));
       }
     },
     dependencies: [_angular_common__WEBPACK_IMPORTED_MODULE_7__.NgIf, _General_general_settings_component__WEBPACK_IMPORTED_MODULE_3__.GeneralSettingsComponent, src_app_Presentation_DomainConfiguration_icon_set_configuration_component__WEBPACK_IMPORTED_MODULE_4__.IconSetConfigurationComponent, _angular_material_button__WEBPACK_IMPORTED_MODULE_8__.MatButton, _angular_material_button__WEBPACK_IMPORTED_MODULE_8__.MatIconButton, _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_9__.MatToolbar, _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_9__.MatToolbarRow, _angular_common__WEBPACK_IMPORTED_MODULE_7__.AsyncPipe],
@@ -9084,13 +9084,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class ImportDomainStoryService {
-  constructor(iconDictionaryService, importRepairService, titleService, rendererService, dialogService, domainConfigurationService, snackbar) {
+  constructor(iconDictionaryService, importRepairService, titleService, rendererService, dialogService, iconSetConfigurationService, snackbar) {
     this.iconDictionaryService = iconDictionaryService;
     this.importRepairService = importRepairService;
     this.titleService = titleService;
     this.rendererService = rendererService;
     this.dialogService = dialogService;
-    this.domainConfigurationService = domainConfigurationService;
+    this.iconSetConfigurationService = iconSetConfigurationService;
     this.snackbar = snackbar;
     this.title = _Domain_Common_constants__WEBPACK_IMPORTED_MODULE_6__.INITIAL_TITLE;
     this.description = _Domain_Common_constants__WEBPACK_IMPORTED_MODULE_6__.INITIAL_DESCRIPTION;
@@ -9172,7 +9172,7 @@ class ImportDomainStoryService {
         } else {
           // implementation prior to configuration
           elements = JSON.parse(dstText);
-          config = this.domainConfigurationService.createMinimalConfigurationWithDefaultIcons();
+          config = this.iconSetConfigurationService.createMinimalConfigurationWithDefaultIcons();
         }
       }
       const configChanged = this.checkConfigForChanges(config);
@@ -9231,9 +9231,9 @@ class ImportDomainStoryService {
     xmlText = xmlText.replace('</DST>', '');
     return xmlText;
   }
-  checkConfigForChanges(domainConfiguration) {
-    const newActorKeys = domainConfiguration.actors.keysArray();
-    const newWorkObjectKeys = domainConfiguration.workObjects.keysArray();
+  checkConfigForChanges(iconSetConfiguration) {
+    const newActorKeys = iconSetConfiguration.actors.keysArray();
+    const newWorkObjectKeys = iconSetConfiguration.workObjects.keysArray();
     const currentActorKeys = this.iconDictionaryService.getTypeDictionaryKeys(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_1__.elementTypes.ACTOR);
     const currentWorkobjectKeys = this.iconDictionaryService.getTypeDictionaryKeys(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_1__.elementTypes.WORKOBJECT);
     let changed = false;
@@ -9647,7 +9647,7 @@ class InitializerService {
   initializeDomainStoryModelerClasses() {
     (0,_Modeler_modeler_context_pad_domainStoryContextPadProvider__WEBPACK_IMPORTED_MODULE_0__.initializeContextPadProvider)(this.dirtyFlagService, this.iconDictionaryService);
     /** The Palette and the Context Menu need the Icons present in the Domain,
-     * so the IconDictionaryService and the DomainConfigurationService needs to be given to the Palette **/
+     * so the IconDictionaryService and the IconSetConfigurationService needs to be given to the Palette **/
     (0,_Modeler_modeler_palette_domainStoryPalette__WEBPACK_IMPORTED_MODULE_2__.initializePalette)(this.iconDictionaryService, this.configurationService);
     (0,_Modeler_modeler_domainStoryRenderer__WEBPACK_IMPORTED_MODULE_3__.initializeRenderer)(this.iconDictionaryService, this.elementRegistryService, this.dirtyFlagService);
     (0,_Modeler_modeler_labeling_dsLabelEditingProvider__WEBPACK_IMPORTED_MODULE_4__.initializeLabelEditingProvider)(this.labelDictionaryService);
@@ -9831,18 +9831,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class ModelerService {
-  constructor(initializerService, elementRegistryService, iconDictionaryService, domainConfigurationService, storageService) {
+  constructor(initializerService, elementRegistryService, iconDictionaryService, iconSetConfigurationService, storageService) {
     this.initializerService = initializerService;
     this.elementRegistryService = elementRegistryService;
     this.iconDictionaryService = iconDictionaryService;
-    this.domainConfigurationService = domainConfigurationService;
+    this.iconSetConfigurationService = iconSetConfigurationService;
     this.storageService = storageService;
   }
   postInit() {
-    const storedDomainConfiguration = this.storageService.getStoredIconSetConfiguration();
-    if (storedDomainConfiguration) {
-      this.iconDictionaryService.setCustomConfiguration(storedDomainConfiguration);
-      this.domainConfigurationService.loadConfiguration(storedDomainConfiguration);
+    const storedIconSetConfiguration = this.storageService.getStoredIconSetConfiguration();
+    if (storedIconSetConfiguration) {
+      this.iconDictionaryService.setCustomConfiguration(storedIconSetConfiguration);
+      this.iconSetConfigurationService.loadConfiguration(storedIconSetConfiguration);
     }
     this.initializerService.initializeDomainStoryModelerClasses();
     this.modeler = new src_app_Modeler__WEBPACK_IMPORTED_MODULE_1__["default"]({
@@ -9876,15 +9876,15 @@ class ModelerService {
     });
     this.startDebounce();
   }
-  restart(domainConfiguration, domainStory) {
+  restart(iconSetConfiguration, domainStory) {
     const currentStory = domainStory != undefined ? domainStory : this.elementRegistryService.createObjectListForDSTDownload().map(e => e.businessObject);
-    if (!domainConfiguration) {
-      domainConfiguration = this.storageService.getStoredIconSetConfiguration();
+    if (!iconSetConfiguration) {
+      iconSetConfiguration = this.storageService.getStoredIconSetConfiguration();
     }
-    if (domainConfiguration) {
-      this.storageService.setStoredIconSetConfiguration(domainConfiguration);
-      this.iconDictionaryService.setCustomConfiguration(domainConfiguration);
-      this.domainConfigurationService.loadConfiguration(domainConfiguration);
+    if (iconSetConfiguration) {
+      this.storageService.setStoredIconSetConfiguration(iconSetConfiguration);
+      this.iconDictionaryService.setCustomConfiguration(iconSetConfiguration);
+      this.iconSetConfigurationService.loadConfiguration(iconSetConfiguration);
     }
     this.elementRegistryService.clear();
     this.modeler?.destroy();
