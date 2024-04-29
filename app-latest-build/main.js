@@ -9199,7 +9199,7 @@ class ImportDomainStoryService {
       if (!this.importRepairService.checkForUnreferencedElementsInActivitiesAndRepair(elements)) {
         this.showBrokenImportDialog(isSVG ? 'SVG' : 'DST');
       }
-      this.titleService.updateTitleAndDescription(null, lastElement.info, false);
+      this.titleService.updateTitleAndDescription(this.title, lastElement.info, false);
       this.importRepairService.adjustPositions(elements);
       this.updateIconRegistries(elements, config);
       this.rendererService.importStory(elements, configChanged, config);
