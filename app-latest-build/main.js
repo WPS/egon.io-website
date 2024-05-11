@@ -893,7 +893,23 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
     if (numberStash.use) {
       semantic.number = numberStash.number;
     }
+    // !IMPORTANT!
+    // When converting svg-files via Inkscape or Photoshop the svg-circle is converted to a black dot that obscures the number.
+    // To circumvent this, we draw a . as the white background and an o as the circle around the number.
+    // There is a minor Bug, that in some Programs the used Font is not supported, which defaults to Arial, where the o is not round but oval.
+    // Unit 3rd Party Tools update their svg-version to 1.2 we should keep this workaround.
+    box.x -= 65;
+    box.y -= 12;
+    renderNumber(parentGfx, ".", backgroundDotStyle(box), element.type);
+    box.x += 30;
+    box.y += 3;
+    renderNumber(parentGfx, "o", backgroundBoxStyle(box), element.type);
     numbers[semantic.number] = true;
+    box.x += 9;
+    box.y -= 7;
+    if (semantic.number < 10) {
+      box.x += 3;
+    }
     let newRenderedNumber = renderNumber(parentGfx, semantic.number, numberStyle(box), element.type);
     (0,_numbering_numbering__WEBPACK_IMPORTED_MODULE_4__.addNumberToRegistry)(newRenderedNumber, semantic.number);
   }
@@ -1012,18 +1028,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
     (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.classes)(text).add("djs-labelNumber");
     setCoordinates(type, text, options, height, parentGfx);
     (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.append)(parentGfx, text);
-    drawCircle(parentGfx, options, number.length);
     return text;
-  }
-  function drawCircle(parentGfx, options, textLength) {
-    const circle = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.create)("circle");
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.attr)(circle, {
-      cx: options.box.x + 15 + textLength * 3,
-      cy: options.box.y - 4,
-      r: "10",
-      style: "fill:transparent;stroke:black;stroke-width:1"
-    });
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.append)(parentGfx, circle);
   }
   // the coordinates of the activity label must be set directly and will not be taken from the box
   function setCoordinates(type, text, options, height, parentGfx) {
