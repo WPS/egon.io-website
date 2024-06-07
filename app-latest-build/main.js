@@ -2868,9 +2868,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   updateExistingNumbersAtEditing: () => (/* binding */ updateExistingNumbersAtEditing),
 /* harmony export */   updateExistingNumbersAtGeneration: () => (/* binding */ updateExistingNumbersAtGeneration)
 /* harmony export */ });
-/* harmony import */ var _labeling_position__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../labeling/position */ 12957);
-/* harmony import */ var _Utils_mathExtensions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../Utils/mathExtensions */ 114);
-
+/* harmony import */ var _Utils_mathExtensions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../Utils/mathExtensions */ 114);
 
 
 
@@ -2885,40 +2883,52 @@ function numberBoxDefinitions(element) {
   let alignment = "center";
   let boxWidth = 30;
   let boxHeight = 30;
-  let position = (0,_labeling_position__WEBPACK_IMPORTED_MODULE_0__.labelPosition)(element.waypoints);
   let angle = 0;
   if (element.waypoints.length > 1) {
-    angle = (0,_Utils_mathExtensions__WEBPACK_IMPORTED_MODULE_1__.angleBetween)(element.waypoints[element.waypoints.length - 2], element.waypoints[element.waypoints.length - 1]);
+    angle = (0,_Utils_mathExtensions__WEBPACK_IMPORTED_MODULE_0__.angleBetween)(
+    // Start of first arrow segment
+    element.waypoints[0],
+    // End of first arrow segment
+    element.waypoints[1]);
   }
-  let x = position.x;
-  let y = position.y;
-  // TODO: Use trigonometric functions to make the positioning more consistent.
-  // This would require to touch the label code as well.
+  let x = element.waypoints[0].x;
+  let y = element.waypoints[0].y;
+  let fixedOffsetX = 0;
+  let fixedOffsetY = 0;
+  let angleDependantOffsetX = 0;
+  let angleDependantOffsetY = 0;
+  // Fine tune positioning of sequence number above beginning of first arrow segment
   if (angle >= 0 && angle <= 45) {
-    y = y - 30 + angle / 2;
-    x = x - 25 - angle / 2;
+    fixedOffsetX = 25;
+    angleDependantOffsetY = 20 * (1 - angle / 45);
   } else if (angle <= 90) {
-    y = y - 10 + (angle - 45) / 4.5;
-    x = x - 35 - angle / 9;
-  } else if (angle <= 145) {
-    y = y + angle / 7.25;
-    x = x - 45 - angle / 14.5;
-  } else if (angle < 180) {
-    y = y + 20 + angle / 9;
-    x = x - 50 + angle / 4.5;
+    fixedOffsetX = 5;
+    angleDependantOffsetX = 15 * (1 - (angle - 45) / 45);
+  } else if (angle <= 135) {
+    fixedOffsetX = 5;
+    angleDependantOffsetX = -20 * ((angle - 90) / 45);
+  } else if (angle <= 180) {
+    fixedOffsetX = -15;
+    angleDependantOffsetY = 20 * ((angle - 135) / 45);
   } else if (angle <= 225) {
-    y = y - 45 + angle / 12.25;
-    x = x + 10 - angle / 6.125;
+    fixedOffsetX = -15;
+    fixedOffsetY = 15;
+    angleDependantOffsetY = 25 * ((angle - 180) / 45);
   } else if (angle <= 270) {
-    y = y - 80 + angle / 3.375;
-    x = x - 5 - angle / 6.125;
+    fixedOffsetX = 5;
+    angleDependantOffsetX = -20 * (1 - (angle - 225) / 45);
+    fixedOffsetY = 40;
   } else if (angle <= 315) {
-    y = y - 135 + angle / 2;
-    x = x - 50;
+    fixedOffsetX = 5;
+    angleDependantOffsetX = 25 * ((angle - 270) / 45);
+    fixedOffsetY = 40;
   } else {
-    y = y + 22.5 + (angle - 315) / 6;
-    x = x - 50 + (angle - 315) / 1.8;
+    fixedOffsetX = 25;
+    fixedOffsetY = 20;
+    angleDependantOffsetY = 15 * (1 - (angle - 315) / 45);
   }
+  x = x + fixedOffsetX + angleDependantOffsetX;
+  y = y + fixedOffsetY + angleDependantOffsetY;
   return {
     textAlign: alignment,
     width: boxWidth,
@@ -10114,7 +10124,7 @@ class ReplayService {
         this.domManipulationService.showSentence(this.story[this.currentSentence.getValue() - 1]);
       } else {
         const sentence = missingSentences.join(', ');
-        this.snackbar.open(sentence.length === 1 ? `The Domain Story is not complete. Sentence ${sentence} is missing.` : `The Domain Story is not complete. Sentences ${sentence} are missing.`, undefined, {
+        this.snackbar.open(missingSentences.length === 1 ? `The Domain Story is not complete. Sentence ${sentence} is missing.` : `The Domain Story is not complete. Sentences ${sentence} are missing.`, undefined, {
           duration: _Domain_Common_constants__WEBPACK_IMPORTED_MODULE_0__.SNACKBAR_DURATION * 2,
           panelClass: _Domain_Common_constants__WEBPACK_IMPORTED_MODULE_0__.SNACKBAR_INFO
         });
@@ -10179,7 +10189,7 @@ class StoryCreatorService {
     for (let i = 0; i <= Math.max(...tracedActivityMap.keysArray().map(it => Number(it))); i++) {
       this.createSentence(tracedActivityMap, i, story);
     }
-    this.addGroupSentence(story);
+    this.addGroupsToLastSentence(story);
     return story;
   }
   createSentence(tracedActivityMap, i, story) {
@@ -10203,7 +10213,7 @@ class StoryCreatorService {
     }
     const missingSentences = [];
     for (let i = 0; i < story.length; i++) {
-      if (!story[i] || !(story[i].objects.length > 0) || story[i].highlightedObjects.length === 0 || story[i].objects.filter(element => element.type === _Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.elementTypes.ACTIVITY).length <= 0) {
+      if (!story[i] || story[i].objects.length <= 0 || story[i].highlightedObjects.length === 0 || story[i].objects.filter(element => element.type === _Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.elementTypes.ACTIVITY).length <= 0) {
         missingSentences.push(i + 1);
       }
     }
@@ -10233,14 +10243,10 @@ class StoryCreatorService {
     });
     return initialSource.map(e => e.businessObject).concat(activities.map(a => a.businessObject)).concat(targetObjects.map(t => t.businessObject));
   }
-  /** Groups should be shown at the End of the Story **/
-  addGroupSentence(story) {
+  addGroupsToLastSentence(story) {
     const groups = this.elementRegistryService.getAllGroups();
     if (groups.length > 0) {
-      story.push({
-        highlightedObjects: [],
-        objects: groups.map(g => g.businessObject).concat(story[story.length - 1].objects)
-      });
+      story[story.length - 1].objects = story[story.length - 1].objects.concat(groups.map(g => g.businessObject));
     }
   }
   static #_ = this.ɵfac = function StoryCreatorService_Factory(t) {
