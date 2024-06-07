@@ -97,7 +97,7 @@ When you activate auto-save and later open Egon in your browser, it will restore
 
 The replay feature helps you to re-tell a Domain Story sentence by sentence. When you start to replay with the play button ![Play Button](/assets/images/buttons/play.png), all sentences except the first one disappear. Clicking the forward button ![Forward Button](/assets/images/buttons/forward.png) shows the next sentence and clicking the previous button ![Previous Button](/assets/images/buttons/previous.png) shows the previous one. The current sentence is highlighted. The stop replaying, click the stop button ![Stop Button](/assets/images/buttons/stop.png).
 
-If a Domain Story contains groups, they appear as last step at the end of the story.
+If a Domain Story contains groups, they appear with the last sentence.
 
 Editing is disabled during replay, but you can zoom (ctrl + mouse wheel up and down), scroll up/down (mouse wheel up and down), and scroll left/right (shift + mouse wheel up and down). You can also move the modeling canvas by keeping the space bar pressed and move the mouse around.
 
