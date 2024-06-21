@@ -4052,10 +4052,18 @@ function fromConfigurationFromFile(configFromFile) {
   const actorsDict = new _dictionary_dictionary__WEBPACK_IMPORTED_MODULE_3__.Dictionary();
   const workObjectsDict = new _dictionary_dictionary__WEBPACK_IMPORTED_MODULE_3__.Dictionary();
   Object.keys(configFromFile.actors).forEach(key => {
-    actorsDict.add(configFromFile.actors[key], key);
+    let icon = configFromFile.actors[key];
+    if (icon) {
+      // make sure the actor has an icon
+      actorsDict.add(icon, key);
+    }
   });
   Object.keys(configFromFile.workObjects).forEach(key => {
-    workObjectsDict.add(configFromFile.workObjects[key], key);
+    let icon = configFromFile.workObjects[key];
+    if (icon) {
+      // make sure the work object has an icon
+      workObjectsDict.add(icon, key);
+    }
   });
   return {
     name: configFromFile.name,
@@ -8413,10 +8421,7 @@ class IconDictionaryService {
   addNewIconsToDictionary(customIcons) {
     customIcons.keysArray().forEach(key => {
       const custom = customIcons.get(key);
-      if (custom != null) {
-        // ignore broken custom icons
-        this.addIMGToIconDictionary(custom.src, key);
-      }
+      this.addIMGToIconDictionary(custom.src, key);
     });
     this.addIconsToCss(customIcons);
   }
