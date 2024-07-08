@@ -3,7 +3,7 @@ permalink: /
 title: "Egon.io"
 layout: splash
 header: 
-  overlay_color: "#f59542"
+  overlay_color: "#3EAFBF"
 #  overlay_image: /assets/images/schiele/krumau-an-der-moldau.jpg
 #  overlay_image: /assets/images/schiele/crescent-of-houses.jpg
   overlay_image: /assets/images/schiele/hauswand-am-fluss.jpg

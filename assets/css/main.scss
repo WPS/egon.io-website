@@ -1,1 +1,17 @@
-$link-color: rgb(0, 255, 255);
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+search: false
+---
+
+@charset "utf-8";
+
+// dark blue color of the Domain Storytelling logo
+$primary-color: #3EAFBF;
+$link-color: #3EAFBF;
+
+// light blue color of the Domain Storytelling logo
+$info-color: #A2D7E2; // used in .btn--info 
+
+
+@import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
+@import "minimal-mistakes"; // main partials
