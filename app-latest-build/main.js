@@ -3671,17 +3671,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Domain_Export_exportConstants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../Domain/Export/exportConstants */ 27901);
 
-let extraHeight = 0;
+let dynamicHeightOffset = 0;
 // Has to be js File so we can access te correct non-standard HTML-Properties without excessive usage of ts-ignore
-function createTitleAndDescriptionSVGElement(title, description, xLeft, yUp, width) {
+function createTitleAndDescriptionSVGElement(initDynamicHeightOffset, title, description, min_x, min_y, width) {
+  dynamicHeightOffset = initDynamicHeightOffset;
   title = title.replace("&lt;", "").replace("&gt;", "");
   let titleElement = createTitle(title, width);
   let descriptionElement = createDescription(description, width);
   // to display the title and description in the SVG-file, we need to add a container for our text-elements
-  let insertText = '<g class="djs-group"><g class="djs-element djs-shape" style = "display:block" transform="translate(' + (xLeft - 10) + " " + (yUp - extraHeight) + ')"><g class="djs-visual">' + titleElement + descriptionElement + "</g></g></g>";
+  let insertText = '<g class="djs-group"><g class="djs-element djs-shape" style = "display:block" transform="translate(' + (min_x - 10) + " " + (min_y - dynamicHeightOffset) + ')"><g class="djs-visual">' + titleElement + descriptionElement + "</g></g></g>";
   return {
     insertText,
-    extraHeight
+    dynamicHeightOffset: dynamicHeightOffset
   };
 }
 function createTitle(text, width) {
@@ -3704,11 +3705,14 @@ function createDescription(text, width) {
 function createTextSpans(text, width, ctx, yOffset, heightOffset, fontSize) {
   let textSpans = "";
   let words = text.split(" ");
+  // every leading empty strings in the array must be removed, otherwise the text elements
+  // will not be filled with text
+  words = removeLeadingEmptyStrings(words);
   let textTag = '<text lineHeight="1.2" class="djs-label" style="font-family: Arial, sans-serif; font-size: ' + fontSize + '; font-weight: normal; fill: rgb(0, 0, 0);">';
   let textSpan = document.createElementNS(_Domain_Export_exportConstants__WEBPACK_IMPORTED_MODULE_0__.SVG_LINK, "tspan");
   let textNode = document.createTextNode(words[0]);
   textSpan.setAttribute("x", _Domain_Export_exportConstants__WEBPACK_IMPORTED_MODULE_0__.X_OFFSET_UTIL);
-  textSpan.setAttribute("y", yOffset + extraHeight);
+  textSpan.setAttribute("y", yOffset + dynamicHeightOffset);
   textSpan.setAttribute("font-size", fontSize);
   textSpan.appendChild(textNode);
   for (let j = 1; j < words.length; j++) {
@@ -3716,21 +3720,25 @@ function createTextSpans(text, width, ctx, yOffset, heightOffset, fontSize) {
       let len = textSpan.firstChild.data.length;
       textNode.data += " " + words[j];
       if (ctx.measureText(textNode.data).width > width - 16) {
-        extraHeight += heightOffset;
+        dynamicHeightOffset += heightOffset;
         textSpan.firstChild.data = textSpan.firstChild.data.slice(0, len); // remove overflow word
         textSpans += textTag + textSpan.outerHTML + "</text>"; // append line
         // create new textspan for line break
         textSpan = document.createElementNS(_Domain_Export_exportConstants__WEBPACK_IMPORTED_MODULE_0__.SVG_LINK, "tspan");
         textNode = document.createTextNode(words[j]);
         textSpan.setAttribute("x", _Domain_Export_exportConstants__WEBPACK_IMPORTED_MODULE_0__.X_OFFSET_UTIL);
-        textSpan.setAttribute("y", yOffset + extraHeight);
+        textSpan.setAttribute("y", yOffset + dynamicHeightOffset);
         textSpan.appendChild(textNode);
       }
     }
   }
-  extraHeight += heightOffset;
+  dynamicHeightOffset += heightOffset;
   textSpans += textTag + textSpan.outerHTML + "</text>";
   return textSpans;
+}
+function removeLeadingEmptyStrings(stringArray) {
+  const firstNonEmptyIndex = stringArray.findIndex(string => string !== "");
+  return stringArray.slice(firstNonEmptyIndex === -1 ? stringArray.length : firstNonEmptyIndex);
 }
 
 /***/ }),
@@ -4202,6 +4210,7 @@ const testConfigAndDst = {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   DEFAULT_PADDING: () => (/* binding */ DEFAULT_PADDING),
 /* harmony export */   SVG_LINK: () => (/* binding */ SVG_LINK),
 /* harmony export */   TEXTSPAN_DESCRIPTION_HEIGHT: () => (/* binding */ TEXTSPAN_DESCRIPTION_HEIGHT),
 /* harmony export */   TEXTSPAN_TITLE_HEIGHT: () => (/* binding */ TEXTSPAN_TITLE_HEIGHT),
@@ -4211,6 +4220,7 @@ const SVG_LINK = 'http://www.w3.org/2000/svg';
 const X_OFFSET_UTIL = '8';
 const TEXTSPAN_TITLE_HEIGHT = 30;
 const TEXTSPAN_DESCRIPTION_HEIGHT = 15;
+const DEFAULT_PADDING = 15;
 
 /***/ }),
 
@@ -8028,12 +8038,12 @@ class PngService {
     this.calculateWidthAndHeight(box);
     const {
       insertText,
-      extraHeight
-    } = (0,src_app_Service_Export_exportUtil__WEBPACK_IMPORTED_MODULE_0__.createTitleAndDescriptionSVGElement)(title, description, box.xLeft + 10, box.yUp + 20, this.width);
+      dynamicHeightOffset
+    } = (0,src_app_Service_Export_exportUtil__WEBPACK_IMPORTED_MODULE_0__.createTitleAndDescriptionSVGElement)(0, title, description, box.xLeft + 10, box.yUp + 20, this.width);
     if (withTitle) {
-      this.height += extraHeight;
+      this.height += dynamicHeightOffset;
     }
-    const bounds = this.createBounds(box, extraHeight);
+    const bounds = this.createBounds(box, dynamicHeightOffset);
     const dataStart = svg.substring(0, viewBoxIndex);
     viewBoxIndex = svg.indexOf('style="');
     const dataEnd = svg.substring(viewBoxIndex);
@@ -8141,8 +8151,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   SvgService: () => (/* binding */ SvgService)
 /* harmony export */ });
 /* harmony import */ var src_app_Service_Export_exportUtil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/Service/Export/exportUtil */ 70908);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var _Modeler_modeler_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Modeler/modeler.service */ 74676);
+/* harmony import */ var _Domain_Export_exportConstants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../Domain/Export/exportConstants */ 27901);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 96623);
+/* harmony import */ var _Modeler_modeler_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Modeler/modeler.service */ 74676);
+
 
 
 
@@ -8153,45 +8165,53 @@ class SvgService {
   }
   createSVGData(title, description, dst, withTitle, useWhiteBackground) {
     this.cacheData = this.modelerService.getEncoded();
-    let data = structuredClone(this.cacheData);
-    let viewBoxIndex = data.indexOf('width="');
+    let domainStorySvg = structuredClone(this.cacheData);
+    let viewBoxIndex = domainStorySvg.indexOf('width="');
     let {
       width,
       height,
       viewBox
-    } = this.viewBoxCoordinates(data);
-    let xLeft;
-    let xRight;
-    let yUp;
-    let yDown;
+    } = this.viewBoxCoordinates(domainStorySvg);
+    // The value of the viewBox attribute is a list of four numbers separated by whitespace
+    // and/or a comma: min-x, min-y, width, and height. min-x and min-y represent the smallest
+    // X and Y coordinates that the viewBox may have (the origin coordinates of the viewBox)
+    // and the width and height specify the viewBox size. The resulting viewBox is a
+    // rectangle in user space mapped to the bounds of the viewport of an SVG element.
+    // https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox
+    let min_x;
+    let viewBoxWidth;
+    let min_y;
+    let viewBoxHeight;
     const splitViewBox = viewBox.split(/\s/);
-    xLeft = +splitViewBox[0];
-    yUp = +splitViewBox[1];
-    xRight = +splitViewBox[2];
-    yDown = +splitViewBox[3];
-    if (xRight < 300) {
-      xRight += 300;
+    min_x = +splitViewBox[0];
+    min_y = +splitViewBox[1];
+    viewBoxWidth = +splitViewBox[2];
+    viewBoxHeight = +splitViewBox[3];
+    // Set minimum width to ensure title and description are displayed reasonably
+    if (viewBoxWidth < 300) {
+      viewBoxWidth += 300;
       width += 300;
     }
     const {
-      insertText
-    } = (0,src_app_Service_Export_exportUtil__WEBPACK_IMPORTED_MODULE_0__.createTitleAndDescriptionSVGElement)(title, description, xLeft, yUp, width);
-    const bounds = this.createBounds(width, height, xLeft, yUp, xRight, yDown, withTitle);
-    const dataStart = data.substring(0, viewBoxIndex);
-    viewBoxIndex = data.indexOf('" version');
-    const dataEnd = data.substring(viewBoxIndex);
+      insertText,
+      dynamicHeightOffset
+    } = (0,src_app_Service_Export_exportUtil__WEBPACK_IMPORTED_MODULE_0__.createTitleAndDescriptionSVGElement)(0, title, description, min_x, min_y, width);
+    const bounds = this.createBounds(width, height, min_x, min_y, viewBoxWidth, viewBoxHeight, withTitle, dynamicHeightOffset);
+    const dataStart = domainStorySvg.substring(0, viewBoxIndex);
+    viewBoxIndex = domainStorySvg.indexOf('" version');
+    const dataEnd = domainStorySvg.substring(viewBoxIndex);
     dataEnd.substring(viewBoxIndex);
-    data = dataStart + bounds + dataEnd;
-    const insertIndex = this.findIndexToInsertData(data);
+    domainStorySvg = dataStart + bounds + dataEnd;
+    const insertIndex = this.findIndexToInsertData(domainStorySvg);
     if (withTitle) {
-      data = data.slice(0, insertIndex) + insertText + data.slice(insertIndex);
+      domainStorySvg = domainStorySvg.slice(0, insertIndex) + insertText + domainStorySvg.slice(insertIndex);
     }
     if (useWhiteBackground) {
-      const svgIndex = data.indexOf('width="');
+      const svgIndex = domainStorySvg.indexOf('width="');
       const backgroundColorWhite = 'style="background-color:white" ';
-      data = data.slice(0, svgIndex) + backgroundColorWhite + data.slice(svgIndex);
+      domainStorySvg = domainStorySvg.slice(0, svgIndex) + backgroundColorWhite + domainStorySvg.slice(svgIndex);
     }
-    return this.appendDST(data, dst);
+    return this.appendDST(domainStorySvg, dst);
   }
   findIndexToInsertData(data) {
     let insertIndex = data.indexOf('</defs>');
@@ -8202,8 +8222,12 @@ class SvgService {
     }
     return insertIndex;
   }
-  createBounds(width, height, xLeft, yUp, xRight, yDown, withTitle) {
-    return 'width="' + width + '" height=" ' + height + '" viewBox="' + xLeft + ' ' + (withTitle ? yUp - 80 : yUp) + ' ' + xRight + ' ' + (yDown + 30);
+  createBounds(width, height, min_x, min_y, viewBoxWidth, viewBoxHeight, withTitle, dynamicHeightOffset) {
+    height = withTitle ? height + dynamicHeightOffset + _Domain_Export_exportConstants__WEBPACK_IMPORTED_MODULE_1__.TEXTSPAN_TITLE_HEIGHT : height;
+    min_x = min_x - _Domain_Export_exportConstants__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_PADDING;
+    min_y = withTitle ? min_y - dynamicHeightOffset - _Domain_Export_exportConstants__WEBPACK_IMPORTED_MODULE_1__.TEXTSPAN_TITLE_HEIGHT : min_y;
+    viewBoxHeight = withTitle ? viewBoxHeight + dynamicHeightOffset + _Domain_Export_exportConstants__WEBPACK_IMPORTED_MODULE_1__.TEXTSPAN_TITLE_HEIGHT + _Domain_Export_exportConstants__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_PADDING : viewBoxHeight;
+    return `width="${width}" height="${height}" viewBox="${min_x} ${min_y} ${viewBoxWidth} ${viewBoxHeight}`;
   }
   viewBoxCoordinates(svg) {
     const ViewBoxCoordinate = /width="([^"]+)"\s+height="([^"]+)"\s+viewBox="([^"]+)"/;
@@ -8226,9 +8250,9 @@ class SvgService {
     return data;
   }
   static #_ = this.ɵfac = function SvgService_Factory(t) {
-    return new (t || SvgService)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_Modeler_modeler_service__WEBPACK_IMPORTED_MODULE_1__.ModelerService));
+    return new (t || SvgService)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](_Modeler_modeler_service__WEBPACK_IMPORTED_MODULE_2__.ModelerService));
   };
-  static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjectable"]({
+  static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineInjectable"]({
     token: SvgService,
     factory: SvgService.ɵfac,
     providedIn: 'root'
