@@ -8270,6 +8270,7 @@ class SvgService {
     min_x = min_x - _Domain_Export_exportConstants__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_PADDING;
     min_y = withTitle ? min_y - dynamicHeightOffset - _Domain_Export_exportConstants__WEBPACK_IMPORTED_MODULE_1__.TEXTSPAN_TITLE_HEIGHT : min_y;
     viewBoxHeight = withTitle ? viewBoxHeight + dynamicHeightOffset + _Domain_Export_exportConstants__WEBPACK_IMPORTED_MODULE_1__.TEXTSPAN_TITLE_HEIGHT + _Domain_Export_exportConstants__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_PADDING : viewBoxHeight;
+    viewBoxWidth = viewBoxWidth + _Domain_Export_exportConstants__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_PADDING;
     return `width="${width}" height="${height}" viewBox="${min_x} ${min_y} ${viewBoxWidth} ${viewBoxHeight}`;
   }
   viewBoxCoordinates(svg) {
