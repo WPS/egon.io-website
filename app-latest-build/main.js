@@ -1107,7 +1107,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
         height: element.height
       },
       actor;
-    let iconSRC = iconDictionary.getTypeIconSRC(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.ACTOR, src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.getNameFromType(element.type));
+    let iconSRC = iconDictionary.getTypeIconSRC(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.ACTOR, src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.getIconId(element.type));
     iconSRC = getIconSrc(iconSRC, element);
     actor = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.create)(iconSRC);
     (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.attr)(actor, svgDynamicSizeAttributes);
@@ -1123,7 +1123,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
         y: element.height / 2 - 25
       },
       workObject;
-    let iconSRC = iconDictionary.getTypeIconSRC(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.WORKOBJECT, src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.getNameFromType(element.type));
+    let iconSRC = iconDictionary.getTypeIconSRC(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.WORKOBJECT, src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.getIconId(element.type));
     iconSRC = getIconSrc(iconSRC, element);
     workObject = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.create)(iconSRC);
     (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.attr)(workObject, svgDynamicSizeAttributes);
@@ -3947,15 +3947,15 @@ var ElementTypes;
   ElementTypes["DOMAINSTORY"] = "domainStory:";
 })(ElementTypes || (ElementTypes = {}));
 (function (ElementTypes) {
-  function getNameFromType(type) {
-    if (type.includes(ElementTypes.ACTOR)) {
+  function getIconId(type) {
+    if (type.startsWith(ElementTypes.ACTOR)) {
       return type.replace(ElementTypes.ACTOR, '');
-    } else if (type.includes(ElementTypes.WORKOBJECT)) {
+    } else if (type.startsWith(ElementTypes.WORKOBJECT)) {
       return type.replace(ElementTypes.WORKOBJECT, '');
     }
     return '';
   }
-  ElementTypes.getNameFromType = getNameFromType;
+  ElementTypes.getIconId = getIconId;
 })(ElementTypes || (ElementTypes = {}));
 
 /***/ }),
@@ -8357,7 +8357,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var getNameFromType = src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.getNameFromType;
+var getIconId = src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.getIconId;
 
 const ICON_PREFIX = 'icon-domain-story-';
 class IconDictionaryService {
@@ -8407,7 +8407,7 @@ class IconDictionaryService {
     let allIn = true;
     if (elements) {
       elements.forEach(element => {
-        if (!collection.has(getNameFromType(element.type))) {
+        if (!collection.has(getIconId(element.type))) {
           allIn = false;
         }
       });
@@ -8446,10 +8446,10 @@ class IconDictionaryService {
   }
   addIconsToTypeDictionary(actorIcons, workObjectIcons) {
     if (!this.allInTypeDictionary(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.ACTOR, actorIcons)) {
-      this.addIconsFromIconSetConfiguration(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.ACTOR, actorIcons.map(element => getNameFromType(element.type)));
+      this.addIconsFromIconSetConfiguration(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.ACTOR, actorIcons.map(element => getIconId(element.type)));
     }
     if (!this.allInTypeDictionary(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.WORKOBJECT, workObjectIcons)) {
-      this.addIconsFromIconSetConfiguration(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.WORKOBJECT, workObjectIcons.map(element => getNameFromType(element.type)));
+      this.addIconsFromIconSetConfiguration(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.WORKOBJECT, workObjectIcons.map(element => getIconId(element.type)));
     }
   }
   registerIconForType(type, name, src) {
@@ -8500,7 +8500,7 @@ class IconDictionaryService {
         } else {
           elementType = src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.WORKOBJECT;
         }
-        this.registerIconForBPMN(ICON_PREFIX + name.toLowerCase(), getNameFromType(element.type), elementType);
+        this.registerIconForBPMN(ICON_PREFIX + name.toLowerCase(), getIconId(element.type), elementType);
       }
     });
     this.addNewIconsToDictionary(customIcons);
@@ -8810,7 +8810,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var getNameFromType = _Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.getNameFromType;
+var getIconId = _Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.getIconId;
 
 
 
@@ -9120,7 +9120,7 @@ class IconSetCustomizationService {
     let iconName;
     if (name.includes(_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.DOMAINSTORY)) {
       // TODO: td: This returns empty every time!
-      iconName = getNameFromType(name);
+      iconName = getIconId(name);
     } else {
       iconName = name;
     }
