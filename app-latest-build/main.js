@@ -868,13 +868,13 @@ const DEFAULT_COLOR = "black";
 /**
  * a renderer that knows how to render custom elements.
  */
-let iconDictionary;
-let elementRegistry;
-let dirtyFlag;
+let _iconDictionaryService;
+let _elementRegistryService;
+let _dirtyFlagService;
 function initializeRenderer(iconDictionaryService, elementRegistryService, dirtyFlagService) {
-  iconDictionary = iconDictionaryService;
-  elementRegistry = elementRegistryService;
-  dirtyFlag = dirtyFlagService;
+  _iconDictionaryService = iconDictionaryService;
+  _elementRegistryService = elementRegistryService;
+  _dirtyFlagService = dirtyFlagService;
 }
 function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, commandStack) {
   diagram_js_lib_draw_BaseRenderer__WEBPACK_IMPORTED_MODULE_9__["default"].call(this, eventBus, 2000);
@@ -1082,23 +1082,24 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
     renderEmbeddedLabel(parentGfx, element, "left-top", 8);
     return rect;
   };
-  function useColorForElement(element, iconSRC) {
-    if (!element.businessObject.pickedColor) {
-      element.businessObject.pickedColor = DEFAULT_COLOR;
+  function applyColorToIcon(pickedColor, iconSvg) {
+    if (!pickedColor) {
+      pickedColor = DEFAULT_COLOR;
     }
-    const match = iconSRC.match(/fill=".*?"/);
+    const match = iconSvg.match(/fill=".*?"/);
     if (match && match.length > 1) {
-      return iconSRC.replace(/fill=".*?"/, 'fill="' + element.businessObject.pickedColor + '"');
+      return iconSvg.replace(/fill=".*?"/, 'fill="' + pickedColor + '"');
     } else {
-      const index = iconSRC.indexOf("<svg ") + 5;
-      return iconSRC.substring(0, index) + ' fill=" ' + element.businessObject.pickedColor + '" ' + iconSRC.substring(index);
+      const index = iconSvg.indexOf("<svg ") + 5;
+      return iconSvg.substring(0, index) + ' fill=" ' + pickedColor + '" ' + iconSvg.substring(index);
     }
   }
-  function getIconSrc(iconSRC, element) {
-    if (iconSRC.startsWith("data")) {
-      return '<svg viewBox="0 0 24 24" width="48" height="48" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' + '<image width="24" height="24" xlink:href="' + iconSRC + '"/></svg>';
+  function getIconSvg(iconSvg, element) {
+    let isCustomIcon = iconSvg.startsWith("data") && src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.isCustomType(element);
+    if (isCustomIcon) {
+      return '<svg viewBox="0 0 24 24" width="48" height="48" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' + '<image width="24" height="24" xlink:href="' + iconSvg + '"/></svg>';
     } else {
-      return useColorForElement(element, iconSRC);
+      return applyColorToIcon(element.businessObject.pickedColor, iconSvg);
     }
   }
   this.drawActor = function (parent, element) {
@@ -1107,8 +1108,8 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
         height: element.height
       },
       actor;
-    let iconSRC = iconDictionary.getTypeIconSRC(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.ACTOR, src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.getIconId(element.type));
-    iconSRC = getIconSrc(iconSRC, element);
+    let iconSRC = _iconDictionaryService.getTypeIconSRC(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.ACTOR, src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.getIconId(element.type));
+    iconSRC = getIconSvg(iconSRC, element);
     actor = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.create)(iconSRC);
     (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.attr)(actor, svgDynamicSizeAttributes);
     (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.append)(parent, actor);
@@ -1123,8 +1124,8 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
         y: element.height / 2 - 25
       },
       workObject;
-    let iconSRC = iconDictionary.getTypeIconSRC(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.WORKOBJECT, src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.getIconId(element.type));
-    iconSRC = getIconSrc(iconSRC, element);
+    let iconSRC = _iconDictionaryService.getTypeIconSRC(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.WORKOBJECT, src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.getIconId(element.type));
+    iconSRC = getIconSvg(iconSRC, element);
     workObject = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.create)(iconSRC);
     (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.attr)(workObject, svgDynamicSizeAttributes);
     (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.append)(parent, workObject);
@@ -1404,8 +1405,8 @@ DomainStoryRenderer.prototype.drawShape = function (p, element) {
   }
   let type = element.type;
   element.businessObject.type = type;
-  elementRegistry.correctInitialize();
-  dirtyFlag.makeDirty();
+  _elementRegistryService.correctInitialize();
+  _dirtyFlagService.makeDirty();
   if (type.includes(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.ACTOR)) {
     return this.drawActor(p, element);
   } else if (type.includes(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.WORKOBJECT)) {
@@ -1428,7 +1429,7 @@ DomainStoryRenderer.prototype.getShapePath = function (shape) {
 };
 DomainStoryRenderer.prototype.drawConnection = function (p, element) {
   let type = element.type;
-  dirtyFlag.makeDirty();
+  _dirtyFlagService.makeDirty();
   // fixes activities that were copy-pasted
   if (!element.businessObject.type) {
     element.businessObject.type = type;
@@ -3945,6 +3946,7 @@ var ElementTypes;
   ElementTypes["GROUP"] = "domainStory:group";
   ElementTypes["TEXTANNOTATION"] = "domainStory:textAnnotation";
   ElementTypes["DOMAINSTORY"] = "domainStory:";
+  ElementTypes["CUSTOM"] = "-custom";
 })(ElementTypes || (ElementTypes = {}));
 (function (ElementTypes) {
   function getIconId(type) {
@@ -3956,6 +3958,10 @@ var ElementTypes;
     return '';
   }
   ElementTypes.getIconId = getIconId;
+  function isCustomType(type) {
+    return type.endsWith(ElementTypes.CUSTOM);
+  }
+  ElementTypes.isCustomType = isCustomType;
 })(ElementTypes || (ElementTypes = {}));
 
 /***/ }),
