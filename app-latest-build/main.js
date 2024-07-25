@@ -7622,6 +7622,12 @@ class ElementRegistryService {
         activitiesFromActors.push(activity);
       }
     });
+    // sort by activityBusinessObject number
+    activitiesFromActors.sort((activityCanvasA, activityCanvasB) => {
+      const activityNumberA = Number(activityCanvasA.businessObject.number);
+      const activityNumberB = Number(activityCanvasB.businessObject.number);
+      return activityNumberA - activityNumberB;
+    });
     return activitiesFromActors;
   }
   getUsedIcons() {
@@ -10227,7 +10233,7 @@ class ReplayService {
   }
   startReplay() {
     this.initializeReplay();
-    if (this.story?.length) {
+    if (this.story) {
       const missingSentences = this.storyCreatorService.getMissingSentences(this.story);
       if (missingSentences.length === 0) {
         this.replayStateService.setReplayState(true);
@@ -10298,10 +10304,10 @@ class StoryCreatorService {
       tracedActivityMapKeys.push(activityNumber - 1);
       tracedActivityMap.set(`${activityNumber - 1}`, tracedItem);
     });
-    let stroyIndex = 0;
+    let storyIndex = 0;
     tracedActivityMapKeys.forEach(key => {
-      this.createSentence(tracedActivityMap, key, story, stroyIndex);
-      stroyIndex++;
+      this.createSentence(tracedActivityMap, key, story, storyIndex);
+      storyIndex++;
     });
     this.addGroupsToLastSentence(story);
     return story;
