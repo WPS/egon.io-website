@@ -484,12 +484,19 @@ function DomainStoryContextPadProvider(injector, connect, translate, elementFact
         action: {
           click: function (event, element) {
             selectedElement = element;
+            Coloris({
+              swatches: ["#264653", "#2a9d8f", "#e9c46a", "rgb(244,162,97)", "#e76f51", "#d62828", "navy", "#07b", "#0096c7", "#08de21"]
+            });
             colorPicker.click();
+            console.log(event);
+            // Falls man den Picker mal umpositionieren will
+            //document.getElementById("clr-picker").setAttribute("style", `top: ${event.clientY}px; left: ${event.clientX}px;`)
           }
         }
       }
     });
   }
+
   function addTextAnnotation(actions) {
     (0,min_dash__WEBPACK_IMPORTED_MODULE_5__.assign)(actions, {
       "append.text-annotation": appendAction(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.TEXTANNOTATION, "bpmn-icon-text-annotation", "textannotation", "connect")
@@ -10675,7 +10682,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function AppComponent_app_settings_1_Template(rf, ctx) {
+function AppComponent_app_settings_2_Template(rf, ctx) {
   if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵelement"](0, "app-settings");
   }
@@ -10726,19 +10733,20 @@ class AppComponent {
     selectors: [["app-root"]],
     decls: 36,
     vars: 36,
-    consts: [["role", "main", 1, "content"], [4, "ngIf"], ["type", "color", "id", "colorPicker", 2, "display", "none"], ["src", "./favicon.ico", "height", "24", "alt", "Egon Logo"], ["href", "https://egon.io", "target", "_blank"], ["href", "https://egon.io/changelog", "target", "_blank"], ["src", "./assets/logo/wps-icon.ico", "height", "24", "alt", "WPS Logo"], ["href", "https://www.wps.de/", "target", "_blank"], ["href", "https://www.wps.de/datenschutz/", "target", "_blank"], ["href", "https://www.wps.de/impressum/", "target", "_blank"]],
+    consts: [["role", "main", 1, "content"], ["type", "text", "data-coloris", "", "id", "colorPicker", 2, "display", "none", "height", "0"], [4, "ngIf"], ["src", "./favicon.ico", "height", "24", "alt", "Egon Logo"], ["href", "https://egon.io", "target", "_blank"], ["href", "https://egon.io/changelog", "target", "_blank"], ["src", "./assets/logo/wps-icon.ico", "height", "24", "alt", "WPS Logo"], ["href", "https://www.wps.de/", "target", "_blank"], ["href", "https://www.wps.de/datenschutz/", "target", "_blank"], ["href", "https://www.wps.de/impressum/", "target", "_blank"]],
     template: function AppComponent_Template(rf, ctx) {
       if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵelementStart"](0, "div", 0);
-        _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵtemplate"](1, AppComponent_app_settings_1_Template, 1, 0, "app-settings", 1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵpipe"](2, "async");
-        _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵelementStart"](3, "div");
-        _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵpipe"](4, "async");
+        _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵelement"](1, "input", 1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵtemplate"](2, AppComponent_app_settings_2_Template, 1, 0, "app-settings", 2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵpipe"](3, "async");
+        _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵelementStart"](4, "div");
         _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵpipe"](5, "async");
         _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵpipe"](6, "async");
         _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵpipe"](7, "async");
         _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵpipe"](8, "async");
-        _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵelement"](9, "input", 2)(10, "app-header");
+        _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵpipe"](9, "async");
+        _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵelement"](10, "app-header");
         _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵpipe"](11, "async");
         _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵpipe"](12, "async");
         _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵelement"](13, "app-modeler");
@@ -10772,11 +10780,11 @@ class AppComponent {
         _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵelementEnd"]()()()();
       }
       if (rf & 2) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵadvance"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵproperty"]("ngIf", _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵpipeBind1"](2, 16, ctx.showSettings$));
         _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵclassProp"]("headerAndCanvas", !_angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵpipeBind1"](4, 18, ctx.showSettings$) && _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵpipeBind1"](5, 20, ctx.showDescription$))("headerAndCanvasCollapsed", !_angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵpipeBind1"](6, 22, ctx.showSettings$) && !_angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵpipeBind1"](7, 24, ctx.showDescription$))("hidden", _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵpipeBind1"](8, 26, ctx.showSettings$));
-        _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵadvance"](7);
+        _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵproperty"]("ngIf", _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵpipeBind1"](3, 16, ctx.showSettings$));
+        _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵadvance"](2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵclassProp"]("headerAndCanvas", !_angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵpipeBind1"](5, 18, ctx.showSettings$) && _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵpipeBind1"](6, 20, ctx.showDescription$))("headerAndCanvasCollapsed", !_angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵpipeBind1"](7, 22, ctx.showSettings$) && !_angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵpipeBind1"](8, 24, ctx.showDescription$))("hidden", _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵpipeBind1"](9, 26, ctx.showSettings$));
+        _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵadvance"](6);
         _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵclassProp"]("header", _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵpipeBind1"](11, 28, ctx.showDescription$))("headerCollapsed", !_angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵpipeBind1"](12, 30, ctx.showDescription$));
         _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵadvance"](4);
         _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵclassProp"]("logoContainer", !_angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵpipeBind1"](15, 32, ctx.showSettings$))("hidden", _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵpipeBind1"](16, 34, ctx.showSettings$));
