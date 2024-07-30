@@ -3252,8 +3252,8 @@ function initializeActivityUpdateHandler(canvasElementRegistryService) {
   canvasElementRegistry = canvasElementRegistryService;
 }
 function activityUpdateHandler(commandStack, eventBus) {
-  commandStack.register("activity.directionChange", activity_directionChange);
-  commandStack.register("activity.changed", activity_changed);
+  commandStack.registerHandler("activity.directionChange", activity_directionChange);
+  commandStack.registerHandler("activity.changed", activity_changed);
   // update the activity from the activity-dialog, either with or without number
   // and change other activities too, to keep the numbers consistent
   function activity_changed(modeling) {
@@ -3467,7 +3467,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function DSMassRenameHandler(commandStack, eventBus) {
-  commandStack.register("domainStoryObjects.massRename", massRename);
+  commandStack.registerHandler("domainStoryObjects.massRename", massRename);
   function massRename(modeling) {
     this.preExecute = function (context) {
       let relevantElements = context.elements;
@@ -7596,9 +7596,6 @@ class ElementRegistryService {
     return groupObjects;
   }
   checkChildForGroup(groupObjects, allObjects) {
-    if (!this.registry) {
-      return;
-    }
     const registryElementNames = Object.keys(this.registry);
     for (let name of registryElementNames) {
       const entry = this.registry[name].element;
