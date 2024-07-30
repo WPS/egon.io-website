@@ -1104,7 +1104,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
     }
   }
   function getIconSvg(iconSvg, element) {
-    let isCustomIcon = iconSvg.startsWith("data") && src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.isCustomType(element);
+    let isCustomIcon = iconSvg.startsWith("data") && src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.isCustomType(element.type);
     if (isCustomIcon) {
       return '<svg viewBox="0 0 24 24" width="48" height="48" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' + '<image width="24" height="24" xlink:href="' + iconSvg + '"/></svg>';
     } else {
