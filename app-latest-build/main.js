@@ -10692,7 +10692,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const _c0 = () => ["#fff", "#000", "#2889e9", "#e920e9", "#fff500", "rgb(236,64,64)"];
 function AppComponent_app_settings_2_Template(rf, ctx) {
   if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵelement"](0, "app-settings");
@@ -10706,6 +10705,32 @@ class AppComponent {
     this.replayStateService = replayStateService;
     this.version = _environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.version;
     this.color = '#000000';
+    // event storming colors for color picker
+    this.colorBox = ['#ff9d48',
+    // orange
+    '#a6ccf5',
+    // blue
+    '#9ea9ff',
+    // dark blue/purple
+    '#fff9b1',
+    // yellow
+    '#f5d128',
+    // sonny yellow
+    '#ea94bb',
+    // pink
+    '#d5f692',
+    // green
+    '#c9df56',
+    // darker green
+    '#c6a2d2',
+    // purple
+    '#eb7c88',
+    // red
+    '#9e9e9e',
+    // grey
+    '#000000' // black
+    ];
+
     this.showSettings$ = new rxjs__WEBPACK_IMPORTED_MODULE_10__.BehaviorSubject(false);
     this.showDescription$ = new rxjs__WEBPACK_IMPORTED_MODULE_10__.BehaviorSubject(true);
     document.addEventListener('keydown', e => {
@@ -10757,7 +10782,7 @@ class AppComponent {
     type: AppComponent,
     selectors: [["app-root"]],
     decls: 36,
-    vars: 41,
+    vars: 40,
     consts: [["role", "main", 1, "content"], ["id", "colorPicker", 2, "display", "none", "height", "0", 3, "colorPickerChange", "colorPickerClose", "cpPresetColors", "colorPicker"], [4, "ngIf"], ["src", "./favicon.ico", "height", "24", "alt", "Egon Logo"], ["href", "https://egon.io", "target", "_blank"], ["href", "https://egon.io/changelog", "target", "_blank"], ["src", "./assets/logo/wps-icon.ico", "height", "24", "alt", "WPS Logo"], ["href", "https://www.wps.de/", "target", "_blank"], ["href", "https://www.wps.de/datenschutz/", "target", "_blank"], ["href", "https://www.wps.de/impressum/", "target", "_blank"]],
     template: function AppComponent_Template(rf, ctx) {
       if (rf & 1) {
@@ -10814,7 +10839,7 @@ class AppComponent {
       if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵadvance"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵstyleProp"]("background", ctx.color);
-        _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵproperty"]("cpPresetColors", _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵpureFunction0"](40, _c0));
+        _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵproperty"]("cpPresetColors", ctx.colorBox);
         _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵtwoWayProperty"]("colorPicker", ctx.color);
         _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵadvance"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵproperty"]("ngIf", _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵpipeBind1"](3, 20, ctx.showSettings$));
