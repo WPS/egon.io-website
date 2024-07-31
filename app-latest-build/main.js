@@ -383,7 +383,7 @@ function DomainStoryContextPadProvider(injector, connect, translate, elementFact
       connect.start(event, element, autoActivate);
     };
     if (element.type.includes(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.WORKOBJECT)) {
-      if (allStandardIconKeys.includes(element.type.replace(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.WORKOBJECT, ""))) {
+      if (!src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.isCustomType(element.type) || src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.isCustomSvgType(element.type)) {
         addColorChange(actions);
       }
       addConnectWithActivity(actions, startConnect);
@@ -392,7 +392,7 @@ function DomainStoryContextPadProvider(injector, connect, translate, elementFact
       addWorkObjects(appendAction, actions);
       addChangeWorkObjectTypeMenu(actions);
     } else if (element.type.includes(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTOR)) {
-      if (allStandardIconKeys.includes(element.type.replace(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTOR, ""))) {
+      if (!src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.isCustomType(element.type) || src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.isCustomSvgType(element.type)) {
         addColorChange(actions);
       }
       addConnectWithActivity(actions, startConnect);
@@ -1099,35 +1099,46 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
     renderEmbeddedLabel(parentGfx, element, "left-top", 8);
     return rect;
   };
+  function applyColorToCustomSvgIcon(pickedColor, iconSvg) {
+    if (!pickedColor) {
+      return iconSvg;
+    }
+    const [rest, base64Svg] = iconSvg.split("base64,");
+    const svg = atob(base64Svg);
+    const coloredSvg = applyColorToIcon(pickedColor, svg);
+    const encodedColoredSvg = btoa(coloredSvg);
+    return rest + "base64," + encodedColoredSvg;
+  }
   function applyColorToIcon(pickedColor, iconSvg) {
     if (!pickedColor) {
       pickedColor = DEFAULT_COLOR;
     }
     const match = iconSvg.match(/fill=".*?"/);
-    if (match && match.length > 1) {
-      return iconSvg.replace(/fill=".*?"/, 'fill="' + pickedColor + '"');
+    if (match && match.length > 0) {
+      return iconSvg.replaceAll(/fill=".*?"/g, 'fill="' + pickedColor + '"');
     } else {
       const index = iconSvg.indexOf("<svg ") + 5;
       return iconSvg.substring(0, index) + ' fill=" ' + pickedColor + '" ' + iconSvg.substring(index);
     }
   }
   function getIconSvg(iconSvg, element) {
+    const pickedColor = element.businessObject.pickedColor;
     let isCustomIcon = iconSvg.startsWith("data") && src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.isCustomType(element.type);
     if (isCustomIcon) {
-      return '<svg viewBox="0 0 24 24" width="48" height="48" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' + '<image width="24" height="24" xlink:href="' + iconSvg + '"/></svg>';
+      const svg = src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.isCustomSvgType(element.type) ? applyColorToCustomSvgIcon(pickedColor, iconSvg) : iconSvg;
+      return '<svg viewBox="0 0 24 24" width="48" height="48" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' + '<image width="24" height="24" xlink:href="' + svg + '"/></svg>';
     } else {
-      return applyColorToIcon(element.businessObject.pickedColor, iconSvg);
+      return applyColorToIcon(pickedColor, iconSvg);
     }
   }
   this.drawActor = function (parent, element) {
     let svgDynamicSizeAttributes = {
-        width: element.width,
-        height: element.height
-      },
-      actor;
+      width: element.width,
+      height: element.height
+    };
     let iconSRC = _iconDictionaryService.getTypeIconSRC(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.ACTOR, src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.getIconId(element.type));
     iconSRC = getIconSvg(iconSRC, element);
-    actor = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.create)(iconSRC);
+    let actor = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.create)(iconSRC);
     (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.attr)(actor, svgDynamicSizeAttributes);
     (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.append)(parent, actor);
     renderEmbeddedLabel(parent, element, "center", -5);
@@ -3979,6 +3990,10 @@ var ElementTypes;
     return type.endsWith(ElementTypes.CUSTOM);
   }
   ElementTypes.isCustomType = isCustomType;
+  function isCustomSvgType(type) {
+    return type.endsWith('_svg' + ElementTypes.CUSTOM);
+  }
+  ElementTypes.isCustomSvgType = isCustomSvgType;
 })(ElementTypes || (ElementTypes = {}));
 
 /***/ }),
@@ -5752,7 +5767,7 @@ class IconSetConfigurationComponent {
     for (let iconInputFile of files) {
       const reader = new FileReader();
       const name = (0,src_app_Utils_sanitizer__WEBPACK_IMPORTED_MODULE_1__.sanitizeIconName)(iconInputFile.name);
-      const iconName = name + '_custom';
+      const iconName = name + _Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.CUSTOM;
       reader.onloadend = e => {
         if (e.target) {
           const src = e.target.result;
