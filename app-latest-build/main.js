@@ -10712,7 +10712,7 @@ class AppComponent {
     // blue
     '#9ea9ff',
     // dark blue/purple
-    '#fff9b1',
+    '#fff57e',
     // yellow
     '#f5d128',
     // sonny yellow
