@@ -10386,7 +10386,7 @@ class StoryCreatorService {
   }
   addGroupsToLastSentence(story) {
     const groups = this.elementRegistryService.getAllGroups();
-    if (groups.length > 0) {
+    if (groups.length > 0 && story.length > 0) {
       story[story.length - 1].objects = story[story.length - 1].objects.concat(groups.map(g => g.businessObject));
     }
   }
