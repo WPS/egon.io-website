@@ -10256,7 +10256,7 @@ class ReplayService {
   }
   startReplay() {
     this.initializeReplay();
-    if (this.story) {
+    if (this.story?.length) {
       const missingSentences = this.storyCreatorService.getMissingSentences(this.story);
       if (missingSentences.length === 0) {
         this.replayStateService.setReplayState(true);
@@ -10303,11 +10303,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   StoryCreatorService: () => (/* binding */ StoryCreatorService)
 /* harmony export */ });
-/* harmony import */ var _Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../Domain/Common/elementTypes */ 30236);
-/* harmony import */ var _Domain_Common_dictionary_dictionary__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../Domain/Common/dictionary/dictionary */ 54972);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var _ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../ElementRegistry/element-registry.service */ 67613);
-
+/* harmony import */ var _Domain_Common_dictionary_dictionary__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../Domain/Common/dictionary/dictionary */ 54972);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 96623);
+/* harmony import */ var _ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../ElementRegistry/element-registry.service */ 67613);
 
 
 
@@ -10316,16 +10314,16 @@ class StoryCreatorService {
     this.elementRegistryService = elementRegistryService;
   }
   traceActivitiesAndCreateStory() {
-    const tracedActivityMap = new _Domain_Common_dictionary_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
+    const tracedActivityMap = new _Domain_Common_dictionary_dictionary__WEBPACK_IMPORTED_MODULE_0__.Dictionary();
     const story = [];
     const activities = this.elementRegistryService.getActivitiesFromActors();
     const tracedActivityMapKeys = [];
     activities.forEach(activity => {
       const activityNumber = Number(activity.businessObject.number); // Sometimes the activityNumber is a string for some reason
-      const tracedItem = tracedActivityMap.get(`${activityNumber - 1}`) ?? [];
+      const tracedItem = tracedActivityMap.get(`${activityNumber}`) ?? [];
       tracedItem.push(activity);
-      tracedActivityMapKeys.push(activityNumber - 1);
-      tracedActivityMap.set(`${activityNumber - 1}`, tracedItem);
+      tracedActivityMapKeys.push(activityNumber);
+      tracedActivityMap.set(`${activityNumber}`, tracedItem);
     });
     let storyIndex = 0;
     tracedActivityMapKeys.forEach(key => {
@@ -10352,13 +10350,31 @@ class StoryCreatorService {
     };
   }
   getMissingSentences(story) {
+    // if the story is empty, no sequence number is missing
     if (!story || story.length === 0) {
       return [];
     }
+    // collect all sequence numbers of the story
+    const allActivityNumbersFromActors = story.map(sentence => {
+      // find all activity numbers of the ActivityBusinessObject
+      // and returned the highest one
+      const allActivityNumbers = sentence.objects.map(businessObject => {
+        if (businessObject.hasOwnProperty('number')) {
+          const activity = businessObject;
+          return activity.number ?? 0;
+        } else {
+          return 0;
+        }
+      });
+      return Math.max(...allActivityNumbers);
+    });
+    const highestSequenceNumber = Math.max(...allActivityNumbersFromActors);
     const missingSentences = [];
-    for (let i = 0; i < story.length; i++) {
-      if (!story[i] || story[i].objects.length <= 0 || story[i].highlightedObjects.length === 0 || story[i].objects.filter(element => element.type === _Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTIVITY).length <= 0) {
-        missingSentences.push(i + 1);
+    // with a high sequence number like 1_000_000, this could be led
+    // to long calculation or completely stop from Egon.io
+    for (let i = 1; i <= highestSequenceNumber; i++) {
+      if (!allActivityNumbersFromActors.includes(i)) {
+        missingSentences.push(i);
       }
     }
     return missingSentences;
@@ -10394,9 +10410,9 @@ class StoryCreatorService {
     }
   }
   static #_ = this.ɵfac = function StoryCreatorService_Factory(t) {
-    return new (t || StoryCreatorService)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_2__.ElementRegistryService));
+    return new (t || StoryCreatorService)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_1__.ElementRegistryService));
   };
-  static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineInjectable"]({
+  static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjectable"]({
     token: StoryCreatorService,
     factory: StoryCreatorService.ɵfac,
     providedIn: 'root'
