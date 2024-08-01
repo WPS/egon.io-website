@@ -1034,10 +1034,15 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
     // To circumvent this, we draw an arc.
     let circle = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.create)("path");
     let radius = 11;
-    let x = options.box.x + 17 + (number > 9 ? 3 : 0);
-    let y = options.box.y - radius - 4;
+    let x = options.box.x + 18 + (number > 9 ? 3 : 0);
+    let y = options.box.y - radius + 7;
     (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.attr)(circle, {
-      d: `M ${x} ${y} a ${radius} ${radius} 0 1 0 0.0001 0 z`,
+      d: `
+      M ${x} ${y}
+      m ${radius},0
+      a ${radius},${radius} 0 1,0 ${-radius * 2},0
+      a ${radius},${radius} 0 1,0 ${radius * 2},0
+      `,
       fill: "white",
       stroke: "black"
     });
