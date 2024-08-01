@@ -2895,7 +2895,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   numberBoxDefinitions: () => (/* binding */ numberBoxDefinitions),
 /* harmony export */   setNumberIsMultiple: () => (/* binding */ setNumberIsMultiple),
 /* harmony export */   updateExistingNumbersAtEditing: () => (/* binding */ updateExistingNumbersAtEditing),
-/* harmony export */   updateExistingNumbersAtGeneration: () => (/* binding */ updateExistingNumbersAtGeneration)
+/* harmony export */   updateExistingNumbersAtGeneration: () => (/* binding */ updateExistingNumbersAtGeneration),
+/* harmony export */   updateMultipleNumberRegistry: () => (/* binding */ updateMultipleNumberRegistry)
 /* harmony export */ });
 /* harmony import */ var _Utils_mathExtensions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../Utils/mathExtensions */ 114);
 
@@ -2906,6 +2907,9 @@ let multipleNumberRegistry = [false];
 let canvasElementRegistry;
 function initializeNumbering(canvasElementRegistryService) {
   canvasElementRegistry = canvasElementRegistryService;
+}
+function updateMultipleNumberRegistry(activityBusinessObjects) {
+  activityBusinessObjects.forEach(activity => multipleNumberRegistry[activity.number] = activity.multipleNumberAllowed);
 }
 // defines the box for activity numbers
 function numberBoxDefinitions(element) {
@@ -3020,10 +3024,12 @@ function updateExistingNumbersAtEditing(activitiesFromActors, wantedNumber, even
     sortedActivities[activity.businessObject.number].push(activity);
   });
   // set the number of each activity to the next highest number, starting from the number, we overrode
+  let oldMultipleNumberRegistry = [...multipleNumberRegistry];
   let currentNumber = wantedNumber;
   for (currentNumber; currentNumber < sortedActivities.length; currentNumber++) {
     if (sortedActivities[currentNumber]) {
       wantedNumber++;
+      multipleNumberRegistry[wantedNumber] = oldMultipleNumberRegistry[currentNumber];
       setNumberOfActivity(sortedActivities[currentNumber], wantedNumber, eventBus);
     }
   }
@@ -9967,14 +9973,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   ModelerService: () => (/* binding */ ModelerService)
 /* harmony export */ });
 /* harmony import */ var _home_runner_work_egon_io_egon_io_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 56207);
-/* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! min-dash */ 81410);
+/* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! min-dash */ 81410);
 /* harmony import */ var src_app_BPMN_JS__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/BPMN-JS */ 64225);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var _initializer_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./initializer.service */ 33666);
-/* harmony import */ var _ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../ElementRegistry/element-registry.service */ 67613);
-/* harmony import */ var _IconSetConfiguration_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../IconSetConfiguration/icon-dictionary.service */ 93689);
-/* harmony import */ var _IconSetConfiguration_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../IconSetConfiguration/icon-set-configuration.service */ 10200);
-/* harmony import */ var _BrowserStorage_storage_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../BrowserStorage/storage.service */ 59298);
+/* harmony import */ var _BPMN_JS_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../BPMN-JS/modeler/numbering/numbering */ 93043);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/core */ 96623);
+/* harmony import */ var _initializer_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./initializer.service */ 33666);
+/* harmony import */ var _ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../ElementRegistry/element-registry.service */ 67613);
+/* harmony import */ var _IconSetConfiguration_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../IconSetConfiguration/icon-dictionary.service */ 93689);
+/* harmony import */ var _IconSetConfiguration_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../IconSetConfiguration/icon-set-configuration.service */ 10200);
+/* harmony import */ var _BrowserStorage_storage_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../BrowserStorage/storage.service */ 59298);
+
 
 
 
@@ -10025,7 +10033,7 @@ class ModelerService {
     this.initializerService.initiateEventBusListeners(this.eventBus, this.commandStack);
     this.modeler.createDiagram();
     // expose bpmnjs to window for debugging purposes
-    (0,min_dash__WEBPACK_IMPORTED_MODULE_7__.assign)(window, {
+    (0,min_dash__WEBPACK_IMPORTED_MODULE_8__.assign)(window, {
       bpmnjs: this.modeler
     });
     this.startDebounce();
@@ -10043,6 +10051,7 @@ class ModelerService {
     this.elementRegistryService.clear();
     this.modeler?.destroy();
     this.postInit();
+    (0,_BPMN_JS_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_2__.updateMultipleNumberRegistry)(currentStory.filter(bo => bo.type === 'domainStory:activity').map(bo => bo).filter(bo => bo.number !== null));
     if (currentStory && this.modeler.get) {
       this.modeler.importCustomElements(currentStory);
     }
@@ -10086,9 +10095,9 @@ class ModelerService {
     })();
   }
   static #_ = this.ɵfac = function ModelerService_Factory(t) {
-    return new (t || ModelerService)(_angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵinject"](_initializer_service__WEBPACK_IMPORTED_MODULE_2__.InitializerService), _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵinject"](_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_3__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵinject"](_IconSetConfiguration_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_4__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵinject"](_IconSetConfiguration_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_5__.IconSetConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵinject"](_BrowserStorage_storage_service__WEBPACK_IMPORTED_MODULE_6__.StorageService));
+    return new (t || ModelerService)(_angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_initializer_service__WEBPACK_IMPORTED_MODULE_3__.InitializerService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_4__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_IconSetConfiguration_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_5__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_IconSetConfiguration_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_6__.IconSetConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_BrowserStorage_storage_service__WEBPACK_IMPORTED_MODULE_7__.StorageService));
   };
-  static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵdefineInjectable"]({
+  static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵdefineInjectable"]({
     token: ModelerService,
     factory: ModelerService.ɵfac,
     providedIn: 'root'
@@ -10256,7 +10265,7 @@ class ReplayService {
   }
   startReplay() {
     this.initializeReplay();
-    if (this.story?.length) {
+    if (this.story.length > 0) {
       const missingSentences = this.storyCreatorService.getMissingSentences(this.story);
       if (missingSentences.length === 0) {
         this.replayStateService.setReplayState(true);
@@ -10321,8 +10330,10 @@ class StoryCreatorService {
     activities.forEach(activity => {
       const activityNumber = Number(activity.businessObject.number); // Sometimes the activityNumber is a string for some reason
       const tracedItem = tracedActivityMap.get(`${activityNumber}`) ?? [];
+      if (!tracedActivityMapKeys.includes(activityNumber)) {
+        tracedActivityMapKeys.push(activityNumber);
+      }
       tracedItem.push(activity);
-      tracedActivityMapKeys.push(activityNumber);
       tracedActivityMap.set(`${activityNumber}`, tracedItem);
     });
     let storyIndex = 0;
@@ -10359,7 +10370,7 @@ class StoryCreatorService {
       // find all activity numbers of the ActivityBusinessObject
       // and returned the highest one
       const allActivityNumbers = sentence.objects.map(businessObject => {
-        if (businessObject.hasOwnProperty('number')) {
+        if (businessObject.type.includes('activity')) {
           const activity = businessObject;
           return activity.number ?? 0;
         } else {
