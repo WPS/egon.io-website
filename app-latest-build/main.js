@@ -10749,29 +10749,29 @@ class AppComponent {
     this.version = _environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.version;
     this.color = '#000000';
     this.skipNextColorUpdate = false;
-    // event storming colors for color picker
-    this.colorBox = ['#FFEB3B',
+    // define preset colors that have good contrast on white background and are compatible to EventStorming notation
+    this.colorBox = ['#FDD835',
     // yellow
-    '#FF9800',
+    '#FB8C00',
     // orange
-    '#F44336',
+    '#D32F2F',
     // red
     '#F48FB1',
-    // pink
-    '#9C27B0',
+    // light pink
+    '#EC407A',
+    // dark pink
+    '#8E24AA',
     // purple
-    '#2196F3',
-    // dark blue/purple
-    '#00BCD4',
+    '#1E88E5',
     // blue
-    '#4CAF50',
-    // darker green
-    '#CDDC39',
+    '#00ACC1',
+    // cyan
+    '#43A047',
     // green
+    '#C0CA33',
+    // lime
     '#9E9E9E',
     // grey
-    '#607D8B',
-    // darker grey
     '#000000' // black
     ];
 
