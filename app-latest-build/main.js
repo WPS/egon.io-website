@@ -1,10 +1,94 @@
 "use strict";
 (self["webpackChunkegon"] = self["webpackChunkegon"] || []).push([["main"],{
 
-/***/ 64225:
-/*!**********************************!*\
-  !*** ./src/app/BPMN-JS/index.js ***!
-  \**********************************/
+/***/ 10977:
+/*!***************************************************!*\
+  !*** ./src/app/tool/export/service/exportUtil.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createTitleAndDescriptionSVGElement: () => (/* binding */ createTitleAndDescriptionSVGElement)
+/* harmony export */ });
+/* harmony import */ var _domain_export_exportConstants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../domain/export/exportConstants */ 73007);
+
+let dynamicHeightOffset = 0;
+// Has to be js File so we can access te correct non-standard HTML-Properties without excessive usage of ts-ignore
+function createTitleAndDescriptionSVGElement(initDynamicHeightOffset, title, description, min_x, min_y, width) {
+  dynamicHeightOffset = initDynamicHeightOffset;
+  title = title.replace("&lt;", "").replace("&gt;", "");
+  let titleElement = createTitle(title, width);
+  let descriptionElement = createDescription(description, width);
+  // to display the title and description in the SVG-file, we need to add a container for our text-elements
+  let insertText = '<g class="djs-group"><g class="djs-element djs-shape" style = "display:block" transform="translate(' + (min_x - 10) + " " + (min_y - dynamicHeightOffset) + ')"><g class="djs-visual">' + titleElement + descriptionElement + "</g></g></g>";
+  return {
+    insertText,
+    dynamicHeightOffset: dynamicHeightOffset
+  };
+}
+function createTitle(text, width) {
+  let tempCanvas = document.createElement("canvas");
+  let ctx = tempCanvas.getContext("2d");
+  ctx.font = "30px Arial";
+  return createTextSpans(text, width, ctx, 10, _domain_export_exportConstants__WEBPACK_IMPORTED_MODULE_0__.TEXTSPAN_TITLE_HEIGHT, 30);
+}
+function createDescription(text, width) {
+  let description = "";
+  let descriptionParts = text.split("<br>");
+  let tempCanvas = document.createElement("canvas");
+  let ctx = tempCanvas.getContext("2d");
+  ctx.font = "12px Arial";
+  for (let i = 0; i < descriptionParts.length; i++) {
+    description += createTextSpans(descriptionParts[i], width, ctx, 0, _domain_export_exportConstants__WEBPACK_IMPORTED_MODULE_0__.TEXTSPAN_DESCRIPTION_HEIGHT, 12);
+  }
+  return description;
+}
+function createTextSpans(text, width, ctx, yOffset, heightOffset, fontSize) {
+  let textSpans = "";
+  let words = text.split(" ");
+  // every leading empty strings in the array must be removed, otherwise the text elements
+  // will not be filled with text
+  words = removeLeadingEmptyStrings(words);
+  let textTag = '<text lineHeight="1.2" class="djs-label" style="font-family: Arial, sans-serif; font-size: ' + fontSize + '; font-weight: normal; fill: rgb(0, 0, 0);">';
+  let textSpan = document.createElementNS(_domain_export_exportConstants__WEBPACK_IMPORTED_MODULE_0__.SVG_LINK, "tspan");
+  let textNode = document.createTextNode(words[0]);
+  textSpan.setAttribute("x", _domain_export_exportConstants__WEBPACK_IMPORTED_MODULE_0__.X_OFFSET_UTIL);
+  textSpan.setAttribute("y", yOffset + dynamicHeightOffset);
+  textSpan.setAttribute("font-size", fontSize);
+  textSpan.appendChild(textNode);
+  for (let j = 1; j < words.length; j++) {
+    if (textSpan.firstChild && textSpan.firstChild.data) {
+      let len = textSpan.firstChild.data.length;
+      textNode.data += " " + words[j];
+      if (ctx.measureText(textNode.data).width > width - 16) {
+        dynamicHeightOffset += heightOffset;
+        textSpan.firstChild.data = textSpan.firstChild.data.slice(0, len); // remove overflow word
+        textSpans += textTag + textSpan.outerHTML + "</text>"; // append line
+        // create new textspan for line break
+        textSpan = document.createElementNS(_domain_export_exportConstants__WEBPACK_IMPORTED_MODULE_0__.SVG_LINK, "tspan");
+        textNode = document.createTextNode(words[j]);
+        textSpan.setAttribute("x", _domain_export_exportConstants__WEBPACK_IMPORTED_MODULE_0__.X_OFFSET_UTIL);
+        textSpan.setAttribute("y", yOffset + dynamicHeightOffset);
+        textSpan.appendChild(textNode);
+      }
+    }
+  }
+  dynamicHeightOffset += heightOffset;
+  textSpans += textTag + textSpan.outerHTML + "</text>";
+  return textSpans;
+}
+function removeLeadingEmptyStrings(stringArray) {
+  const firstNonEmptyIndex = stringArray.findIndex(string => string !== "");
+  return stringArray.slice(firstNonEmptyIndex === -1 ? stringArray.length : firstNonEmptyIndex);
+}
+
+/***/ }),
+
+/***/ 48023:
+/*!********************************************!*\
+  !*** ./src/app/tool/modeler/bpmn/index.js ***!
+  \********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -16,10 +100,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! min-dash */ 81410);
 /* harmony import */ var inherits__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inherits */ 98069);
 /* harmony import */ var inherits__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(inherits__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _modeler__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modeler */ 9212);
-/* harmony import */ var _modeler_labeling__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modeler/labeling */ 45291);
-/* harmony import */ var _modeler_modeling__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modeler/modeling */ 99222);
-/* harmony import */ var _Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Domain/Common/elementTypes */ 30236);
+/* harmony import */ var _modeler__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modeler */ 50918);
+/* harmony import */ var _modeler_labeling__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modeler/labeling */ 8833);
+/* harmony import */ var _modeler_modeling__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modeler/modeling */ 51844);
+/* harmony import */ var _Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../Domain/Common/elementTypes */ 30236);
 
 
 
@@ -129,10 +213,10 @@ function isGroup(element) {
 
 /***/ }),
 
-/***/ 46269:
-/*!********************************************************!*\
-  !*** ./src/app/BPMN-JS/modeler/change-icon/replace.js ***!
-  \********************************************************/
+/***/ 31071:
+/*!******************************************************************!*\
+  !*** ./src/app/tool/modeler/bpmn/modeler/change-icon/replace.js ***!
+  \******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -179,18 +263,18 @@ Replace.prototype.replaceElement = replaceElement;
 
 /***/ }),
 
-/***/ 2843:
-/*!********************************************************************!*\
-  !*** ./src/app/BPMN-JS/modeler/change-icon/replaceMenuProvider.js ***!
-  \********************************************************************/
+/***/ 57089:
+/*!******************************************************************************!*\
+  !*** ./src/app/tool/modeler/bpmn/modeler/change-icon/replaceMenuProvider.js ***!
+  \******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ ReplaceMenuProvider)
 /* harmony export */ });
-/* harmony import */ var _replace__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./replace */ 46269);
-/* harmony import */ var _replaceOptions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./replaceOptions */ 82243);
+/* harmony import */ var _replace__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./replace */ 31071);
+/* harmony import */ var _replaceOptions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./replaceOptions */ 64577);
 /* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! min-dash */ 81410);
 
 
@@ -267,10 +351,10 @@ ReplaceMenuProvider.prototype._createMenuEntry = function (definition, element, 
 
 /***/ }),
 
-/***/ 82243:
-/*!***************************************************************!*\
-  !*** ./src/app/BPMN-JS/modeler/change-icon/replaceOptions.js ***!
-  \***************************************************************/
+/***/ 64577:
+/*!*************************************************************************!*\
+  !*** ./src/app/tool/modeler/bpmn/modeler/change-icon/replaceOptions.js ***!
+  \*************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -328,10 +412,10 @@ function workObjectReplaceOptions(name) {
 
 /***/ }),
 
-/***/ 48640:
-/*!******************************************************************************!*\
-  !*** ./src/app/BPMN-JS/modeler/context-pad/domainStoryContextPadProvider.js ***!
-  \******************************************************************************/
+/***/ 11446:
+/*!****************************************************************************************!*\
+  !*** ./src/app/tool/modeler/bpmn/modeler/context-pad/domainStoryContextPadProvider.js ***!
+  \****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -343,7 +427,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var inherits__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(inherits__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var bpmn_js_lib_features_context_pad_ContextPadProvider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! bpmn-js/lib/features/context-pad/ContextPadProvider */ 30862);
 /* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! min-dash */ 81410);
-/* harmony import */ var _numbering_numbering__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../numbering/numbering */ 93043);
+/* harmony import */ var _numbering_numbering__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../numbering/numbering */ 93213);
 /* harmony import */ var src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/Domain/Common/elementTypes */ 30236);
 /* harmony import */ var src_app_Domain_Icon_Set_Configuration_allIcons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/Domain/Icon-Set-Configuration/allIcons */ 57488);
 
@@ -634,10 +718,10 @@ DomainStoryContextPadProvider.$inject = ["injector", "connect", "translate", "el
 
 /***/ }),
 
-/***/ 89467:
-/*!**************************************************************!*\
-  !*** ./src/app/BPMN-JS/modeler/domainStoryElementFactory.js ***!
-  \**************************************************************/
+/***/ 3025:
+/*!************************************************************************!*\
+  !*** ./src/app/tool/modeler/bpmn/modeler/domainStoryElementFactory.js ***!
+  \************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -649,7 +733,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var inherits__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(inherits__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var bpmn_js_lib_features_modeling_ElementFactory__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! bpmn-js/lib/features/modeling/ElementFactory */ 5557);
 /* harmony import */ var bpmn_js_lib_util_LabelUtil__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! bpmn-js/lib/util/LabelUtil */ 81454);
-/* harmony import */ var _domainStoryIdFactory__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./domainStoryIdFactory */ 69664);
+/* harmony import */ var _domainStoryIdFactory__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./domainStoryIdFactory */ 4206);
 
 
 
@@ -771,10 +855,10 @@ class Dimensions {}
 
 /***/ }),
 
-/***/ 69664:
-/*!*********************************************************!*\
-  !*** ./src/app/BPMN-JS/modeler/domainStoryIdFactory.js ***!
-  \*********************************************************/
+/***/ 4206:
+/*!*******************************************************************!*\
+  !*** ./src/app/tool/modeler/bpmn/modeler/domainStoryIdFactory.js ***!
+  \*******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -832,10 +916,10 @@ function containsId(id) {
 
 /***/ }),
 
-/***/ 10282:
-/*!********************************************************!*\
-  !*** ./src/app/BPMN-JS/modeler/domainStoryRenderer.js ***!
-  \********************************************************/
+/***/ 47708:
+/*!******************************************************************!*\
+  !*** ./src/app/tool/modeler/bpmn/modeler/domainStoryRenderer.js ***!
+  \******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -847,17 +931,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var inherits__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(inherits__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var diagram_js_lib_draw_BaseRenderer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! diagram-js/lib/draw/BaseRenderer */ 14694);
 /* harmony import */ var ids__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ids */ 70678);
-/* harmony import */ var _labeling_dsLabelEditingPreview__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./labeling/dsLabelEditingPreview */ 34970);
+/* harmony import */ var src_app_tool_modeler_bpmn_modeler_labeling_dsLabelEditingPreview__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/tool/modeler/bpmn/modeler/labeling/dsLabelEditingPreview */ 29872);
 /* harmony import */ var diagram_js_lib_util_RenderUtil__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! diagram-js/lib/util/RenderUtil */ 96546);
 /* harmony import */ var tiny_svg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! tiny-svg */ 57491);
 /* harmony import */ var min_dom__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! min-dom */ 73599);
 /* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! min-dash */ 81410);
-/* harmony import */ var _labeling_dsLabelEditingProvider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./labeling/dsLabelEditingProvider */ 48153);
-/* harmony import */ var _numbering_numbering__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./numbering/numbering */ 93043);
-/* harmony import */ var _labeling_dsLabelUtil__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./labeling/dsLabelUtil */ 2970);
-/* harmony import */ var _labeling_position__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./labeling/position */ 7248);
+/* harmony import */ var src_app_tool_modeler_bpmn_modeler_labeling_dsLabelEditingProvider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/tool/modeler/bpmn/modeler/labeling/dsLabelEditingProvider */ 36671);
+/* harmony import */ var src_app_tool_modeler_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/tool/modeler/bpmn/modeler/numbering/numbering */ 93213);
+/* harmony import */ var src_app_tool_modeler_bpmn_modeler_labeling_dsLabelUtil__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/tool/modeler/bpmn/modeler/labeling/dsLabelUtil */ 85100);
+/* harmony import */ var src_app_tool_modeler_bpmn_modeler_labeling_position__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/tool/modeler/bpmn/modeler/labeling/position */ 15470);
 /* harmony import */ var src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/Domain/Common/elementTypes */ 30236);
-/* harmony import */ var _Utils_mathExtensions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../Utils/mathExtensions */ 114);
+/* harmony import */ var _Utils_mathExtensions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../Utils/mathExtensions */ 114);
 
 
 
@@ -898,7 +982,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
     // whenever we want to edit an activity, it gets redrawn as a new object
     // and the custom information is lost,
     // so we stash it before the editing occurs and set the value here
-    let numberStash = (0,_labeling_dsLabelEditingProvider__WEBPACK_IMPORTED_MODULE_3__.getNumberStash)();
+    let numberStash = (0,src_app_tool_modeler_bpmn_modeler_labeling_dsLabelEditingProvider__WEBPACK_IMPORTED_MODULE_3__.getNumberStash)();
     let semantic = element.businessObject;
     if (numberStash.use) {
       semantic.number = numberStash.number;
@@ -910,7 +994,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
       box.x += 3;
     }
     let newRenderedNumber = renderNumber(parentGfx, semantic.number, numberStyle(box), element.type);
-    (0,_numbering_numbering__WEBPACK_IMPORTED_MODULE_4__.addNumberToRegistry)(newRenderedNumber, semantic.number);
+    (0,src_app_tool_modeler_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_4__.addNumberToRegistry)(newRenderedNumber, semantic.number);
   }
   // style functions
   function numberStyle(box) {
@@ -964,9 +1048,9 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
   function renderExternalLabel(parentGfx, element) {
     let semantic = element.businessObject;
     let waypoints = element.waypoints;
-    let lines = (0,_labeling_position__WEBPACK_IMPORTED_MODULE_6__.countLines)(semantic.name);
+    let lines = (0,src_app_tool_modeler_bpmn_modeler_labeling_position__WEBPACK_IMPORTED_MODULE_6__.countLines)(semantic.name);
     if (element.waypoints != null) {
-      let position = (0,_labeling_position__WEBPACK_IMPORTED_MODULE_6__.labelPosition)(waypoints, lines);
+      let position = (0,src_app_tool_modeler_bpmn_modeler_labeling_position__WEBPACK_IMPORTED_MODULE_6__.labelPosition)(waypoints, lines);
       let startPoint = element.waypoints[position.selected];
       let endPoint = element.waypoints[position.selected + 1];
       let angle = (0,_Utils_mathExtensions__WEBPACK_IMPORTED_MODULE_8__.angleBetween)(startPoint, endPoint);
@@ -977,7 +1061,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
       if (angle === 0 || angle === 180) {
         boxWidth = Math.abs(startPoint.x - endPoint.x);
         alignment = "center";
-        xStart = (startPoint.x + endPoint.x) / 2 - (0,_labeling_dsLabelUtil__WEBPACK_IMPORTED_MODULE_5__.calculateTextWidth)(semantic.name);
+        xStart = (startPoint.x + endPoint.x) / 2 - (0,src_app_tool_modeler_bpmn_modeler_labeling_dsLabelUtil__WEBPACK_IMPORTED_MODULE_5__.calculateTextWidth)(semantic.name);
       }
       let box = {
         textAlign: alignment,
@@ -1004,9 +1088,9 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
   function renderExternalNumber(parentGfx, element) {
     if (element && element.source) {
       let semantic = element.businessObject;
-      let box = (0,_numbering_numbering__WEBPACK_IMPORTED_MODULE_4__.numberBoxDefinitions)(element);
+      let box = (0,src_app_tool_modeler_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_4__.numberBoxDefinitions)(element);
       if (semantic.number == null && element.source.type && element.source.type.includes(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.ACTOR)) {
-        (0,_numbering_numbering__WEBPACK_IMPORTED_MODULE_4__.generateAutomaticNumber)(element, commandStack);
+        (0,src_app_tool_modeler_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_4__.generateAutomaticNumber)(element, commandStack);
       }
       // render the background for the number
       if (semantic.number && element.source.type.includes(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.ACTOR)) {
@@ -1249,7 +1333,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
     };
     let text = element.businessObject.text || "";
     if (element.businessObject.text) {
-      let height = (0,_labeling_dsLabelEditingPreview__WEBPACK_IMPORTED_MODULE_2__.getAnnotationBoxHeight)();
+      let height = (0,src_app_tool_modeler_bpmn_modeler_labeling_dsLabelEditingPreview__WEBPACK_IMPORTED_MODULE_2__.getAnnotationBoxHeight)();
       if (height === 0 && element.businessObject.number) {
         height = element.businessObject.number;
       }
@@ -1479,10 +1563,10 @@ function getRectPath(shape) {
 
 /***/ }),
 
-/***/ 10798:
-/*!*****************************************************!*\
-  !*** ./src/app/BPMN-JS/modeler/domainStoryRules.js ***!
-  \*****************************************************/
+/***/ 33636:
+/*!***************************************************************!*\
+  !*** ./src/app/tool/modeler/bpmn/modeler/domainStoryRules.js ***!
+  \***************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -1494,7 +1578,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var inherits__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(inherits__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var diagram_js_lib_features_rules_RuleProvider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! diagram-js/lib/features/rules/RuleProvider */ 19812);
 /* harmony import */ var src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/Domain/Common/elementTypes */ 30236);
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./util */ 19102);
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./util */ 6232);
 
 
 
@@ -1740,10 +1824,10 @@ DomainStoryRules.prototype.canResize = canResize;
 
 /***/ }),
 
-/***/ 41360:
-/*!*******************************************************!*\
-  !*** ./src/app/BPMN-JS/modeler/domainStoryUpdater.js ***!
-  \*******************************************************/
+/***/ 17450:
+/*!*****************************************************************!*\
+  !*** ./src/app/tool/modeler/bpmn/modeler/domainStoryUpdater.js ***!
+  \*****************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -1755,8 +1839,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! min-dash */ 81410);
 /* harmony import */ var diagram_js_lib_command_CommandInterceptor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! diagram-js/lib/command/CommandInterceptor */ 35353);
 /* harmony import */ var diagram_js_lib_util_Collections__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! diagram-js/lib/util/Collections */ 39233);
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./util */ 19102);
-/* harmony import */ var _Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Domain/Common/elementTypes */ 30236);
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./util */ 6232);
+/* harmony import */ var _Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../Domain/Common/elementTypes */ 30236);
 
 
 
@@ -1888,32 +1972,32 @@ DomainStoryUpdater.$inject = ["eventBus", "bpmnjs"];
 
 /***/ }),
 
-/***/ 9212:
-/*!******************************************!*\
-  !*** ./src/app/BPMN-JS/modeler/index.js ***!
-  \******************************************/
+/***/ 50918:
+/*!****************************************************!*\
+  !*** ./src/app/tool/modeler/bpmn/modeler/index.js ***!
+  \****************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _domainStoryElementFactory__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./domainStoryElementFactory */ 89467);
-/* harmony import */ var _domainStoryRenderer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./domainStoryRenderer */ 10282);
-/* harmony import */ var _palette_domainStoryPalette__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./palette/domainStoryPalette */ 97774);
-/* harmony import */ var _domainStoryRules__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./domainStoryRules */ 10798);
-/* harmony import */ var _domainStoryUpdater__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./domainStoryUpdater */ 41360);
+/* harmony import */ var _domainStoryElementFactory__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./domainStoryElementFactory */ 3025);
+/* harmony import */ var _domainStoryRenderer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./domainStoryRenderer */ 47708);
+/* harmony import */ var _palette_domainStoryPalette__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./palette/domainStoryPalette */ 24088);
+/* harmony import */ var _domainStoryRules__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./domainStoryRules */ 33636);
+/* harmony import */ var _domainStoryUpdater__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./domainStoryUpdater */ 17450);
 /* harmony import */ var bpmn_js_lib_features_modeling_ElementFactory__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! bpmn-js/lib/features/modeling/ElementFactory */ 5557);
 /* harmony import */ var diagram_js_lib_features_create__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! diagram-js/lib/features/create */ 48256);
 /* harmony import */ var bpmn_js_lib_draw_PathMap__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! bpmn-js/lib/draw/PathMap */ 56089);
 /* harmony import */ var bpmn_js_lib_features_popup_menu__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! bpmn-js/lib/features/popup-menu */ 30918);
 /* harmony import */ var diagram_js_lib_features_context_pad__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! diagram-js/lib/features/context-pad */ 93331);
 /* harmony import */ var diagram_js_lib_command_CommandStack__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! diagram-js/lib/command/CommandStack */ 77738);
-/* harmony import */ var _updateHandler_updateLabelHandler__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./updateHandler/updateLabelHandler */ 31401);
-/* harmony import */ var _updateHandler_headlineAndDescriptionUpdateHandler__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./updateHandler/headlineAndDescriptionUpdateHandler */ 33524);
-/* harmony import */ var _context_pad_domainStoryContextPadProvider__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./context-pad/domainStoryContextPadProvider */ 48640);
-/* harmony import */ var _change_icon_replaceMenuProvider__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./change-icon/replaceMenuProvider */ 2843);
-/* harmony import */ var _modeling_dSModeling__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modeling/dSModeling */ 8070);
+/* harmony import */ var _updateHandler_updateLabelHandler__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./updateHandler/updateLabelHandler */ 71131);
+/* harmony import */ var _updateHandler_headlineAndDescriptionUpdateHandler__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./updateHandler/headlineAndDescriptionUpdateHandler */ 89866);
+/* harmony import */ var _context_pad_domainStoryContextPadProvider__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./context-pad/domainStoryContextPadProvider */ 11446);
+/* harmony import */ var _change_icon_replaceMenuProvider__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./change-icon/replaceMenuProvider */ 57089);
+/* harmony import */ var _modeling_dSModeling__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modeling/dSModeling */ 79388);
 
 
 
@@ -1952,10 +2036,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 34970:
-/*!*******************************************************************!*\
-  !*** ./src/app/BPMN-JS/modeler/labeling/dsLabelEditingPreview.js ***!
-  \*******************************************************************/
+/***/ 29872:
+/*!*****************************************************************************!*\
+  !*** ./src/app/tool/modeler/bpmn/modeler/labeling/dsLabelEditingPreview.js ***!
+  \*****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -1965,8 +2049,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var tiny_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tiny-svg */ 57491);
 /* harmony import */ var diagram_js_lib_util_SvgTransformUtil__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! diagram-js/lib/util/SvgTransformUtil */ 81384);
-/* harmony import */ var _Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../Domain/Common/elementTypes */ 30236);
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util */ 19102);
+/* harmony import */ var src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/Domain/Common/elementTypes */ 30236);
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util */ 6232);
 
 
 
@@ -1987,7 +2071,7 @@ function DSLabelEditingPreview(eventBus, canvas, pathMap) {
     let activeProvider = context.active;
     element = activeProvider.element.label || activeProvider.element;
     // text annotation
-    if ((0,_util__WEBPACK_IMPORTED_MODULE_1__.is)(element, _Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.TEXTANNOTATION)) {
+    if ((0,_util__WEBPACK_IMPORTED_MODULE_1__.is)(element, src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.TEXTANNOTATION)) {
       absoluteElementBBox = canvas.getAbsoluteBBox(element);
       gfx = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_2__.create)("g");
       annotationBoxHeight = element.height;
@@ -2011,15 +2095,15 @@ function DSLabelEditingPreview(eventBus, canvas, pathMap) {
       (0,tiny_svg__WEBPACK_IMPORTED_MODULE_2__.append)(defaultLayer, gfx);
       (0,diagram_js_lib_util_SvgTransformUtil__WEBPACK_IMPORTED_MODULE_3__.translate)(gfx, element.x, element.y);
     }
-    if ((0,_util__WEBPACK_IMPORTED_MODULE_1__.is)(element, _Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.TEXTANNOTATION) || element.labelTarget) {
+    if ((0,_util__WEBPACK_IMPORTED_MODULE_1__.is)(element, src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.TEXTANNOTATION) || element.labelTarget) {
       canvas.addMarker(element, MARKER_HIDDEN);
-    } else if (element.type.includes(_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTOR) || element.type.includes(_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.WORKOBJECT) || element.type.includes(_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTIVITY) || element.type.includes(_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.GROUP)) {
+    } else if (element.type.includes(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTOR) || element.type.includes(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.WORKOBJECT) || element.type.includes(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTIVITY) || element.type.includes(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.GROUP)) {
       canvas.addMarker(element, MARKER_LABEL_HIDDEN);
     }
   });
   eventBus.on("directEditing.resize", function (context) {
     // text annotation
-    if ((0,_util__WEBPACK_IMPORTED_MODULE_1__.is)(element, _Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.TEXTANNOTATION)) {
+    if ((0,_util__WEBPACK_IMPORTED_MODULE_1__.is)(element, src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.TEXTANNOTATION)) {
       let height = context.height,
         dy = context.dy;
       let newElementHeight = Math.max(element.height / absoluteElementBBox.height * (height + dy), 0);
@@ -2061,10 +2145,10 @@ function getStrokeColor() {
 
 /***/ }),
 
-/***/ 48153:
-/*!********************************************************************!*\
-  !*** ./src/app/BPMN-JS/modeler/labeling/dsLabelEditingProvider.js ***!
-  \********************************************************************/
+/***/ 36671:
+/*!******************************************************************************!*\
+  !*** ./src/app/tool/modeler/bpmn/modeler/labeling/dsLabelEditingProvider.js ***!
+  \******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -2076,11 +2160,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   toggleStashUse: () => (/* binding */ toggleStashUse)
 /* harmony export */ });
 /* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! min-dash */ 81410);
-/* harmony import */ var _dsLabelUtil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dsLabelUtil */ 2970);
+/* harmony import */ var _dsLabelUtil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dsLabelUtil */ 85100);
 /* harmony import */ var bpmn_js_lib_features_modeling_util_ModelingUtil__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! bpmn-js/lib/features/modeling/util/ModelingUtil */ 4525);
 /* harmony import */ var bpmn_js_lib_util_LabelUtil__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! bpmn-js/lib/util/LabelUtil */ 81454);
-/* harmony import */ var _Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../Domain/Common/elementTypes */ 30236);
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../util */ 19102);
+/* harmony import */ var src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/Domain/Common/elementTypes */ 30236);
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../util */ 6232);
 
 
 
@@ -2121,7 +2205,7 @@ function DSLabelEditingProvider(eventBus, canvas, directEditing, modeling, resiz
   // listen to dblclick on non-root elements
   eventBus.on("element.dblclick", function (event) {
     activateDirectEdit(event.element, true);
-    if ((0,_util__WEBPACK_IMPORTED_MODULE_2__.is)(event.element, _Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.ACTIVITY)) {
+    if ((0,_util__WEBPACK_IMPORTED_MODULE_2__.is)(event.element, src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.ACTIVITY)) {
       // if we edit an activity, we do not want the standard editing box
       numberStash = event.element.businessObject.number;
       stashUse = true;
@@ -2155,7 +2239,7 @@ function DSLabelEditingProvider(eventBus, canvas, directEditing, modeling, resiz
     if (!canExecute) {
       return;
     }
-    if (!(0,_util__WEBPACK_IMPORTED_MODULE_2__.is)(element, _Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.ACTIVITY)) {
+    if (!(0,_util__WEBPACK_IMPORTED_MODULE_2__.is)(element, src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.ACTIVITY)) {
       activateDirectEdit(element);
     }
     let editingBox = document.getElementsByClassName("djs-direct-editing-content");
@@ -2165,7 +2249,7 @@ function DSLabelEditingProvider(eventBus, canvas, directEditing, modeling, resiz
     activateDirectEdit(event.shape);
   });
   function activateDirectEdit(element, force) {
-    if (force || (0,bpmn_js_lib_features_modeling_util_ModelingUtil__WEBPACK_IMPORTED_MODULE_3__.isAny)(element, [_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.TEXTANNOTATION]) || element.businessObject.type.includes(_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.DOMAINSTORY)) {
+    if (force || (0,bpmn_js_lib_features_modeling_util_ModelingUtil__WEBPACK_IMPORTED_MODULE_3__.isAny)(element, [src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.TEXTANNOTATION]) || element.businessObject.type.includes(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.DOMAINSTORY)) {
       directEditing.activate(element);
     }
   }
@@ -2206,7 +2290,7 @@ DSLabelEditingProvider.prototype.activate = function (element) {
     });
   }
   // text annotations
-  if ((0,_util__WEBPACK_IMPORTED_MODULE_2__.is)(element, _Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.TEXTANNOTATION)) {
+  if ((0,_util__WEBPACK_IMPORTED_MODULE_2__.is)(element, src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.TEXTANNOTATION)) {
     (0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)(options, {
       resizable: true,
       autoResize: true
@@ -2253,7 +2337,7 @@ DSLabelEditingProvider.prototype.getEditingBBox = function (element) {
     fontWeight: this._textRenderer.getDefaultStyle().fontWeight
   };
   // adjust for groups
-  if ((0,_util__WEBPACK_IMPORTED_MODULE_2__.is)(element, _Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.GROUP)) {
+  if ((0,_util__WEBPACK_IMPORTED_MODULE_2__.is)(element, src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.GROUP)) {
     (0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)(bounds, {
       minWidth: bbox.width / 2.5 > 125 ? bbox.width / 2.5 : 125,
       maxWidth: bbox.width,
@@ -2331,7 +2415,7 @@ DSLabelEditingProvider.prototype.getEditingBBox = function (element) {
     });
   }
   // text annotations
-  if ((0,_util__WEBPACK_IMPORTED_MODULE_2__.is)(element, _Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.TEXTANNOTATION)) {
+  if ((0,_util__WEBPACK_IMPORTED_MODULE_2__.is)(element, src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.TEXTANNOTATION)) {
     (0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)(bounds, {
       width: bbox.width,
       height: bbox.height,
@@ -2355,7 +2439,7 @@ DSLabelEditingProvider.prototype.getEditingBBox = function (element) {
 };
 DSLabelEditingProvider.prototype.update = function (element, newLabel, activeContextText, bounds) {
   let newBounds, bbox;
-  if ((0,_util__WEBPACK_IMPORTED_MODULE_2__.is)(element, _Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.TEXTANNOTATION)) {
+  if ((0,_util__WEBPACK_IMPORTED_MODULE_2__.is)(element, src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.TEXTANNOTATION)) {
     bbox = this._canvas.getAbsoluteBBox(element);
     newBounds = {
       x: element.x,
@@ -2369,10 +2453,10 @@ DSLabelEditingProvider.prototype.update = function (element, newLabel, activeCon
 
 /***/ }),
 
-/***/ 2970:
-/*!*********************************************************!*\
-  !*** ./src/app/BPMN-JS/modeler/labeling/dsLabelUtil.js ***!
-  \*********************************************************/
+/***/ 85100:
+/*!*******************************************************************!*\
+  !*** ./src/app/tool/modeler/bpmn/modeler/labeling/dsLabelUtil.js ***!
+  \*******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -2386,7 +2470,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   setNumber: () => (/* binding */ setNumber)
 /* harmony export */ });
 /* harmony import */ var src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/Domain/Common/elementTypes */ 30236);
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util */ 19102);
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util */ 6232);
 
 
 
@@ -2586,10 +2670,10 @@ function autocomplete(input, workObjectNames, element, eventBus) {
 
 /***/ }),
 
-/***/ 45291:
-/*!***************************************************!*\
-  !*** ./src/app/BPMN-JS/modeler/labeling/index.js ***!
-  \***************************************************/
+/***/ 8833:
+/*!*************************************************************!*\
+  !*** ./src/app/tool/modeler/bpmn/modeler/labeling/index.js ***!
+  \*************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -2600,10 +2684,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var diagram_js_lib_features_resize__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! diagram-js/lib/features/resize */ 40844);
 /* harmony import */ var diagram_js_direct_editing__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! diagram-js-direct-editing */ 32110);
 /* harmony import */ var diagram_js_lib_command_CommandStack__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! diagram-js/lib/command/CommandStack */ 77738);
-/* harmony import */ var _updateHandler_updateLabelHandler__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../updateHandler/updateLabelHandler */ 31401);
-/* harmony import */ var _dsLabelEditingPreview__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./dsLabelEditingPreview */ 34970);
-/* harmony import */ var _dsLabelEditingProvider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./dsLabelEditingProvider */ 48153);
-/* harmony import */ var _modeling_dSModeling__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../modeling/dSModeling */ 8070);
+/* harmony import */ var _updateHandler_updateLabelHandler__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../updateHandler/updateLabelHandler */ 71131);
+/* harmony import */ var _dsLabelEditingPreview__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./dsLabelEditingPreview */ 29872);
+/* harmony import */ var _dsLabelEditingProvider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./dsLabelEditingProvider */ 36671);
+/* harmony import */ var _modeling_dSModeling__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../modeling/dSModeling */ 79388);
 
 
 
@@ -2626,10 +2710,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 7248:
-/*!******************************************************!*\
-  !*** ./src/app/BPMN-JS/modeler/labeling/position.js ***!
-  \******************************************************/
+/***/ 15470:
+/*!****************************************************************!*\
+  !*** ./src/app/tool/modeler/bpmn/modeler/labeling/position.js ***!
+  \****************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -2639,8 +2723,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   labelPositionX: () => (/* binding */ labelPositionX),
 /* harmony export */   labelPositionY: () => (/* binding */ labelPositionY)
 /* harmony export */ });
-/* harmony import */ var _dsLabelUtil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dsLabelUtil */ 2970);
-/* harmony import */ var _Utils_mathExtensions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../Utils/mathExtensions */ 114);
+/* harmony import */ var _dsLabelUtil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dsLabelUtil */ 85100);
+/* harmony import */ var src_app_Utils_mathExtensions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/Utils/mathExtensions */ 114);
 
 
 
@@ -2658,7 +2742,7 @@ function labelPosition(waypoints, lines = 1) {
     let angleActivity = new Array(amountWaypoints - 1);
     for (let i = 0; i < amountWaypoints - 1; i++) {
       // calculate the angles of the activities
-      angleActivity[i] = (0,_Utils_mathExtensions__WEBPACK_IMPORTED_MODULE_1__.angleBetween)(waypoints[i], waypoints[i + 1]);
+      angleActivity[i] = (0,src_app_Utils_mathExtensions__WEBPACK_IMPORTED_MODULE_1__.angleBetween)(waypoints[i], waypoints[i + 1]);
     }
     let selectedActivity = (0,_dsLabelUtil__WEBPACK_IMPORTED_MODULE_0__.selectPartOfActivity)(waypoints, angleActivity);
     xPos = labelPositionX(waypoints[selectedActivity], waypoints[selectedActivity + 1]);
@@ -2682,7 +2766,7 @@ function labelPosition(waypoints, lines = 1) {
 }
 // calculate the X position of the label
 function labelPositionX(startPoint, endPoint) {
-  let angle = (0,_Utils_mathExtensions__WEBPACK_IMPORTED_MODULE_1__.angleBetween)(startPoint, endPoint);
+  let angle = (0,src_app_Utils_mathExtensions__WEBPACK_IMPORTED_MODULE_1__.angleBetween)(startPoint, endPoint);
   let offsetX = 0;
   let scaledAngle = 0;
   if (angle === 0 || angle === 180 || angle === 90 || angle === 270) {
@@ -2707,7 +2791,7 @@ function labelPositionX(startPoint, endPoint) {
 }
 // calculate the Y position of the label
 function labelPositionY(startPoint, endPoint, lines = 1) {
-  let angle = (0,_Utils_mathExtensions__WEBPACK_IMPORTED_MODULE_1__.angleBetween)(startPoint, endPoint);
+  let angle = (0,src_app_Utils_mathExtensions__WEBPACK_IMPORTED_MODULE_1__.angleBetween)(startPoint, endPoint);
   let offsetY = 0;
   let scaledAngle = 0;
   if (angle === 0 || angle === 180) {
@@ -2735,10 +2819,10 @@ function labelPositionY(startPoint, endPoint, lines = 1) {
 
 /***/ }),
 
-/***/ 8070:
-/*!********************************************************!*\
-  !*** ./src/app/BPMN-JS/modeler/modeling/dSModeling.js ***!
-  \********************************************************/
+/***/ 79388:
+/*!******************************************************************!*\
+  !*** ./src/app/tool/modeler/bpmn/modeler/modeling/dSModeling.js ***!
+  \******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -2811,32 +2895,32 @@ DSModeling.$inject = ["eventBus", "elementFactory", "commandStack", "domainStory
 
 /***/ }),
 
-/***/ 99222:
-/*!***************************************************!*\
-  !*** ./src/app/BPMN-JS/modeler/modeling/index.js ***!
-  \***************************************************/
+/***/ 51844:
+/*!*************************************************************!*\
+  !*** ./src/app/tool/modeler/bpmn/modeler/modeling/index.js ***!
+  \*************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _palette_domainStoryPalette__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../palette/domainStoryPalette */ 97774);
+/* harmony import */ var _palette_domainStoryPalette__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../palette/domainStoryPalette */ 24088);
 /* harmony import */ var bpmn_js_lib_features_modeling_ElementFactory__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! bpmn-js/lib/features/modeling/ElementFactory */ 5557);
 /* harmony import */ var diagram_js_lib_features_create__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! diagram-js/lib/features/create */ 48256);
 /* harmony import */ var bpmn_js_lib_draw_PathMap__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! bpmn-js/lib/draw/PathMap */ 56089);
 /* harmony import */ var bpmn_js_lib_features_popup_menu__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! bpmn-js/lib/features/popup-menu */ 30918);
 /* harmony import */ var diagram_js_lib_features_context_pad__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! diagram-js/lib/features/context-pad */ 93331);
 /* harmony import */ var diagram_js_lib_command_CommandStack__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! diagram-js/lib/command/CommandStack */ 77738);
-/* harmony import */ var _updateHandler_updateLabelHandler__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../updateHandler/updateLabelHandler */ 31401);
-/* harmony import */ var _domainStoryUpdater__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../domainStoryUpdater */ 41360);
-/* harmony import */ var _domainStoryElementFactory__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../domainStoryElementFactory */ 89467);
-/* harmony import */ var _updateHandler_headlineAndDescriptionUpdateHandler__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../updateHandler/headlineAndDescriptionUpdateHandler */ 33524);
-/* harmony import */ var _domainStoryRenderer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../domainStoryRenderer */ 10282);
-/* harmony import */ var _dSModeling__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./dSModeling */ 8070);
-/* harmony import */ var _domainStoryRules__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../domainStoryRules */ 10798);
-/* harmony import */ var _change_icon_replaceMenuProvider__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../change-icon/replaceMenuProvider */ 2843);
-/* harmony import */ var _context_pad_domainStoryContextPadProvider__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../context-pad/domainStoryContextPadProvider */ 48640);
+/* harmony import */ var _updateHandler_updateLabelHandler__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../updateHandler/updateLabelHandler */ 71131);
+/* harmony import */ var _domainStoryUpdater__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../domainStoryUpdater */ 17450);
+/* harmony import */ var _domainStoryElementFactory__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../domainStoryElementFactory */ 3025);
+/* harmony import */ var _updateHandler_headlineAndDescriptionUpdateHandler__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../updateHandler/headlineAndDescriptionUpdateHandler */ 89866);
+/* harmony import */ var _domainStoryRenderer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../domainStoryRenderer */ 47708);
+/* harmony import */ var _dSModeling__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./dSModeling */ 79388);
+/* harmony import */ var _domainStoryRules__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../domainStoryRules */ 33636);
+/* harmony import */ var _change_icon_replaceMenuProvider__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../change-icon/replaceMenuProvider */ 57089);
+/* harmony import */ var _context_pad_domainStoryContextPadProvider__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../context-pad/domainStoryContextPadProvider */ 11446);
 
 
 
@@ -2875,10 +2959,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 93043:
-/*!********************************************************!*\
-  !*** ./src/app/BPMN-JS/modeler/numbering/numbering.js ***!
-  \********************************************************/
+/***/ 93213:
+/*!******************************************************************!*\
+  !*** ./src/app/tool/modeler/bpmn/modeler/numbering/numbering.js ***!
+  \******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -2895,7 +2979,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   updateExistingNumbersAtGeneration: () => (/* binding */ updateExistingNumbersAtGeneration),
 /* harmony export */   updateMultipleNumberRegistry: () => (/* binding */ updateMultipleNumberRegistry)
 /* harmony export */ });
-/* harmony import */ var _Utils_mathExtensions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../Utils/mathExtensions */ 114);
+/* harmony import */ var src_app_Utils_mathExtensions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/Utils/mathExtensions */ 114);
 
 
 
@@ -2915,7 +2999,7 @@ function numberBoxDefinitions(element) {
   let boxHeight = 30;
   let angle = 0;
   if (element.waypoints.length > 1) {
-    angle = (0,_Utils_mathExtensions__WEBPACK_IMPORTED_MODULE_0__.angleBetween)(
+    angle = (0,src_app_Utils_mathExtensions__WEBPACK_IMPORTED_MODULE_0__.angleBetween)(
     // Start of first arrow segment
     element.waypoints[0],
     // End of first arrow segment
@@ -3078,10 +3162,10 @@ function setNumberOfActivity(elementArray, wantedNumber, eventBus) {
 
 /***/ }),
 
-/***/ 97774:
-/*!***************************************************************!*\
-  !*** ./src/app/BPMN-JS/modeler/palette/domainStoryPalette.js ***!
-  \***************************************************************/
+/***/ 24088:
+/*!*************************************************************************!*\
+  !*** ./src/app/tool/modeler/bpmn/modeler/palette/domainStoryPalette.js ***!
+  \*************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -3093,7 +3177,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_Domain_Icon_Set_Configuration_allIcons__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/Domain/Icon-Set-Configuration/allIcons */ 57488);
 /* harmony import */ var src_app_Domain_Common_dictionary_dictionary__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/Domain/Common/dictionary/dictionary */ 54972);
 /* harmony import */ var src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/Domain/Common/elementTypes */ 30236);
-/* harmony import */ var _Domain_Common_constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../Domain/Common/constants */ 90816);
+/* harmony import */ var src_app_Domain_Common_constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/Domain/Common/constants */ 90816);
 
 
 
@@ -3166,7 +3250,7 @@ function appendCSSStyleCheat(customIcons) {
 }
 function initPalette(actions, spaceTool, lassoTool, createAction) {
   let config = iconDictionary?.getCurrentIconConfigurationForBPMN();
-  let customIcons = localStorage.getItem(_Domain_Common_constants__WEBPACK_IMPORTED_MODULE_3__.APPENDED_ICONS_TAG);
+  let customIcons = localStorage.getItem(src_app_Domain_Common_constants__WEBPACK_IMPORTED_MODULE_3__.APPENDED_ICONS_TAG);
   if (customIcons) {
     customIcons = JSON.parse(customIcons);
     if (customIconsLegacy(customIcons)) {
@@ -3253,10 +3337,10 @@ function wrapSRCInSVG(src) {
 
 /***/ }),
 
-/***/ 47379:
-/*!*************************************************************************!*\
-  !*** ./src/app/BPMN-JS/modeler/updateHandler/activityUpdateHandlers.js ***!
-  \*************************************************************************/
+/***/ 20117:
+/*!***********************************************************************************!*\
+  !*** ./src/app/tool/modeler/bpmn/modeler/updateHandler/activityUpdateHandlers.js ***!
+  \***********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -3264,7 +3348,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ activityUpdateHandler),
 /* harmony export */   initializeActivityUpdateHandler: () => (/* binding */ initializeActivityUpdateHandler)
 /* harmony export */ });
-/* harmony import */ var _numbering_numbering__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../numbering/numbering */ 93043);
+/* harmony import */ var _numbering_numbering__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../numbering/numbering */ 93213);
 
 
 
@@ -3380,17 +3464,17 @@ function revertAutomaticNumberGenerationChange(iDWithNumber, eventBus) {
 
 /***/ }),
 
-/***/ 82189:
-/*!***********************************************************************!*\
-  !*** ./src/app/BPMN-JS/modeler/updateHandler/elementUpdateHandler.js ***!
-  \***********************************************************************/
+/***/ 72279:
+/*!*********************************************************************************!*\
+  !*** ./src/app/tool/modeler/bpmn/modeler/updateHandler/elementUpdateHandler.js ***!
+  \*********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ elementUpdateHandler)
 /* harmony export */ });
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util */ 19102);
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util */ 6232);
 
 
 
@@ -3449,10 +3533,10 @@ function elementUpdateHandler(commandStack, eventBus) {
 
 /***/ }),
 
-/***/ 33524:
-/*!**************************************************************************************!*\
-  !*** ./src/app/BPMN-JS/modeler/updateHandler/headlineAndDescriptionUpdateHandler.js ***!
-  \**************************************************************************************/
+/***/ 89866:
+/*!************************************************************************************************!*\
+  !*** ./src/app/tool/modeler/bpmn/modeler/updateHandler/headlineAndDescriptionUpdateHandler.js ***!
+  \************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -3478,10 +3562,10 @@ function headlineAndDescriptionUpdateHandler(commandStack, titleService) {
 
 /***/ }),
 
-/***/ 68558:
-/*!********************************************************************!*\
-  !*** ./src/app/BPMN-JS/modeler/updateHandler/massRenameHandler.js ***!
-  \********************************************************************/
+/***/ 56080:
+/*!******************************************************************************!*\
+  !*** ./src/app/tool/modeler/bpmn/modeler/updateHandler/massRenameHandler.js ***!
+  \******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -3525,20 +3609,20 @@ function DSMassRenameHandler(commandStack, eventBus) {
 
 /***/ }),
 
-/***/ 31401:
-/*!*********************************************************************!*\
-  !*** ./src/app/BPMN-JS/modeler/updateHandler/updateLabelHandler.js ***!
-  \*********************************************************************/
+/***/ 71131:
+/*!*******************************************************************************!*\
+  !*** ./src/app/tool/modeler/bpmn/modeler/updateHandler/updateLabelHandler.js ***!
+  \*******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ UpdateLabelHandler)
 /* harmony export */ });
-/* harmony import */ var _labeling_dsLabelUtil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../labeling/dsLabelUtil */ 2970);
+/* harmony import */ var _labeling_dsLabelUtil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../labeling/dsLabelUtil */ 85100);
 /* harmony import */ var bpmn_js_lib_util_LabelUtil__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! bpmn-js/lib/util/LabelUtil */ 81454);
 /* harmony import */ var src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/Domain/Common/elementTypes */ 30236);
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../util */ 19102);
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../util */ 6232);
 
 
 
@@ -3635,10 +3719,10 @@ UpdateLabelHandler.$inject = ["modeling", "textRenderer", "commandStack"];
 
 /***/ }),
 
-/***/ 19102:
-/*!*****************************************!*\
-  !*** ./src/app/BPMN-JS/modeler/util.js ***!
-  \*****************************************/
+/***/ 6232:
+/*!***************************************************!*\
+  !*** ./src/app/tool/modeler/bpmn/modeler/util.js ***!
+  \***************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -3687,90 +3771,6 @@ function undoGroupRework(parent, shape) {
   const svgGroupParent = svgGroup.parentElement.parentElement;
   svgGroup.removeChild(svgShape);
   svgGroupParent.appendChild(svgShape);
-}
-
-/***/ }),
-
-/***/ 10977:
-/*!***************************************************!*\
-  !*** ./src/app/tool/export/service/exportUtil.js ***!
-  \***************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   createTitleAndDescriptionSVGElement: () => (/* binding */ createTitleAndDescriptionSVGElement)
-/* harmony export */ });
-/* harmony import */ var _domain_export_exportConstants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../domain/export/exportConstants */ 73007);
-
-let dynamicHeightOffset = 0;
-// Has to be js File so we can access te correct non-standard HTML-Properties without excessive usage of ts-ignore
-function createTitleAndDescriptionSVGElement(initDynamicHeightOffset, title, description, min_x, min_y, width) {
-  dynamicHeightOffset = initDynamicHeightOffset;
-  title = title.replace("&lt;", "").replace("&gt;", "");
-  let titleElement = createTitle(title, width);
-  let descriptionElement = createDescription(description, width);
-  // to display the title and description in the SVG-file, we need to add a container for our text-elements
-  let insertText = '<g class="djs-group"><g class="djs-element djs-shape" style = "display:block" transform="translate(' + (min_x - 10) + " " + (min_y - dynamicHeightOffset) + ')"><g class="djs-visual">' + titleElement + descriptionElement + "</g></g></g>";
-  return {
-    insertText,
-    dynamicHeightOffset: dynamicHeightOffset
-  };
-}
-function createTitle(text, width) {
-  let tempCanvas = document.createElement("canvas");
-  let ctx = tempCanvas.getContext("2d");
-  ctx.font = "30px Arial";
-  return createTextSpans(text, width, ctx, 10, _domain_export_exportConstants__WEBPACK_IMPORTED_MODULE_0__.TEXTSPAN_TITLE_HEIGHT, 30);
-}
-function createDescription(text, width) {
-  let description = "";
-  let descriptionParts = text.split("<br>");
-  let tempCanvas = document.createElement("canvas");
-  let ctx = tempCanvas.getContext("2d");
-  ctx.font = "12px Arial";
-  for (let i = 0; i < descriptionParts.length; i++) {
-    description += createTextSpans(descriptionParts[i], width, ctx, 0, _domain_export_exportConstants__WEBPACK_IMPORTED_MODULE_0__.TEXTSPAN_DESCRIPTION_HEIGHT, 12);
-  }
-  return description;
-}
-function createTextSpans(text, width, ctx, yOffset, heightOffset, fontSize) {
-  let textSpans = "";
-  let words = text.split(" ");
-  // every leading empty strings in the array must be removed, otherwise the text elements
-  // will not be filled with text
-  words = removeLeadingEmptyStrings(words);
-  let textTag = '<text lineHeight="1.2" class="djs-label" style="font-family: Arial, sans-serif; font-size: ' + fontSize + '; font-weight: normal; fill: rgb(0, 0, 0);">';
-  let textSpan = document.createElementNS(_domain_export_exportConstants__WEBPACK_IMPORTED_MODULE_0__.SVG_LINK, "tspan");
-  let textNode = document.createTextNode(words[0]);
-  textSpan.setAttribute("x", _domain_export_exportConstants__WEBPACK_IMPORTED_MODULE_0__.X_OFFSET_UTIL);
-  textSpan.setAttribute("y", yOffset + dynamicHeightOffset);
-  textSpan.setAttribute("font-size", fontSize);
-  textSpan.appendChild(textNode);
-  for (let j = 1; j < words.length; j++) {
-    if (textSpan.firstChild && textSpan.firstChild.data) {
-      let len = textSpan.firstChild.data.length;
-      textNode.data += " " + words[j];
-      if (ctx.measureText(textNode.data).width > width - 16) {
-        dynamicHeightOffset += heightOffset;
-        textSpan.firstChild.data = textSpan.firstChild.data.slice(0, len); // remove overflow word
-        textSpans += textTag + textSpan.outerHTML + "</text>"; // append line
-        // create new textspan for line break
-        textSpan = document.createElementNS(_domain_export_exportConstants__WEBPACK_IMPORTED_MODULE_0__.SVG_LINK, "tspan");
-        textNode = document.createTextNode(words[j]);
-        textSpan.setAttribute("x", _domain_export_exportConstants__WEBPACK_IMPORTED_MODULE_0__.X_OFFSET_UTIL);
-        textSpan.setAttribute("y", yOffset + dynamicHeightOffset);
-        textSpan.appendChild(textNode);
-      }
-    }
-  }
-  dynamicHeightOffset += heightOffset;
-  textSpans += textTag + textSpan.outerHTML + "</text>";
-  return textSpans;
-}
-function removeLeadingEmptyStrings(stringArray) {
-  const firstNonEmptyIndex = stringArray.findIndex(string => string !== "");
-  return stringArray.slice(firstNonEmptyIndex === -1 ? stringArray.length : firstNonEmptyIndex);
 }
 
 /***/ }),
@@ -4000,27 +4000,6 @@ var ElementTypes;
   }
   ElementTypes.isCustomSvgType = isCustomSvgType;
 })(ElementTypes || (ElementTypes = {}));
-
-/***/ }),
-
-/***/ 93703:
-/*!*****************************************************!*\
-  !*** ./src/app/Domain/Dialog/activityDialogData.ts ***!
-  \*****************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   ActivityDialogData: () => (/* binding */ ActivityDialogData)
-/* harmony export */ });
-class ActivityDialogData {
-  constructor(activity, numberIsAllowedMultipleTimes, showNumberFields, saveFN) {
-    this.activity = activity;
-    this.numberIsAllowedMultipleTimes = numberIsAllowedMultipleTimes;
-    this.showNumberFields = showNumberFields;
-    this.saveFN = saveFN;
-  }
-}
 
 /***/ }),
 
@@ -4427,235 +4406,6 @@ class SettingsModule {
     exports: [_Presentation_Settings_General_general_settings_component__WEBPACK_IMPORTED_MODULE_4__.GeneralSettingsComponent, src_app_Presentation_IconSetConfiguration_icon_set_configuration_component__WEBPACK_IMPORTED_MODULE_0__.IconSetConfigurationComponent, _tool_label_dictionary_presentation_label_dictionary_label_dictionary_component__WEBPACK_IMPORTED_MODULE_5__.LabelDictionaryComponent]
   });
 })();
-
-/***/ }),
-
-/***/ 29383:
-/*!**********************************************************!*\
-  !*** ./src/app/Presentation/Canvas/modeler.component.ts ***!
-  \**********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   ModelerComponent: () => (/* binding */ ModelerComponent)
-/* harmony export */ });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var _Service_Modeler_modeler_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../Service/Modeler/modeler.service */ 74676);
-/* harmony import */ var _tool_autosave_service_autosave_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../tool/autosave/service/autosave.service */ 49053);
-
-
-
-class ModelerComponent {
-  constructor(modelerService, autosaveService) {
-    this.modelerService = modelerService;
-    this.autosaveService = autosaveService;
-  }
-  ngOnInit() {
-    this.modelerService.postInit();
-    this.autosaveService.loadLatestDraft();
-  }
-  static #_ = this.ɵfac = function ModelerComponent_Factory(t) {
-    return new (t || ModelerComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_Service_Modeler_modeler_service__WEBPACK_IMPORTED_MODULE_0__.ModelerService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_tool_autosave_service_autosave_service__WEBPACK_IMPORTED_MODULE_1__.AutosaveService));
-  };
-  static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineComponent"]({
-    type: ModelerComponent,
-    selectors: [["app-modeler"]],
-    decls: 1,
-    vars: 0,
-    consts: [["id", "canvas"]],
-    template: function ModelerComponent_Template(rf, ctx) {
-      if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelement"](0, "div", 0);
-      }
-    },
-    styles: ["#canvas[_ngcontent-%COMP%], #canvas[_ngcontent-%COMP%]    > div[_ngcontent-%COMP%] {\n  top: 0;\n  width: 100%;\n  height: 100%;\n  position: relative;\n  bottom: 0;\n  overflow: hidden;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm1vZGVsZXIuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7O0VBRUUsTUFBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0VBQ0Esa0JBQUE7RUFDQSxTQUFBO0VBQ0EsZ0JBQUE7QUFDRiIsImZpbGUiOiJtb2RlbGVyLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiI2NhbnZhcyxcbiNjYW52YXMgPiBkaXYge1xuICB0b3A6IDA7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IDEwMCU7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgYm90dG9tOiAwO1xuICBvdmVyZmxvdzogaGlkZGVuO1xufVxuIl19 */\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL3NyYy9hcHAvUHJlc2VudGF0aW9uL0NhbnZhcy9tb2RlbGVyLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOztFQUVFLE1BQUE7RUFDQSxXQUFBO0VBQ0EsWUFBQTtFQUNBLGtCQUFBO0VBQ0EsU0FBQTtFQUNBLGdCQUFBO0FBQ0Y7QUFDQSxnZkFBZ2YiLCJzb3VyY2VzQ29udGVudCI6WyIjY2FudmFzLFxuI2NhbnZhcyA+IGRpdiB7XG4gIHRvcDogMDtcbiAgd2lkdGg6IDEwMCU7XG4gIGhlaWdodDogMTAwJTtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xuICBib3R0b206IDA7XG4gIG92ZXJmbG93OiBoaWRkZW47XG59XG4iXSwic291cmNlUm9vdCI6IiJ9 */"]
-  });
-}
-
-/***/ }),
-
-/***/ 63954:
-/*!**********************************************************************************!*\
-  !*** ./src/app/Presentation/Dialog/activity-dialog/activity-dialog.component.ts ***!
-  \**********************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   ActivityDialogComponent: () => (/* binding */ ActivityDialogComponent)
-/* harmony export */ });
-/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material/dialog */ 72768);
-/* harmony import */ var _dialog_forms_activity_dialog_form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../dialog-forms/activity-dialog-form */ 1974);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ 48015);
-/* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material/button */ 95912);
-/* harmony import */ var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material/form-field */ 48913);
-/* harmony import */ var _angular_material_input__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/material/input */ 29836);
-/* harmony import */ var src_app_Domain_Dialog_activityDialogData__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/Domain/Dialog/activityDialogData */ 93703);
-
-
-
-
-
-
-
-
-
-class ActivityDialogComponent {
-  constructor(dialogRef, data) {
-    this.dialogRef = dialogRef;
-    this.activity = data.activity;
-    this.activityLabel = data.activity.businessObject.name;
-    this.numberIsAllowedMultipleTimes = data.numberIsAllowedMultipleTimes;
-    this.activityNumber = data.activity.businessObject.number ?? null;
-    this.showNumberFields = data.showNumberFields;
-    this.saveFN = data.saveFN;
-    this.form = _dialog_forms_activity_dialog_form__WEBPACK_IMPORTED_MODULE_0__.ActivityDialogForm.create(this.activityLabel, this.activityNumber, this.numberIsAllowedMultipleTimes);
-    this.form.controls.activityNumber.valueChanges.subscribe(activityNumber => {
-      if (activityNumber !== null) {
-        if (activityNumber < 1) {
-          this.form.controls.activityNumber.setValue(1);
-        }
-      }
-    });
-  }
-  onSubmit() {
-    this.numberIsAllowedMultipleTimes = !this.numberIsAllowedMultipleTimes;
-    this.form.patchValue({
-      multipleNumbers: this.numberIsAllowedMultipleTimes
-    });
-  }
-  save() {
-    this.saveFN({
-      activity: this.activity,
-      ...this.form.value
-    });
-    this.dialogRef.close();
-  }
-  close() {
-    this.dialogRef.close();
-  }
-  preventDefault(event) {
-    event.preventDefault();
-  }
-  static #_ = this.ɵfac = function ActivityDialogComponent_Factory(t) {
-    return new (t || ActivityDialogComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__.MatDialogRef), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__.MAT_DIALOG_DATA));
-  };
-  static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineComponent"]({
-    type: ActivityDialogComponent,
-    selectors: [["app-activity-dialog"]],
-    decls: 20,
-    vars: 2,
-    consts: [[3, "formGroup"], [3, "hidden"], [1, "shortWidth"], ["matInput", "", "type", "number", "formControlName", "activityNumber"], ["type", "checkbox", "formControlName", "multipleNumbers", 3, "change"], [1, "fullWidth"], ["matInput", "", "type", "text", "formControlName", "activityLabel", "autofocus", "", "cdkFocusInitial", "", 3, "keydown.enter", "keyup.enter", "keyup.escape"], ["mat-flat-button", "", 3, "click"], ["mat-flat-button", "", "color", "primary", 3, "click"]],
-    template: function ActivityDialogComponent_Template(rf, ctx) {
-      if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "mat-dialog-content")(1, "h2");
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](2, "Edit Activity");
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](3, "form", 0)(4, "div", 1)(5, "mat-form-field", 2)(6, "mat-label");
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](7, "Number");
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelement"](8, "input", 3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](9, "input", 4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("change", function ActivityDialogComponent_Template_input_change_9_listener() {
-          return ctx.onSubmit();
-        });
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](10, " multiple ");
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](11, "mat-form-field", 5)(12, "mat-label");
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](13, "Label");
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](14, "textarea", 6);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("keydown.enter", function ActivityDialogComponent_Template_textarea_keydown_enter_14_listener($event) {
-          return ctx.preventDefault($event);
-        })("keyup.enter", function ActivityDialogComponent_Template_textarea_keyup_enter_14_listener() {
-          return ctx.save();
-        })("keyup.escape", function ActivityDialogComponent_Template_textarea_keyup_escape_14_listener() {
-          return ctx.close();
-        });
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]()()()();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](15, "mat-dialog-actions")(16, "button", 7);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("click", function ActivityDialogComponent_Template_button_click_16_listener() {
-          return ctx.close();
-        });
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](17, "Cancel");
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](18, "button", 8);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("click", function ActivityDialogComponent_Template_button_click_18_listener() {
-          return ctx.save();
-        });
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](19, "Save");
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]()();
-      }
-      if (rf & 2) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("formGroup", ctx.form);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("hidden", !ctx.showNumberFields);
-      }
-    },
-    dependencies: [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["ɵNgNoValidate"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__.DefaultValueAccessor, _angular_forms__WEBPACK_IMPORTED_MODULE_4__.NumberValueAccessor, _angular_forms__WEBPACK_IMPORTED_MODULE_4__.CheckboxControlValueAccessor, _angular_forms__WEBPACK_IMPORTED_MODULE_4__.NgControlStatus, _angular_forms__WEBPACK_IMPORTED_MODULE_4__.NgControlStatusGroup, _angular_forms__WEBPACK_IMPORTED_MODULE_4__.FormGroupDirective, _angular_forms__WEBPACK_IMPORTED_MODULE_4__.FormControlName, _angular_material_button__WEBPACK_IMPORTED_MODULE_5__.MatButton, _angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__.MatDialogActions, _angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__.MatDialogContent, _angular_material_form_field__WEBPACK_IMPORTED_MODULE_6__.MatFormField, _angular_material_form_field__WEBPACK_IMPORTED_MODULE_6__.MatLabel, _angular_material_input__WEBPACK_IMPORTED_MODULE_7__.MatInput],
-    styles: [".shortWidth[_ngcontent-%COMP%] {\n  width: 200px;\n}\n\n.fullWidth[_ngcontent-%COMP%] {\n  width: 100%;\n}\n\n .mat-form-field-label {\n  font-size: 12pt !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFjdGl2aXR5LWRpYWxvZy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFlBQUE7QUFDRjs7QUFFQTtFQUNFLFdBQUE7QUFDRjs7QUFDQTtFQUNFLDBCQUFBO0FBRUYiLCJmaWxlIjoiYWN0aXZpdHktZGlhbG9nLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnNob3J0V2lkdGgge1xuICB3aWR0aDogMjAwcHg7XG59XG5cbi5mdWxsV2lkdGgge1xuICB3aWR0aDogMTAwJTtcbn1cbjo6bmctZGVlcC5tYXQtZm9ybS1maWVsZC1sYWJlbCB7XG4gIGZvbnQtc2l6ZTogMTJwdCAhaW1wb3J0YW50O1xufVxuIl19 */\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL3NyYy9hcHAvUHJlc2VudGF0aW9uL0RpYWxvZy9hY3Rpdml0eS1kaWFsb2cvYWN0aXZpdHktZGlhbG9nLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsWUFBQTtBQUNGOztBQUVBO0VBQ0UsV0FBQTtBQUNGOztBQUNBO0VBQ0UsMEJBQUE7QUFFRjtBQUNBLGdnQkFBZ2dCIiwic291cmNlc0NvbnRlbnQiOlsiLnNob3J0V2lkdGgge1xuICB3aWR0aDogMjAwcHg7XG59XG5cbi5mdWxsV2lkdGgge1xuICB3aWR0aDogMTAwJTtcbn1cbjo6bmctZGVlcC5tYXQtZm9ybS1maWVsZC1sYWJlbCB7XG4gIGZvbnQtc2l6ZTogMTJwdCAhaW1wb3J0YW50O1xufVxuIl0sInNvdXJjZVJvb3QiOiIifQ== */"]
-  });
-}
-
-/***/ }),
-
-/***/ 1974:
-/*!**************************************************************************!*\
-  !*** ./src/app/Presentation/Dialog/dialog-forms/activity-dialog-form.ts ***!
-  \**************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   ActivityDialogForm: () => (/* binding */ ActivityDialogForm)
-/* harmony export */ });
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/forms */ 48015);
-
-var ActivityDialogForm;
-(function (ActivityDialogForm) {
-  function create(activityLabel, activityNumber, numberIsAllowedMultipleTimes) {
-    return new _angular_forms__WEBPACK_IMPORTED_MODULE_0__.FormGroup({
-      activityLabel: new _angular_forms__WEBPACK_IMPORTED_MODULE_0__.FormControl(activityLabel, {
-        nonNullable: true
-      }),
-      activityNumber: new _angular_forms__WEBPACK_IMPORTED_MODULE_0__.FormControl(activityNumber, [_angular_forms__WEBPACK_IMPORTED_MODULE_0__.Validators.required]),
-      multipleNumbers: new _angular_forms__WEBPACK_IMPORTED_MODULE_0__.FormControl(numberIsAllowedMultipleTimes, {
-        nonNullable: true
-      })
-    });
-  }
-  ActivityDialogForm.create = create;
-})(ActivityDialogForm || (ActivityDialogForm = {}));
-
-/***/ }),
-
-/***/ 94810:
-/*!************************************************************************!*\
-  !*** ./src/app/Presentation/Dialog/dialog-forms/header-dialog-form.ts ***!
-  \************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   HeaderDialogForm: () => (/* binding */ HeaderDialogForm)
-/* harmony export */ });
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/forms */ 48015);
-
-var HeaderDialogForm;
-(function (HeaderDialogForm) {
-  function create(titel, description) {
-    return new _angular_forms__WEBPACK_IMPORTED_MODULE_0__.FormGroup({
-      title: new _angular_forms__WEBPACK_IMPORTED_MODULE_0__.FormControl(titel),
-      description: new _angular_forms__WEBPACK_IMPORTED_MODULE_0__.FormControl(description)
-    });
-  }
-  HeaderDialogForm.create = create;
-})(HeaderDialogForm || (HeaderDialogForm = {}));
 
 /***/ }),
 
@@ -5400,7 +5150,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs */ 95536);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 96623);
 /* harmony import */ var src_app_workbench_service_settings_settings_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/workbench/service/settings/settings.service */ 32754);
-/* harmony import */ var src_app_Service_Modeler_modeler_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/Service/Modeler/modeler.service */ 74676);
+/* harmony import */ var src_app_tool_modeler_service_modeler_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/tool/modeler/service/modeler.service */ 53367);
 /* harmony import */ var _Service_IconSetConfiguration_icon_set_customization_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Service/IconSetConfiguration/icon-set-customization.service */ 87007);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common */ 39191);
 /* harmony import */ var _General_general_settings_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./General/general-settings.component */ 423);
@@ -5451,7 +5201,7 @@ class SettingsComponent {
     this.showIconSetCustomization.next(true);
   }
   static #_ = this.ɵfac = function SettingsComponent_Factory(t) {
-    return new (t || SettingsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](src_app_workbench_service_settings_settings_service__WEBPACK_IMPORTED_MODULE_0__.SettingsService), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](src_app_Service_Modeler_modeler_service__WEBPACK_IMPORTED_MODULE_1__.ModelerService), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](_Service_IconSetConfiguration_icon_set_customization_service__WEBPACK_IMPORTED_MODULE_2__.IconSetCustomizationService));
+    return new (t || SettingsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](src_app_workbench_service_settings_settings_service__WEBPACK_IMPORTED_MODULE_0__.SettingsService), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](src_app_tool_modeler_service_modeler_service__WEBPACK_IMPORTED_MODULE_1__.ModelerService), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](_Service_IconSetConfiguration_icon_set_customization_service__WEBPACK_IMPORTED_MODULE_2__.IconSetCustomizationService));
   };
   static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineComponent"]({
     type: SettingsComponent,
@@ -5575,38 +5325,6 @@ class StorageService {
   static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjectable"]({
     token: StorageService,
     factory: StorageService.ɵfac,
-    providedIn: 'root'
-  });
-}
-
-/***/ }),
-
-/***/ 19381:
-/*!***************************************************************!*\
-  !*** ./src/app/Service/CommandStack/command-stack.service.ts ***!
-  \***************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   CommandStackService: () => (/* binding */ CommandStackService)
-/* harmony export */ });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 96623);
-
-class CommandStackService {
-  constructor() {}
-  setCommandStack(commandStack) {
-    this.commandStack = commandStack;
-  }
-  execute(action, payload) {
-    this.commandStack.execute(action, payload);
-  }
-  static #_ = this.ɵfac = function CommandStackService_Factory(t) {
-    return new (t || CommandStackService)();
-  };
-  static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({
-    token: CommandStackService,
-    factory: CommandStackService.ɵfac,
     providedIn: 'root'
   });
 }
@@ -6689,205 +6407,6 @@ class IconSetCustomizationService {
 
 /***/ }),
 
-/***/ 74676:
-/*!****************************************************!*\
-  !*** ./src/app/Service/Modeler/modeler.service.ts ***!
-  \****************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   ModelerService: () => (/* binding */ ModelerService)
-/* harmony export */ });
-/* harmony import */ var _home_runner_work_egon_io_egon_io_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 56207);
-/* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! min-dash */ 81410);
-/* harmony import */ var src_app_BPMN_JS__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/BPMN-JS */ 64225);
-/* harmony import */ var _BPMN_JS_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../BPMN-JS/modeler/numbering/numbering */ 93043);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var _workbench_service_modeler_initializer_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../workbench/service/modeler/initializer.service */ 49364);
-/* harmony import */ var _ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../ElementRegistry/element-registry.service */ 67613);
-/* harmony import */ var _IconSetConfiguration_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../IconSetConfiguration/icon-dictionary.service */ 93689);
-/* harmony import */ var _IconSetConfiguration_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../IconSetConfiguration/icon-set-configuration.service */ 10200);
-/* harmony import */ var _BrowserStorage_storage_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../BrowserStorage/storage.service */ 59298);
-
-
-
-
-
-
-
-
-
-
-class ModelerService {
-  constructor(initializerService, elementRegistryService, iconDictionaryService, iconSetConfigurationService, storageService) {
-    this.initializerService = initializerService;
-    this.elementRegistryService = elementRegistryService;
-    this.iconDictionaryService = iconDictionaryService;
-    this.iconSetConfigurationService = iconSetConfigurationService;
-    this.storageService = storageService;
-  }
-  postInit() {
-    const storedIconSetConfiguration = this.storageService.getStoredIconSetConfiguration();
-    if (storedIconSetConfiguration) {
-      this.iconDictionaryService.setCustomConfiguration(storedIconSetConfiguration);
-      this.iconSetConfigurationService.loadConfiguration(storedIconSetConfiguration);
-    }
-    this.initializerService.initializeDomainStoryModelerClasses();
-    this.modeler = new src_app_BPMN_JS__WEBPACK_IMPORTED_MODULE_1__["default"]({
-      container: '#canvas',
-      keyboard: {
-        bindTo: document
-      },
-      // Disable BPMN-SearchModule and re-enable browser Search
-      additionalModules: [{
-        bpmnSearch: ['value', 'foo']
-      }]
-    });
-    if (this.modeler.get) {
-      this.canvas = this.modeler.get('canvas');
-      this.elementRegistry = this.modeler.get('elementRegistry');
-      this.eventBus = this.modeler.get('eventBus');
-      this.commandStack = this.modeler.get('commandStack');
-      this.selection = this.modeler.get('selection');
-    }
-    this.initializerService.initializeDomainStoryModelerEventHandlers(this.commandStack, this.eventBus);
-    this.initializerService.propagateDomainStoryModelerClassesToServices(this.commandStack, this.elementRegistry, this.canvas, this.selection, this.modeler);
-    const exportArtifacts = this.debounce(this.saveSVG, 500);
-    if (this.modeler.get) {
-      this.modeler.on('commandStack.changed', exportArtifacts);
-    }
-    this.initializerService.initiateEventBusListeners(this.eventBus, this.commandStack);
-    this.modeler.createDiagram();
-    // expose bpmnjs to window for debugging purposes
-    (0,min_dash__WEBPACK_IMPORTED_MODULE_8__.assign)(window, {
-      bpmnjs: this.modeler
-    });
-    this.startDebounce();
-  }
-  restart(iconSetConfiguration, domainStory) {
-    const currentStory = domainStory != undefined ? domainStory : this.elementRegistryService.createObjectListForDSTDownload().map(e => e.businessObject);
-    if (!iconSetConfiguration) {
-      iconSetConfiguration = this.storageService.getStoredIconSetConfiguration();
-    }
-    if (iconSetConfiguration) {
-      this.storageService.setStoredIconSetConfiguration(iconSetConfiguration);
-      this.iconDictionaryService.setCustomConfiguration(iconSetConfiguration);
-      this.iconSetConfigurationService.loadConfiguration(iconSetConfiguration);
-    }
-    this.elementRegistryService.clear();
-    this.modeler?.destroy();
-    this.postInit();
-    (0,_BPMN_JS_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_2__.updateMultipleNumberRegistry)(currentStory.filter(bo => bo.type === 'domainStory:activity').map(bo => bo).filter(bo => bo.number !== null));
-    if (currentStory && this.modeler.get) {
-      this.modeler.importCustomElements(currentStory);
-    }
-  }
-  /** Interactions with the Modeler **/
-  getModeler() {
-    return this.modeler;
-  }
-  commandStackChanged() {
-    // to update the title of the svg, we need to tell the command stack, that a value has changed
-    this.eventBus.fire('commandStack.changed', this.debounce(this.saveSVG, 500));
-  }
-  startDebounce() {
-    this.debounce(this.saveSVG, 500);
-  }
-  debounce(fn, timeout) {
-    return () => {
-      let timer;
-      if (timer) {
-        clearTimeout(timer);
-      }
-      timer = setTimeout(() => {
-        // tslint:disable-next-line:no-unused-expression
-        fn(this.modeler).then(svg => {
-          this.encoded = svg;
-        });
-      }, timeout);
-    };
-  }
-  getEncoded() {
-    return this.encoded ? this.encoded : '';
-  }
-  saveSVG(modeler) {
-    return (0,_home_runner_work_egon_io_egon_io_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
-      try {
-        const result = yield modeler.saveSVG();
-        return result.svg;
-      } catch (err) {
-        alert('There was an error saving the SVG.\n' + err);
-      }
-    })();
-  }
-  static #_ = this.ɵfac = function ModelerService_Factory(t) {
-    return new (t || ModelerService)(_angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_workbench_service_modeler_initializer_service__WEBPACK_IMPORTED_MODULE_3__.InitializerService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_4__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_IconSetConfiguration_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_5__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_IconSetConfiguration_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_6__.IconSetConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_BrowserStorage_storage_service__WEBPACK_IMPORTED_MODULE_7__.StorageService));
-  };
-  static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵdefineInjectable"]({
-    token: ModelerService,
-    factory: ModelerService.ɵfac,
-    providedIn: 'root'
-  });
-}
-
-/***/ }),
-
-/***/ 94896:
-/*!******************************************************!*\
-  !*** ./src/app/Service/Renderer/renderer.service.ts ***!
-  \******************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   RendererService: () => (/* binding */ RendererService)
-/* harmony export */ });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var src_app_Service_Modeler_modeler_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/Service/Modeler/modeler.service */ 74676);
-/* harmony import */ var src_app_Service_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/Service/ElementRegistry/element-registry.service */ 67613);
-/* harmony import */ var src_app_Service_DirtyFlag_dirty_flag_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/Service/DirtyFlag/dirty-flag.service */ 89791);
-
-
-
-
-class RendererService {
-  constructor(modelerService, elementRegistryService, dirtyFlagService) {
-    this.modelerService = modelerService;
-    this.elementRegistryService = elementRegistryService;
-    this.dirtyFlagService = dirtyFlagService;
-  }
-  renderStory(domainStory) {
-    this.modelerService.getModeler().importCustomElements(domainStory);
-  }
-  reset() {
-    this.renderStory([]);
-  }
-  importStory(domainStory, configurationChange, config, makeClean = true) {
-    this.modelerService.restart(config, domainStory);
-    this.renderStory(domainStory);
-    this.elementRegistryService.correctInitialize();
-    this.modelerService.commandStackChanged();
-    this.modelerService.startDebounce();
-    if (makeClean) {
-      this.dirtyFlagService.makeClean();
-    }
-  }
-  getStory() {
-    return this.elementRegistryService.createObjectListForDSTDownload().map(c => c.businessObject);
-  }
-  static #_ = this.ɵfac = function RendererService_Factory(t) {
-    return new (t || RendererService)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](src_app_Service_Modeler_modeler_service__WEBPACK_IMPORTED_MODULE_0__.ModelerService), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](src_app_Service_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_1__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](src_app_Service_DirtyFlag_dirty_flag_service__WEBPACK_IMPORTED_MODULE_2__.DirtyFlagService));
-  };
-  static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineInjectable"]({
-    token: RendererService,
-    factory: RendererService.ɵfac,
-    providedIn: 'root'
-  });
-}
-
-/***/ }),
-
 /***/ 114:
 /*!*****************************************!*\
   !*** ./src/app/Utils/mathExtensions.ts ***!
@@ -7442,7 +6961,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _autosave_configuration_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./autosave-configuration.service */ 73386);
 /* harmony import */ var _export_service_export_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../export/service/export.service */ 90877);
 /* harmony import */ var _Service_IconSetConfiguration_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../Service/IconSetConfiguration/icon-dictionary.service */ 93689);
-/* harmony import */ var _Service_Renderer_renderer_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../Service/Renderer/renderer.service */ 94896);
+/* harmony import */ var _modeler_service_renderer_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../modeler/service/renderer.service */ 56612);
 /* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/material/snack-bar */ 40382);
 /* harmony import */ var _Service_BrowserStorage_storage_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../Service/BrowserStorage/storage.service */ 59298);
 /* harmony import */ var _header_service_title_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../header/service/title.service */ 5048);
@@ -7565,7 +7084,7 @@ class AutosaveService {
     });
   }
   static #_ = this.ɵfac = function AutosaveService_Factory(t) {
-    return new (t || AutosaveService)(_angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_autosave_configuration_service__WEBPACK_IMPORTED_MODULE_3__.AutosaveConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_export_service_export_service__WEBPACK_IMPORTED_MODULE_4__.ExportService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_Service_IconSetConfiguration_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_5__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_Service_Renderer_renderer_service__WEBPACK_IMPORTED_MODULE_6__.RendererService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_11__.MatSnackBar), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_Service_BrowserStorage_storage_service__WEBPACK_IMPORTED_MODULE_7__.StorageService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_header_service_title_service__WEBPACK_IMPORTED_MODULE_8__.TitleService));
+    return new (t || AutosaveService)(_angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_autosave_configuration_service__WEBPACK_IMPORTED_MODULE_3__.AutosaveConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_export_service_export_service__WEBPACK_IMPORTED_MODULE_4__.ExportService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_Service_IconSetConfiguration_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_5__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_modeler_service_renderer_service__WEBPACK_IMPORTED_MODULE_6__.RendererService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_11__.MatSnackBar), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_Service_BrowserStorage_storage_service__WEBPACK_IMPORTED_MODULE_7__.StorageService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_header_service_title_service__WEBPACK_IMPORTED_MODULE_8__.TitleService));
   };
   static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵdefineInjectable"]({
     token: AutosaveService,
@@ -7796,7 +7315,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_tool_export_service_png_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/tool/export/service/png.service */ 40874);
 /* harmony import */ var src_app_tool_export_service_svg_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/tool/export/service/svg.service */ 40039);
 /* harmony import */ var _html_presentation_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./html-presentation.service */ 46057);
-/* harmony import */ var _Service_Renderer_renderer_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../Service/Renderer/renderer.service */ 94896);
+/* harmony import */ var _modeler_service_renderer_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../modeler/service/renderer.service */ 56612);
 
 
 
@@ -7921,7 +7440,7 @@ class ExportService {
     return (0,_angular_common__WEBPACK_IMPORTED_MODULE_10__.formatDate)(new Date(), 'YYYY-MM-dd', 'en-GB');
   }
   static #_ = this.ɵfac = function ExportService_Factory(t) {
-    return new (t || ExportService)(_angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵinject"](src_app_Service_IconSetConfiguration_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_3__.IconSetConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵinject"](src_app_tool_header_service_title_service__WEBPACK_IMPORTED_MODULE_4__.TitleService), _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵinject"](src_app_Service_DirtyFlag_dirty_flag_service__WEBPACK_IMPORTED_MODULE_5__.DirtyFlagService), _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵinject"](src_app_tool_export_service_png_service__WEBPACK_IMPORTED_MODULE_6__.PngService), _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵinject"](src_app_tool_export_service_svg_service__WEBPACK_IMPORTED_MODULE_7__.SvgService), _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵinject"](_html_presentation_service__WEBPACK_IMPORTED_MODULE_8__.HtmlPresentationService), _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵinject"](_Service_Renderer_renderer_service__WEBPACK_IMPORTED_MODULE_9__.RendererService));
+    return new (t || ExportService)(_angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵinject"](src_app_Service_IconSetConfiguration_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_3__.IconSetConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵinject"](src_app_tool_header_service_title_service__WEBPACK_IMPORTED_MODULE_4__.TitleService), _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵinject"](src_app_Service_DirtyFlag_dirty_flag_service__WEBPACK_IMPORTED_MODULE_5__.DirtyFlagService), _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵinject"](src_app_tool_export_service_png_service__WEBPACK_IMPORTED_MODULE_6__.PngService), _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵinject"](src_app_tool_export_service_svg_service__WEBPACK_IMPORTED_MODULE_7__.SvgService), _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵinject"](_html_presentation_service__WEBPACK_IMPORTED_MODULE_8__.HtmlPresentationService), _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵinject"](_modeler_service_renderer_service__WEBPACK_IMPORTED_MODULE_9__.RendererService));
   };
   static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵdefineInjectable"]({
     token: ExportService,
@@ -8357,7 +7876,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_tool_export_service_exportUtil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/tool/export/service/exportUtil */ 10977);
 /* harmony import */ var _domain_export_exportConstants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../domain/export/exportConstants */ 73007);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var _Service_Modeler_modeler_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../Service/Modeler/modeler.service */ 74676);
+/* harmony import */ var _modeler_service_modeler_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../modeler/service/modeler.service */ 53367);
 
 
 
@@ -8455,7 +7974,7 @@ class SvgService {
     return data;
   }
   static #_ = this.ɵfac = function SvgService_Factory(t) {
-    return new (t || SvgService)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](_Service_Modeler_modeler_service__WEBPACK_IMPORTED_MODULE_2__.ModelerService));
+    return new (t || SvgService)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](_modeler_service_modeler_service__WEBPACK_IMPORTED_MODULE_2__.ModelerService));
   };
   static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineInjectable"]({
     token: SvgService,
@@ -8498,7 +8017,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   HeaderDialogComponent: () => (/* binding */ HeaderDialogComponent)
 /* harmony export */ });
-/* harmony import */ var _Presentation_Dialog_dialog_forms_header_dialog_form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../Presentation/Dialog/dialog-forms/header-dialog-form */ 94810);
+/* harmony import */ var _modeler_presentation_dialog_forms_header_dialog_form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../modeler/presentation/dialog-forms/header-dialog-form */ 15091);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 96623);
 /* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material/dialog */ 72768);
 /* harmony import */ var src_app_tool_header_service_title_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/tool/header/service/title.service */ 5048);
@@ -8525,7 +8044,7 @@ class HeaderDialogComponent {
   ngOnInit() {
     const title = this.titleService.getTitle();
     const description = this.titleService.getDescription();
-    this.form = _Presentation_Dialog_dialog_forms_header_dialog_form__WEBPACK_IMPORTED_MODULE_0__.HeaderDialogForm.create(title, description);
+    this.form = _modeler_presentation_dialog_forms_header_dialog_form__WEBPACK_IMPORTED_MODULE_0__.HeaderDialogForm.create(title, description);
   }
   save() {
     if (this.form.dirty) {
@@ -8881,7 +8400,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../environments/environment */ 45312);
 /* harmony import */ var _Domain_Common_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../Domain/Common/constants */ 90816);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var _Service_CommandStack_command_stack_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../Service/CommandStack/command-stack.service */ 19381);
+/* harmony import */ var _modeler_service_command_stack_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../modeler/service/command-stack.service */ 38277);
 
 
 
@@ -8947,7 +8466,7 @@ class TitleService {
     this.commandStackService.execute('story.updateHeadlineAndDescription', context);
   }
   static #_ = this.ɵfac = function TitleService_Factory(t) {
-    return new (t || TitleService)(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_Service_CommandStack_command_stack_service__WEBPACK_IMPORTED_MODULE_2__.CommandStackService));
+    return new (t || TitleService)(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_modeler_service_command_stack_service__WEBPACK_IMPORTED_MODULE_2__.CommandStackService));
   };
   static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineInjectable"]({
     token: TitleService,
@@ -8979,7 +8498,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_Service_IconSetConfiguration_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/Service/IconSetConfiguration/icon-dictionary.service */ 93689);
 /* harmony import */ var src_app_tool_import_service_import_repair_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/tool/import/service/import-repair.service */ 82391);
 /* harmony import */ var src_app_tool_header_service_title_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/tool/header/service/title.service */ 5048);
-/* harmony import */ var src_app_Service_Renderer_renderer_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/Service/Renderer/renderer.service */ 94896);
+/* harmony import */ var src_app_tool_modeler_service_renderer_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/tool/modeler/service/renderer.service */ 56612);
 /* harmony import */ var _Service_Dialog_dialog_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../Service/Dialog/dialog.service */ 4730);
 /* harmony import */ var _Service_IconSetConfiguration_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../Service/IconSetConfiguration/icon-set-configuration.service */ 10200);
 /* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/material/snack-bar */ 40382);
@@ -9217,7 +8736,7 @@ class ImportDomainStoryService {
     return title;
   }
   static #_ = this.ɵfac = function ImportDomainStoryService_Factory(t) {
-    return new (t || ImportDomainStoryService)(_angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵinject"](src_app_Service_IconSetConfiguration_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_6__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵinject"](src_app_tool_import_service_import_repair_service__WEBPACK_IMPORTED_MODULE_7__.ImportRepairService), _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵinject"](src_app_tool_header_service_title_service__WEBPACK_IMPORTED_MODULE_8__.TitleService), _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵinject"](src_app_Service_Renderer_renderer_service__WEBPACK_IMPORTED_MODULE_9__.RendererService), _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵinject"](_Service_Dialog_dialog_service__WEBPACK_IMPORTED_MODULE_10__.DialogService), _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵinject"](_Service_IconSetConfiguration_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_11__.IconSetConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵinject"](_angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_14__.MatSnackBar));
+    return new (t || ImportDomainStoryService)(_angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵinject"](src_app_Service_IconSetConfiguration_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_6__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵinject"](src_app_tool_import_service_import_repair_service__WEBPACK_IMPORTED_MODULE_7__.ImportRepairService), _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵinject"](src_app_tool_header_service_title_service__WEBPACK_IMPORTED_MODULE_8__.TitleService), _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵinject"](src_app_tool_modeler_service_renderer_service__WEBPACK_IMPORTED_MODULE_9__.RendererService), _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵinject"](_Service_Dialog_dialog_service__WEBPACK_IMPORTED_MODULE_10__.DialogService), _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵinject"](_Service_IconSetConfiguration_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_11__.IconSetConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵinject"](_angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_14__.MatSnackBar));
   };
   static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵdefineInjectable"]({
     token: ImportDomainStoryService,
@@ -9707,7 +9226,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 96623);
 /* harmony import */ var src_app_Service_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/Service/ElementRegistry/element-registry.service */ 67613);
-/* harmony import */ var _Service_CommandStack_command_stack_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../Service/CommandStack/command-stack.service */ 19381);
+/* harmony import */ var _modeler_service_command_stack_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../modeler/service/command-stack.service */ 38277);
 
 
 
@@ -9730,11 +9249,492 @@ class MassNamingService {
     this.commandStackService.execute('domainStoryObjects.massRename', context);
   }
   static #_ = this.ɵfac = function MassNamingService_Factory(t) {
-    return new (t || MassNamingService)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](src_app_Service_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_0__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_Service_CommandStack_command_stack_service__WEBPACK_IMPORTED_MODULE_1__.CommandStackService));
+    return new (t || MassNamingService)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](src_app_Service_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_0__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_modeler_service_command_stack_service__WEBPACK_IMPORTED_MODULE_1__.CommandStackService));
   };
   static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjectable"]({
     token: MassNamingService,
     factory: MassNamingService.ɵfac,
+    providedIn: 'root'
+  });
+}
+
+/***/ }),
+
+/***/ 14696:
+/*!***********************************************************!*\
+  !*** ./src/app/tool/modeler/domain/activityDialogData.ts ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ActivityDialogData: () => (/* binding */ ActivityDialogData)
+/* harmony export */ });
+class ActivityDialogData {
+  constructor(activity, numberIsAllowedMultipleTimes, showNumberFields, saveFN) {
+    this.activity = activity;
+    this.numberIsAllowedMultipleTimes = numberIsAllowedMultipleTimes;
+    this.showNumberFields = showNumberFields;
+    this.saveFN = saveFN;
+  }
+}
+
+/***/ }),
+
+/***/ 75691:
+/*!****************************************************************************************!*\
+  !*** ./src/app/tool/modeler/presentation/activity-dialog/activity-dialog.component.ts ***!
+  \****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ActivityDialogComponent: () => (/* binding */ ActivityDialogComponent)
+/* harmony export */ });
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material/dialog */ 72768);
+/* harmony import */ var _dialog_forms_activity_dialog_form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../dialog-forms/activity-dialog-form */ 16539);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 96623);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ 48015);
+/* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material/button */ 95912);
+/* harmony import */ var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material/form-field */ 48913);
+/* harmony import */ var _angular_material_input__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/material/input */ 29836);
+/* harmony import */ var src_app_tool_modeler_domain_activityDialogData__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/tool/modeler/domain/activityDialogData */ 14696);
+
+
+
+
+
+
+
+
+
+class ActivityDialogComponent {
+  constructor(dialogRef, data) {
+    this.dialogRef = dialogRef;
+    this.activity = data.activity;
+    this.activityLabel = data.activity.businessObject.name;
+    this.numberIsAllowedMultipleTimes = data.numberIsAllowedMultipleTimes;
+    this.activityNumber = data.activity.businessObject.number ?? null;
+    this.showNumberFields = data.showNumberFields;
+    this.saveFN = data.saveFN;
+    this.form = _dialog_forms_activity_dialog_form__WEBPACK_IMPORTED_MODULE_0__.ActivityDialogForm.create(this.activityLabel, this.activityNumber, this.numberIsAllowedMultipleTimes);
+    this.form.controls.activityNumber.valueChanges.subscribe(activityNumber => {
+      if (activityNumber !== null) {
+        if (activityNumber < 1) {
+          this.form.controls.activityNumber.setValue(1);
+        }
+      }
+    });
+  }
+  onSubmit() {
+    this.numberIsAllowedMultipleTimes = !this.numberIsAllowedMultipleTimes;
+    this.form.patchValue({
+      multipleNumbers: this.numberIsAllowedMultipleTimes
+    });
+  }
+  save() {
+    this.saveFN({
+      activity: this.activity,
+      ...this.form.value
+    });
+    this.dialogRef.close();
+  }
+  close() {
+    this.dialogRef.close();
+  }
+  preventDefault(event) {
+    event.preventDefault();
+  }
+  static #_ = this.ɵfac = function ActivityDialogComponent_Factory(t) {
+    return new (t || ActivityDialogComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__.MatDialogRef), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__.MAT_DIALOG_DATA));
+  };
+  static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineComponent"]({
+    type: ActivityDialogComponent,
+    selectors: [["app-activity-dialog"]],
+    decls: 20,
+    vars: 2,
+    consts: [[3, "formGroup"], [3, "hidden"], [1, "shortWidth"], ["matInput", "", "type", "number", "formControlName", "activityNumber"], ["type", "checkbox", "formControlName", "multipleNumbers", 3, "change"], [1, "fullWidth"], ["matInput", "", "type", "text", "formControlName", "activityLabel", "autofocus", "", "cdkFocusInitial", "", 3, "keydown.enter", "keyup.enter", "keyup.escape"], ["mat-flat-button", "", 3, "click"], ["mat-flat-button", "", "color", "primary", 3, "click"]],
+    template: function ActivityDialogComponent_Template(rf, ctx) {
+      if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "mat-dialog-content")(1, "h2");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](2, "Edit Activity");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](3, "form", 0)(4, "div", 1)(5, "mat-form-field", 2)(6, "mat-label");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](7, "Number");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelement"](8, "input", 3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](9, "input", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("change", function ActivityDialogComponent_Template_input_change_9_listener() {
+          return ctx.onSubmit();
+        });
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](10, " multiple ");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](11, "mat-form-field", 5)(12, "mat-label");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](13, "Label");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](14, "textarea", 6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("keydown.enter", function ActivityDialogComponent_Template_textarea_keydown_enter_14_listener($event) {
+          return ctx.preventDefault($event);
+        })("keyup.enter", function ActivityDialogComponent_Template_textarea_keyup_enter_14_listener() {
+          return ctx.save();
+        })("keyup.escape", function ActivityDialogComponent_Template_textarea_keyup_escape_14_listener() {
+          return ctx.close();
+        });
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]()()()();
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](15, "mat-dialog-actions")(16, "button", 7);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("click", function ActivityDialogComponent_Template_button_click_16_listener() {
+          return ctx.close();
+        });
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](17, "Cancel");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](18, "button", 8);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("click", function ActivityDialogComponent_Template_button_click_18_listener() {
+          return ctx.save();
+        });
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](19, "Save");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]()();
+      }
+      if (rf & 2) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("formGroup", ctx.form);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("hidden", !ctx.showNumberFields);
+      }
+    },
+    dependencies: [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["ɵNgNoValidate"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__.DefaultValueAccessor, _angular_forms__WEBPACK_IMPORTED_MODULE_4__.NumberValueAccessor, _angular_forms__WEBPACK_IMPORTED_MODULE_4__.CheckboxControlValueAccessor, _angular_forms__WEBPACK_IMPORTED_MODULE_4__.NgControlStatus, _angular_forms__WEBPACK_IMPORTED_MODULE_4__.NgControlStatusGroup, _angular_forms__WEBPACK_IMPORTED_MODULE_4__.FormGroupDirective, _angular_forms__WEBPACK_IMPORTED_MODULE_4__.FormControlName, _angular_material_button__WEBPACK_IMPORTED_MODULE_5__.MatButton, _angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__.MatDialogActions, _angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__.MatDialogContent, _angular_material_form_field__WEBPACK_IMPORTED_MODULE_6__.MatFormField, _angular_material_form_field__WEBPACK_IMPORTED_MODULE_6__.MatLabel, _angular_material_input__WEBPACK_IMPORTED_MODULE_7__.MatInput],
+    styles: [".shortWidth[_ngcontent-%COMP%] {\n  width: 200px;\n}\n\n.fullWidth[_ngcontent-%COMP%] {\n  width: 100%;\n}\n\n .mat-form-field-label {\n  font-size: 12pt !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFjdGl2aXR5LWRpYWxvZy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFlBQUE7QUFDRjs7QUFFQTtFQUNFLFdBQUE7QUFDRjs7QUFDQTtFQUNFLDBCQUFBO0FBRUYiLCJmaWxlIjoiYWN0aXZpdHktZGlhbG9nLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnNob3J0V2lkdGgge1xuICB3aWR0aDogMjAwcHg7XG59XG5cbi5mdWxsV2lkdGgge1xuICB3aWR0aDogMTAwJTtcbn1cbjo6bmctZGVlcC5tYXQtZm9ybS1maWVsZC1sYWJlbCB7XG4gIGZvbnQtc2l6ZTogMTJwdCAhaW1wb3J0YW50O1xufVxuIl19 */\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL3NyYy9hcHAvdG9vbC9tb2RlbGVyL3ByZXNlbnRhdGlvbi9hY3Rpdml0eS1kaWFsb2cvYWN0aXZpdHktZGlhbG9nLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsWUFBQTtBQUNGOztBQUVBO0VBQ0UsV0FBQTtBQUNGOztBQUNBO0VBQ0UsMEJBQUE7QUFFRjtBQUNBLGdnQkFBZ2dCIiwic291cmNlc0NvbnRlbnQiOlsiLnNob3J0V2lkdGgge1xuICB3aWR0aDogMjAwcHg7XG59XG5cbi5mdWxsV2lkdGgge1xuICB3aWR0aDogMTAwJTtcbn1cbjo6bmctZGVlcC5tYXQtZm9ybS1maWVsZC1sYWJlbCB7XG4gIGZvbnQtc2l6ZTogMTJwdCAhaW1wb3J0YW50O1xufVxuIl0sInNvdXJjZVJvb3QiOiIifQ== */"]
+  });
+}
+
+/***/ }),
+
+/***/ 16539:
+/*!********************************************************************************!*\
+  !*** ./src/app/tool/modeler/presentation/dialog-forms/activity-dialog-form.ts ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ActivityDialogForm: () => (/* binding */ ActivityDialogForm)
+/* harmony export */ });
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/forms */ 48015);
+
+var ActivityDialogForm;
+(function (ActivityDialogForm) {
+  function create(activityLabel, activityNumber, numberIsAllowedMultipleTimes) {
+    return new _angular_forms__WEBPACK_IMPORTED_MODULE_0__.FormGroup({
+      activityLabel: new _angular_forms__WEBPACK_IMPORTED_MODULE_0__.FormControl(activityLabel, {
+        nonNullable: true
+      }),
+      activityNumber: new _angular_forms__WEBPACK_IMPORTED_MODULE_0__.FormControl(activityNumber, [_angular_forms__WEBPACK_IMPORTED_MODULE_0__.Validators.required]),
+      multipleNumbers: new _angular_forms__WEBPACK_IMPORTED_MODULE_0__.FormControl(numberIsAllowedMultipleTimes, {
+        nonNullable: true
+      })
+    });
+  }
+  ActivityDialogForm.create = create;
+})(ActivityDialogForm || (ActivityDialogForm = {}));
+
+/***/ }),
+
+/***/ 15091:
+/*!******************************************************************************!*\
+  !*** ./src/app/tool/modeler/presentation/dialog-forms/header-dialog-form.ts ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   HeaderDialogForm: () => (/* binding */ HeaderDialogForm)
+/* harmony export */ });
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/forms */ 48015);
+
+var HeaderDialogForm;
+(function (HeaderDialogForm) {
+  function create(titel, description) {
+    return new _angular_forms__WEBPACK_IMPORTED_MODULE_0__.FormGroup({
+      title: new _angular_forms__WEBPACK_IMPORTED_MODULE_0__.FormControl(titel),
+      description: new _angular_forms__WEBPACK_IMPORTED_MODULE_0__.FormControl(description)
+    });
+  }
+  HeaderDialogForm.create = create;
+})(HeaderDialogForm || (HeaderDialogForm = {}));
+
+/***/ }),
+
+/***/ 11291:
+/*!************************************************************************!*\
+  !*** ./src/app/tool/modeler/presentation/modeler/modeler.component.ts ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ModelerComponent: () => (/* binding */ ModelerComponent)
+/* harmony export */ });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 96623);
+/* harmony import */ var _service_modeler_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../service/modeler.service */ 53367);
+/* harmony import */ var _autosave_service_autosave_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../autosave/service/autosave.service */ 49053);
+
+
+
+class ModelerComponent {
+  constructor(modelerService, autosaveService) {
+    this.modelerService = modelerService;
+    this.autosaveService = autosaveService;
+  }
+  ngOnInit() {
+    this.modelerService.postInit();
+    this.autosaveService.loadLatestDraft();
+  }
+  static #_ = this.ɵfac = function ModelerComponent_Factory(t) {
+    return new (t || ModelerComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_service_modeler_service__WEBPACK_IMPORTED_MODULE_0__.ModelerService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_autosave_service_autosave_service__WEBPACK_IMPORTED_MODULE_1__.AutosaveService));
+  };
+  static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineComponent"]({
+    type: ModelerComponent,
+    selectors: [["app-modeler"]],
+    decls: 1,
+    vars: 0,
+    consts: [["id", "canvas"]],
+    template: function ModelerComponent_Template(rf, ctx) {
+      if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelement"](0, "div", 0);
+      }
+    },
+    styles: ["#canvas[_ngcontent-%COMP%], #canvas[_ngcontent-%COMP%]    > div[_ngcontent-%COMP%] {\n  top: 0;\n  width: 100%;\n  height: 100%;\n  position: relative;\n  bottom: 0;\n  overflow: hidden;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm1vZGVsZXIuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7O0VBRUUsTUFBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0VBQ0Esa0JBQUE7RUFDQSxTQUFBO0VBQ0EsZ0JBQUE7QUFDRiIsImZpbGUiOiJtb2RlbGVyLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiI2NhbnZhcyxcbiNjYW52YXMgPiBkaXYge1xuICB0b3A6IDA7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IDEwMCU7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgYm90dG9tOiAwO1xuICBvdmVyZmxvdzogaGlkZGVuO1xufVxuIl19 */\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL3NyYy9hcHAvdG9vbC9tb2RlbGVyL3ByZXNlbnRhdGlvbi9tb2RlbGVyL21vZGVsZXIuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7O0VBRUUsTUFBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0VBQ0Esa0JBQUE7RUFDQSxTQUFBO0VBQ0EsZ0JBQUE7QUFDRjtBQUNBLGdmQUFnZiIsInNvdXJjZXNDb250ZW50IjpbIiNjYW52YXMsXG4jY2FudmFzID4gZGl2IHtcbiAgdG9wOiAwO1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiAxMDAlO1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIGJvdHRvbTogMDtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbn1cbiJdLCJzb3VyY2VSb290IjoiIn0= */"]
+  });
+}
+
+/***/ }),
+
+/***/ 38277:
+/*!***************************************************************!*\
+  !*** ./src/app/tool/modeler/service/command-stack.service.ts ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   CommandStackService: () => (/* binding */ CommandStackService)
+/* harmony export */ });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 96623);
+
+class CommandStackService {
+  constructor() {}
+  setCommandStack(commandStack) {
+    this.commandStack = commandStack;
+  }
+  execute(action, payload) {
+    this.commandStack.execute(action, payload);
+  }
+  static #_ = this.ɵfac = function CommandStackService_Factory(t) {
+    return new (t || CommandStackService)();
+  };
+  static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({
+    token: CommandStackService,
+    factory: CommandStackService.ɵfac,
+    providedIn: 'root'
+  });
+}
+
+/***/ }),
+
+/***/ 53367:
+/*!*********************************************************!*\
+  !*** ./src/app/tool/modeler/service/modeler.service.ts ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ModelerService: () => (/* binding */ ModelerService)
+/* harmony export */ });
+/* harmony import */ var _home_runner_work_egon_io_egon_io_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 56207);
+/* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! min-dash */ 81410);
+/* harmony import */ var src_app_tool_modeler_bpmn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/tool/modeler/bpmn */ 48023);
+/* harmony import */ var _bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../bpmn/modeler/numbering/numbering */ 93213);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/core */ 96623);
+/* harmony import */ var _workbench_service_modeler_initializer_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../workbench/service/modeler/initializer.service */ 49364);
+/* harmony import */ var _Service_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../Service/ElementRegistry/element-registry.service */ 67613);
+/* harmony import */ var _Service_IconSetConfiguration_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../Service/IconSetConfiguration/icon-dictionary.service */ 93689);
+/* harmony import */ var _Service_IconSetConfiguration_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../Service/IconSetConfiguration/icon-set-configuration.service */ 10200);
+/* harmony import */ var _Service_BrowserStorage_storage_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../Service/BrowserStorage/storage.service */ 59298);
+
+
+
+
+
+
+
+
+
+
+class ModelerService {
+  constructor(initializerService, elementRegistryService, iconDictionaryService, iconSetConfigurationService, storageService) {
+    this.initializerService = initializerService;
+    this.elementRegistryService = elementRegistryService;
+    this.iconDictionaryService = iconDictionaryService;
+    this.iconSetConfigurationService = iconSetConfigurationService;
+    this.storageService = storageService;
+  }
+  postInit() {
+    const storedIconSetConfiguration = this.storageService.getStoredIconSetConfiguration();
+    if (storedIconSetConfiguration) {
+      this.iconDictionaryService.setCustomConfiguration(storedIconSetConfiguration);
+      this.iconSetConfigurationService.loadConfiguration(storedIconSetConfiguration);
+    }
+    this.initializerService.initializeDomainStoryModelerClasses();
+    this.modeler = new src_app_tool_modeler_bpmn__WEBPACK_IMPORTED_MODULE_1__["default"]({
+      container: '#canvas',
+      keyboard: {
+        bindTo: document
+      },
+      // Disable BPMN-SearchModule and re-enable browser Search
+      additionalModules: [{
+        bpmnSearch: ['value', 'foo']
+      }]
+    });
+    if (this.modeler.get) {
+      this.canvas = this.modeler.get('canvas');
+      this.elementRegistry = this.modeler.get('elementRegistry');
+      this.eventBus = this.modeler.get('eventBus');
+      this.commandStack = this.modeler.get('commandStack');
+      this.selection = this.modeler.get('selection');
+    }
+    this.initializerService.initializeDomainStoryModelerEventHandlers(this.commandStack, this.eventBus);
+    this.initializerService.propagateDomainStoryModelerClassesToServices(this.commandStack, this.elementRegistry, this.canvas, this.selection, this.modeler);
+    const exportArtifacts = this.debounce(this.saveSVG, 500);
+    if (this.modeler.get) {
+      this.modeler.on('commandStack.changed', exportArtifacts);
+    }
+    this.initializerService.initiateEventBusListeners(this.eventBus, this.commandStack);
+    this.modeler.createDiagram();
+    // expose bpmnjs to window for debugging purposes
+    (0,min_dash__WEBPACK_IMPORTED_MODULE_8__.assign)(window, {
+      bpmnjs: this.modeler
+    });
+    this.startDebounce();
+  }
+  restart(iconSetConfiguration, domainStory) {
+    const currentStory = domainStory != undefined ? domainStory : this.elementRegistryService.createObjectListForDSTDownload().map(e => e.businessObject);
+    if (!iconSetConfiguration) {
+      iconSetConfiguration = this.storageService.getStoredIconSetConfiguration();
+    }
+    if (iconSetConfiguration) {
+      this.storageService.setStoredIconSetConfiguration(iconSetConfiguration);
+      this.iconDictionaryService.setCustomConfiguration(iconSetConfiguration);
+      this.iconSetConfigurationService.loadConfiguration(iconSetConfiguration);
+    }
+    this.elementRegistryService.clear();
+    this.modeler?.destroy();
+    this.postInit();
+    (0,_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_2__.updateMultipleNumberRegistry)(currentStory.filter(bo => bo.type === 'domainStory:activity').map(bo => bo).filter(bo => bo.number !== null));
+    if (currentStory && this.modeler.get) {
+      this.modeler.importCustomElements(currentStory);
+    }
+  }
+  /** Interactions with the Modeler **/
+  getModeler() {
+    return this.modeler;
+  }
+  commandStackChanged() {
+    // to update the title of the svg, we need to tell the command stack, that a value has changed
+    this.eventBus.fire('commandStack.changed', this.debounce(this.saveSVG, 500));
+  }
+  startDebounce() {
+    this.debounce(this.saveSVG, 500);
+  }
+  debounce(fn, timeout) {
+    return () => {
+      let timer;
+      if (timer) {
+        clearTimeout(timer);
+      }
+      timer = setTimeout(() => {
+        // tslint:disable-next-line:no-unused-expression
+        fn(this.modeler).then(svg => {
+          this.encoded = svg;
+        });
+      }, timeout);
+    };
+  }
+  getEncoded() {
+    return this.encoded ? this.encoded : '';
+  }
+  saveSVG(modeler) {
+    return (0,_home_runner_work_egon_io_egon_io_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      try {
+        const result = yield modeler.saveSVG();
+        return result.svg;
+      } catch (err) {
+        alert('There was an error saving the SVG.\n' + err);
+      }
+    })();
+  }
+  static #_ = this.ɵfac = function ModelerService_Factory(t) {
+    return new (t || ModelerService)(_angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_workbench_service_modeler_initializer_service__WEBPACK_IMPORTED_MODULE_3__.InitializerService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_Service_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_4__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_Service_IconSetConfiguration_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_5__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_Service_IconSetConfiguration_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_6__.IconSetConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_Service_BrowserStorage_storage_service__WEBPACK_IMPORTED_MODULE_7__.StorageService));
+  };
+  static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵdefineInjectable"]({
+    token: ModelerService,
+    factory: ModelerService.ɵfac,
+    providedIn: 'root'
+  });
+}
+
+/***/ }),
+
+/***/ 56612:
+/*!**********************************************************!*\
+  !*** ./src/app/tool/modeler/service/renderer.service.ts ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   RendererService: () => (/* binding */ RendererService)
+/* harmony export */ });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 96623);
+/* harmony import */ var src_app_tool_modeler_service_modeler_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/tool/modeler/service/modeler.service */ 53367);
+/* harmony import */ var src_app_Service_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/Service/ElementRegistry/element-registry.service */ 67613);
+/* harmony import */ var src_app_Service_DirtyFlag_dirty_flag_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/Service/DirtyFlag/dirty-flag.service */ 89791);
+
+
+
+
+class RendererService {
+  constructor(modelerService, elementRegistryService, dirtyFlagService) {
+    this.modelerService = modelerService;
+    this.elementRegistryService = elementRegistryService;
+    this.dirtyFlagService = dirtyFlagService;
+  }
+  renderStory(domainStory) {
+    this.modelerService.getModeler().importCustomElements(domainStory);
+  }
+  reset() {
+    this.renderStory([]);
+  }
+  importStory(domainStory, configurationChange, config, makeClean = true) {
+    this.modelerService.restart(config, domainStory);
+    this.renderStory(domainStory);
+    this.elementRegistryService.correctInitialize();
+    this.modelerService.commandStackChanged();
+    this.modelerService.startDebounce();
+    if (makeClean) {
+      this.dirtyFlagService.makeClean();
+    }
+  }
+  getStory() {
+    return this.elementRegistryService.createObjectListForDSTDownload().map(c => c.businessObject);
+  }
+  static #_ = this.ɵfac = function RendererService_Factory(t) {
+    return new (t || RendererService)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](src_app_tool_modeler_service_modeler_service__WEBPACK_IMPORTED_MODULE_0__.ModelerService), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](src_app_Service_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_1__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](src_app_Service_DirtyFlag_dirty_flag_service__WEBPACK_IMPORTED_MODULE_2__.DirtyFlagService));
+  };
+  static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineInjectable"]({
+    token: RendererService,
+    factory: RendererService.ɵfac,
     providedIn: 'root'
   });
 }
@@ -10193,7 +10193,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/common */ 39191);
 /* harmony import */ var src_app_tool_header_presentation_header_header_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/tool/header/presentation/header/header.component */ 99834);
 /* harmony import */ var src_app_Presentation_Settings_settings_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/Presentation/Settings/settings.component */ 1261);
-/* harmony import */ var src_app_Presentation_Canvas_modeler_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/Presentation/Canvas/modeler.component */ 29383);
+/* harmony import */ var src_app_tool_modeler_presentation_modeler_modeler_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/tool/modeler/presentation/modeler/modeler.component */ 11291);
 
 
 
@@ -10390,7 +10390,7 @@ class AppComponent {
         _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵtextInterpolate"](ctx.version);
       }
     },
-    dependencies: [_angular_common__WEBPACK_IMPORTED_MODULE_12__.NgIf, ngx_color_picker__WEBPACK_IMPORTED_MODULE_11__.ColorPickerDirective, src_app_tool_header_presentation_header_header_component__WEBPACK_IMPORTED_MODULE_6__.HeaderComponent, src_app_Presentation_Settings_settings_component__WEBPACK_IMPORTED_MODULE_7__.SettingsComponent, src_app_Presentation_Canvas_modeler_component__WEBPACK_IMPORTED_MODULE_8__.ModelerComponent, _angular_common__WEBPACK_IMPORTED_MODULE_12__.AsyncPipe],
+    dependencies: [_angular_common__WEBPACK_IMPORTED_MODULE_12__.NgIf, ngx_color_picker__WEBPACK_IMPORTED_MODULE_11__.ColorPickerDirective, src_app_tool_header_presentation_header_header_component__WEBPACK_IMPORTED_MODULE_6__.HeaderComponent, src_app_Presentation_Settings_settings_component__WEBPACK_IMPORTED_MODULE_7__.SettingsComponent, src_app_tool_modeler_presentation_modeler_modeler_component__WEBPACK_IMPORTED_MODULE_8__.ModelerComponent, _angular_common__WEBPACK_IMPORTED_MODULE_12__.AsyncPipe],
     styles: [".content[_ngcontent-%COMP%] {\n  height: 100%;\n  overflow: hidden;\n}\n\n\n\n.headerAndCanvas[_ngcontent-%COMP%] {\n  height: 100%;\n  width: 100%;\n  display: grid;\n  grid-template-rows: min-content auto;\n  overflow: hidden;\n}\n\n.headerAndCanvasCollapsed[_ngcontent-%COMP%] {\n  height: 100%;\n  width: 100%;\n  display: grid;\n  grid-template-rows: min-content auto;\n  overflow: hidden;\n}\n\n.settings[_ngcontent-%COMP%] {\n  height: 100%;\n}\n\n.header[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-rows: min-content 155px;\n}\n\n\n\n.logoContainer[_ngcontent-%COMP%] {\n  display: flex;\n  position: absolute;\n  bottom: 0;\n  right: 100px;\n  align-items: flex-end;\n}\n.logoContainer[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  margin-left: 16px;\n  margin-bottom: 14px;\n  align-items: center;\n}\n\n.hidden[_ngcontent-%COMP%] {\n  height: 1px;\n  width: 1px;\n}\n\n#wrapper[_ngcontent-%COMP%] {\n  padding: 16px;\n  min-height: 100%;\n  height: 100%;\n  box-sizing: border-box; \n\n}\n\n#tab-group[_ngcontent-%COMP%] {\n  height: 100%;\n}\n\n#tab-group[_ngcontent-%COMP%]   mat-tab-body[_ngcontent-%COMP%] {\n  flex-grow: 1;\n}\n\n.mat-button-toggle-label-content[_ngcontent-%COMP%] {\n  font-size: 10pt !important;\n  padding: 0 5px !important;\n  line-height: inherit !important;\n}\n\n .mdc-text-field--filled:not(.mdc-text-field--disabled) {\n  background-color: white;\n}\n\nspan[_ngcontent-%COMP%]   *[_ngcontent-%COMP%] {\n  vertical-align: middle;\n}\n\nspan[_ngcontent-%COMP%] {\n  height: 24px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFlBQUE7RUFDQSxnQkFBQTtBQUNGOztBQUVBLHFCQUFBO0FBRUE7RUFDRSxZQUFBO0VBQ0EsV0FBQTtFQUNBLGFBQUE7RUFDQSxvQ0FBQTtFQUNBLGdCQUFBO0FBQUY7O0FBR0E7RUFDRSxZQUFBO0VBQ0EsV0FBQTtFQUNBLGFBQUE7RUFDQSxvQ0FBQTtFQUNBLGdCQUFBO0FBQUY7O0FBR0E7RUFDRSxZQUFBO0FBQUY7O0FBR0E7RUFDRSxhQUFBO0VBQ0EscUNBQUE7QUFBRjs7QUFHQSxtQkFBQTtBQUVBO0VBQ0UsYUFBQTtFQUNBLGtCQUFBO0VBQ0EsU0FBQTtFQUNBLFlBQUE7RUFDQSxxQkFBQTtBQURGO0FBR0U7RUFDRSxpQkFBQTtFQUNBLG1CQUFBO0VBQ0EsbUJBQUE7QUFESjs7QUFLQTtFQUNFLFdBQUE7RUFDQSxVQUFBO0FBRkY7O0FBS0E7RUFDRSxhQUFBO0VBQ0EsZ0JBQUE7RUFDQSxZQUFBO0VBQ0Esc0JBQUEsRUFBQSxNQUFBO0FBRkY7O0FBS0E7RUFDRSxZQUFBO0FBRkY7O0FBS0E7RUFDRSxZQUFBO0FBRkY7O0FBTUE7RUFDRSwwQkFBQTtFQUNBLHlCQUFBO0VBQ0EsK0JBQUE7QUFIRjs7QUFNQTtFQUNFLHVCQUFBO0FBSEY7O0FBTUE7RUFDRSxzQkFBQTtBQUhGOztBQU1BO0VBQ0UsWUFBQTtBQUhGIiwiZmlsZSI6ImFwcC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5jb250ZW50IHtcbiAgaGVpZ2h0OiAxMDAlO1xuICBvdmVyZmxvdzogaGlkZGVuO1xufVxuXG4vKiBoZWFkZXIgYW5kIENhbnZhcyovXG5cbi5oZWFkZXJBbmRDYW52YXMge1xuICBoZWlnaHQ6IDEwMCU7XG4gIHdpZHRoOiAxMDAlO1xuICBkaXNwbGF5OiBncmlkO1xuICBncmlkLXRlbXBsYXRlLXJvd3M6IG1pbi1jb250ZW50IGF1dG87XG4gIG92ZXJmbG93OiBoaWRkZW47XG59XG5cbi5oZWFkZXJBbmRDYW52YXNDb2xsYXBzZWQge1xuICBoZWlnaHQ6IDEwMCU7XG4gIHdpZHRoOiAxMDAlO1xuICBkaXNwbGF5OiBncmlkO1xuICBncmlkLXRlbXBsYXRlLXJvd3M6IG1pbi1jb250ZW50IGF1dG87XG4gIG92ZXJmbG93OiBoaWRkZW47XG59XG5cbi5zZXR0aW5ncyB7XG4gIGhlaWdodDogMTAwJTtcbn1cblxuLmhlYWRlciB7XG4gIGRpc3BsYXk6IGdyaWQ7XG4gIGdyaWQtdGVtcGxhdGUtcm93czogbWluLWNvbnRlbnQgMTU1cHg7XG59XG5cbi8qIExvZ28gQ29udGFpbmVyICovXG5cbi5sb2dvQ29udGFpbmVyIHtcbiAgZGlzcGxheTogZmxleDtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICBib3R0b206IDA7XG4gIHJpZ2h0OiAxMDBweDtcbiAgYWxpZ24taXRlbXM6IGZsZXgtZW5kO1xuXG4gIHNwYW4ge1xuICAgIG1hcmdpbi1sZWZ0OiAxNnB4O1xuICAgIG1hcmdpbi1ib3R0b206IDE0cHg7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgfVxufVxuXG4uaGlkZGVuIHtcbiAgaGVpZ2h0OiAxcHg7XG4gIHdpZHRoOiAxcHg7XG59XG5cbiN3cmFwcGVyIHtcbiAgcGFkZGluZzogMTZweDtcbiAgbWluLWhlaWdodDogMTAwJTtcbiAgaGVpZ2h0OiAxMDAlO1xuICBib3gtc2l6aW5nOiBib3JkZXItYm94OyAvKm5ldyovXG59XG5cbiN0YWItZ3JvdXAge1xuICBoZWlnaHQ6IDEwMCU7XG59XG5cbiN0YWItZ3JvdXAgbWF0LXRhYi1ib2R5IHtcbiAgZmxleC1ncm93OiAxO1xufVxuXG4vLyBNYXRlcmlhbCBEZXNpZ24gT3ZlcnJpZGVzXG4ubWF0LWJ1dHRvbi10b2dnbGUtbGFiZWwtY29udGVudCB7XG4gIGZvbnQtc2l6ZTogMTBwdCAhaW1wb3J0YW50O1xuICBwYWRkaW5nOiAwIDVweCAhaW1wb3J0YW50O1xuICBsaW5lLWhlaWdodDogaW5oZXJpdCAhaW1wb3J0YW50O1xufVxuXG46Om5nLWRlZXAubWRjLXRleHQtZmllbGQtLWZpbGxlZDpub3QoLm1kYy10ZXh0LWZpZWxkLS1kaXNhYmxlZCkge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcbn1cblxuc3BhbiAqIHtcbiAgdmVydGljYWwtYWxpZ246IG1pZGRsZTtcbn1cblxuc3BhbiB7XG4gIGhlaWdodDogMjRweDtcbn1cbiJdfQ== */\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL3NyYy9hcHAvd29ya2JlbmNoL2FwcC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFlBQUE7RUFDQSxnQkFBQTtBQUNGOztBQUVBLHFCQUFBO0FBRUE7RUFDRSxZQUFBO0VBQ0EsV0FBQTtFQUNBLGFBQUE7RUFDQSxvQ0FBQTtFQUNBLGdCQUFBO0FBQUY7O0FBR0E7RUFDRSxZQUFBO0VBQ0EsV0FBQTtFQUNBLGFBQUE7RUFDQSxvQ0FBQTtFQUNBLGdCQUFBO0FBQUY7O0FBR0E7RUFDRSxZQUFBO0FBQUY7O0FBR0E7RUFDRSxhQUFBO0VBQ0EscUNBQUE7QUFBRjs7QUFHQSxtQkFBQTtBQUVBO0VBQ0UsYUFBQTtFQUNBLGtCQUFBO0VBQ0EsU0FBQTtFQUNBLFlBQUE7RUFDQSxxQkFBQTtBQURGO0FBR0U7RUFDRSxpQkFBQTtFQUNBLG1CQUFBO0VBQ0EsbUJBQUE7QUFESjs7QUFLQTtFQUNFLFdBQUE7RUFDQSxVQUFBO0FBRkY7O0FBS0E7RUFDRSxhQUFBO0VBQ0EsZ0JBQUE7RUFDQSxZQUFBO0VBQ0Esc0JBQUEsRUFBQSxNQUFBO0FBRkY7O0FBS0E7RUFDRSxZQUFBO0FBRkY7O0FBS0E7RUFDRSxZQUFBO0FBRkY7O0FBTUE7RUFDRSwwQkFBQTtFQUNBLHlCQUFBO0VBQ0EsK0JBQUE7QUFIRjs7QUFNQTtFQUNFLHVCQUFBO0FBSEY7O0FBTUE7RUFDRSxzQkFBQTtBQUhGOztBQU1BO0VBQ0UsWUFBQTtBQUhGO0FBQ0EsNHBGQUE0cEYiLCJzb3VyY2VzQ29udGVudCI6WyIuY29udGVudCB7XG4gIGhlaWdodDogMTAwJTtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbn1cblxuLyogaGVhZGVyIGFuZCBDYW52YXMqL1xuXG4uaGVhZGVyQW5kQ2FudmFzIHtcbiAgaGVpZ2h0OiAxMDAlO1xuICB3aWR0aDogMTAwJTtcbiAgZGlzcGxheTogZ3JpZDtcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBtaW4tY29udGVudCBhdXRvO1xuICBvdmVyZmxvdzogaGlkZGVuO1xufVxuXG4uaGVhZGVyQW5kQ2FudmFzQ29sbGFwc2VkIHtcbiAgaGVpZ2h0OiAxMDAlO1xuICB3aWR0aDogMTAwJTtcbiAgZGlzcGxheTogZ3JpZDtcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBtaW4tY29udGVudCBhdXRvO1xuICBvdmVyZmxvdzogaGlkZGVuO1xufVxuXG4uc2V0dGluZ3Mge1xuICBoZWlnaHQ6IDEwMCU7XG59XG5cbi5oZWFkZXIge1xuICBkaXNwbGF5OiBncmlkO1xuICBncmlkLXRlbXBsYXRlLXJvd3M6IG1pbi1jb250ZW50IDE1NXB4O1xufVxuXG4vKiBMb2dvIENvbnRhaW5lciAqL1xuXG4ubG9nb0NvbnRhaW5lciB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgYm90dG9tOiAwO1xuICByaWdodDogMTAwcHg7XG4gIGFsaWduLWl0ZW1zOiBmbGV4LWVuZDtcblxuICBzcGFuIHtcbiAgICBtYXJnaW4tbGVmdDogMTZweDtcbiAgICBtYXJnaW4tYm90dG9tOiAxNHB4O1xuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gIH1cbn1cblxuLmhpZGRlbiB7XG4gIGhlaWdodDogMXB4O1xuICB3aWR0aDogMXB4O1xufVxuXG4jd3JhcHBlciB7XG4gIHBhZGRpbmc6IDE2cHg7XG4gIG1pbi1oZWlnaHQ6IDEwMCU7XG4gIGhlaWdodDogMTAwJTtcbiAgYm94LXNpemluZzogYm9yZGVyLWJveDsgLypuZXcqL1xufVxuXG4jdGFiLWdyb3VwIHtcbiAgaGVpZ2h0OiAxMDAlO1xufVxuXG4jdGFiLWdyb3VwIG1hdC10YWItYm9keSB7XG4gIGZsZXgtZ3JvdzogMTtcbn1cblxuLy8gTWF0ZXJpYWwgRGVzaWduIE92ZXJyaWRlc1xuLm1hdC1idXR0b24tdG9nZ2xlLWxhYmVsLWNvbnRlbnQge1xuICBmb250LXNpemU6IDEwcHQgIWltcG9ydGFudDtcbiAgcGFkZGluZzogMCA1cHggIWltcG9ydGFudDtcbiAgbGluZS1oZWlnaHQ6IGluaGVyaXQgIWltcG9ydGFudDtcbn1cblxuOjpuZy1kZWVwLm1kYy10ZXh0LWZpZWxkLS1maWxsZWQ6bm90KC5tZGMtdGV4dC1maWVsZC0tZGlzYWJsZWQpIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG59XG5cbnNwYW4gKiB7XG4gIHZlcnRpY2FsLWFsaWduOiBtaWRkbGU7XG59XG5cbnNwYW4ge1xuICBoZWlnaHQ6IDI0cHg7XG59XG4iXSwic291cmNlUm9vdCI6IiJ9 */"]
   });
 }
@@ -10416,7 +10416,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_tool_export_service_export_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/tool/export/service/export.service */ 90877);
 /* harmony import */ var src_app_tool_import_service_import_domain_story_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/tool/import/service/import-domain-story.service */ 46218);
 /* harmony import */ var src_app_tool_import_service_import_repair_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/tool/import/service/import-repair.service */ 82391);
-/* harmony import */ var src_app_Service_Modeler_modeler_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/Service/Modeler/modeler.service */ 74676);
+/* harmony import */ var src_app_tool_modeler_service_modeler_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/tool/modeler/service/modeler.service */ 53367);
 /* harmony import */ var src_app_tool_header_service_title_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/tool/header/service/title.service */ 5048);
 /* harmony import */ var src_app_tool_label_dictionary_service_label_dictionary_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/tool/label-dictionary/service/label-dictionary.service */ 4879);
 /* harmony import */ var src_app_tool_replay_service_replay_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/tool/replay/service/replay.service */ 60523);
@@ -10425,11 +10425,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_tool_label_dictionary_service_mass_naming_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/app/tool/label-dictionary/service/mass-naming.service */ 93309);
 /* harmony import */ var src_app_tool_header_presentation_dialog_info_dialog_title_and_description_dialog_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! src/app/tool/header/presentation/dialog/info-dialog/title-and-description-dialog.component */ 28152);
 /* harmony import */ var src_app_tool_export_presentation_export_dialog_export_dialog_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! src/app/tool/export/presentation/export-dialog/export-dialog.component */ 61603);
-/* harmony import */ var src_app_Presentation_Dialog_activity_dialog_activity_dialog_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! src/app/Presentation/Dialog/activity-dialog/activity-dialog.component */ 63954);
+/* harmony import */ var src_app_tool_modeler_presentation_activity_dialog_activity_dialog_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! src/app/tool/modeler/presentation/activity-dialog/activity-dialog.component */ 75691);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @angular/forms */ 48015);
 /* harmony import */ var src_app_tool_header_presentation_dialog_header_dialog_header_dialog_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! src/app/tool/header/presentation/dialog/header-dialog/header-dialog.component */ 31119);
 /* harmony import */ var src_app_Service_IconSetConfiguration_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! src/app/Service/IconSetConfiguration/icon-dictionary.service */ 93689);
-/* harmony import */ var src_app_Presentation_Canvas_modeler_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! src/app/Presentation/Canvas/modeler.component */ 29383);
+/* harmony import */ var src_app_tool_modeler_presentation_modeler_modeler_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! src/app/tool/modeler/presentation/modeler/modeler.component */ 11291);
 /* harmony import */ var src_app_Modules_settings_module__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! src/app/Modules/settings.module */ 47261);
 /* harmony import */ var _tool_autosave_service_autosave_service__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../tool/autosave/service/autosave.service */ 49053);
 /* harmony import */ var _Modules_domain_story_modeler_module_module__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../Modules/domain-story-modeler-module.module */ 76330);
@@ -10486,7 +10486,7 @@ class AppModule {
     type: AppModule
   });
   static #_3 = this.ɵinj = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_24__["ɵɵdefineInjector"]({
-    providers: [_tool_autosave_service_autosave_service__WEBPACK_IMPORTED_MODULE_20__.AutosaveService, src_app_tool_export_service_export_service__WEBPACK_IMPORTED_MODULE_3__.ExportService, src_app_tool_import_service_import_domain_story_service__WEBPACK_IMPORTED_MODULE_4__.ImportDomainStoryService, src_app_tool_import_service_import_repair_service__WEBPACK_IMPORTED_MODULE_5__.ImportRepairService, src_app_Service_IconSetConfiguration_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_17__.IconDictionaryService, src_app_tool_header_service_title_service__WEBPACK_IMPORTED_MODULE_7__.TitleService, src_app_tool_label_dictionary_service_label_dictionary_service__WEBPACK_IMPORTED_MODULE_8__.LabelDictionaryService, src_app_tool_replay_service_replay_service__WEBPACK_IMPORTED_MODULE_9__.ReplayService, src_app_Service_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_10__.ElementRegistryService, src_app_Service_IconSetConfiguration_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_11__.IconSetConfigurationService, src_app_Service_Modeler_modeler_service__WEBPACK_IMPORTED_MODULE_6__.ModelerService, src_app_tool_label_dictionary_service_mass_naming_service__WEBPACK_IMPORTED_MODULE_12__.MassNamingService, _angular_forms__WEBPACK_IMPORTED_MODULE_25__.UntypedFormBuilder, {
+    providers: [_tool_autosave_service_autosave_service__WEBPACK_IMPORTED_MODULE_20__.AutosaveService, src_app_tool_export_service_export_service__WEBPACK_IMPORTED_MODULE_3__.ExportService, src_app_tool_import_service_import_domain_story_service__WEBPACK_IMPORTED_MODULE_4__.ImportDomainStoryService, src_app_tool_import_service_import_repair_service__WEBPACK_IMPORTED_MODULE_5__.ImportRepairService, src_app_Service_IconSetConfiguration_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_17__.IconDictionaryService, src_app_tool_header_service_title_service__WEBPACK_IMPORTED_MODULE_7__.TitleService, src_app_tool_label_dictionary_service_label_dictionary_service__WEBPACK_IMPORTED_MODULE_8__.LabelDictionaryService, src_app_tool_replay_service_replay_service__WEBPACK_IMPORTED_MODULE_9__.ReplayService, src_app_Service_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_10__.ElementRegistryService, src_app_Service_IconSetConfiguration_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_11__.IconSetConfigurationService, src_app_tool_modeler_service_modeler_service__WEBPACK_IMPORTED_MODULE_6__.ModelerService, src_app_tool_label_dictionary_service_mass_naming_service__WEBPACK_IMPORTED_MODULE_12__.MassNamingService, _angular_forms__WEBPACK_IMPORTED_MODULE_25__.UntypedFormBuilder, {
       provide: _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_26__.MAT_CHECKBOX_DEFAULT_OPTIONS,
       useValue: {
         clickAction: 'noop'
@@ -10497,7 +10497,7 @@ class AppModule {
 }
 (function () {
   (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_24__["ɵɵsetNgModuleScope"](AppModule, {
-    declarations: [src_app_tool_header_presentation_header_header_component__WEBPACK_IMPORTED_MODULE_0__.HeaderComponent, src_app_Presentation_Settings_settings_component__WEBPACK_IMPORTED_MODULE_1__.SettingsComponent, src_app_workbench_app_component__WEBPACK_IMPORTED_MODULE_2__.AppComponent, src_app_tool_header_presentation_dialog_info_dialog_title_and_description_dialog_component__WEBPACK_IMPORTED_MODULE_13__.TitleAndDescriptionDialogComponent, src_app_tool_export_presentation_export_dialog_export_dialog_component__WEBPACK_IMPORTED_MODULE_14__.ExportDialogComponent, src_app_Presentation_Dialog_activity_dialog_activity_dialog_component__WEBPACK_IMPORTED_MODULE_15__.ActivityDialogComponent, src_app_tool_header_presentation_dialog_header_dialog_header_dialog_component__WEBPACK_IMPORTED_MODULE_16__.HeaderDialogComponent, src_app_Presentation_Canvas_modeler_component__WEBPACK_IMPORTED_MODULE_18__.ModelerComponent, _tool_label_dictionary_presentation_label_dictionary_dialog_label_dictionary_dialog_component__WEBPACK_IMPORTED_MODULE_22__.LabelDictionaryDialogComponent],
+    declarations: [src_app_tool_header_presentation_header_header_component__WEBPACK_IMPORTED_MODULE_0__.HeaderComponent, src_app_Presentation_Settings_settings_component__WEBPACK_IMPORTED_MODULE_1__.SettingsComponent, src_app_workbench_app_component__WEBPACK_IMPORTED_MODULE_2__.AppComponent, src_app_tool_header_presentation_dialog_info_dialog_title_and_description_dialog_component__WEBPACK_IMPORTED_MODULE_13__.TitleAndDescriptionDialogComponent, src_app_tool_export_presentation_export_dialog_export_dialog_component__WEBPACK_IMPORTED_MODULE_14__.ExportDialogComponent, src_app_tool_modeler_presentation_activity_dialog_activity_dialog_component__WEBPACK_IMPORTED_MODULE_15__.ActivityDialogComponent, src_app_tool_header_presentation_dialog_header_dialog_header_dialog_component__WEBPACK_IMPORTED_MODULE_16__.HeaderDialogComponent, src_app_tool_modeler_presentation_modeler_modeler_component__WEBPACK_IMPORTED_MODULE_18__.ModelerComponent, _tool_label_dictionary_presentation_label_dictionary_dialog_label_dictionary_dialog_component__WEBPACK_IMPORTED_MODULE_22__.LabelDictionaryDialogComponent],
     imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_27__.BrowserModule, _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_28__.NoopAnimationsModule, _angular_forms__WEBPACK_IMPORTED_MODULE_25__.ReactiveFormsModule, src_app_Modules_settings_module__WEBPACK_IMPORTED_MODULE_19__.SettingsModule, _Modules_domain_story_modeler_module_module__WEBPACK_IMPORTED_MODULE_21__.DomainStoryModelerModuleModule, _material_module__WEBPACK_IMPORTED_MODULE_23__.MaterialModule, ngx_color_picker__WEBPACK_IMPORTED_MODULE_29__.ColorPickerModule]
   });
 })();
@@ -10523,7 +10523,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Domain_Common_constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../Domain/Common/constants */ 90816);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/core */ 96623);
 /* harmony import */ var _service_settings_settings_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../service/settings/settings.service */ 32754);
-/* harmony import */ var _Service_Modeler_modeler_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../Service/Modeler/modeler.service */ 74676);
+/* harmony import */ var _tool_modeler_service_modeler_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../tool/modeler/service/modeler.service */ 53367);
 /* harmony import */ var _tool_replay_service_replay_state_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../tool/replay/service/replay-state.service */ 1671);
 /* harmony import */ var _Service_DirtyFlag_dirty_flag_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../Service/DirtyFlag/dirty-flag.service */ 89791);
 /* harmony import */ var _Service_Dialog_dialog_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../Service/Dialog/dialog.service */ 4730);
@@ -10531,7 +10531,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tool_export_service_export_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../../tool/export/service/export.service */ 90877);
 /* harmony import */ var _tool_import_service_import_domain_story_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../../tool/import/service/import-domain-story.service */ 46218);
 /* harmony import */ var _tool_header_service_title_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../../../tool/header/service/title.service */ 5048);
-/* harmony import */ var _Service_Renderer_renderer_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../../../Service/Renderer/renderer.service */ 94896);
+/* harmony import */ var _tool_modeler_service_renderer_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../../../tool/modeler/service/renderer.service */ 56612);
 /* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @angular/material/snack-bar */ 40382);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @angular/common */ 39191);
 
@@ -10786,7 +10786,7 @@ class HeaderButtonsComponent {
     return this.titleService.hasTitleOrDescription() || this.exportService.isDomainStoryExportable();
   }
   static #_ = this.ɵfac = function HeaderButtonsComponent_Factory(t) {
-    return new (t || HeaderButtonsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdirectiveInject"](_service_settings_settings_service__WEBPACK_IMPORTED_MODULE_6__.SettingsService), _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdirectiveInject"](_Service_Modeler_modeler_service__WEBPACK_IMPORTED_MODULE_7__.ModelerService), _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdirectiveInject"](_tool_replay_service_replay_state_service__WEBPACK_IMPORTED_MODULE_8__.ReplayStateService), _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdirectiveInject"](_Service_DirtyFlag_dirty_flag_service__WEBPACK_IMPORTED_MODULE_9__.DirtyFlagService), _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdirectiveInject"](_Service_Dialog_dialog_service__WEBPACK_IMPORTED_MODULE_10__.DialogService), _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdirectiveInject"](_tool_replay_service_replay_service__WEBPACK_IMPORTED_MODULE_11__.ReplayService), _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdirectiveInject"](_tool_export_service_export_service__WEBPACK_IMPORTED_MODULE_12__.ExportService), _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdirectiveInject"](_tool_import_service_import_domain_story_service__WEBPACK_IMPORTED_MODULE_13__.ImportDomainStoryService), _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdirectiveInject"](_tool_header_service_title_service__WEBPACK_IMPORTED_MODULE_14__.TitleService), _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdirectiveInject"](_Service_Renderer_renderer_service__WEBPACK_IMPORTED_MODULE_15__.RendererService), _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdirectiveInject"](_angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_18__.MatSnackBar));
+    return new (t || HeaderButtonsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdirectiveInject"](_service_settings_settings_service__WEBPACK_IMPORTED_MODULE_6__.SettingsService), _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdirectiveInject"](_tool_modeler_service_modeler_service__WEBPACK_IMPORTED_MODULE_7__.ModelerService), _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdirectiveInject"](_tool_replay_service_replay_state_service__WEBPACK_IMPORTED_MODULE_8__.ReplayStateService), _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdirectiveInject"](_Service_DirtyFlag_dirty_flag_service__WEBPACK_IMPORTED_MODULE_9__.DirtyFlagService), _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdirectiveInject"](_Service_Dialog_dialog_service__WEBPACK_IMPORTED_MODULE_10__.DialogService), _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdirectiveInject"](_tool_replay_service_replay_service__WEBPACK_IMPORTED_MODULE_11__.ReplayService), _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdirectiveInject"](_tool_export_service_export_service__WEBPACK_IMPORTED_MODULE_12__.ExportService), _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdirectiveInject"](_tool_import_service_import_domain_story_service__WEBPACK_IMPORTED_MODULE_13__.ImportDomainStoryService), _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdirectiveInject"](_tool_header_service_title_service__WEBPACK_IMPORTED_MODULE_14__.TitleService), _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdirectiveInject"](_tool_modeler_service_renderer_service__WEBPACK_IMPORTED_MODULE_15__.RendererService), _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdirectiveInject"](_angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_18__.MatSnackBar));
   };
   static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdefineComponent"]({
     type: HeaderButtonsComponent,
@@ -10826,19 +10826,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../Domain/Common/elementTypes */ 30236);
 /* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @angular/material/dialog */ 72768);
-/* harmony import */ var _Domain_Dialog_activityDialogData__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../Domain/Dialog/activityDialogData */ 93703);
-/* harmony import */ var _Presentation_Dialog_activity_dialog_activity_dialog_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../Presentation/Dialog/activity-dialog/activity-dialog.component */ 63954);
+/* harmony import */ var _tool_modeler_domain_activityDialogData__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../tool/modeler/domain/activityDialogData */ 14696);
+/* harmony import */ var _tool_modeler_presentation_activity_dialog_activity_dialog_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../tool/modeler/presentation/activity-dialog/activity-dialog.component */ 75691);
 /* harmony import */ var _Utils_mathExtensions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../Utils/mathExtensions */ 114);
-/* harmony import */ var _BPMN_JS_modeler_context_pad_domainStoryContextPadProvider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../BPMN-JS/modeler/context-pad/domainStoryContextPadProvider */ 48640);
-/* harmony import */ var _BPMN_JS_modeler_updateHandler_activityUpdateHandlers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../BPMN-JS/modeler/updateHandler/activityUpdateHandlers */ 47379);
-/* harmony import */ var _BPMN_JS_modeler_updateHandler_elementUpdateHandler__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../BPMN-JS/modeler/updateHandler/elementUpdateHandler */ 82189);
-/* harmony import */ var _BPMN_JS_modeler_updateHandler_headlineAndDescriptionUpdateHandler__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../BPMN-JS/modeler/updateHandler/headlineAndDescriptionUpdateHandler */ 33524);
-/* harmony import */ var _BPMN_JS_modeler_palette_domainStoryPalette__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../BPMN-JS/modeler/palette/domainStoryPalette */ 97774);
-/* harmony import */ var _BPMN_JS_modeler_domainStoryRenderer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../BPMN-JS/modeler/domainStoryRenderer */ 10282);
-/* harmony import */ var _BPMN_JS_modeler_labeling_dsLabelEditingProvider__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../BPMN-JS/modeler/labeling/dsLabelEditingProvider */ 48153);
-/* harmony import */ var _BPMN_JS_modeler_change_icon_replaceOptions__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../BPMN-JS/modeler/change-icon/replaceOptions */ 82243);
-/* harmony import */ var _BPMN_JS_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../BPMN-JS/modeler/numbering/numbering */ 93043);
-/* harmony import */ var _BPMN_JS_modeler_updateHandler_massRenameHandler__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../BPMN-JS/modeler/updateHandler/massRenameHandler */ 68558);
+/* harmony import */ var _tool_modeler_bpmn_modeler_domainStoryRenderer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../tool/modeler/bpmn/modeler/domainStoryRenderer */ 47708);
+/* harmony import */ var _tool_modeler_bpmn_modeler_context_pad_domainStoryContextPadProvider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../tool/modeler/bpmn/modeler/context-pad/domainStoryContextPadProvider */ 11446);
+/* harmony import */ var _tool_modeler_bpmn_modeler_palette_domainStoryPalette__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../tool/modeler/bpmn/modeler/palette/domainStoryPalette */ 24088);
+/* harmony import */ var _tool_modeler_bpmn_modeler_labeling_dsLabelEditingProvider__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../tool/modeler/bpmn/modeler/labeling/dsLabelEditingProvider */ 36671);
+/* harmony import */ var _tool_modeler_bpmn_modeler_change_icon_replaceOptions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../tool/modeler/bpmn/modeler/change-icon/replaceOptions */ 64577);
+/* harmony import */ var _tool_modeler_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../tool/modeler/bpmn/modeler/numbering/numbering */ 93213);
+/* harmony import */ var _tool_modeler_bpmn_modeler_updateHandler_activityUpdateHandlers__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../tool/modeler/bpmn/modeler/updateHandler/activityUpdateHandlers */ 20117);
+/* harmony import */ var _tool_modeler_bpmn_modeler_updateHandler_massRenameHandler__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../tool/modeler/bpmn/modeler/updateHandler/massRenameHandler */ 56080);
+/* harmony import */ var _tool_modeler_bpmn_modeler_updateHandler_elementUpdateHandler__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../tool/modeler/bpmn/modeler/updateHandler/elementUpdateHandler */ 72279);
+/* harmony import */ var _tool_modeler_bpmn_modeler_updateHandler_headlineAndDescriptionUpdateHandler__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../tool/modeler/bpmn/modeler/updateHandler/headlineAndDescriptionUpdateHandler */ 89866);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @angular/core */ 96623);
 /* harmony import */ var _Service_DirtyFlag_dirty_flag_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../../Service/DirtyFlag/dirty-flag.service */ 89791);
 /* harmony import */ var _Service_IconSetConfiguration_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../../Service/IconSetConfiguration/icon-dictionary.service */ 93689);
@@ -10847,7 +10847,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tool_label_dictionary_service_label_dictionary_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../../../tool/label-dictionary/service/label-dictionary.service */ 4879);
 /* harmony import */ var _tool_replay_service_replay_state_service__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../../../tool/replay/service/replay-state.service */ 1671);
 /* harmony import */ var _Service_Dialog_dialog_service__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../../../Service/Dialog/dialog.service */ 4730);
-/* harmony import */ var _Service_CommandStack_command_stack_service__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../../../Service/CommandStack/command-stack.service */ 19381);
+/* harmony import */ var _tool_modeler_service_command_stack_service__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../../../tool/modeler/service/command-stack.service */ 38277);
 /* harmony import */ var _tool_header_service_title_service__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../../../tool/header/service/title.service */ 5048);
 /* harmony import */ var _tool_export_service_html_presentation_service__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../../../tool/export/service/html-presentation.service */ 46057);
 
@@ -10890,15 +10890,15 @@ class InitializerService {
     this.htmlPresentationService = htmlPresentationService;
   }
   initializeDomainStoryModelerClasses() {
-    (0,_BPMN_JS_modeler_context_pad_domainStoryContextPadProvider__WEBPACK_IMPORTED_MODULE_4__.initializeContextPadProvider)(this.dirtyFlagService, this.iconDictionaryService);
+    (0,_tool_modeler_bpmn_modeler_context_pad_domainStoryContextPadProvider__WEBPACK_IMPORTED_MODULE_5__.initializeContextPadProvider)(this.dirtyFlagService, this.iconDictionaryService);
     /** The Palette and the Context Menu need the Icons present in the Domain,
      * so the IconDictionaryService and the IconSetConfigurationService needs to be given to the Palette **/
-    (0,_BPMN_JS_modeler_palette_domainStoryPalette__WEBPACK_IMPORTED_MODULE_8__.initializePalette)(this.iconDictionaryService, this.configurationService);
-    (0,_BPMN_JS_modeler_domainStoryRenderer__WEBPACK_IMPORTED_MODULE_9__.initializeRenderer)(this.iconDictionaryService, this.elementRegistryService, this.dirtyFlagService);
-    (0,_BPMN_JS_modeler_labeling_dsLabelEditingProvider__WEBPACK_IMPORTED_MODULE_10__.initializeLabelEditingProvider)(this.labelDictionaryService);
-    (0,_BPMN_JS_modeler_change_icon_replaceOptions__WEBPACK_IMPORTED_MODULE_11__.initializeReplaceOptions)(this.iconDictionaryService);
-    (0,_BPMN_JS_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_12__.initializeNumbering)(this.elementRegistryService);
-    (0,_BPMN_JS_modeler_updateHandler_activityUpdateHandlers__WEBPACK_IMPORTED_MODULE_5__.initializeActivityUpdateHandler)(this.elementRegistryService);
+    (0,_tool_modeler_bpmn_modeler_palette_domainStoryPalette__WEBPACK_IMPORTED_MODULE_6__.initializePalette)(this.iconDictionaryService, this.configurationService);
+    (0,_tool_modeler_bpmn_modeler_domainStoryRenderer__WEBPACK_IMPORTED_MODULE_4__.initializeRenderer)(this.iconDictionaryService, this.elementRegistryService, this.dirtyFlagService);
+    (0,_tool_modeler_bpmn_modeler_labeling_dsLabelEditingProvider__WEBPACK_IMPORTED_MODULE_7__.initializeLabelEditingProvider)(this.labelDictionaryService);
+    (0,_tool_modeler_bpmn_modeler_change_icon_replaceOptions__WEBPACK_IMPORTED_MODULE_8__.initializeReplaceOptions)(this.iconDictionaryService);
+    (0,_tool_modeler_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_9__.initializeNumbering)(this.elementRegistryService);
+    (0,_tool_modeler_bpmn_modeler_updateHandler_activityUpdateHandlers__WEBPACK_IMPORTED_MODULE_10__.initializeActivityUpdateHandler)(this.elementRegistryService);
   }
   propagateDomainStoryModelerClassesToServices(commandStack, elementRegistry, canvas, selection, modeler) {
     this.commandStackService.setCommandStack(commandStack);
@@ -10906,10 +10906,10 @@ class InitializerService {
     this.htmlPresentationService.setModelerClasses(canvas, selection, modeler);
   }
   initializeDomainStoryModelerEventHandlers(commandStack, eventBus) {
-    (0,_BPMN_JS_modeler_updateHandler_activityUpdateHandlers__WEBPACK_IMPORTED_MODULE_5__["default"])(commandStack, eventBus);
-    (0,_BPMN_JS_modeler_updateHandler_massRenameHandler__WEBPACK_IMPORTED_MODULE_13__["default"])(commandStack, eventBus);
-    (0,_BPMN_JS_modeler_updateHandler_elementUpdateHandler__WEBPACK_IMPORTED_MODULE_6__["default"])(commandStack, eventBus);
-    (0,_BPMN_JS_modeler_updateHandler_headlineAndDescriptionUpdateHandler__WEBPACK_IMPORTED_MODULE_7__["default"])(commandStack, this.titleService);
+    (0,_tool_modeler_bpmn_modeler_updateHandler_activityUpdateHandlers__WEBPACK_IMPORTED_MODULE_10__["default"])(commandStack, eventBus);
+    (0,_tool_modeler_bpmn_modeler_updateHandler_massRenameHandler__WEBPACK_IMPORTED_MODULE_11__["default"])(commandStack, eventBus);
+    (0,_tool_modeler_bpmn_modeler_updateHandler_elementUpdateHandler__WEBPACK_IMPORTED_MODULE_12__["default"])(commandStack, eventBus);
+    (0,_tool_modeler_bpmn_modeler_updateHandler_headlineAndDescriptionUpdateHandler__WEBPACK_IMPORTED_MODULE_13__["default"])(commandStack, this.titleService);
   }
   initiateEventBusListeners(eventBus, commandStack) {
     eventBus.on('element.dblclick', e => {
@@ -10919,7 +10919,7 @@ class InitializerService {
           // override the doubleClickListener on activities
           this.activityDoubleClick(element, eventBus, commandStack);
         } else {
-          const renderedNumberRegistry = (0,_BPMN_JS_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_12__.getNumberRegistry)();
+          const renderedNumberRegistry = (0,_tool_modeler_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_9__.getNumberRegistry)();
           // add a DoubleClickListener to the number on activities
           if (renderedNumberRegistry.length > 1) {
             const allActivities = this.elementRegistryService.getActivitiesFromActors();
@@ -10987,16 +10987,16 @@ class InitializerService {
   activityDoubleClick(activity, eventBus, commandStack) {
     const source = activity.source;
     // ensure the right number when changing the direction of an activity
-    (0,_BPMN_JS_modeler_labeling_dsLabelEditingProvider__WEBPACK_IMPORTED_MODULE_10__.toggleStashUse)(false);
+    (0,_tool_modeler_bpmn_modeler_labeling_dsLabelEditingProvider__WEBPACK_IMPORTED_MODULE_7__.toggleStashUse)(false);
     const config = new _angular_material_dialog__WEBPACK_IMPORTED_MODULE_24__.MatDialogConfig();
     config.disableClose = false;
     config.autoFocus = true;
     if (activity.businessObject.number && source && source.type.includes(_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTOR)) {
-      config.data = new _Domain_Dialog_activityDialogData__WEBPACK_IMPORTED_MODULE_1__.ActivityDialogData(activity, (0,_BPMN_JS_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_12__.getMultipleNumberRegistry)()[activity.businessObject.number], true, data => this.saveActivityInputLabel(data, eventBus, commandStack));
+      config.data = new _tool_modeler_domain_activityDialogData__WEBPACK_IMPORTED_MODULE_1__.ActivityDialogData(activity, (0,_tool_modeler_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_9__.getMultipleNumberRegistry)()[activity.businessObject.number], true, data => this.saveActivityInputLabel(data, eventBus, commandStack));
     } else if (source && source.type.includes(_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.WORKOBJECT)) {
-      config.data = new _Domain_Dialog_activityDialogData__WEBPACK_IMPORTED_MODULE_1__.ActivityDialogData(activity, false, false, activityData => this.saveActivityInputLabel(activityData, eventBus, commandStack));
+      config.data = new _tool_modeler_domain_activityDialogData__WEBPACK_IMPORTED_MODULE_1__.ActivityDialogData(activity, false, false, activityData => this.saveActivityInputLabel(activityData, eventBus, commandStack));
     }
-    this.dialogService.openDialog(_Presentation_Dialog_activity_dialog_activity_dialog_component__WEBPACK_IMPORTED_MODULE_2__.ActivityDialogComponent, config);
+    this.dialogService.openDialog(_tool_modeler_presentation_activity_dialog_activity_dialog_component__WEBPACK_IMPORTED_MODULE_2__.ActivityDialogComponent, config);
   }
   saveActivityInputLabel(activityData, eventBus, commandStack) {
     const label = activityData.activityLabel;
@@ -11008,7 +11008,7 @@ class InitializerService {
     const index = activitiesFromActors.indexOf(element);
     activitiesFromActors.splice(index, 1);
     if (hasNumber) {
-      (0,_BPMN_JS_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_12__.setNumberIsMultiple)(activityNumber, multipleNumberAllowed);
+      (0,_tool_modeler_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_9__.setNumberIsMultiple)(activityNumber, multipleNumberAllowed);
     }
     element.businessObject.multipleNumberAllowed = multipleNumberAllowed;
     let options;
@@ -11028,15 +11028,15 @@ class InitializerService {
     }
     commandStack.execute('activity.changed', options);
     if (element.businessObject.multipleNumberAllowed !== false) {
-      if ((0,_BPMN_JS_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_12__.getMultipleNumberRegistry)()[activityNumber] === false) {
-        (0,_BPMN_JS_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_12__.updateExistingNumbersAtEditing)(activitiesFromActors, activityNumber, eventBus);
+      if ((0,_tool_modeler_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_9__.getMultipleNumberRegistry)()[activityNumber] === false) {
+        (0,_tool_modeler_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_9__.updateExistingNumbersAtEditing)(activitiesFromActors, activityNumber, eventBus);
       }
     } else if (element.businessObject.multipleNumberAllowed === false) {
-      (0,_BPMN_JS_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_12__.updateExistingNumbersAtEditing)(activitiesFromActors, activityNumber, eventBus);
+      (0,_tool_modeler_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_9__.updateExistingNumbersAtEditing)(activitiesFromActors, activityNumber, eventBus);
     }
   }
   static #_ = this.ɵfac = function InitializerService_Factory(t) {
-    return new (t || InitializerService)(_angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_Service_DirtyFlag_dirty_flag_service__WEBPACK_IMPORTED_MODULE_14__.DirtyFlagService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_Service_IconSetConfiguration_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_15__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_Service_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_16__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_Service_IconSetConfiguration_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_17__.IconSetConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_tool_label_dictionary_service_label_dictionary_service__WEBPACK_IMPORTED_MODULE_18__.LabelDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_tool_replay_service_replay_state_service__WEBPACK_IMPORTED_MODULE_19__.ReplayStateService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_Service_Dialog_dialog_service__WEBPACK_IMPORTED_MODULE_20__.DialogService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_Service_CommandStack_command_stack_service__WEBPACK_IMPORTED_MODULE_21__.CommandStackService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_tool_header_service_title_service__WEBPACK_IMPORTED_MODULE_22__.TitleService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_tool_export_service_html_presentation_service__WEBPACK_IMPORTED_MODULE_23__.HtmlPresentationService));
+    return new (t || InitializerService)(_angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_Service_DirtyFlag_dirty_flag_service__WEBPACK_IMPORTED_MODULE_14__.DirtyFlagService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_Service_IconSetConfiguration_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_15__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_Service_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_16__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_Service_IconSetConfiguration_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_17__.IconSetConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_tool_label_dictionary_service_label_dictionary_service__WEBPACK_IMPORTED_MODULE_18__.LabelDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_tool_replay_service_replay_state_service__WEBPACK_IMPORTED_MODULE_19__.ReplayStateService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_Service_Dialog_dialog_service__WEBPACK_IMPORTED_MODULE_20__.DialogService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_tool_modeler_service_command_stack_service__WEBPACK_IMPORTED_MODULE_21__.CommandStackService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_tool_header_service_title_service__WEBPACK_IMPORTED_MODULE_22__.TitleService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_tool_export_service_html_presentation_service__WEBPACK_IMPORTED_MODULE_23__.HtmlPresentationService));
   };
   static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵdefineInjectable"]({
     token: InitializerService,
