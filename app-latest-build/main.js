@@ -5952,141 +5952,6 @@ class DirtyFlagService {
 
 /***/ }),
 
-/***/ 63149:
-/*!*********************************************************************!*\
-  !*** ./src/app/Service/DomManipulation/dom-manipulation.service.ts ***!
-  \*********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   DomManipulationService: () => (/* binding */ DomManipulationService)
-/* harmony export */ });
-/* harmony import */ var src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/Domain/Common/elementTypes */ 30236);
-/* harmony import */ var _Domain_DomManipulation_replayConstants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../Domain/DomManipulation/replayConstants */ 90173);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var src_app_Service_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/Service/ElementRegistry/element-registry.service */ 67613);
-
-
-
-
-/**
- * Manipulates the DOM during replay to only show the elements of the current Sentence
- */
-class DomManipulationService {
-  constructor(elementRegistryService) {
-    this.elementRegistryService = elementRegistryService;
-  }
-  showAll() {
-    this.removeHighlights();
-    this.elementRegistryService.getAllCanvasObjects().slice().concat(this.elementRegistryService.getAllGroups().slice()).map(e => e.businessObject).forEach(element => {
-      const domObject = document.querySelector('[data-element-id=' + element.id + ']');
-      // @ts-ignore
-      domObject.style.display = 'block';
-    });
-  }
-  showSentence(replaySentence, previousSentence) {
-    this.removeHighlights();
-    const notShown = this.getAllNotShown(replaySentence.objects);
-    notShown.forEach(element => {
-      const domObject = document.querySelector('[data-element-id=' + element.id + ']');
-      if (domObject) {
-        // @ts-ignore
-        domObject.style.display = 'none';
-      }
-    });
-    this.highlightSentence(previousSentence ? replaySentence.objects.filter(o => !previousSentence.objects.includes(o)) : replaySentence.objects);
-    replaySentence.objects.forEach(element => {
-      const domObject = document.querySelector('[data-element-id=' + element.id + ']');
-      if (domObject) {
-        // @ts-ignore
-        domObject.style.display = 'block';
-      }
-    });
-  }
-  getNumberDomForActivity(activity) {
-    const numberText = activity.parentElement?.getElementsByClassName('djs-labelNumber')[0] ?? '';
-    const circle = numberText?.previousSibling ?? '';
-    return {
-      numberBackgroundDom: circle,
-      numberTextDom: numberText
-    };
-  }
-  removeHighlights() {
-    const allActivities = this.elementRegistryService.getAllActivities();
-    const allConnections = this.elementRegistryService.getAllConnections();
-    allActivities.forEach(activity => {
-      const querySelector = document.querySelector('[data-element-id=' + activity.id + ']');
-      if (querySelector) {
-        const activityDomObject = querySelector.getElementsByTagName('polyline')[0];
-        activityDomObject.style.stroke = activity.businessObject.pickedColor || 'black';
-        activityDomObject.style.strokeWidth = _Domain_DomManipulation_replayConstants__WEBPACK_IMPORTED_MODULE_1__.STROKE_WIDTH;
-        const {
-          numberBackgroundDom,
-          numberTextDom
-        } = this.getNumberDomForActivity(activityDomObject);
-        if (numberBackgroundDom && numberTextDom) {
-          numberBackgroundDom.style.fill = _Domain_DomManipulation_replayConstants__WEBPACK_IMPORTED_MODULE_1__.NUMBER_BACKGROUND_COLOR;
-          numberTextDom.style.fill = _Domain_DomManipulation_replayConstants__WEBPACK_IMPORTED_MODULE_1__.NUMBER_COLOR;
-        }
-      }
-    });
-    allConnections.forEach(connection => {
-      // @ts-ignore
-      const connectionDomObject = document.querySelector('[data-element-id=' + connection.id + ']').getElementsByTagName('polyline')[0];
-      connectionDomObject.style.stroke = connection.businessObject.pickedColor || 'black';
-      connectionDomObject.style.strokeWidth = '1.5';
-    });
-  }
-  highlightSentence(sentenceObjects) {
-    sentenceObjects.filter(e => e.type === src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTIVITY).forEach(activity => {
-      const querySelector = document.querySelector('[data-element-id=' + activity.id + ']');
-      if (querySelector) {
-        const activityDomObject = querySelector.getElementsByTagName('polyline')[0];
-        activityDomObject.style.strokeWidth = _Domain_DomManipulation_replayConstants__WEBPACK_IMPORTED_MODULE_1__.HIGHLIGHT_STROKE_WIDTH;
-        const {
-          numberBackgroundDom,
-          numberTextDom
-        } = this.getNumberDomForActivity(activityDomObject);
-        if (numberTextDom && numberBackgroundDom) {
-          numberBackgroundDom.style.fill = _Domain_DomManipulation_replayConstants__WEBPACK_IMPORTED_MODULE_1__.HIGHLIGHT_NUMBER_BACKGROUNG_COLOR;
-          numberTextDom.style.fill = _Domain_DomManipulation_replayConstants__WEBPACK_IMPORTED_MODULE_1__.HIGHLIGHT_NUMBER_COLOR;
-        }
-      }
-    });
-  }
-  getAllNotShown(shownElements) {
-    const notShownElements = [];
-    const allObjects = this.elementRegistryService.getAllCanvasObjects().concat(this.elementRegistryService.getAllGroups());
-    allObjects.forEach(element => {
-      if (!shownElements.includes(element.businessObject)) {
-        if (element.type.includes(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.CONNECTION)) {
-          // @ts-ignore
-          if (!element.source.type.includes(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.GROUP)) {
-            notShownElements.push(element.businessObject);
-          } else {
-            // @ts-ignore
-            shownElements.push(element.target);
-          }
-        } else {
-          notShownElements.push(element.businessObject);
-        }
-      }
-    });
-    return notShownElements;
-  }
-  static #_ = this.ɵfac = function DomManipulationService_Factory(t) {
-    return new (t || DomManipulationService)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](src_app_Service_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_2__.ElementRegistryService));
-  };
-  static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineInjectable"]({
-    token: DomManipulationService,
-    factory: DomManipulationService.ɵfac,
-    providedIn: 'root'
-  });
-}
-
-/***/ }),
-
 /***/ 67613:
 /*!*********************************************************************!*\
   !*** ./src/app/Service/ElementRegistry/element-registry.service.ts ***!
@@ -9900,6 +9765,141 @@ class ImportRepairService {
 
 /***/ }),
 
+/***/ 68293:
+/*!**********************************************************************************!*\
+  !*** ./src/app/tool/replay/service/dom-manipulation/dom-manipulation.service.ts ***!
+  \**********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   DomManipulationService: () => (/* binding */ DomManipulationService)
+/* harmony export */ });
+/* harmony import */ var src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/Domain/Common/elementTypes */ 30236);
+/* harmony import */ var _Domain_DomManipulation_replayConstants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../Domain/DomManipulation/replayConstants */ 90173);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 96623);
+/* harmony import */ var src_app_Service_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/Service/ElementRegistry/element-registry.service */ 67613);
+
+
+
+
+/**
+ * Manipulates the DOM during replay to only show the elements of the current Sentence
+ */
+class DomManipulationService {
+  constructor(elementRegistryService) {
+    this.elementRegistryService = elementRegistryService;
+  }
+  showAll() {
+    this.removeHighlights();
+    this.elementRegistryService.getAllCanvasObjects().slice().concat(this.elementRegistryService.getAllGroups().slice()).map(e => e.businessObject).forEach(element => {
+      const domObject = document.querySelector('[data-element-id=' + element.id + ']');
+      // @ts-ignore
+      domObject.style.display = 'block';
+    });
+  }
+  showSentence(replaySentence, previousSentence) {
+    this.removeHighlights();
+    const notShown = this.getAllNotShown(replaySentence.objects);
+    notShown.forEach(element => {
+      const domObject = document.querySelector('[data-element-id=' + element.id + ']');
+      if (domObject) {
+        // @ts-ignore
+        domObject.style.display = 'none';
+      }
+    });
+    this.highlightSentence(previousSentence ? replaySentence.objects.filter(o => !previousSentence.objects.includes(o)) : replaySentence.objects);
+    replaySentence.objects.forEach(element => {
+      const domObject = document.querySelector('[data-element-id=' + element.id + ']');
+      if (domObject) {
+        // @ts-ignore
+        domObject.style.display = 'block';
+      }
+    });
+  }
+  getNumberDomForActivity(activity) {
+    const numberText = activity.parentElement?.getElementsByClassName('djs-labelNumber')[0] ?? '';
+    const circle = numberText?.previousSibling ?? '';
+    return {
+      numberBackgroundDom: circle,
+      numberTextDom: numberText
+    };
+  }
+  removeHighlights() {
+    const allActivities = this.elementRegistryService.getAllActivities();
+    const allConnections = this.elementRegistryService.getAllConnections();
+    allActivities.forEach(activity => {
+      const querySelector = document.querySelector('[data-element-id=' + activity.id + ']');
+      if (querySelector) {
+        const activityDomObject = querySelector.getElementsByTagName('polyline')[0];
+        activityDomObject.style.stroke = activity.businessObject.pickedColor || 'black';
+        activityDomObject.style.strokeWidth = _Domain_DomManipulation_replayConstants__WEBPACK_IMPORTED_MODULE_1__.STROKE_WIDTH;
+        const {
+          numberBackgroundDom,
+          numberTextDom
+        } = this.getNumberDomForActivity(activityDomObject);
+        if (numberBackgroundDom && numberTextDom) {
+          numberBackgroundDom.style.fill = _Domain_DomManipulation_replayConstants__WEBPACK_IMPORTED_MODULE_1__.NUMBER_BACKGROUND_COLOR;
+          numberTextDom.style.fill = _Domain_DomManipulation_replayConstants__WEBPACK_IMPORTED_MODULE_1__.NUMBER_COLOR;
+        }
+      }
+    });
+    allConnections.forEach(connection => {
+      // @ts-ignore
+      const connectionDomObject = document.querySelector('[data-element-id=' + connection.id + ']').getElementsByTagName('polyline')[0];
+      connectionDomObject.style.stroke = connection.businessObject.pickedColor || 'black';
+      connectionDomObject.style.strokeWidth = '1.5';
+    });
+  }
+  highlightSentence(sentenceObjects) {
+    sentenceObjects.filter(e => e.type === src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTIVITY).forEach(activity => {
+      const querySelector = document.querySelector('[data-element-id=' + activity.id + ']');
+      if (querySelector) {
+        const activityDomObject = querySelector.getElementsByTagName('polyline')[0];
+        activityDomObject.style.strokeWidth = _Domain_DomManipulation_replayConstants__WEBPACK_IMPORTED_MODULE_1__.HIGHLIGHT_STROKE_WIDTH;
+        const {
+          numberBackgroundDom,
+          numberTextDom
+        } = this.getNumberDomForActivity(activityDomObject);
+        if (numberTextDom && numberBackgroundDom) {
+          numberBackgroundDom.style.fill = _Domain_DomManipulation_replayConstants__WEBPACK_IMPORTED_MODULE_1__.HIGHLIGHT_NUMBER_BACKGROUNG_COLOR;
+          numberTextDom.style.fill = _Domain_DomManipulation_replayConstants__WEBPACK_IMPORTED_MODULE_1__.HIGHLIGHT_NUMBER_COLOR;
+        }
+      }
+    });
+  }
+  getAllNotShown(shownElements) {
+    const notShownElements = [];
+    const allObjects = this.elementRegistryService.getAllCanvasObjects().concat(this.elementRegistryService.getAllGroups());
+    allObjects.forEach(element => {
+      if (!shownElements.includes(element.businessObject)) {
+        if (element.type.includes(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.CONNECTION)) {
+          // @ts-ignore
+          if (!element.source.type.includes(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.GROUP)) {
+            notShownElements.push(element.businessObject);
+          } else {
+            // @ts-ignore
+            shownElements.push(element.target);
+          }
+        } else {
+          notShownElements.push(element.businessObject);
+        }
+      }
+    });
+    return notShownElements;
+  }
+  static #_ = this.ɵfac = function DomManipulationService_Factory(t) {
+    return new (t || DomManipulationService)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](src_app_Service_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_2__.ElementRegistryService));
+  };
+  static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineInjectable"]({
+    token: DomManipulationService,
+    factory: DomManipulationService.ɵfac,
+    providedIn: 'root'
+  });
+}
+
+/***/ }),
+
 /***/ 6439:
 /*!********************************************************************!*\
   !*** ./src/app/tool/replay/service/replay/replay-state.service.ts ***!
@@ -9951,7 +9951,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Domain_Common_constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../Domain/Common/constants */ 90816);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 96623);
 /* harmony import */ var src_app_tool_replay_service_replay_replay_state_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/tool/replay/service/replay/replay-state.service */ 6439);
-/* harmony import */ var src_app_Service_DomManipulation_dom_manipulation_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/Service/DomManipulation/dom-manipulation.service */ 63149);
+/* harmony import */ var src_app_tool_replay_service_dom_manipulation_dom_manipulation_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/tool/replay/service/dom-manipulation/dom-manipulation.service */ 68293);
 /* harmony import */ var _story_creator_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./story-creator.service */ 74932);
 /* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material/snack-bar */ 40382);
 
@@ -10030,7 +10030,7 @@ class ReplayService {
     this.domManipulationService.showAll();
   }
   static #_ = this.ɵfac = function ReplayService_Factory(t) {
-    return new (t || ReplayService)(_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵinject"](src_app_tool_replay_service_replay_replay_state_service__WEBPACK_IMPORTED_MODULE_1__.ReplayStateService), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵinject"](src_app_Service_DomManipulation_dom_manipulation_service__WEBPACK_IMPORTED_MODULE_2__.DomManipulationService), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵinject"](_story_creator_service__WEBPACK_IMPORTED_MODULE_3__.StoryCreatorService), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵinject"](_angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_6__.MatSnackBar));
+    return new (t || ReplayService)(_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵinject"](src_app_tool_replay_service_replay_replay_state_service__WEBPACK_IMPORTED_MODULE_1__.ReplayStateService), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵinject"](src_app_tool_replay_service_dom_manipulation_dom_manipulation_service__WEBPACK_IMPORTED_MODULE_2__.DomManipulationService), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵinject"](_story_creator_service__WEBPACK_IMPORTED_MODULE_3__.StoryCreatorService), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵinject"](_angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_6__.MatSnackBar));
   };
   static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineInjectable"]({
     token: ReplayService,
@@ -10320,7 +10320,7 @@ class AppComponent {
     },
     decls: 36,
     vars: 40,
-    consts: [["role", "main", 1, "content"], ["id", "colorPicker", 2, "display", "none", "height", "0", 3, "colorPickerChange", "colorPickerClose", "cpPresetColors", "colorPicker"], [4, "ngIf"], ["src", "favicon.ico", "height", "24", "alt", "Egon Logo"], ["href", "https://egon.io", "target", "_blank"], ["href", "https://egon.io/changelog", "target", "_blank"], ["src", "../../../assets/logo/wps-icon.ico", "height", "24", "alt", "WPS Logo"], ["href", "https://www.wps.de/", "target", "_blank"], ["href", "https://www.wps.de/datenschutz/", "target", "_blank"], ["href", "https://www.wps.de/impressum/", "target", "_blank"]],
+    consts: [["role", "main", 1, "content"], ["id", "colorPicker", 2, "display", "none", "height", "0", 3, "colorPickerChange", "colorPickerClose", "cpPresetColors", "colorPicker"], [4, "ngIf"], ["src", "favicon.ico", "height", "24", "alt", "Egon Logo"], ["href", "https://egon.io", "target", "_blank"], ["href", "https://egon.io/changelog", "target", "_blank"], ["src", "assets/logo/wps-icon.ico", "height", "24", "alt", "WPS Logo"], ["href", "https://www.wps.de/", "target", "_blank"], ["href", "https://www.wps.de/datenschutz/", "target", "_blank"], ["href", "https://www.wps.de/impressum/", "target", "_blank"]],
     template: function AppComponent_Template(rf, ctx) {
       if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵelementStart"](0, "div", 0)(1, "input", 1);
