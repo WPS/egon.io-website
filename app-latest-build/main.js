@@ -4393,7 +4393,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Presentation_IconSetConfiguration_details_list_item_details_list_item_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Presentation/IconSetConfiguration/details-list-item/details-list-item.component */ 71945);
 /* harmony import */ var _Presentation_IconSetConfiguration_icon_set_details_icon_set_details_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Presentation/IconSetConfiguration/icon-set-details/icon-set-details.component */ 48081);
 /* harmony import */ var _Presentation_Settings_General_general_settings_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Presentation/Settings/General/general-settings.component */ 423);
-/* harmony import */ var _Presentation_LabelDictionary_label_dictionary_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Presentation/LabelDictionary/label-dictionary.component */ 86328);
+/* harmony import */ var _tool_label_dictionary_presentation_label_dictionary_label_dictionary_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../tool/label-dictionary/presentation/label-dictionary/label-dictionary.component */ 46118);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/forms */ 48015);
 /* harmony import */ var _material_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../material.module */ 89439);
 /* harmony import */ var _autosave_settings_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./autosave-settings.module */ 90684);
@@ -4422,9 +4422,9 @@ class SettingsModule {
 }
 (function () {
   (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵsetNgModuleScope"](SettingsModule, {
-    declarations: [src_app_Presentation_IconSetConfiguration_icon_set_configuration_component__WEBPACK_IMPORTED_MODULE_0__.IconSetConfigurationComponent, _Presentation_Settings_General_general_settings_component__WEBPACK_IMPORTED_MODULE_4__.GeneralSettingsComponent, _Presentation_LabelDictionary_label_dictionary_component__WEBPACK_IMPORTED_MODULE_5__.LabelDictionaryComponent, _Presentation_IconSetConfiguration_icon_list_item_icon_list_item_component__WEBPACK_IMPORTED_MODULE_1__.IconListItemComponent, _Presentation_IconSetConfiguration_details_list_item_details_list_item_component__WEBPACK_IMPORTED_MODULE_2__.DetailsListItemComponent, _Presentation_IconSetConfiguration_icon_set_details_icon_set_details_component__WEBPACK_IMPORTED_MODULE_3__.IconSetDetailsComponent],
+    declarations: [src_app_Presentation_IconSetConfiguration_icon_set_configuration_component__WEBPACK_IMPORTED_MODULE_0__.IconSetConfigurationComponent, _Presentation_Settings_General_general_settings_component__WEBPACK_IMPORTED_MODULE_4__.GeneralSettingsComponent, _tool_label_dictionary_presentation_label_dictionary_label_dictionary_component__WEBPACK_IMPORTED_MODULE_5__.LabelDictionaryComponent, _Presentation_IconSetConfiguration_icon_list_item_icon_list_item_component__WEBPACK_IMPORTED_MODULE_1__.IconListItemComponent, _Presentation_IconSetConfiguration_details_list_item_details_list_item_component__WEBPACK_IMPORTED_MODULE_2__.DetailsListItemComponent, _Presentation_IconSetConfiguration_icon_set_details_icon_set_details_component__WEBPACK_IMPORTED_MODULE_3__.IconSetDetailsComponent],
     imports: [_autosave_settings_module__WEBPACK_IMPORTED_MODULE_7__.AutosaveSettingsModule, _angular_common__WEBPACK_IMPORTED_MODULE_9__.CommonModule, _angular_forms__WEBPACK_IMPORTED_MODULE_10__.FormsModule, _material_module__WEBPACK_IMPORTED_MODULE_6__.MaterialModule],
-    exports: [_Presentation_Settings_General_general_settings_component__WEBPACK_IMPORTED_MODULE_4__.GeneralSettingsComponent, src_app_Presentation_IconSetConfiguration_icon_set_configuration_component__WEBPACK_IMPORTED_MODULE_0__.IconSetConfigurationComponent, _Presentation_LabelDictionary_label_dictionary_component__WEBPACK_IMPORTED_MODULE_5__.LabelDictionaryComponent]
+    exports: [_Presentation_Settings_General_general_settings_component__WEBPACK_IMPORTED_MODULE_4__.GeneralSettingsComponent, src_app_Presentation_IconSetConfiguration_icon_set_configuration_component__WEBPACK_IMPORTED_MODULE_0__.IconSetConfigurationComponent, _tool_label_dictionary_presentation_label_dictionary_label_dictionary_component__WEBPACK_IMPORTED_MODULE_5__.LabelDictionaryComponent]
   });
 })();
 
@@ -4656,57 +4656,6 @@ var HeaderDialogForm;
   }
   HeaderDialogForm.create = create;
 })(HeaderDialogForm || (HeaderDialogForm = {}));
-
-/***/ }),
-
-/***/ 23958:
-/*!**************************************************************************************************!*\
-  !*** ./src/app/Presentation/Dialog/label-dictionary-dialog/label-dictionary-dialog.component.ts ***!
-  \**************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   LabelDictionaryDialogComponent: () => (/* binding */ LabelDictionaryDialogComponent)
-/* harmony export */ });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ 72768);
-/* harmony import */ var _LabelDictionary_label_dictionary_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../LabelDictionary/label-dictionary.component */ 86328);
-
-
-
-class LabelDictionaryDialogComponent {
-  constructor(dialogRef) {
-    this.dialogRef = dialogRef;
-  }
-  close() {
-    this.dialogRef.close();
-  }
-  static #_ = this.ɵfac = function LabelDictionaryDialogComponent_Factory(t) {
-    return new (t || LabelDictionaryDialogComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__.MatDialogRef));
-  };
-  static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({
-    type: LabelDictionaryDialogComponent,
-    selectors: [["app-label-dictionary-dialog"]],
-    decls: 4,
-    vars: 0,
-    consts: [[3, "closeEmitter"]],
-    template: function LabelDictionaryDialogComponent_Template(rf, ctx) {
-      if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "mat-dialog-content")(1, "h2");
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](2, "Label Dictionary");
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](3, "app-label-dictionary", 0);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("closeEmitter", function LabelDictionaryDialogComponent_Template_app_label_dictionary_closeEmitter_3_listener() {
-          return ctx.close();
-        });
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]()();
-      }
-    },
-    dependencies: [_LabelDictionary_label_dictionary_component__WEBPACK_IMPORTED_MODULE_0__.LabelDictionaryComponent, _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__.MatDialogContent],
-    styles: ["/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJsYWJlbC1kaWN0aW9uYXJ5LWRpYWxvZy5jb21wb25lbnQuc2NzcyJ9 */\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL3NyYy9hcHAvUHJlc2VudGF0aW9uL0RpYWxvZy9sYWJlbC1kaWN0aW9uYXJ5LWRpYWxvZy9sYWJlbC1kaWN0aW9uYXJ5LWRpYWxvZy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiO0FBQ0Esd0xBQXdMIiwic291cmNlUm9vdCI6IiJ9 */"]
-  });
-}
 
 /***/ }),
 
@@ -5395,197 +5344,6 @@ class IconSetDetailsComponent {
     },
     dependencies: [_angular_common__WEBPACK_IMPORTED_MODULE_4__.NgForOf, _angular_forms__WEBPACK_IMPORTED_MODULE_5__["ɵNgNoValidate"], _angular_forms__WEBPACK_IMPORTED_MODULE_5__.NgControlStatusGroup, _angular_forms__WEBPACK_IMPORTED_MODULE_5__.NgForm, _angular_material_list__WEBPACK_IMPORTED_MODULE_6__.MatList, _angular_material_list__WEBPACK_IMPORTED_MODULE_6__.MatListItem, _angular_material_form_field__WEBPACK_IMPORTED_MODULE_7__.MatFormField, _angular_material_input__WEBPACK_IMPORTED_MODULE_8__.MatInput, _details_list_item_details_list_item_component__WEBPACK_IMPORTED_MODULE_2__.DetailsListItemComponent, _angular_common__WEBPACK_IMPORTED_MODULE_4__.AsyncPipe],
     styles: [".details[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  height: calc(100vh - 46px - 20px);\n  grid-row-gap: 1px;\n  overflow-y: auto;\n  overflow-x: auto;\n  width: 250px;\n  border-left: solid 1px #ccc;\n}\n\n.iconSetDetails[_ngcontent-%COMP%]    .mat-mdc-form-field-infix {\n  border: none;\n  padding-bottom: 0 !important;\n  padding-top: 0 !important;\n}\n.iconSetDetails[_ngcontent-%COMP%]    .mdc-text-field {\n  padding-left: 0 !important;\n}\n\n.compactItem[_ngcontent-%COMP%] {\n  height: 40px !important;\n}\n\n.fullWidth[_ngcontent-%COMP%] {\n  width: 100%;\n  padding-left: 15px;\n}\n\n.alignment[_ngcontent-%COMP%] {\n  height: 12px;\n}\n\n.inputHeight[_ngcontent-%COMP%] {\n  height: 46px;\n}\n\n.inputWidth[_ngcontent-%COMP%] {\n  width: 200px;\n  margin-left: 15px;\n}\n\nh3[_ngcontent-%COMP%] {\n  padding-left: 15px;\n  margin-bottom: 0;\n  font-weight: bold;\n}\n\nmat-list[_ngcontent-%COMP%] {\n  padding-top: 0;\n}\n\n.bottom-border[_ngcontent-%COMP%] {\n  border-bottom: 2px solid #ccc;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImljb24tc2V0LWRldGFpbHMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxhQUFBO0VBQ0Esc0JBQUE7RUFDQSxpQ0FBQTtFQUNBLGlCQUFBO0VBQ0EsZ0JBQUE7RUFDQSxnQkFBQTtFQUNBLFlBQUE7RUFDQSwyQkFBQTtBQUNGOztBQUdFO0VBQ0UsWUFBQTtFQUNBLDRCQUFBO0VBQ0EseUJBQUE7QUFBSjtBQUdFO0VBQ0UsMEJBQUE7QUFESjs7QUFLQTtFQUNFLHVCQUFBO0FBRkY7O0FBS0E7RUFDRSxXQUFBO0VBQ0Esa0JBQUE7QUFGRjs7QUFLQTtFQUNFLFlBQUE7QUFGRjs7QUFLQTtFQUNFLFlBQUE7QUFGRjs7QUFLQTtFQUNFLFlBQUE7RUFDQSxpQkFBQTtBQUZGOztBQUtBO0VBQ0Usa0JBQUE7RUFDQSxnQkFBQTtFQUNBLGlCQUFBO0FBRkY7O0FBS0E7RUFDRSxjQUFBO0FBRkY7O0FBS0E7RUFDRSw2QkFBQTtBQUZGIiwiZmlsZSI6Imljb24tc2V0LWRldGFpbHMuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZGV0YWlscyB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG4gIGhlaWdodDogY2FsYygxMDB2aCAtIDQ2cHggLSAyMHB4KTtcbiAgZ3JpZC1yb3ctZ2FwOiAxcHg7XG4gIG92ZXJmbG93LXk6IGF1dG87XG4gIG92ZXJmbG93LXg6IGF1dG87XG4gIHdpZHRoOiAyNTBweDtcbiAgYm9yZGVyLWxlZnQ6IHNvbGlkIDFweCAjY2NjO1xufVxuXG4uaWNvblNldERldGFpbHMge1xuICA6Om5nLWRlZXAubWF0LW1kYy1mb3JtLWZpZWxkLWluZml4IHtcbiAgICBib3JkZXI6IG5vbmU7XG4gICAgcGFkZGluZy1ib3R0b206IDAgIWltcG9ydGFudDtcbiAgICBwYWRkaW5nLXRvcDogMCAhaW1wb3J0YW50O1xuICB9XG5cbiAgOjpuZy1kZWVwLm1kYy10ZXh0LWZpZWxkIHtcbiAgICBwYWRkaW5nLWxlZnQ6IDAgIWltcG9ydGFudDtcbiAgfVxufVxuXG4uY29tcGFjdEl0ZW0ge1xuICBoZWlnaHQ6IDQwcHggIWltcG9ydGFudDtcbn1cblxuLmZ1bGxXaWR0aCB7XG4gIHdpZHRoOiAxMDAlO1xuICBwYWRkaW5nLWxlZnQ6IDE1cHg7XG59XG5cbi5hbGlnbm1lbnQge1xuICBoZWlnaHQ6IDEycHg7XG59XG5cbi5pbnB1dEhlaWdodCB7XG4gIGhlaWdodDogNDZweDtcbn1cblxuLmlucHV0V2lkdGgge1xuICB3aWR0aDogMjAwcHg7XG4gIG1hcmdpbi1sZWZ0OiAxNXB4O1xufVxuXG5oMyB7XG4gIHBhZGRpbmctbGVmdDogMTVweDtcbiAgbWFyZ2luLWJvdHRvbTogMDtcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XG59XG5cbm1hdC1saXN0IHtcbiAgcGFkZGluZy10b3A6IDA7XG59XG5cbi5ib3R0b20tYm9yZGVyIHtcbiAgYm9yZGVyLWJvdHRvbTogMnB4IHNvbGlkICNjY2M7XG59XG4iXX0= */\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL3NyYy9hcHAvUHJlc2VudGF0aW9uL0ljb25TZXRDb25maWd1cmF0aW9uL2ljb24tc2V0LWRldGFpbHMvaWNvbi1zZXQtZGV0YWlscy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGFBQUE7RUFDQSxzQkFBQTtFQUNBLGlDQUFBO0VBQ0EsaUJBQUE7RUFDQSxnQkFBQTtFQUNBLGdCQUFBO0VBQ0EsWUFBQTtFQUNBLDJCQUFBO0FBQ0Y7O0FBR0U7RUFDRSxZQUFBO0VBQ0EsNEJBQUE7RUFDQSx5QkFBQTtBQUFKO0FBR0U7RUFDRSwwQkFBQTtBQURKOztBQUtBO0VBQ0UsdUJBQUE7QUFGRjs7QUFLQTtFQUNFLFdBQUE7RUFDQSxrQkFBQTtBQUZGOztBQUtBO0VBQ0UsWUFBQTtBQUZGOztBQUtBO0VBQ0UsWUFBQTtBQUZGOztBQUtBO0VBQ0UsWUFBQTtFQUNBLGlCQUFBO0FBRkY7O0FBS0E7RUFDRSxrQkFBQTtFQUNBLGdCQUFBO0VBQ0EsaUJBQUE7QUFGRjs7QUFLQTtFQUNFLGNBQUE7QUFGRjs7QUFLQTtFQUNFLDZCQUFBO0FBRkY7QUFDQSxvMURBQW8xRCIsInNvdXJjZXNDb250ZW50IjpbIi5kZXRhaWxzIHtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbiAgaGVpZ2h0OiBjYWxjKDEwMHZoIC0gNDZweCAtIDIwcHgpO1xuICBncmlkLXJvdy1nYXA6IDFweDtcbiAgb3ZlcmZsb3cteTogYXV0bztcbiAgb3ZlcmZsb3cteDogYXV0bztcbiAgd2lkdGg6IDI1MHB4O1xuICBib3JkZXItbGVmdDogc29saWQgMXB4ICNjY2M7XG59XG5cbi5pY29uU2V0RGV0YWlscyB7XG4gIDo6bmctZGVlcC5tYXQtbWRjLWZvcm0tZmllbGQtaW5maXgge1xuICAgIGJvcmRlcjogbm9uZTtcbiAgICBwYWRkaW5nLWJvdHRvbTogMCAhaW1wb3J0YW50O1xuICAgIHBhZGRpbmctdG9wOiAwICFpbXBvcnRhbnQ7XG4gIH1cblxuICA6Om5nLWRlZXAubWRjLXRleHQtZmllbGQge1xuICAgIHBhZGRpbmctbGVmdDogMCAhaW1wb3J0YW50O1xuICB9XG59XG5cbi5jb21wYWN0SXRlbSB7XG4gIGhlaWdodDogNDBweCAhaW1wb3J0YW50O1xufVxuXG4uZnVsbFdpZHRoIHtcbiAgd2lkdGg6IDEwMCU7XG4gIHBhZGRpbmctbGVmdDogMTVweDtcbn1cblxuLmFsaWdubWVudCB7XG4gIGhlaWdodDogMTJweDtcbn1cblxuLmlucHV0SGVpZ2h0IHtcbiAgaGVpZ2h0OiA0NnB4O1xufVxuXG4uaW5wdXRXaWR0aCB7XG4gIHdpZHRoOiAyMDBweDtcbiAgbWFyZ2luLWxlZnQ6IDE1cHg7XG59XG5cbmgzIHtcbiAgcGFkZGluZy1sZWZ0OiAxNXB4O1xuICBtYXJnaW4tYm90dG9tOiAwO1xuICBmb250LXdlaWdodDogYm9sZDtcbn1cblxubWF0LWxpc3Qge1xuICBwYWRkaW5nLXRvcDogMDtcbn1cblxuLmJvdHRvbS1ib3JkZXIge1xuICBib3JkZXItYm90dG9tOiAycHggc29saWQgI2NjYztcbn1cbiJdLCJzb3VyY2VSb290IjoiIn0= */"]
-  });
-}
-
-/***/ }),
-
-/***/ 86328:
-/*!****************************************************************************!*\
-  !*** ./src/app/Presentation/LabelDictionary/label-dictionary.component.ts ***!
-  \****************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   LabelDictionaryComponent: () => (/* binding */ LabelDictionaryComponent)
-/* harmony export */ });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ 95536);
-/* harmony import */ var _Service_LabelDictionary_label_dictionary_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../Service/LabelDictionary/label-dictionary.service */ 59783);
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ 39191);
-/* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material/button */ 95912);
-/* harmony import */ var _angular_material_list__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material/list */ 68708);
-/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material/dialog */ 72768);
-/* harmony import */ var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/material/form-field */ 48913);
-/* harmony import */ var _angular_material_input__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/material/input */ 29836);
-/* harmony import */ var _angular_cdk_text_field__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/cdk/text-field */ 79401);
-
-
-
-
-
-
-
-
-
-
-
-function LabelDictionaryComponent_mat_list_item_5_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r1 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "mat-list-item")(1, "mat-form-field", 6)(2, "input", 7);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("change", function LabelDictionaryComponent_mat_list_item_5_Template_input_change_2_listener($event) {
-      const workobjectEntry_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r1).$implicit;
-      const ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-      return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵresetView"](ctx_r2.updateWorkobjectEntry($event, workobjectEntry_r2));
-    });
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]()()();
-  }
-  if (rf & 2) {
-    const workobjectEntry_r2 = ctx.$implicit;
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("value", workobjectEntry_r2.name);
-  }
-}
-function LabelDictionaryComponent_mat_list_item_11_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r4 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "mat-list-item")(1, "mat-form-field", 6)(2, "textarea", 8);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("change", function LabelDictionaryComponent_mat_list_item_11_Template_textarea_change_2_listener($event) {
-      const activityEntry_r5 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r4).$implicit;
-      const ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-      return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵresetView"](ctx_r2.updateActivityEntry($event, activityEntry_r5));
-    })("keydown.enter", function LabelDictionaryComponent_mat_list_item_11_Template_textarea_keydown_enter_2_listener($event) {
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r4);
-      const ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-      return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵresetView"](ctx_r2.preventDefault($event));
-    })("keyup.enter", function LabelDictionaryComponent_mat_list_item_11_Template_textarea_keyup_enter_2_listener() {
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r4);
-      const ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-      return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵresetView"](ctx_r2.save());
-    })("keyup.escape", function LabelDictionaryComponent_mat_list_item_11_Template_textarea_keyup_escape_2_listener() {
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r4);
-      const ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-      return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵresetView"](ctx_r2.close());
-    });
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]()()();
-  }
-  if (rf & 2) {
-    const activityEntry_r5 = ctx.$implicit;
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("value", activityEntry_r5.name);
-  }
-}
-class LabelDictionaryComponent {
-  constructor(labelDictionaryService) {
-    this.labelDictionaryService = labelDictionaryService;
-    this.closeEmitter = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.EventEmitter();
-    this.labelDictionaryService.createLabelDictionaries();
-    this.workObjectEntries = this.labelDictionaryService.getWorkObjectLabels();
-    this.activityEntries = this.labelDictionaryService.getActivityLabels();
-    this.workobjectEntriesSubject = new rxjs__WEBPACK_IMPORTED_MODULE_2__.BehaviorSubject(this.workObjectEntries);
-    this.activityEntriesSubject = new rxjs__WEBPACK_IMPORTED_MODULE_2__.BehaviorSubject(this.activityEntries);
-  }
-  ngAfterViewInit() {
-    this.labelDictionaryService.createLabelDictionaries();
-    this.workobjectEntriesSubject.next(this.labelDictionaryService.getWorkObjectLabels());
-    this.activityEntriesSubject.next(this.labelDictionaryService.getActivityLabels());
-  }
-  save() {
-    this.workObjectEntries = this.workobjectEntriesSubject.value;
-    this.activityEntries = this.activityEntriesSubject.value;
-    const activityNames = [];
-    const originalActivityNames = [];
-    const workObjectNames = [];
-    const originalWorkObjectNames = [];
-    this.activityEntries.filter(a => a.name !== a.originalName).forEach(activity => {
-      activityNames.push(activity.name);
-      originalActivityNames.push(activity.originalName);
-    });
-    this.workObjectEntries.filter(w => w.name !== w.originalName).forEach(workobject => {
-      workObjectNames.push(workobject.name);
-      originalWorkObjectNames.push(workobject.originalName);
-    });
-    this.labelDictionaryService.massRenameLabels(activityNames, originalActivityNames, workObjectNames, originalWorkObjectNames);
-    this.closeEmitter.emit();
-  }
-  cancel() {
-    this.workObjectEntries.forEach(w => {
-      w.name = w.originalName;
-    });
-    this.activityEntries.forEach(a => {
-      a.name = a.originalName;
-    });
-    this.workobjectEntriesSubject.next(this.workObjectEntries);
-    this.activityEntriesSubject.next(this.activityEntries);
-  }
-  updateActivityEntry($event, activityEntry) {
-    let entries = this.activityEntriesSubject.value;
-    entries.filter(e => e.originalName === activityEntry.originalName)[0].name = $event.target.value;
-    this.activityEntriesSubject.next(entries);
-  }
-  updateWorkobjectEntry($event, workobjectEntry) {
-    let entries = this.workobjectEntriesSubject.value;
-    entries.filter(e => e.originalName === workobjectEntry.originalName)[0].name = $event.target.value;
-    this.workobjectEntriesSubject.next(entries);
-  }
-  preventDefault(event) {
-    event.preventDefault();
-  }
-  close() {
-    this.closeEmitter.emit();
-  }
-  static #_ = this.ɵfac = function LabelDictionaryComponent_Factory(t) {
-    return new (t || LabelDictionaryComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_Service_LabelDictionary_label_dictionary_service__WEBPACK_IMPORTED_MODULE_0__.LabelDictionaryService));
-  };
-  static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({
-    type: LabelDictionaryComponent,
-    selectors: [["app-label-dictionary"]],
-    outputs: {
-      closeEmitter: "closeEmitter"
-    },
-    decls: 18,
-    vars: 6,
-    consts: [[1, "workobjectList"], [4, "ngFor", "ngForOf"], [1, "activityList"], [1, "activityListTitle"], ["mat-flat-button", "", 3, "click"], ["mat-flat-button", "", "color", "primary", 3, "click"], [1, "inputText"], ["matInput", "", 1, "inputText", 3, "change", "value"], ["matInput", "", "cdkTextareaAutosize", "", "cdkAutosizeMinRows", "1", "cdkAutosizeMaxRows", "3", 1, "inputText", "activity", 3, "change", "keydown.enter", "keyup.enter", "keyup.escape", "value"]],
-    template: function LabelDictionaryComponent_Template(rf, ctx) {
-      if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "mat-dialog-content")(1, "div", 0)(2, "h3");
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](3, "Workobjects");
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](4, "mat-list");
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](5, LabelDictionaryComponent_mat_list_item_5_Template, 3, 1, "mat-list-item", 1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipe"](6, "async");
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]()();
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](7, "div", 2)(8, "h3", 3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](9, "Activities");
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](10, "mat-list");
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](11, LabelDictionaryComponent_mat_list_item_11_Template, 3, 1, "mat-list-item", 1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipe"](12, "async");
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]()()();
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](13, "mat-dialog-actions")(14, "button", 4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function LabelDictionaryComponent_Template_button_click_14_listener() {
-          return ctx.close();
-        });
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](15, "Cancel");
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](16, "button", 5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function LabelDictionaryComponent_Template_button_click_16_listener() {
-          return ctx.save();
-        });
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](17, "Save");
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]()();
-      }
-      if (rf & 2) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipeBind1"](6, 2, ctx.workobjectEntriesSubject));
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](6);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipeBind1"](12, 4, ctx.activityEntriesSubject));
-      }
-    },
-    dependencies: [_angular_common__WEBPACK_IMPORTED_MODULE_3__.NgForOf, _angular_material_button__WEBPACK_IMPORTED_MODULE_4__.MatButton, _angular_material_list__WEBPACK_IMPORTED_MODULE_5__.MatList, _angular_material_list__WEBPACK_IMPORTED_MODULE_5__.MatListItem, _angular_material_dialog__WEBPACK_IMPORTED_MODULE_6__.MatDialogActions, _angular_material_dialog__WEBPACK_IMPORTED_MODULE_6__.MatDialogContent, _angular_material_form_field__WEBPACK_IMPORTED_MODULE_7__.MatFormField, _angular_material_input__WEBPACK_IMPORTED_MODULE_8__.MatInput, _angular_cdk_text_field__WEBPACK_IMPORTED_MODULE_9__.CdkTextareaAutosize, _angular_common__WEBPACK_IMPORTED_MODULE_3__.AsyncPipe],
-    styles: ["mat-dialog-content[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: auto auto;\n  top: 0;\n  bottom: 0;\n  max-height: 75vh;\n  grid-column-gap: 5px;\n  width: 75vw;\n}\nmat-dialog-content[_ngcontent-%COMP%]   mat-list-item[_ngcontent-%COMP%] {\n  height: unset !important;\n}\nmat-dialog-content[_ngcontent-%COMP%]   mat-list-item-content[_ngcontent-%COMP%] {\n  padding: 0 !important;\n}\n\nh3[_ngcontent-%COMP%] {\n  font-weight: bold;\n}\n\n.icon[_ngcontent-%COMP%] {\n  width: 36px;\n  height: 36px;\n}\n\n.inputText[_ngcontent-%COMP%] {\n  width: 98%;\n  resize: none;\n  font-family: sans-serif;\n  font-size: small;\n  padding-top: 1px;\n  padding-bottom: 1px;\n  margin: 0;\n}\n\n.activityListHeader[_ngcontent-%COMP%] {\n  display: inline-grid;\n  grid-template-columns: auto auto auto;\n  width: 100%;\n}\n\n.activityListTitle[_ngcontent-%COMP%] {\n  justify-self: left;\n}\n\n.saveButton[_ngcontent-%COMP%] {\n  justify-self: end;\n  padding-right: 0 !important;\n}\n\n.saveButtonSpan[_ngcontent-%COMP%] {\n  margin-left: 2px;\n}\n\n.activity[_ngcontent-%COMP%] {\n  max-height: 3rem;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxhYmVsLWRpY3Rpb25hcnkuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxhQUFBO0VBQ0EsZ0NBQUE7RUFDQSxNQUFBO0VBQ0EsU0FBQTtFQUNBLGdCQUFBO0VBQ0Esb0JBQUE7RUFDQSxXQUFBO0FBQ0Y7QUFDRTtFQUNFLHdCQUFBO0FBQ0o7QUFHRTtFQUNFLHFCQUFBO0FBREo7O0FBS0E7RUFDRSxpQkFBQTtBQUZGOztBQUtBO0VBQ0UsV0FBQTtFQUNBLFlBQUE7QUFGRjs7QUFLQTtFQUNFLFVBQUE7RUFDQSxZQUFBO0VBQ0EsdUJBQUE7RUFDQSxnQkFBQTtFQUNBLGdCQUFBO0VBQ0EsbUJBQUE7RUFDQSxTQUFBO0FBRkY7O0FBS0E7RUFDRSxvQkFBQTtFQUNBLHFDQUFBO0VBQ0EsV0FBQTtBQUZGOztBQUtBO0VBQ0Usa0JBQUE7QUFGRjs7QUFLQTtFQUNFLGlCQUFBO0VBQ0EsMkJBQUE7QUFGRjs7QUFLQTtFQUNFLGdCQUFBO0FBRkY7O0FBS0E7RUFDRSxnQkFBQTtBQUZGIiwiZmlsZSI6ImxhYmVsLWRpY3Rpb25hcnkuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJtYXQtZGlhbG9nLWNvbnRlbnQge1xuICBkaXNwbGF5OiBncmlkO1xuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IGF1dG8gYXV0bztcbiAgdG9wOiAwO1xuICBib3R0b206IDA7XG4gIG1heC1oZWlnaHQ6IDc1dmg7XG4gIGdyaWQtY29sdW1uLWdhcDogNXB4O1xuICB3aWR0aDogNzV2dztcblxuICBtYXQtbGlzdC1pdGVtIHtcbiAgICBoZWlnaHQ6IHVuc2V0ICFpbXBvcnRhbnQ7XG4gICAgLy9wYWRkaW5nLWJvdHRvbTogMnB4ICFpbXBvcnRhbnQ7XG4gIH1cblxuICBtYXQtbGlzdC1pdGVtLWNvbnRlbnQge1xuICAgIHBhZGRpbmc6IDAgIWltcG9ydGFudDtcbiAgfVxufVxuXG5oMyB7XG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xufVxuXG4uaWNvbiB7XG4gIHdpZHRoOiAzNnB4O1xuICBoZWlnaHQ6IDM2cHg7XG59XG5cbi5pbnB1dFRleHQge1xuICB3aWR0aDogOTglO1xuICByZXNpemU6IG5vbmU7XG4gIGZvbnQtZmFtaWx5OiBzYW5zLXNlcmlmO1xuICBmb250LXNpemU6IHNtYWxsO1xuICBwYWRkaW5nLXRvcDogMXB4O1xuICBwYWRkaW5nLWJvdHRvbTogMXB4O1xuICBtYXJnaW46IDA7XG59XG5cbi5hY3Rpdml0eUxpc3RIZWFkZXIge1xuICBkaXNwbGF5OiBpbmxpbmUtZ3JpZDtcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiBhdXRvIGF1dG8gYXV0bztcbiAgd2lkdGg6IDEwMCU7XG59XG5cbi5hY3Rpdml0eUxpc3RUaXRsZSB7XG4gIGp1c3RpZnktc2VsZjogbGVmdDtcbn1cblxuLnNhdmVCdXR0b24ge1xuICBqdXN0aWZ5LXNlbGY6IGVuZDtcbiAgcGFkZGluZy1yaWdodDogMCAhaW1wb3J0YW50O1xufVxuXG4uc2F2ZUJ1dHRvblNwYW4ge1xuICBtYXJnaW4tbGVmdDogMnB4O1xufVxuXG4uYWN0aXZpdHkge1xuICBtYXgtaGVpZ2h0OiAzcmVtO1xufVxuIl19 */\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL3NyYy9hcHAvUHJlc2VudGF0aW9uL0xhYmVsRGljdGlvbmFyeS9sYWJlbC1kaWN0aW9uYXJ5LmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsYUFBQTtFQUNBLGdDQUFBO0VBQ0EsTUFBQTtFQUNBLFNBQUE7RUFDQSxnQkFBQTtFQUNBLG9CQUFBO0VBQ0EsV0FBQTtBQUNGO0FBQ0U7RUFDRSx3QkFBQTtBQUNKO0FBR0U7RUFDRSxxQkFBQTtBQURKOztBQUtBO0VBQ0UsaUJBQUE7QUFGRjs7QUFLQTtFQUNFLFdBQUE7RUFDQSxZQUFBO0FBRkY7O0FBS0E7RUFDRSxVQUFBO0VBQ0EsWUFBQTtFQUNBLHVCQUFBO0VBQ0EsZ0JBQUE7RUFDQSxnQkFBQTtFQUNBLG1CQUFBO0VBQ0EsU0FBQTtBQUZGOztBQUtBO0VBQ0Usb0JBQUE7RUFDQSxxQ0FBQTtFQUNBLFdBQUE7QUFGRjs7QUFLQTtFQUNFLGtCQUFBO0FBRkY7O0FBS0E7RUFDRSxpQkFBQTtFQUNBLDJCQUFBO0FBRkY7O0FBS0E7RUFDRSxnQkFBQTtBQUZGOztBQUtBO0VBQ0UsZ0JBQUE7QUFGRjtBQUNBLDQ2REFBNDZEIiwic291cmNlc0NvbnRlbnQiOlsibWF0LWRpYWxvZy1jb250ZW50IHtcbiAgZGlzcGxheTogZ3JpZDtcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiBhdXRvIGF1dG87XG4gIHRvcDogMDtcbiAgYm90dG9tOiAwO1xuICBtYXgtaGVpZ2h0OiA3NXZoO1xuICBncmlkLWNvbHVtbi1nYXA6IDVweDtcbiAgd2lkdGg6IDc1dnc7XG5cbiAgbWF0LWxpc3QtaXRlbSB7XG4gICAgaGVpZ2h0OiB1bnNldCAhaW1wb3J0YW50O1xuICAgIC8vcGFkZGluZy1ib3R0b206IDJweCAhaW1wb3J0YW50O1xuICB9XG5cbiAgbWF0LWxpc3QtaXRlbS1jb250ZW50IHtcbiAgICBwYWRkaW5nOiAwICFpbXBvcnRhbnQ7XG4gIH1cbn1cblxuaDMge1xuICBmb250LXdlaWdodDogYm9sZDtcbn1cblxuLmljb24ge1xuICB3aWR0aDogMzZweDtcbiAgaGVpZ2h0OiAzNnB4O1xufVxuXG4uaW5wdXRUZXh0IHtcbiAgd2lkdGg6IDk4JTtcbiAgcmVzaXplOiBub25lO1xuICBmb250LWZhbWlseTogc2Fucy1zZXJpZjtcbiAgZm9udC1zaXplOiBzbWFsbDtcbiAgcGFkZGluZy10b3A6IDFweDtcbiAgcGFkZGluZy1ib3R0b206IDFweDtcbiAgbWFyZ2luOiAwO1xufVxuXG4uYWN0aXZpdHlMaXN0SGVhZGVyIHtcbiAgZGlzcGxheTogaW5saW5lLWdyaWQ7XG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogYXV0byBhdXRvIGF1dG87XG4gIHdpZHRoOiAxMDAlO1xufVxuXG4uYWN0aXZpdHlMaXN0VGl0bGUge1xuICBqdXN0aWZ5LXNlbGY6IGxlZnQ7XG59XG5cbi5zYXZlQnV0dG9uIHtcbiAganVzdGlmeS1zZWxmOiBlbmQ7XG4gIHBhZGRpbmctcmlnaHQ6IDAgIWltcG9ydGFudDtcbn1cblxuLnNhdmVCdXR0b25TcGFuIHtcbiAgbWFyZ2luLWxlZnQ6IDJweDtcbn1cblxuLmFjdGl2aXR5IHtcbiAgbWF4LWhlaWdodDogM3JlbTtcbn1cbiJdLCJzb3VyY2VSb290IjoiIn0= */"]
   });
 }
 
@@ -6925,156 +6683,6 @@ class IconSetCustomizationService {
   static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵdefineInjectable"]({
     token: IconSetCustomizationService,
     factory: IconSetCustomizationService.ɵfac,
-    providedIn: 'root'
-  });
-}
-
-/***/ }),
-
-/***/ 59783:
-/*!*********************************************************************!*\
-  !*** ./src/app/Service/LabelDictionary/label-dictionary.service.ts ***!
-  \*********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   LabelDictionaryService: () => (/* binding */ LabelDictionaryService)
-/* harmony export */ });
-/* harmony import */ var src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/Domain/Common/elementTypes */ 30236);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var src_app_Service_LabelDictionary_mass_naming_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/Service/LabelDictionary/mass-naming.service */ 37509);
-/* harmony import */ var src_app_Service_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/Service/ElementRegistry/element-registry.service */ 67613);
-/* harmony import */ var _IconSetConfiguration_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../IconSetConfiguration/icon-dictionary.service */ 93689);
-
-
-
-
-
-class LabelDictionaryService {
-  constructor(massNamingService, elementRegistryService, iconDictionaryService) {
-    this.massNamingService = massNamingService;
-    this.elementRegistryService = elementRegistryService;
-    this.iconDictionaryService = iconDictionaryService;
-    this.activityLabels = [];
-    this.workObjektLabels = [];
-  }
-  createLabelDictionaries() {
-    this.activityLabels = [];
-    this.workObjektLabels = [];
-    const allObjects = this.elementRegistryService.getAllCanvasObjects();
-    allObjects.forEach(element => {
-      const name = element.businessObject.name;
-      if (name && name.length > 0 && element.type.includes(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTIVITY) && !this.activityLabels.map(a => a.name).includes(name)) {
-        this.activityLabels.push({
-          name,
-          originalName: name
-        });
-      } else if (name && name.length > 0 && element.type.includes(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.WORKOBJECT) && !this.workObjektLabels.map(e => e.name).includes(name)) {
-        const iconName = element.type.replace(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.WORKOBJECT, '');
-        let icon = this.iconDictionaryService.getIconSource(iconName);
-        if (!icon) {
-          return;
-        }
-        if (!icon.startsWith('data')) {
-          icon = 'data:image/svg+xml,' + icon;
-        }
-        this.workObjektLabels.push({
-          name,
-          originalName: name,
-          icon
-        });
-      }
-    });
-    this.activityLabels.sort((a, b) => {
-      return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
-    });
-    this.workObjektLabels.sort((a, b) => {
-      return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
-    });
-  }
-  getActivityLabels() {
-    return this.activityLabels.slice();
-  }
-  getWorkObjectLabels() {
-    return this.workObjektLabels.slice();
-  }
-  getUniqueWorkObjectNames() {
-    const workObjects = this.elementRegistryService.getAllWorkobjects();
-    return [...new Set(workObjects.filter(workObject => {
-      return !!workObject.businessObject.name;
-    }).map(workObject => workObject.businessObject.name))];
-  }
-  massRenameLabels(activityNames, originalActivityNames, workObjectNames, originalWorkObjectNames) {
-    for (let i = 0; i < originalActivityNames.length; i++) {
-      if (!activityNames[i]) {
-        activityNames[i] = '';
-      }
-      if (!(activityNames[i] == originalActivityNames[i])) {
-        this.massNamingService.massChangeNames(originalActivityNames[i], activityNames[i], src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTIVITY);
-      }
-    }
-    for (let i = 0; i < originalWorkObjectNames.length; i++) {
-      if (!workObjectNames[i]) {
-        workObjectNames[i] = '';
-      }
-      if (!(workObjectNames[i] == originalWorkObjectNames[i])) {
-        this.massNamingService.massChangeNames(originalWorkObjectNames[i], workObjectNames[i], src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.WORKOBJECT);
-      }
-    }
-  }
-  static #_ = this.ɵfac = function LabelDictionaryService_Factory(t) {
-    return new (t || LabelDictionaryService)(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](src_app_Service_LabelDictionary_mass_naming_service__WEBPACK_IMPORTED_MODULE_1__.MassNamingService), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](src_app_Service_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_2__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_IconSetConfiguration_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_3__.IconDictionaryService));
-  };
-  static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineInjectable"]({
-    token: LabelDictionaryService,
-    factory: LabelDictionaryService.ɵfac,
-    providedIn: 'root'
-  });
-}
-
-/***/ }),
-
-/***/ 37509:
-/*!****************************************************************!*\
-  !*** ./src/app/Service/LabelDictionary/mass-naming.service.ts ***!
-  \****************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   MassNamingService: () => (/* binding */ MassNamingService)
-/* harmony export */ });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var src_app_Service_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/Service/ElementRegistry/element-registry.service */ 67613);
-/* harmony import */ var _CommandStack_command_stack_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../CommandStack/command-stack.service */ 19381);
-
-
-
-class MassNamingService {
-  constructor(elementRegistryService, commandStackService) {
-    this.elementRegistryService = elementRegistryService;
-    this.commandStackService = commandStackService;
-  }
-  massChangeNames(oldValue, newValue, type) {
-    const allRelevantObjects = [];
-    this.elementRegistryService.getAllCanvasObjects().forEach(element => {
-      if (element.type.includes(type) && element.businessObject.name === oldValue) {
-        allRelevantObjects.push(element);
-      }
-    });
-    const context = {
-      elements: allRelevantObjects,
-      newValue
-    };
-    this.commandStackService.execute('domainStoryObjects.massRename', context);
-  }
-  static #_ = this.ɵfac = function MassNamingService_Factory(t) {
-    return new (t || MassNamingService)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](src_app_Service_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_0__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_CommandStack_command_stack_service__WEBPACK_IMPORTED_MODULE_1__.CommandStackService));
-  };
-  static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjectable"]({
-    token: MassNamingService,
-    factory: MassNamingService.ɵfac,
     providedIn: 'root'
   });
 }
@@ -9741,6 +9349,398 @@ class ImportRepairService {
 
 /***/ }),
 
+/***/ 73570:
+/*!*****************************************************************************************************************!*\
+  !*** ./src/app/tool/label-dictionary/presentation/label-dictionary-dialog/label-dictionary-dialog.component.ts ***!
+  \*****************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   LabelDictionaryDialogComponent: () => (/* binding */ LabelDictionaryDialogComponent)
+/* harmony export */ });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 96623);
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ 72768);
+/* harmony import */ var _label_dictionary_label_dictionary_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../label-dictionary/label-dictionary.component */ 46118);
+
+
+
+class LabelDictionaryDialogComponent {
+  constructor(dialogRef) {
+    this.dialogRef = dialogRef;
+  }
+  close() {
+    this.dialogRef.close();
+  }
+  static #_ = this.ɵfac = function LabelDictionaryDialogComponent_Factory(t) {
+    return new (t || LabelDictionaryDialogComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__.MatDialogRef));
+  };
+  static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({
+    type: LabelDictionaryDialogComponent,
+    selectors: [["app-label-dictionary-dialog"]],
+    decls: 4,
+    vars: 0,
+    consts: [[3, "closeEmitter"]],
+    template: function LabelDictionaryDialogComponent_Template(rf, ctx) {
+      if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "mat-dialog-content")(1, "h2");
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](2, "Label Dictionary");
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](3, "app-label-dictionary", 0);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("closeEmitter", function LabelDictionaryDialogComponent_Template_app_label_dictionary_closeEmitter_3_listener() {
+          return ctx.close();
+        });
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]()();
+      }
+    },
+    dependencies: [_label_dictionary_label_dictionary_component__WEBPACK_IMPORTED_MODULE_0__.LabelDictionaryComponent, _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__.MatDialogContent],
+    styles: ["/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJsYWJlbC1kaWN0aW9uYXJ5LWRpYWxvZy5jb21wb25lbnQuc2NzcyJ9 */\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL3NyYy9hcHAvdG9vbC9sYWJlbC1kaWN0aW9uYXJ5L3ByZXNlbnRhdGlvbi9sYWJlbC1kaWN0aW9uYXJ5LWRpYWxvZy9sYWJlbC1kaWN0aW9uYXJ5LWRpYWxvZy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiO0FBQ0Esd0xBQXdMIiwic291cmNlUm9vdCI6IiJ9 */"]
+  });
+}
+
+/***/ }),
+
+/***/ 46118:
+/*!***************************************************************************************************!*\
+  !*** ./src/app/tool/label-dictionary/presentation/label-dictionary/label-dictionary.component.ts ***!
+  \***************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   LabelDictionaryComponent: () => (/* binding */ LabelDictionaryComponent)
+/* harmony export */ });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 96623);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ 95536);
+/* harmony import */ var _service_label_dictionary_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../service/label-dictionary.service */ 4879);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ 39191);
+/* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material/button */ 95912);
+/* harmony import */ var _angular_material_list__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material/list */ 68708);
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material/dialog */ 72768);
+/* harmony import */ var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/material/form-field */ 48913);
+/* harmony import */ var _angular_material_input__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/material/input */ 29836);
+/* harmony import */ var _angular_cdk_text_field__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/cdk/text-field */ 79401);
+
+
+
+
+
+
+
+
+
+
+
+function LabelDictionaryComponent_mat_list_item_5_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r1 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "mat-list-item")(1, "mat-form-field", 6)(2, "input", 7);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("change", function LabelDictionaryComponent_mat_list_item_5_Template_input_change_2_listener($event) {
+      const workobjectEntry_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r1).$implicit;
+      const ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+      return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵresetView"](ctx_r2.updateWorkobjectEntry($event, workobjectEntry_r2));
+    });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]()()();
+  }
+  if (rf & 2) {
+    const workobjectEntry_r2 = ctx.$implicit;
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("value", workobjectEntry_r2.name);
+  }
+}
+function LabelDictionaryComponent_mat_list_item_11_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r4 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "mat-list-item")(1, "mat-form-field", 6)(2, "textarea", 8);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("change", function LabelDictionaryComponent_mat_list_item_11_Template_textarea_change_2_listener($event) {
+      const activityEntry_r5 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r4).$implicit;
+      const ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+      return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵresetView"](ctx_r2.updateActivityEntry($event, activityEntry_r5));
+    })("keydown.enter", function LabelDictionaryComponent_mat_list_item_11_Template_textarea_keydown_enter_2_listener($event) {
+      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r4);
+      const ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+      return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵresetView"](ctx_r2.preventDefault($event));
+    })("keyup.enter", function LabelDictionaryComponent_mat_list_item_11_Template_textarea_keyup_enter_2_listener() {
+      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r4);
+      const ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+      return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵresetView"](ctx_r2.save());
+    })("keyup.escape", function LabelDictionaryComponent_mat_list_item_11_Template_textarea_keyup_escape_2_listener() {
+      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r4);
+      const ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+      return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵresetView"](ctx_r2.close());
+    });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]()()();
+  }
+  if (rf & 2) {
+    const activityEntry_r5 = ctx.$implicit;
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("value", activityEntry_r5.name);
+  }
+}
+class LabelDictionaryComponent {
+  constructor(labelDictionaryService) {
+    this.labelDictionaryService = labelDictionaryService;
+    this.closeEmitter = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.EventEmitter();
+    this.labelDictionaryService.createLabelDictionaries();
+    this.workObjectEntries = this.labelDictionaryService.getWorkObjectLabels();
+    this.activityEntries = this.labelDictionaryService.getActivityLabels();
+    this.workobjectEntriesSubject = new rxjs__WEBPACK_IMPORTED_MODULE_2__.BehaviorSubject(this.workObjectEntries);
+    this.activityEntriesSubject = new rxjs__WEBPACK_IMPORTED_MODULE_2__.BehaviorSubject(this.activityEntries);
+  }
+  ngAfterViewInit() {
+    this.labelDictionaryService.createLabelDictionaries();
+    this.workobjectEntriesSubject.next(this.labelDictionaryService.getWorkObjectLabels());
+    this.activityEntriesSubject.next(this.labelDictionaryService.getActivityLabels());
+  }
+  save() {
+    this.workObjectEntries = this.workobjectEntriesSubject.value;
+    this.activityEntries = this.activityEntriesSubject.value;
+    const activityNames = [];
+    const originalActivityNames = [];
+    const workObjectNames = [];
+    const originalWorkObjectNames = [];
+    this.activityEntries.filter(a => a.name !== a.originalName).forEach(activity => {
+      activityNames.push(activity.name);
+      originalActivityNames.push(activity.originalName);
+    });
+    this.workObjectEntries.filter(w => w.name !== w.originalName).forEach(workobject => {
+      workObjectNames.push(workobject.name);
+      originalWorkObjectNames.push(workobject.originalName);
+    });
+    this.labelDictionaryService.massRenameLabels(activityNames, originalActivityNames, workObjectNames, originalWorkObjectNames);
+    this.closeEmitter.emit();
+  }
+  cancel() {
+    this.workObjectEntries.forEach(w => {
+      w.name = w.originalName;
+    });
+    this.activityEntries.forEach(a => {
+      a.name = a.originalName;
+    });
+    this.workobjectEntriesSubject.next(this.workObjectEntries);
+    this.activityEntriesSubject.next(this.activityEntries);
+  }
+  updateActivityEntry($event, activityEntry) {
+    let entries = this.activityEntriesSubject.value;
+    entries.filter(e => e.originalName === activityEntry.originalName)[0].name = $event.target.value;
+    this.activityEntriesSubject.next(entries);
+  }
+  updateWorkobjectEntry($event, workobjectEntry) {
+    let entries = this.workobjectEntriesSubject.value;
+    entries.filter(e => e.originalName === workobjectEntry.originalName)[0].name = $event.target.value;
+    this.workobjectEntriesSubject.next(entries);
+  }
+  preventDefault(event) {
+    event.preventDefault();
+  }
+  close() {
+    this.closeEmitter.emit();
+  }
+  static #_ = this.ɵfac = function LabelDictionaryComponent_Factory(t) {
+    return new (t || LabelDictionaryComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_service_label_dictionary_service__WEBPACK_IMPORTED_MODULE_0__.LabelDictionaryService));
+  };
+  static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({
+    type: LabelDictionaryComponent,
+    selectors: [["app-label-dictionary"]],
+    outputs: {
+      closeEmitter: "closeEmitter"
+    },
+    decls: 18,
+    vars: 6,
+    consts: [[1, "workobjectList"], [4, "ngFor", "ngForOf"], [1, "activityList"], [1, "activityListTitle"], ["mat-flat-button", "", 3, "click"], ["mat-flat-button", "", "color", "primary", 3, "click"], [1, "inputText"], ["matInput", "", 1, "inputText", 3, "change", "value"], ["matInput", "", "cdkTextareaAutosize", "", "cdkAutosizeMinRows", "1", "cdkAutosizeMaxRows", "3", 1, "inputText", "activity", 3, "change", "keydown.enter", "keyup.enter", "keyup.escape", "value"]],
+    template: function LabelDictionaryComponent_Template(rf, ctx) {
+      if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "mat-dialog-content")(1, "div", 0)(2, "h3");
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](3, "Workobjects");
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](4, "mat-list");
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](5, LabelDictionaryComponent_mat_list_item_5_Template, 3, 1, "mat-list-item", 1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipe"](6, "async");
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]()();
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](7, "div", 2)(8, "h3", 3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](9, "Activities");
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](10, "mat-list");
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](11, LabelDictionaryComponent_mat_list_item_11_Template, 3, 1, "mat-list-item", 1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipe"](12, "async");
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]()()();
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](13, "mat-dialog-actions")(14, "button", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function LabelDictionaryComponent_Template_button_click_14_listener() {
+          return ctx.close();
+        });
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](15, "Cancel");
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](16, "button", 5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function LabelDictionaryComponent_Template_button_click_16_listener() {
+          return ctx.save();
+        });
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](17, "Save");
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]()();
+      }
+      if (rf & 2) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipeBind1"](6, 2, ctx.workobjectEntriesSubject));
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipeBind1"](12, 4, ctx.activityEntriesSubject));
+      }
+    },
+    dependencies: [_angular_common__WEBPACK_IMPORTED_MODULE_3__.NgForOf, _angular_material_button__WEBPACK_IMPORTED_MODULE_4__.MatButton, _angular_material_list__WEBPACK_IMPORTED_MODULE_5__.MatList, _angular_material_list__WEBPACK_IMPORTED_MODULE_5__.MatListItem, _angular_material_dialog__WEBPACK_IMPORTED_MODULE_6__.MatDialogActions, _angular_material_dialog__WEBPACK_IMPORTED_MODULE_6__.MatDialogContent, _angular_material_form_field__WEBPACK_IMPORTED_MODULE_7__.MatFormField, _angular_material_input__WEBPACK_IMPORTED_MODULE_8__.MatInput, _angular_cdk_text_field__WEBPACK_IMPORTED_MODULE_9__.CdkTextareaAutosize, _angular_common__WEBPACK_IMPORTED_MODULE_3__.AsyncPipe],
+    styles: ["mat-dialog-content[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: auto auto;\n  top: 0;\n  bottom: 0;\n  max-height: 75vh;\n  grid-column-gap: 5px;\n  width: 75vw;\n}\nmat-dialog-content[_ngcontent-%COMP%]   mat-list-item[_ngcontent-%COMP%] {\n  height: unset !important;\n}\nmat-dialog-content[_ngcontent-%COMP%]   mat-list-item-content[_ngcontent-%COMP%] {\n  padding: 0 !important;\n}\n\nh3[_ngcontent-%COMP%] {\n  font-weight: bold;\n}\n\n.icon[_ngcontent-%COMP%] {\n  width: 36px;\n  height: 36px;\n}\n\n.inputText[_ngcontent-%COMP%] {\n  width: 98%;\n  resize: none;\n  font-family: sans-serif;\n  font-size: small;\n  padding-top: 1px;\n  padding-bottom: 1px;\n  margin: 0;\n}\n\n.activityListHeader[_ngcontent-%COMP%] {\n  display: inline-grid;\n  grid-template-columns: auto auto auto;\n  width: 100%;\n}\n\n.activityListTitle[_ngcontent-%COMP%] {\n  justify-self: left;\n}\n\n.saveButton[_ngcontent-%COMP%] {\n  justify-self: end;\n  padding-right: 0 !important;\n}\n\n.saveButtonSpan[_ngcontent-%COMP%] {\n  margin-left: 2px;\n}\n\n.activity[_ngcontent-%COMP%] {\n  max-height: 3rem;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxhYmVsLWRpY3Rpb25hcnkuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxhQUFBO0VBQ0EsZ0NBQUE7RUFDQSxNQUFBO0VBQ0EsU0FBQTtFQUNBLGdCQUFBO0VBQ0Esb0JBQUE7RUFDQSxXQUFBO0FBQ0Y7QUFDRTtFQUNFLHdCQUFBO0FBQ0o7QUFHRTtFQUNFLHFCQUFBO0FBREo7O0FBS0E7RUFDRSxpQkFBQTtBQUZGOztBQUtBO0VBQ0UsV0FBQTtFQUNBLFlBQUE7QUFGRjs7QUFLQTtFQUNFLFVBQUE7RUFDQSxZQUFBO0VBQ0EsdUJBQUE7RUFDQSxnQkFBQTtFQUNBLGdCQUFBO0VBQ0EsbUJBQUE7RUFDQSxTQUFBO0FBRkY7O0FBS0E7RUFDRSxvQkFBQTtFQUNBLHFDQUFBO0VBQ0EsV0FBQTtBQUZGOztBQUtBO0VBQ0Usa0JBQUE7QUFGRjs7QUFLQTtFQUNFLGlCQUFBO0VBQ0EsMkJBQUE7QUFGRjs7QUFLQTtFQUNFLGdCQUFBO0FBRkY7O0FBS0E7RUFDRSxnQkFBQTtBQUZGIiwiZmlsZSI6ImxhYmVsLWRpY3Rpb25hcnkuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJtYXQtZGlhbG9nLWNvbnRlbnQge1xuICBkaXNwbGF5OiBncmlkO1xuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IGF1dG8gYXV0bztcbiAgdG9wOiAwO1xuICBib3R0b206IDA7XG4gIG1heC1oZWlnaHQ6IDc1dmg7XG4gIGdyaWQtY29sdW1uLWdhcDogNXB4O1xuICB3aWR0aDogNzV2dztcblxuICBtYXQtbGlzdC1pdGVtIHtcbiAgICBoZWlnaHQ6IHVuc2V0ICFpbXBvcnRhbnQ7XG4gICAgLy9wYWRkaW5nLWJvdHRvbTogMnB4ICFpbXBvcnRhbnQ7XG4gIH1cblxuICBtYXQtbGlzdC1pdGVtLWNvbnRlbnQge1xuICAgIHBhZGRpbmc6IDAgIWltcG9ydGFudDtcbiAgfVxufVxuXG5oMyB7XG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xufVxuXG4uaWNvbiB7XG4gIHdpZHRoOiAzNnB4O1xuICBoZWlnaHQ6IDM2cHg7XG59XG5cbi5pbnB1dFRleHQge1xuICB3aWR0aDogOTglO1xuICByZXNpemU6IG5vbmU7XG4gIGZvbnQtZmFtaWx5OiBzYW5zLXNlcmlmO1xuICBmb250LXNpemU6IHNtYWxsO1xuICBwYWRkaW5nLXRvcDogMXB4O1xuICBwYWRkaW5nLWJvdHRvbTogMXB4O1xuICBtYXJnaW46IDA7XG59XG5cbi5hY3Rpdml0eUxpc3RIZWFkZXIge1xuICBkaXNwbGF5OiBpbmxpbmUtZ3JpZDtcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiBhdXRvIGF1dG8gYXV0bztcbiAgd2lkdGg6IDEwMCU7XG59XG5cbi5hY3Rpdml0eUxpc3RUaXRsZSB7XG4gIGp1c3RpZnktc2VsZjogbGVmdDtcbn1cblxuLnNhdmVCdXR0b24ge1xuICBqdXN0aWZ5LXNlbGY6IGVuZDtcbiAgcGFkZGluZy1yaWdodDogMCAhaW1wb3J0YW50O1xufVxuXG4uc2F2ZUJ1dHRvblNwYW4ge1xuICBtYXJnaW4tbGVmdDogMnB4O1xufVxuXG4uYWN0aXZpdHkge1xuICBtYXgtaGVpZ2h0OiAzcmVtO1xufVxuIl19 */\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL3NyYy9hcHAvdG9vbC9sYWJlbC1kaWN0aW9uYXJ5L3ByZXNlbnRhdGlvbi9sYWJlbC1kaWN0aW9uYXJ5L2xhYmVsLWRpY3Rpb25hcnkuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxhQUFBO0VBQ0EsZ0NBQUE7RUFDQSxNQUFBO0VBQ0EsU0FBQTtFQUNBLGdCQUFBO0VBQ0Esb0JBQUE7RUFDQSxXQUFBO0FBQ0Y7QUFDRTtFQUNFLHdCQUFBO0FBQ0o7QUFHRTtFQUNFLHFCQUFBO0FBREo7O0FBS0E7RUFDRSxpQkFBQTtBQUZGOztBQUtBO0VBQ0UsV0FBQTtFQUNBLFlBQUE7QUFGRjs7QUFLQTtFQUNFLFVBQUE7RUFDQSxZQUFBO0VBQ0EsdUJBQUE7RUFDQSxnQkFBQTtFQUNBLGdCQUFBO0VBQ0EsbUJBQUE7RUFDQSxTQUFBO0FBRkY7O0FBS0E7RUFDRSxvQkFBQTtFQUNBLHFDQUFBO0VBQ0EsV0FBQTtBQUZGOztBQUtBO0VBQ0Usa0JBQUE7QUFGRjs7QUFLQTtFQUNFLGlCQUFBO0VBQ0EsMkJBQUE7QUFGRjs7QUFLQTtFQUNFLGdCQUFBO0FBRkY7O0FBS0E7RUFDRSxnQkFBQTtBQUZGO0FBQ0EsNDZEQUE0NkQiLCJzb3VyY2VzQ29udGVudCI6WyJtYXQtZGlhbG9nLWNvbnRlbnQge1xuICBkaXNwbGF5OiBncmlkO1xuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IGF1dG8gYXV0bztcbiAgdG9wOiAwO1xuICBib3R0b206IDA7XG4gIG1heC1oZWlnaHQ6IDc1dmg7XG4gIGdyaWQtY29sdW1uLWdhcDogNXB4O1xuICB3aWR0aDogNzV2dztcblxuICBtYXQtbGlzdC1pdGVtIHtcbiAgICBoZWlnaHQ6IHVuc2V0ICFpbXBvcnRhbnQ7XG4gICAgLy9wYWRkaW5nLWJvdHRvbTogMnB4ICFpbXBvcnRhbnQ7XG4gIH1cblxuICBtYXQtbGlzdC1pdGVtLWNvbnRlbnQge1xuICAgIHBhZGRpbmc6IDAgIWltcG9ydGFudDtcbiAgfVxufVxuXG5oMyB7XG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xufVxuXG4uaWNvbiB7XG4gIHdpZHRoOiAzNnB4O1xuICBoZWlnaHQ6IDM2cHg7XG59XG5cbi5pbnB1dFRleHQge1xuICB3aWR0aDogOTglO1xuICByZXNpemU6IG5vbmU7XG4gIGZvbnQtZmFtaWx5OiBzYW5zLXNlcmlmO1xuICBmb250LXNpemU6IHNtYWxsO1xuICBwYWRkaW5nLXRvcDogMXB4O1xuICBwYWRkaW5nLWJvdHRvbTogMXB4O1xuICBtYXJnaW46IDA7XG59XG5cbi5hY3Rpdml0eUxpc3RIZWFkZXIge1xuICBkaXNwbGF5OiBpbmxpbmUtZ3JpZDtcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiBhdXRvIGF1dG8gYXV0bztcbiAgd2lkdGg6IDEwMCU7XG59XG5cbi5hY3Rpdml0eUxpc3RUaXRsZSB7XG4gIGp1c3RpZnktc2VsZjogbGVmdDtcbn1cblxuLnNhdmVCdXR0b24ge1xuICBqdXN0aWZ5LXNlbGY6IGVuZDtcbiAgcGFkZGluZy1yaWdodDogMCAhaW1wb3J0YW50O1xufVxuXG4uc2F2ZUJ1dHRvblNwYW4ge1xuICBtYXJnaW4tbGVmdDogMnB4O1xufVxuXG4uYWN0aXZpdHkge1xuICBtYXgtaGVpZ2h0OiAzcmVtO1xufVxuIl0sInNvdXJjZVJvb3QiOiIifQ== */"]
+  });
+}
+
+/***/ }),
+
+/***/ 4879:
+/*!***************************************************************************!*\
+  !*** ./src/app/tool/label-dictionary/service/label-dictionary.service.ts ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   LabelDictionaryService: () => (/* binding */ LabelDictionaryService)
+/* harmony export */ });
+/* harmony import */ var src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/Domain/Common/elementTypes */ 30236);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 96623);
+/* harmony import */ var src_app_tool_label_dictionary_service_mass_naming_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/tool/label-dictionary/service/mass-naming.service */ 93309);
+/* harmony import */ var src_app_Service_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/Service/ElementRegistry/element-registry.service */ 67613);
+/* harmony import */ var _Service_IconSetConfiguration_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../Service/IconSetConfiguration/icon-dictionary.service */ 93689);
+
+
+
+
+
+class LabelDictionaryService {
+  constructor(massNamingService, elementRegistryService, iconDictionaryService) {
+    this.massNamingService = massNamingService;
+    this.elementRegistryService = elementRegistryService;
+    this.iconDictionaryService = iconDictionaryService;
+    this.activityLabels = [];
+    this.workObjektLabels = [];
+  }
+  createLabelDictionaries() {
+    this.activityLabels = [];
+    this.workObjektLabels = [];
+    const allObjects = this.elementRegistryService.getAllCanvasObjects();
+    allObjects.forEach(element => {
+      const name = element.businessObject.name;
+      if (name && name.length > 0 && element.type.includes(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTIVITY) && !this.activityLabels.map(a => a.name).includes(name)) {
+        this.activityLabels.push({
+          name,
+          originalName: name
+        });
+      } else if (name && name.length > 0 && element.type.includes(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.WORKOBJECT) && !this.workObjektLabels.map(e => e.name).includes(name)) {
+        const iconName = element.type.replace(src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.WORKOBJECT, '');
+        let icon = this.iconDictionaryService.getIconSource(iconName);
+        if (!icon) {
+          return;
+        }
+        if (!icon.startsWith('data')) {
+          icon = 'data:image/svg+xml,' + icon;
+        }
+        this.workObjektLabels.push({
+          name,
+          originalName: name,
+          icon
+        });
+      }
+    });
+    this.activityLabels.sort((a, b) => {
+      return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+    });
+    this.workObjektLabels.sort((a, b) => {
+      return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+    });
+  }
+  getActivityLabels() {
+    return this.activityLabels.slice();
+  }
+  getWorkObjectLabels() {
+    return this.workObjektLabels.slice();
+  }
+  getUniqueWorkObjectNames() {
+    const workObjects = this.elementRegistryService.getAllWorkobjects();
+    return [...new Set(workObjects.filter(workObject => {
+      return !!workObject.businessObject.name;
+    }).map(workObject => workObject.businessObject.name))];
+  }
+  massRenameLabels(activityNames, originalActivityNames, workObjectNames, originalWorkObjectNames) {
+    for (let i = 0; i < originalActivityNames.length; i++) {
+      if (!activityNames[i]) {
+        activityNames[i] = '';
+      }
+      if (!(activityNames[i] == originalActivityNames[i])) {
+        this.massNamingService.massChangeNames(originalActivityNames[i], activityNames[i], src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTIVITY);
+      }
+    }
+    for (let i = 0; i < originalWorkObjectNames.length; i++) {
+      if (!workObjectNames[i]) {
+        workObjectNames[i] = '';
+      }
+      if (!(workObjectNames[i] == originalWorkObjectNames[i])) {
+        this.massNamingService.massChangeNames(originalWorkObjectNames[i], workObjectNames[i], src_app_Domain_Common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.WORKOBJECT);
+      }
+    }
+  }
+  static #_ = this.ɵfac = function LabelDictionaryService_Factory(t) {
+    return new (t || LabelDictionaryService)(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](src_app_tool_label_dictionary_service_mass_naming_service__WEBPACK_IMPORTED_MODULE_1__.MassNamingService), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](src_app_Service_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_2__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_Service_IconSetConfiguration_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_3__.IconDictionaryService));
+  };
+  static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineInjectable"]({
+    token: LabelDictionaryService,
+    factory: LabelDictionaryService.ɵfac,
+    providedIn: 'root'
+  });
+}
+
+/***/ }),
+
+/***/ 93309:
+/*!**********************************************************************!*\
+  !*** ./src/app/tool/label-dictionary/service/mass-naming.service.ts ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   MassNamingService: () => (/* binding */ MassNamingService)
+/* harmony export */ });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 96623);
+/* harmony import */ var src_app_Service_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/Service/ElementRegistry/element-registry.service */ 67613);
+/* harmony import */ var _Service_CommandStack_command_stack_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../Service/CommandStack/command-stack.service */ 19381);
+
+
+
+class MassNamingService {
+  constructor(elementRegistryService, commandStackService) {
+    this.elementRegistryService = elementRegistryService;
+    this.commandStackService = commandStackService;
+  }
+  massChangeNames(oldValue, newValue, type) {
+    const allRelevantObjects = [];
+    this.elementRegistryService.getAllCanvasObjects().forEach(element => {
+      if (element.type.includes(type) && element.businessObject.name === oldValue) {
+        allRelevantObjects.push(element);
+      }
+    });
+    const context = {
+      elements: allRelevantObjects,
+      newValue
+    };
+    this.commandStackService.execute('domainStoryObjects.massRename', context);
+  }
+  static #_ = this.ɵfac = function MassNamingService_Factory(t) {
+    return new (t || MassNamingService)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](src_app_Service_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_0__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_Service_CommandStack_command_stack_service__WEBPACK_IMPORTED_MODULE_1__.CommandStackService));
+  };
+  static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjectable"]({
+    token: MassNamingService,
+    factory: MassNamingService.ɵfac,
+    providedIn: 'root'
+  });
+}
+
+/***/ }),
+
 /***/ 95382:
 /*!*******************************************************!*\
   !*** ./src/app/tool/replay/domain/replayConstants.ts ***!
@@ -10418,11 +10418,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_tool_import_service_import_repair_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/tool/import/service/import-repair.service */ 82391);
 /* harmony import */ var src_app_Service_Modeler_modeler_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/Service/Modeler/modeler.service */ 74676);
 /* harmony import */ var src_app_tool_header_service_title_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/tool/header/service/title.service */ 5048);
-/* harmony import */ var src_app_Service_LabelDictionary_label_dictionary_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/Service/LabelDictionary/label-dictionary.service */ 59783);
+/* harmony import */ var src_app_tool_label_dictionary_service_label_dictionary_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/tool/label-dictionary/service/label-dictionary.service */ 4879);
 /* harmony import */ var src_app_tool_replay_service_replay_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/tool/replay/service/replay.service */ 60523);
 /* harmony import */ var src_app_Service_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/Service/ElementRegistry/element-registry.service */ 67613);
 /* harmony import */ var src_app_Service_IconSetConfiguration_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/Service/IconSetConfiguration/icon-set-configuration.service */ 10200);
-/* harmony import */ var src_app_Service_LabelDictionary_mass_naming_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/app/Service/LabelDictionary/mass-naming.service */ 37509);
+/* harmony import */ var src_app_tool_label_dictionary_service_mass_naming_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/app/tool/label-dictionary/service/mass-naming.service */ 93309);
 /* harmony import */ var src_app_tool_header_presentation_dialog_info_dialog_title_and_description_dialog_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! src/app/tool/header/presentation/dialog/info-dialog/title-and-description-dialog.component */ 28152);
 /* harmony import */ var src_app_tool_export_presentation_export_dialog_export_dialog_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! src/app/tool/export/presentation/export-dialog/export-dialog.component */ 61603);
 /* harmony import */ var src_app_Presentation_Dialog_activity_dialog_activity_dialog_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! src/app/Presentation/Dialog/activity-dialog/activity-dialog.component */ 63954);
@@ -10433,7 +10433,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_Modules_settings_module__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! src/app/Modules/settings.module */ 47261);
 /* harmony import */ var _tool_autosave_service_autosave_service__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../tool/autosave/service/autosave.service */ 49053);
 /* harmony import */ var _Modules_domain_story_modeler_module_module__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../Modules/domain-story-modeler-module.module */ 76330);
-/* harmony import */ var _Presentation_Dialog_label_dictionary_dialog_label_dictionary_dialog_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../Presentation/Dialog/label-dictionary-dialog/label-dictionary-dialog.component */ 23958);
+/* harmony import */ var _tool_label_dictionary_presentation_label_dictionary_dialog_label_dictionary_dialog_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../tool/label-dictionary/presentation/label-dictionary-dialog/label-dictionary-dialog.component */ 73570);
 /* harmony import */ var _material_module__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../material.module */ 89439);
 /* harmony import */ var ngx_color_picker__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ngx-color-picker */ 32580);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @angular/core */ 96623);
@@ -10486,7 +10486,7 @@ class AppModule {
     type: AppModule
   });
   static #_3 = this.ɵinj = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_24__["ɵɵdefineInjector"]({
-    providers: [_tool_autosave_service_autosave_service__WEBPACK_IMPORTED_MODULE_20__.AutosaveService, src_app_tool_export_service_export_service__WEBPACK_IMPORTED_MODULE_3__.ExportService, src_app_tool_import_service_import_domain_story_service__WEBPACK_IMPORTED_MODULE_4__.ImportDomainStoryService, src_app_tool_import_service_import_repair_service__WEBPACK_IMPORTED_MODULE_5__.ImportRepairService, src_app_Service_IconSetConfiguration_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_17__.IconDictionaryService, src_app_tool_header_service_title_service__WEBPACK_IMPORTED_MODULE_7__.TitleService, src_app_Service_LabelDictionary_label_dictionary_service__WEBPACK_IMPORTED_MODULE_8__.LabelDictionaryService, src_app_tool_replay_service_replay_service__WEBPACK_IMPORTED_MODULE_9__.ReplayService, src_app_Service_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_10__.ElementRegistryService, src_app_Service_IconSetConfiguration_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_11__.IconSetConfigurationService, src_app_Service_Modeler_modeler_service__WEBPACK_IMPORTED_MODULE_6__.ModelerService, src_app_Service_LabelDictionary_mass_naming_service__WEBPACK_IMPORTED_MODULE_12__.MassNamingService, _angular_forms__WEBPACK_IMPORTED_MODULE_25__.UntypedFormBuilder, {
+    providers: [_tool_autosave_service_autosave_service__WEBPACK_IMPORTED_MODULE_20__.AutosaveService, src_app_tool_export_service_export_service__WEBPACK_IMPORTED_MODULE_3__.ExportService, src_app_tool_import_service_import_domain_story_service__WEBPACK_IMPORTED_MODULE_4__.ImportDomainStoryService, src_app_tool_import_service_import_repair_service__WEBPACK_IMPORTED_MODULE_5__.ImportRepairService, src_app_Service_IconSetConfiguration_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_17__.IconDictionaryService, src_app_tool_header_service_title_service__WEBPACK_IMPORTED_MODULE_7__.TitleService, src_app_tool_label_dictionary_service_label_dictionary_service__WEBPACK_IMPORTED_MODULE_8__.LabelDictionaryService, src_app_tool_replay_service_replay_service__WEBPACK_IMPORTED_MODULE_9__.ReplayService, src_app_Service_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_10__.ElementRegistryService, src_app_Service_IconSetConfiguration_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_11__.IconSetConfigurationService, src_app_Service_Modeler_modeler_service__WEBPACK_IMPORTED_MODULE_6__.ModelerService, src_app_tool_label_dictionary_service_mass_naming_service__WEBPACK_IMPORTED_MODULE_12__.MassNamingService, _angular_forms__WEBPACK_IMPORTED_MODULE_25__.UntypedFormBuilder, {
       provide: _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_26__.MAT_CHECKBOX_DEFAULT_OPTIONS,
       useValue: {
         clickAction: 'noop'
@@ -10497,7 +10497,7 @@ class AppModule {
 }
 (function () {
   (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_24__["ɵɵsetNgModuleScope"](AppModule, {
-    declarations: [src_app_tool_header_presentation_header_header_component__WEBPACK_IMPORTED_MODULE_0__.HeaderComponent, src_app_Presentation_Settings_settings_component__WEBPACK_IMPORTED_MODULE_1__.SettingsComponent, src_app_workbench_app_component__WEBPACK_IMPORTED_MODULE_2__.AppComponent, src_app_tool_header_presentation_dialog_info_dialog_title_and_description_dialog_component__WEBPACK_IMPORTED_MODULE_13__.TitleAndDescriptionDialogComponent, src_app_tool_export_presentation_export_dialog_export_dialog_component__WEBPACK_IMPORTED_MODULE_14__.ExportDialogComponent, src_app_Presentation_Dialog_activity_dialog_activity_dialog_component__WEBPACK_IMPORTED_MODULE_15__.ActivityDialogComponent, src_app_tool_header_presentation_dialog_header_dialog_header_dialog_component__WEBPACK_IMPORTED_MODULE_16__.HeaderDialogComponent, src_app_Presentation_Canvas_modeler_component__WEBPACK_IMPORTED_MODULE_18__.ModelerComponent, _Presentation_Dialog_label_dictionary_dialog_label_dictionary_dialog_component__WEBPACK_IMPORTED_MODULE_22__.LabelDictionaryDialogComponent],
+    declarations: [src_app_tool_header_presentation_header_header_component__WEBPACK_IMPORTED_MODULE_0__.HeaderComponent, src_app_Presentation_Settings_settings_component__WEBPACK_IMPORTED_MODULE_1__.SettingsComponent, src_app_workbench_app_component__WEBPACK_IMPORTED_MODULE_2__.AppComponent, src_app_tool_header_presentation_dialog_info_dialog_title_and_description_dialog_component__WEBPACK_IMPORTED_MODULE_13__.TitleAndDescriptionDialogComponent, src_app_tool_export_presentation_export_dialog_export_dialog_component__WEBPACK_IMPORTED_MODULE_14__.ExportDialogComponent, src_app_Presentation_Dialog_activity_dialog_activity_dialog_component__WEBPACK_IMPORTED_MODULE_15__.ActivityDialogComponent, src_app_tool_header_presentation_dialog_header_dialog_header_dialog_component__WEBPACK_IMPORTED_MODULE_16__.HeaderDialogComponent, src_app_Presentation_Canvas_modeler_component__WEBPACK_IMPORTED_MODULE_18__.ModelerComponent, _tool_label_dictionary_presentation_label_dictionary_dialog_label_dictionary_dialog_component__WEBPACK_IMPORTED_MODULE_22__.LabelDictionaryDialogComponent],
     imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_27__.BrowserModule, _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_28__.NoopAnimationsModule, _angular_forms__WEBPACK_IMPORTED_MODULE_25__.ReactiveFormsModule, src_app_Modules_settings_module__WEBPACK_IMPORTED_MODULE_19__.SettingsModule, _Modules_domain_story_modeler_module_module__WEBPACK_IMPORTED_MODULE_21__.DomainStoryModelerModuleModule, _material_module__WEBPACK_IMPORTED_MODULE_23__.MaterialModule, ngx_color_picker__WEBPACK_IMPORTED_MODULE_29__.ColorPickerModule]
   });
 })();
@@ -10519,7 +10519,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tool_export_presentation_export_dialog_export_dialog_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../tool/export/presentation/export-dialog/export-dialog.component */ 61603);
 /* harmony import */ var _tool_header_domain_infoDialogData__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../tool/header/domain/infoDialogData */ 77398);
 /* harmony import */ var _tool_header_presentation_dialog_info_dialog_title_and_description_dialog_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../tool/header/presentation/dialog/info-dialog/title-and-description-dialog.component */ 28152);
-/* harmony import */ var _Presentation_Dialog_label_dictionary_dialog_label_dictionary_dialog_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../Presentation/Dialog/label-dictionary-dialog/label-dictionary-dialog.component */ 23958);
+/* harmony import */ var _tool_label_dictionary_presentation_label_dictionary_dialog_label_dictionary_dialog_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../tool/label-dictionary/presentation/label-dictionary-dialog/label-dictionary-dialog.component */ 73570);
 /* harmony import */ var _Domain_Common_constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../Domain/Common/constants */ 90816);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/core */ 96623);
 /* harmony import */ var _service_settings_settings_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../service/settings/settings.service */ 32754);
@@ -10756,7 +10756,7 @@ class HeaderButtonsComponent {
       const config = new _angular_material_dialog__WEBPACK_IMPORTED_MODULE_17__.MatDialogConfig();
       config.disableClose = false;
       config.autoFocus = true;
-      this.dialogService.openDialog(_Presentation_Dialog_label_dictionary_dialog_label_dictionary_dialog_component__WEBPACK_IMPORTED_MODULE_4__.LabelDictionaryDialogComponent, config);
+      this.dialogService.openDialog(_tool_label_dictionary_presentation_label_dictionary_dialog_label_dictionary_dialog_component__WEBPACK_IMPORTED_MODULE_4__.LabelDictionaryDialogComponent, config);
     } else {
       this.snackbar.open('There are currently no Elements on the canvas', undefined, {
         duration: _Domain_Common_constants__WEBPACK_IMPORTED_MODULE_5__.SNACKBAR_DURATION,
@@ -10844,7 +10844,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Service_IconSetConfiguration_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../../Service/IconSetConfiguration/icon-dictionary.service */ 93689);
 /* harmony import */ var _Service_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../../Service/ElementRegistry/element-registry.service */ 67613);
 /* harmony import */ var _Service_IconSetConfiguration_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../../../Service/IconSetConfiguration/icon-set-configuration.service */ 10200);
-/* harmony import */ var _Service_LabelDictionary_label_dictionary_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../../../Service/LabelDictionary/label-dictionary.service */ 59783);
+/* harmony import */ var _tool_label_dictionary_service_label_dictionary_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../../../tool/label-dictionary/service/label-dictionary.service */ 4879);
 /* harmony import */ var _tool_replay_service_replay_state_service__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../../../tool/replay/service/replay-state.service */ 1671);
 /* harmony import */ var _Service_Dialog_dialog_service__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../../../Service/Dialog/dialog.service */ 4730);
 /* harmony import */ var _Service_CommandStack_command_stack_service__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../../../Service/CommandStack/command-stack.service */ 19381);
@@ -11036,7 +11036,7 @@ class InitializerService {
     }
   }
   static #_ = this.ɵfac = function InitializerService_Factory(t) {
-    return new (t || InitializerService)(_angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_Service_DirtyFlag_dirty_flag_service__WEBPACK_IMPORTED_MODULE_14__.DirtyFlagService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_Service_IconSetConfiguration_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_15__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_Service_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_16__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_Service_IconSetConfiguration_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_17__.IconSetConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_Service_LabelDictionary_label_dictionary_service__WEBPACK_IMPORTED_MODULE_18__.LabelDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_tool_replay_service_replay_state_service__WEBPACK_IMPORTED_MODULE_19__.ReplayStateService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_Service_Dialog_dialog_service__WEBPACK_IMPORTED_MODULE_20__.DialogService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_Service_CommandStack_command_stack_service__WEBPACK_IMPORTED_MODULE_21__.CommandStackService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_tool_header_service_title_service__WEBPACK_IMPORTED_MODULE_22__.TitleService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_tool_export_service_html_presentation_service__WEBPACK_IMPORTED_MODULE_23__.HtmlPresentationService));
+    return new (t || InitializerService)(_angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_Service_DirtyFlag_dirty_flag_service__WEBPACK_IMPORTED_MODULE_14__.DirtyFlagService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_Service_IconSetConfiguration_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_15__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_Service_ElementRegistry_element_registry_service__WEBPACK_IMPORTED_MODULE_16__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_Service_IconSetConfiguration_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_17__.IconSetConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_tool_label_dictionary_service_label_dictionary_service__WEBPACK_IMPORTED_MODULE_18__.LabelDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_tool_replay_service_replay_state_service__WEBPACK_IMPORTED_MODULE_19__.ReplayStateService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_Service_Dialog_dialog_service__WEBPACK_IMPORTED_MODULE_20__.DialogService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_Service_CommandStack_command_stack_service__WEBPACK_IMPORTED_MODULE_21__.CommandStackService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_tool_header_service_title_service__WEBPACK_IMPORTED_MODULE_22__.TitleService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_tool_export_service_html_presentation_service__WEBPACK_IMPORTED_MODULE_23__.HtmlPresentationService));
   };
   static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵdefineInjectable"]({
     token: InitializerService,
