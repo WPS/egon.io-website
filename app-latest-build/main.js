@@ -1,10 +1,10 @@
 "use strict";
 (self["webpackChunkegon"] = self["webpackChunkegon"] || []).push([["main"],{
 
-/***/ 70428:
-/*!****************************************************!*\
-  !*** ./src/app/tools/export/service/exportUtil.js ***!
-  \****************************************************/
+/***/ 97563:
+/*!*****************************************************!*\
+  !*** ./src/app/tools/export/services/exportUtil.js ***!
+  \*****************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -3789,11 +3789,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../environments/environment */ 45312);
 /* harmony import */ var ngx_color_picker__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ngx-color-picker */ 32580);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var src_app_workbench_service_settings_settings_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/workbench/service/settings/settings.service */ 32754);
-/* harmony import */ var _tools_header_service_title_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tools/header/service/title.service */ 38437);
-/* harmony import */ var _tools_export_service_export_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tools/export/service/export.service */ 13486);
-/* harmony import */ var _tools_replay_service_replay_state_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./tools/replay/service/replay-state.service */ 31340);
-/* harmony import */ var _tools_replay_service_replay_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./tools/replay/service/replay.service */ 76452);
+/* harmony import */ var src_app_workbench_services_settings_settings_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/workbench/services/settings/settings.service */ 1299);
+/* harmony import */ var _tools_header_services_title_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tools/header/services/title.service */ 41876);
+/* harmony import */ var _tools_export_services_export_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tools/export/services/export.service */ 39595);
+/* harmony import */ var _tools_replay_services_replay_state_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./tools/replay/services/replay-state.service */ 72355);
+/* harmony import */ var _tools_replay_services_replay_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./tools/replay/services/replay.service */ 3687);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/common */ 39191);
 /* harmony import */ var src_app_tools_header_presentation_header_header_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/tools/header/presentation/header/header.component */ 509);
 /* harmony import */ var src_app_workbench_presentation_settings_settings_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/workbench/presentation/settings/settings.component */ 45263);
@@ -3908,7 +3908,7 @@ class AppComponent {
     }));
   }
   static #_ = this.ɵfac = function AppComponent_Factory(t) {
-    return new (t || AppComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵdirectiveInject"](src_app_workbench_service_settings_settings_service__WEBPACK_IMPORTED_MODULE_1__.SettingsService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵdirectiveInject"](_tools_header_service_title_service__WEBPACK_IMPORTED_MODULE_2__.TitleService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵdirectiveInject"](_tools_export_service_export_service__WEBPACK_IMPORTED_MODULE_3__.ExportService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵdirectiveInject"](_tools_replay_service_replay_state_service__WEBPACK_IMPORTED_MODULE_4__.ReplayStateService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵdirectiveInject"](_tools_replay_service_replay_service__WEBPACK_IMPORTED_MODULE_5__.ReplayService));
+    return new (t || AppComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵdirectiveInject"](src_app_workbench_services_settings_settings_service__WEBPACK_IMPORTED_MODULE_1__.SettingsService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵdirectiveInject"](_tools_header_services_title_service__WEBPACK_IMPORTED_MODULE_2__.TitleService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵdirectiveInject"](_tools_export_services_export_service__WEBPACK_IMPORTED_MODULE_3__.ExportService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵdirectiveInject"](_tools_replay_services_replay_state_service__WEBPACK_IMPORTED_MODULE_4__.ReplayStateService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵdirectiveInject"](_tools_replay_services_replay_service__WEBPACK_IMPORTED_MODULE_5__.ReplayService));
   };
   static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵdefineComponent"]({
     type: AppComponent,
@@ -4017,25 +4017,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_tools_header_presentation_header_header_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/tools/header/presentation/header/header.component */ 509);
 /* harmony import */ var src_app_workbench_presentation_settings_settings_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/workbench/presentation/settings/settings.component */ 45263);
 /* harmony import */ var src_app_app_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/app.component */ 20092);
-/* harmony import */ var src_app_tools_export_service_export_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/tools/export/service/export.service */ 13486);
-/* harmony import */ var src_app_tools_import_service_import_domain_story_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/tools/import/service/import-domain-story.service */ 59799);
-/* harmony import */ var src_app_tools_import_service_import_repair_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/tools/import/service/import-repair.service */ 10330);
-/* harmony import */ var src_app_tools_modeler_service_modeler_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/tools/modeler/service/modeler.service */ 492);
-/* harmony import */ var src_app_tools_header_service_title_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/tools/header/service/title.service */ 38437);
-/* harmony import */ var src_app_tools_label_dictionary_service_label_dictionary_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/tools/label-dictionary/service/label-dictionary.service */ 72824);
-/* harmony import */ var src_app_tools_replay_service_replay_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/tools/replay/service/replay.service */ 76452);
-/* harmony import */ var src_app_domain_service_element_registry_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/domain/service/element-registry.service */ 42130);
-/* harmony import */ var src_app_tools_icon_set_config_service_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/tools/icon-set-config/service/icon-set-configuration.service */ 57292);
-/* harmony import */ var src_app_tools_label_dictionary_service_mass_naming_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/app/tools/label-dictionary/service/mass-naming.service */ 60612);
+/* harmony import */ var src_app_tools_export_services_export_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/tools/export/services/export.service */ 39595);
+/* harmony import */ var src_app_tools_import_services_import_domain_story_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/tools/import/services/import-domain-story.service */ 93586);
+/* harmony import */ var src_app_tools_import_services_import_repair_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/tools/import/services/import-repair.service */ 56511);
+/* harmony import */ var src_app_tools_modeler_services_modeler_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/tools/modeler/services/modeler.service */ 40439);
+/* harmony import */ var src_app_tools_header_services_title_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/tools/header/services/title.service */ 41876);
+/* harmony import */ var src_app_tools_label_dictionary_services_label_dictionary_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/tools/label-dictionary/services/label-dictionary.service */ 69731);
+/* harmony import */ var src_app_tools_replay_services_replay_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/tools/replay/services/replay.service */ 3687);
+/* harmony import */ var src_app_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/domain/services/element-registry.service */ 85511);
+/* harmony import */ var src_app_tools_icon_set_config_services_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/tools/icon-set-config/services/icon-set-configuration.service */ 46527);
+/* harmony import */ var src_app_tools_label_dictionary_services_mass_naming_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/app/tools/label-dictionary/services/mass-naming.service */ 75961);
 /* harmony import */ var src_app_tools_import_presentation_info_dialog_info_dialog_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! src/app/tools/import/presentation/info-dialog/info-dialog.component */ 77465);
 /* harmony import */ var src_app_tools_export_presentation_export_dialog_export_dialog_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! src/app/tools/export/presentation/export-dialog/export-dialog.component */ 2200);
 /* harmony import */ var src_app_tools_modeler_presentation_activity_dialog_activity_dialog_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! src/app/tools/modeler/presentation/activity-dialog/activity-dialog.component */ 89142);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @angular/forms */ 48015);
 /* harmony import */ var src_app_tools_header_presentation_dialog_header_dialog_header_dialog_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! src/app/tools/header/presentation/dialog/header-dialog/header-dialog.component */ 47378);
-/* harmony import */ var src_app_tools_icon_set_config_service_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! src/app/tools/icon-set-config/service/icon-dictionary.service */ 63357);
+/* harmony import */ var src_app_tools_icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! src/app/tools/icon-set-config/services/icon-dictionary.service */ 6932);
 /* harmony import */ var src_app_tools_modeler_presentation_modeler_modeler_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! src/app/tools/modeler/presentation/modeler/modeler.component */ 87286);
 /* harmony import */ var src_app_workbench_presentation_settings_settings_module__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! src/app/workbench/presentation/settings/settings.module */ 98830);
-/* harmony import */ var _tools_autosave_service_autosave_service__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./tools/autosave/service/autosave.service */ 37642);
+/* harmony import */ var _tools_autosave_services_autosave_service__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./tools/autosave/services/autosave.service */ 41707);
 /* harmony import */ var _workbench_presentation_header_domain_story_modeler_module_module__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./workbench/presentation/header/domain-story-modeler-module.module */ 78435);
 /* harmony import */ var _tools_label_dictionary_presentation_label_dictionary_dialog_label_dictionary_dialog_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./tools/label-dictionary/presentation/label-dictionary-dialog/label-dictionary-dialog.component */ 68701);
 /* harmony import */ var _material_module__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./material.module */ 89439);
@@ -4084,13 +4084,13 @@ class AppModule {
     app.bootstrap(src_app_app_component__WEBPACK_IMPORTED_MODULE_2__.AppComponent);
   }
   static #_ = this.ɵfac = function AppModule_Factory(t) {
-    return new (t || AppModule)(_angular_core__WEBPACK_IMPORTED_MODULE_24__["ɵɵinject"](_tools_autosave_service_autosave_service__WEBPACK_IMPORTED_MODULE_20__.AutosaveService));
+    return new (t || AppModule)(_angular_core__WEBPACK_IMPORTED_MODULE_24__["ɵɵinject"](_tools_autosave_services_autosave_service__WEBPACK_IMPORTED_MODULE_20__.AutosaveService));
   };
   static #_2 = this.ɵmod = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_24__["ɵɵdefineNgModule"]({
     type: AppModule
   });
   static #_3 = this.ɵinj = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_24__["ɵɵdefineInjector"]({
-    providers: [_tools_autosave_service_autosave_service__WEBPACK_IMPORTED_MODULE_20__.AutosaveService, src_app_tools_export_service_export_service__WEBPACK_IMPORTED_MODULE_3__.ExportService, src_app_tools_import_service_import_domain_story_service__WEBPACK_IMPORTED_MODULE_4__.ImportDomainStoryService, src_app_tools_import_service_import_repair_service__WEBPACK_IMPORTED_MODULE_5__.ImportRepairService, src_app_tools_icon_set_config_service_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_17__.IconDictionaryService, src_app_tools_header_service_title_service__WEBPACK_IMPORTED_MODULE_7__.TitleService, src_app_tools_label_dictionary_service_label_dictionary_service__WEBPACK_IMPORTED_MODULE_8__.LabelDictionaryService, src_app_tools_replay_service_replay_service__WEBPACK_IMPORTED_MODULE_9__.ReplayService, src_app_domain_service_element_registry_service__WEBPACK_IMPORTED_MODULE_10__.ElementRegistryService, src_app_tools_icon_set_config_service_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_11__.IconSetConfigurationService, src_app_tools_modeler_service_modeler_service__WEBPACK_IMPORTED_MODULE_6__.ModelerService, src_app_tools_label_dictionary_service_mass_naming_service__WEBPACK_IMPORTED_MODULE_12__.MassNamingService, _angular_forms__WEBPACK_IMPORTED_MODULE_25__.UntypedFormBuilder, {
+    providers: [_tools_autosave_services_autosave_service__WEBPACK_IMPORTED_MODULE_20__.AutosaveService, src_app_tools_export_services_export_service__WEBPACK_IMPORTED_MODULE_3__.ExportService, src_app_tools_import_services_import_domain_story_service__WEBPACK_IMPORTED_MODULE_4__.ImportDomainStoryService, src_app_tools_import_services_import_repair_service__WEBPACK_IMPORTED_MODULE_5__.ImportRepairService, src_app_tools_icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_17__.IconDictionaryService, src_app_tools_header_services_title_service__WEBPACK_IMPORTED_MODULE_7__.TitleService, src_app_tools_label_dictionary_services_label_dictionary_service__WEBPACK_IMPORTED_MODULE_8__.LabelDictionaryService, src_app_tools_replay_services_replay_service__WEBPACK_IMPORTED_MODULE_9__.ReplayService, src_app_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_10__.ElementRegistryService, src_app_tools_icon_set_config_services_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_11__.IconSetConfigurationService, src_app_tools_modeler_services_modeler_service__WEBPACK_IMPORTED_MODULE_6__.ModelerService, src_app_tools_label_dictionary_services_mass_naming_service__WEBPACK_IMPORTED_MODULE_12__.MassNamingService, _angular_forms__WEBPACK_IMPORTED_MODULE_25__.UntypedFormBuilder, {
       provide: _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_26__.MAT_CHECKBOX_DEFAULT_OPTIONS,
       useValue: {
         clickAction: 'noop'
@@ -4388,10 +4388,10 @@ function fromConfigurationFromFile(configFromFile) {
 
 /***/ }),
 
-/***/ 66886:
-/*!**************************************************!*\
-  !*** ./src/app/domain/service/dialog.service.ts ***!
-  \**************************************************/
+/***/ 12855:
+/*!***************************************************!*\
+  !*** ./src/app/domain/services/dialog.service.ts ***!
+  \***************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -4421,10 +4421,10 @@ class DialogService {
 
 /***/ }),
 
-/***/ 50239:
-/*!******************************************************!*\
-  !*** ./src/app/domain/service/dirty-flag.service.ts ***!
-  \******************************************************/
+/***/ 94658:
+/*!*******************************************************!*\
+  !*** ./src/app/domain/services/dirty-flag.service.ts ***!
+  \*******************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -4461,10 +4461,10 @@ class DirtyFlagService {
 
 /***/ }),
 
-/***/ 42130:
-/*!************************************************************!*\
-  !*** ./src/app/domain/service/element-registry.service.ts ***!
-  \************************************************************/
+/***/ 85511:
+/*!*************************************************************!*\
+  !*** ./src/app/domain/services/element-registry.service.ts ***!
+  \*************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -4640,10 +4640,10 @@ class ElementRegistryService {
 
 /***/ }),
 
-/***/ 38079:
-/*!***************************************************!*\
-  !*** ./src/app/domain/service/storage.service.ts ***!
-  \***************************************************/
+/***/ 50624:
+/*!****************************************************!*\
+  !*** ./src/app/domain/services/storage.service.ts ***!
+  \****************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -4826,7 +4826,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var src_app_domain_entity_common_constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/domain/entity/common/constants */ 59544);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var _service_autosave_configuration_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../service/autosave-configuration.service */ 61329);
+/* harmony import */ var _services_autosave_configuration_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/autosave-configuration.service */ 96040);
 /* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material/snack-bar */ 40382);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ 39191);
 /* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material/button */ 95912);
@@ -4906,7 +4906,7 @@ class AutosaveOptionsComponent {
     }
   }
   static #_ = this.ɵfac = function AutosaveOptionsComponent_Factory(t) {
-    return new (t || AutosaveOptionsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_service_autosave_configuration_service__WEBPACK_IMPORTED_MODULE_1__.AutosaveConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_3__.MatSnackBar));
+    return new (t || AutosaveOptionsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_services_autosave_configuration_service__WEBPACK_IMPORTED_MODULE_1__.AutosaveConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_3__.MatSnackBar));
   };
   static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineComponent"]({
     type: AutosaveOptionsComponent,
@@ -4979,7 +4979,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var src_app_domain_entity_common_constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/domain/entity/common/constants */ 59544);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var _service_autosave_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../service/autosave.service */ 37642);
+/* harmony import */ var _services_autosave_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/autosave.service */ 41707);
 /* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material/snack-bar */ 40382);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ 39191);
 /* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material/button */ 95912);
@@ -5068,7 +5068,7 @@ class AutosavedDraftsComponent {
     this.autosaveService.removeAllDrafts();
   }
   static #_ = this.ɵfac = function AutosavedDraftsComponent_Factory(t) {
-    return new (t || AutosavedDraftsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_service_autosave_service__WEBPACK_IMPORTED_MODULE_1__.AutosaveService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_3__.MatSnackBar));
+    return new (t || AutosavedDraftsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_services_autosave_service__WEBPACK_IMPORTED_MODULE_1__.AutosaveService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_3__.MatSnackBar));
   };
   static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineComponent"]({
     type: AutosavedDraftsComponent,
@@ -5103,10 +5103,10 @@ class AutosavedDraftsComponent {
 
 /***/ }),
 
-/***/ 61329:
-/*!**************************************************************************!*\
-  !*** ./src/app/tools/autosave/service/autosave-configuration.service.ts ***!
-  \**************************************************************************/
+/***/ 96040:
+/*!***************************************************************************!*\
+  !*** ./src/app/tools/autosave/services/autosave-configuration.service.ts ***!
+  \***************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -5116,7 +5116,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ 61151);
 /* harmony import */ var src_app_domain_entity_common_constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/domain/entity/common/constants */ 59544);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var _domain_service_storage_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../domain/service/storage.service */ 38079);
+/* harmony import */ var _domain_services_storage_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../domain/services/storage.service */ 50624);
 
 
 
@@ -5156,7 +5156,7 @@ class AutosaveConfigurationService {
     this.storageService.set(AUTOSAVE_CONFIGURATION_TAG, this.configuration);
   }
   static #_ = this.ɵfac = function AutosaveConfigurationService_Factory(t) {
-    return new (t || AutosaveConfigurationService)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](_domain_service_storage_service__WEBPACK_IMPORTED_MODULE_1__.StorageService));
+    return new (t || AutosaveConfigurationService)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](_domain_services_storage_service__WEBPACK_IMPORTED_MODULE_1__.StorageService));
   };
   static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineInjectable"]({
     token: AutosaveConfigurationService,
@@ -5167,10 +5167,10 @@ class AutosaveConfigurationService {
 
 /***/ }),
 
-/***/ 37642:
-/*!************************************************************!*\
-  !*** ./src/app/tools/autosave/service/autosave.service.ts ***!
-  \************************************************************/
+/***/ 41707:
+/*!*************************************************************!*\
+  !*** ./src/app/tools/autosave/services/autosave.service.ts ***!
+  \*************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -5183,13 +5183,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! rxjs */ 63150);
 /* harmony import */ var _domain_entity_common_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../domain/entity/common/constants */ 59544);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var _autosave_configuration_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./autosave-configuration.service */ 61329);
-/* harmony import */ var _export_service_export_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../export/service/export.service */ 13486);
-/* harmony import */ var _icon_set_config_service_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../icon-set-config/service/icon-dictionary.service */ 63357);
-/* harmony import */ var _modeler_service_renderer_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../modeler/service/renderer.service */ 6733);
+/* harmony import */ var _autosave_configuration_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./autosave-configuration.service */ 96040);
+/* harmony import */ var _export_services_export_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../export/services/export.service */ 39595);
+/* harmony import */ var _icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../icon-set-config/services/icon-dictionary.service */ 6932);
+/* harmony import */ var _modeler_services_renderer_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../modeler/services/renderer.service */ 63812);
 /* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/material/snack-bar */ 40382);
-/* harmony import */ var _domain_service_storage_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../domain/service/storage.service */ 38079);
-/* harmony import */ var _header_service_title_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../header/service/title.service */ 38437);
+/* harmony import */ var _domain_services_storage_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../domain/services/storage.service */ 50624);
+/* harmony import */ var _header_services_title_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../header/services/title.service */ 41876);
 
 
 
@@ -5309,7 +5309,7 @@ class AutosaveService {
     });
   }
   static #_ = this.ɵfac = function AutosaveService_Factory(t) {
-    return new (t || AutosaveService)(_angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_autosave_configuration_service__WEBPACK_IMPORTED_MODULE_3__.AutosaveConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_export_service_export_service__WEBPACK_IMPORTED_MODULE_4__.ExportService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_icon_set_config_service_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_5__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_modeler_service_renderer_service__WEBPACK_IMPORTED_MODULE_6__.RendererService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_11__.MatSnackBar), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_domain_service_storage_service__WEBPACK_IMPORTED_MODULE_7__.StorageService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_header_service_title_service__WEBPACK_IMPORTED_MODULE_8__.TitleService));
+    return new (t || AutosaveService)(_angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_autosave_configuration_service__WEBPACK_IMPORTED_MODULE_3__.AutosaveConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_export_services_export_service__WEBPACK_IMPORTED_MODULE_4__.ExportService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_5__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_modeler_services_renderer_service__WEBPACK_IMPORTED_MODULE_6__.RendererService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_11__.MatSnackBar), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_domain_services_storage_service__WEBPACK_IMPORTED_MODULE_7__.StorageService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_header_services_title_service__WEBPACK_IMPORTED_MODULE_8__.TitleService));
   };
   static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵdefineInjectable"]({
     token: AutosaveService,
@@ -5519,10 +5519,10 @@ class ExportDialogComponent {
 
 /***/ }),
 
-/***/ 13486:
-/*!********************************************************!*\
-  !*** ./src/app/tools/export/service/export.service.ts ***!
-  \********************************************************/
+/***/ 39595:
+/*!*********************************************************!*\
+  !*** ./src/app/tools/export/services/export.service.ts ***!
+  \*********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -5534,13 +5534,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/common */ 39191);
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../environments/environment */ 45312);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var src_app_tools_icon_set_config_service_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/tools/icon-set-config/service/icon-set-configuration.service */ 57292);
-/* harmony import */ var src_app_tools_header_service_title_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/tools/header/service/title.service */ 38437);
-/* harmony import */ var src_app_domain_service_dirty_flag_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/domain/service/dirty-flag.service */ 50239);
-/* harmony import */ var src_app_tools_export_service_png_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/tools/export/service/png.service */ 82371);
-/* harmony import */ var src_app_tools_export_service_svg_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/tools/export/service/svg.service */ 61926);
-/* harmony import */ var _html_presentation_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./html-presentation.service */ 58116);
-/* harmony import */ var _modeler_service_renderer_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../modeler/service/renderer.service */ 6733);
+/* harmony import */ var src_app_tools_icon_set_config_services_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/tools/icon-set-config/services/icon-set-configuration.service */ 46527);
+/* harmony import */ var src_app_tools_header_services_title_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/tools/header/services/title.service */ 41876);
+/* harmony import */ var src_app_domain_services_dirty_flag_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/domain/services/dirty-flag.service */ 94658);
+/* harmony import */ var src_app_tools_export_services_png_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/tools/export/services/png.service */ 82972);
+/* harmony import */ var src_app_tools_export_services_svg_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/tools/export/services/svg.service */ 56837);
+/* harmony import */ var _html_presentation_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./html-presentation.service */ 87047);
+/* harmony import */ var _modeler_services_renderer_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../modeler/services/renderer.service */ 63812);
 
 
 
@@ -5665,7 +5665,7 @@ class ExportService {
     return (0,_angular_common__WEBPACK_IMPORTED_MODULE_10__.formatDate)(new Date(), 'YYYY-MM-dd', 'en-GB');
   }
   static #_ = this.ɵfac = function ExportService_Factory(t) {
-    return new (t || ExportService)(_angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵinject"](src_app_tools_icon_set_config_service_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_3__.IconSetConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵinject"](src_app_tools_header_service_title_service__WEBPACK_IMPORTED_MODULE_4__.TitleService), _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵinject"](src_app_domain_service_dirty_flag_service__WEBPACK_IMPORTED_MODULE_5__.DirtyFlagService), _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵinject"](src_app_tools_export_service_png_service__WEBPACK_IMPORTED_MODULE_6__.PngService), _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵinject"](src_app_tools_export_service_svg_service__WEBPACK_IMPORTED_MODULE_7__.SvgService), _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵinject"](_html_presentation_service__WEBPACK_IMPORTED_MODULE_8__.HtmlPresentationService), _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵinject"](_modeler_service_renderer_service__WEBPACK_IMPORTED_MODULE_9__.RendererService));
+    return new (t || ExportService)(_angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵinject"](src_app_tools_icon_set_config_services_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_3__.IconSetConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵinject"](src_app_tools_header_services_title_service__WEBPACK_IMPORTED_MODULE_4__.TitleService), _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵinject"](src_app_domain_services_dirty_flag_service__WEBPACK_IMPORTED_MODULE_5__.DirtyFlagService), _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵinject"](src_app_tools_export_services_png_service__WEBPACK_IMPORTED_MODULE_6__.PngService), _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵinject"](src_app_tools_export_services_svg_service__WEBPACK_IMPORTED_MODULE_7__.SvgService), _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵinject"](_html_presentation_service__WEBPACK_IMPORTED_MODULE_8__.HtmlPresentationService), _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵinject"](_modeler_services_renderer_service__WEBPACK_IMPORTED_MODULE_9__.RendererService));
   };
   static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵdefineInjectable"]({
     token: ExportService,
@@ -5676,10 +5676,10 @@ class ExportService {
 
 /***/ }),
 
-/***/ 58116:
-/*!*******************************************************************!*\
-  !*** ./src/app/tools/export/service/html-presentation.service.ts ***!
-  \*******************************************************************/
+/***/ 87047:
+/*!********************************************************************!*\
+  !*** ./src/app/tools/export/services/html-presentation.service.ts ***!
+  \********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -5691,9 +5691,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var dot__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! dot */ 13280);
 /* harmony import */ var dot__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(dot__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var _replay_service_replay_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../replay/service/replay.service */ 76452);
-/* harmony import */ var _header_service_title_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../header/service/title.service */ 38437);
-/* harmony import */ var _replay_service_story_creator_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../replay/service/story-creator.service */ 77985);
+/* harmony import */ var _replay_services_replay_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../replay/services/replay.service */ 3687);
+/* harmony import */ var _header_services_title_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../header/services/title.service */ 41876);
+/* harmony import */ var _replay_services_story_creator_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../replay/services/story-creator.service */ 97720);
 
 
 // @ts-ignore
@@ -5831,7 +5831,7 @@ class HtmlPresentationService {
     result.svg = result.svg.replace(defs, newDefs);
   }
   static #_ = this.ɵfac = function HtmlPresentationService_Factory(t) {
-    return new (t || HtmlPresentationService)(_angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵinject"](_replay_service_replay_service__WEBPACK_IMPORTED_MODULE_3__.ReplayService), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵinject"](_header_service_title_service__WEBPACK_IMPORTED_MODULE_4__.TitleService), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵinject"](_replay_service_story_creator_service__WEBPACK_IMPORTED_MODULE_5__.StoryCreatorService));
+    return new (t || HtmlPresentationService)(_angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵinject"](_replay_services_replay_service__WEBPACK_IMPORTED_MODULE_3__.ReplayService), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵinject"](_header_services_title_service__WEBPACK_IMPORTED_MODULE_4__.TitleService), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵinject"](_replay_services_story_creator_service__WEBPACK_IMPORTED_MODULE_5__.StoryCreatorService));
   };
   static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdefineInjectable"]({
     token: HtmlPresentationService,
@@ -5842,17 +5842,17 @@ class HtmlPresentationService {
 
 /***/ }),
 
-/***/ 82371:
-/*!*****************************************************!*\
-  !*** ./src/app/tools/export/service/png.service.ts ***!
-  \*****************************************************/
+/***/ 82972:
+/*!******************************************************!*\
+  !*** ./src/app/tools/export/services/png.service.ts ***!
+  \******************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PngService: () => (/* binding */ PngService)
 /* harmony export */ });
-/* harmony import */ var src_app_tools_export_service_exportUtil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/tools/export/service/exportUtil */ 70428);
+/* harmony import */ var src_app_tools_export_services_exportUtil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/tools/export/services/exportUtil */ 97563);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 96623);
 
 
@@ -5991,7 +5991,7 @@ class PngService {
     const {
       insertText,
       dynamicHeightOffset
-    } = (0,src_app_tools_export_service_exportUtil__WEBPACK_IMPORTED_MODULE_0__.createTitleAndDescriptionSVGElement)(0, title, description, box.xLeft + 10, box.yUp + 20, this.width);
+    } = (0,src_app_tools_export_services_exportUtil__WEBPACK_IMPORTED_MODULE_0__.createTitleAndDescriptionSVGElement)(0, title, description, box.xLeft + 10, box.yUp + 20, this.width);
     if (withTitle) {
       this.height += dynamicHeightOffset;
     }
@@ -6092,20 +6092,20 @@ class PngService {
 
 /***/ }),
 
-/***/ 61926:
-/*!*****************************************************!*\
-  !*** ./src/app/tools/export/service/svg.service.ts ***!
-  \*****************************************************/
+/***/ 56837:
+/*!******************************************************!*\
+  !*** ./src/app/tools/export/services/svg.service.ts ***!
+  \******************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   SvgService: () => (/* binding */ SvgService)
 /* harmony export */ });
-/* harmony import */ var src_app_tools_export_service_exportUtil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/tools/export/service/exportUtil */ 70428);
+/* harmony import */ var src_app_tools_export_services_exportUtil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/tools/export/services/exportUtil */ 97563);
 /* harmony import */ var _domain_export_exportConstants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../domain/export/exportConstants */ 41646);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var _modeler_service_modeler_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../modeler/service/modeler.service */ 492);
+/* harmony import */ var _modeler_services_modeler_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../modeler/services/modeler.service */ 40439);
 
 
 
@@ -6147,7 +6147,7 @@ class SvgService {
     const {
       insertText,
       dynamicHeightOffset
-    } = (0,src_app_tools_export_service_exportUtil__WEBPACK_IMPORTED_MODULE_0__.createTitleAndDescriptionSVGElement)(0, title, description, min_x, min_y, width);
+    } = (0,src_app_tools_export_services_exportUtil__WEBPACK_IMPORTED_MODULE_0__.createTitleAndDescriptionSVGElement)(0, title, description, min_x, min_y, width);
     const bounds = this.createBounds(width, height, min_x, min_y, viewBoxWidth, viewBoxHeight, withTitle, dynamicHeightOffset);
     const dataStart = domainStorySvg.substring(0, viewBoxIndex);
     viewBoxIndex = domainStorySvg.indexOf('" version');
@@ -6203,7 +6203,7 @@ class SvgService {
     return data;
   }
   static #_ = this.ɵfac = function SvgService_Factory(t) {
-    return new (t || SvgService)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](_modeler_service_modeler_service__WEBPACK_IMPORTED_MODULE_2__.ModelerService));
+    return new (t || SvgService)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](_modeler_services_modeler_service__WEBPACK_IMPORTED_MODULE_2__.ModelerService));
   };
   static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineInjectable"]({
     token: SvgService,
@@ -6249,8 +6249,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modeler_presentation_dialog_forms_header_dialog_form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../modeler/presentation/dialog-forms/header-dialog-form */ 8670);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 96623);
 /* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material/dialog */ 72768);
-/* harmony import */ var src_app_tools_header_service_title_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/tools/header/service/title.service */ 38437);
-/* harmony import */ var _domain_service_dirty_flag_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../domain/service/dirty-flag.service */ 50239);
+/* harmony import */ var src_app_tools_header_services_title_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/tools/header/services/title.service */ 41876);
+/* harmony import */ var _domain_services_dirty_flag_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../domain/services/dirty-flag.service */ 94658);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ 48015);
 /* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material/button */ 95912);
 /* harmony import */ var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/material/form-field */ 48913);
@@ -6289,7 +6289,7 @@ class HeaderDialogComponent {
     event.preventDefault();
   }
   static #_ = this.ɵfac = function HeaderDialogComponent_Factory(t) {
-    return new (t || HeaderDialogComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_angular_material_dialog__WEBPACK_IMPORTED_MODULE_4__.MatDialogRef), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](src_app_tools_header_service_title_service__WEBPACK_IMPORTED_MODULE_1__.TitleService), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_domain_service_dirty_flag_service__WEBPACK_IMPORTED_MODULE_2__.DirtyFlagService));
+    return new (t || HeaderDialogComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_angular_material_dialog__WEBPACK_IMPORTED_MODULE_4__.MatDialogRef), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](src_app_tools_header_services_title_service__WEBPACK_IMPORTED_MODULE_1__.TitleService), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_domain_services_dirty_flag_service__WEBPACK_IMPORTED_MODULE_2__.DirtyFlagService));
   };
   static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineComponent"]({
     type: HeaderDialogComponent,
@@ -6357,10 +6357,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/material/dialog */ 72768);
 /* harmony import */ var _dialog_header_dialog_header_dialog_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../dialog/header-dialog/header-dialog.component */ 47378);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var _service_title_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../service/title.service */ 38437);
-/* harmony import */ var _replay_service_replay_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../replay/service/replay.service */ 76452);
-/* harmony import */ var _replay_service_replay_state_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../replay/service/replay-state.service */ 31340);
-/* harmony import */ var _domain_service_dialog_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../domain/service/dialog.service */ 66886);
+/* harmony import */ var _services_title_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/title.service */ 41876);
+/* harmony import */ var _replay_services_replay_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../replay/services/replay.service */ 3687);
+/* harmony import */ var _replay_services_replay_state_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../replay/services/replay-state.service */ 72355);
+/* harmony import */ var _domain_services_dialog_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../domain/services/dialog.service */ 12855);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/common */ 39191);
 /* harmony import */ var _workbench_presentation_header_header_buttons_header_buttons_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../workbench/presentation/header/header-buttons/header-buttons.component */ 4225);
 /* harmony import */ var _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/material/toolbar */ 31165);
@@ -6454,7 +6454,7 @@ class HeaderComponent {
     this.titleService.setShowDescription(show);
   }
   static #_ = this.ɵfac = function HeaderComponent_Factory(t) {
-    return new (t || HeaderComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](_service_title_service__WEBPACK_IMPORTED_MODULE_1__.TitleService), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](_replay_service_replay_service__WEBPACK_IMPORTED_MODULE_2__.ReplayService), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](_replay_service_replay_state_service__WEBPACK_IMPORTED_MODULE_3__.ReplayStateService), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](_domain_service_dialog_service__WEBPACK_IMPORTED_MODULE_4__.DialogService));
+    return new (t || HeaderComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](_services_title_service__WEBPACK_IMPORTED_MODULE_1__.TitleService), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](_replay_services_replay_service__WEBPACK_IMPORTED_MODULE_2__.ReplayService), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](_replay_services_replay_state_service__WEBPACK_IMPORTED_MODULE_3__.ReplayStateService), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](_domain_services_dialog_service__WEBPACK_IMPORTED_MODULE_4__.DialogService));
   };
   static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdefineComponent"]({
     type: HeaderComponent,
@@ -6506,10 +6506,10 @@ class HeaderComponent {
 
 /***/ }),
 
-/***/ 38437:
-/*!*******************************************************!*\
-  !*** ./src/app/tools/header/service/title.service.ts ***!
-  \*******************************************************/
+/***/ 41876:
+/*!********************************************************!*\
+  !*** ./src/app/tools/header/services/title.service.ts ***!
+  \********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -6520,7 +6520,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../environments/environment */ 45312);
 /* harmony import */ var _domain_entity_common_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../domain/entity/common/constants */ 59544);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var _modeler_service_command_stack_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../modeler/service/command-stack.service */ 16998);
+/* harmony import */ var _modeler_services_command_stack_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../modeler/services/command-stack.service */ 44005);
 
 
 
@@ -6586,7 +6586,7 @@ class TitleService {
     this.commandStackService.execute('story.updateHeadlineAndDescription', context);
   }
   static #_ = this.ɵfac = function TitleService_Factory(t) {
-    return new (t || TitleService)(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_modeler_service_command_stack_service__WEBPACK_IMPORTED_MODULE_2__.CommandStackService));
+    return new (t || TitleService)(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_modeler_services_command_stack_service__WEBPACK_IMPORTED_MODULE_2__.CommandStackService));
   };
   static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineInjectable"]({
     token: TitleService,
@@ -6898,7 +6898,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ 95536);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var _service_icon_set_customization_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../service/icon-set-customization.service */ 17067);
+/* harmony import */ var _services_icon_set_customization_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../services/icon-set-customization.service */ 46252);
 /* harmony import */ var _angular_material_button_toggle__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material/button-toggle */ 68529);
 
 
@@ -6955,7 +6955,7 @@ class IconListItemComponent {
     this.iconSetCustomizationService.setAsWorkobject(true, this.iconName);
   }
   static #_ = this.ɵfac = function IconListItemComponent_Factory(t) {
-    return new (t || IconListItemComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_service_icon_set_customization_service__WEBPACK_IMPORTED_MODULE_0__.IconSetCustomizationService));
+    return new (t || IconListItemComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_services_icon_set_customization_service__WEBPACK_IMPORTED_MODULE_0__.IconSetCustomizationService));
   };
   static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineComponent"]({
     type: IconListItemComponent,
@@ -7034,10 +7034,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _domain_entity_common_elementTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../domain/entity/common/elementTypes */ 36020);
 /* harmony import */ var _domain_iconFilterEnum__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../domain/iconFilterEnum */ 87831);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var src_app_tools_icon_set_config_service_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/tools/icon-set-config/service/icon-set-configuration.service */ 57292);
-/* harmony import */ var src_app_tools_icon_set_config_service_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/tools/icon-set-config/service/icon-dictionary.service */ 63357);
-/* harmony import */ var _service_icon_set_customization_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../service/icon-set-customization.service */ 17067);
-/* harmony import */ var src_app_domain_service_element_registry_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/domain/service/element-registry.service */ 42130);
+/* harmony import */ var src_app_tools_icon_set_config_services_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/tools/icon-set-config/services/icon-set-configuration.service */ 46527);
+/* harmony import */ var src_app_tools_icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/tools/icon-set-config/services/icon-dictionary.service */ 6932);
+/* harmony import */ var _services_icon_set_customization_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../services/icon-set-customization.service */ 46252);
+/* harmony import */ var src_app_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/domain/services/element-registry.service */ 85511);
 /* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/material/button */ 95912);
 /* harmony import */ var _angular_material_input__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/material/input */ 29836);
 /* harmony import */ var _icon_list_item_icon_list_item_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../icon-list-item/icon-list-item.component */ 10665);
@@ -7205,7 +7205,7 @@ class IconSetConfigurationComponent {
     return allFiltered;
   }
   static #_ = this.ɵfac = function IconSetConfigurationComponent_Factory(t) {
-    return new (t || IconSetConfigurationComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵdirectiveInject"](src_app_tools_icon_set_config_service_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_4__.IconSetConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵdirectiveInject"](src_app_tools_icon_set_config_service_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_5__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵdirectiveInject"](_service_icon_set_customization_service__WEBPACK_IMPORTED_MODULE_6__.IconSetCustomizationService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵdirectiveInject"](src_app_domain_service_element_registry_service__WEBPACK_IMPORTED_MODULE_7__.ElementRegistryService));
+    return new (t || IconSetConfigurationComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵdirectiveInject"](src_app_tools_icon_set_config_services_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_4__.IconSetConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵdirectiveInject"](src_app_tools_icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_5__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵdirectiveInject"](_services_icon_set_customization_service__WEBPACK_IMPORTED_MODULE_6__.IconSetCustomizationService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵdirectiveInject"](src_app_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_7__.ElementRegistryService));
   };
   static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵdefineComponent"]({
     type: IconSetConfigurationComponent,
@@ -7337,8 +7337,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   IconSetDetailsComponent: () => (/* binding */ IconSetDetailsComponent)
 /* harmony export */ });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var src_app_tools_icon_set_config_service_icon_set_customization_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/tools/icon-set-config/service/icon-set-customization.service */ 17067);
-/* harmony import */ var src_app_tools_header_service_title_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/tools/header/service/title.service */ 38437);
+/* harmony import */ var src_app_tools_icon_set_config_services_icon_set_customization_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/tools/icon-set-config/services/icon-set-customization.service */ 46252);
+/* harmony import */ var src_app_tools_header_services_title_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/tools/header/services/title.service */ 41876);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ 39191);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ 48015);
 /* harmony import */ var _angular_material_list__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material/list */ 68708);
@@ -7457,7 +7457,7 @@ class IconSetDetailsComponent {
     this.draggedIndex = index;
   }
   static #_ = this.ɵfac = function IconSetDetailsComponent_Factory(t) {
-    return new (t || IconSetDetailsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](src_app_tools_icon_set_config_service_icon_set_customization_service__WEBPACK_IMPORTED_MODULE_0__.IconSetCustomizationService), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](src_app_tools_header_service_title_service__WEBPACK_IMPORTED_MODULE_1__.TitleService));
+    return new (t || IconSetDetailsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](src_app_tools_icon_set_config_services_icon_set_customization_service__WEBPACK_IMPORTED_MODULE_0__.IconSetCustomizationService), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](src_app_tools_header_services_title_service__WEBPACK_IMPORTED_MODULE_1__.TitleService));
   };
   static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineComponent"]({
     type: IconSetDetailsComponent,
@@ -7506,10 +7506,10 @@ class IconSetDetailsComponent {
 
 /***/ }),
 
-/***/ 63357:
-/*!**************************************************************************!*\
-  !*** ./src/app/tools/icon-set-config/service/icon-dictionary.service.ts ***!
-  \**************************************************************************/
+/***/ 6932:
+/*!***************************************************************************!*\
+  !*** ./src/app/tools/icon-set-config/services/icon-dictionary.service.ts ***!
+  \***************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -7790,10 +7790,10 @@ class IconDictionaryService {
 
 /***/ }),
 
-/***/ 57292:
-/*!*********************************************************************************!*\
-  !*** ./src/app/tools/icon-set-config/service/icon-set-configuration.service.ts ***!
-  \*********************************************************************************/
+/***/ 46527:
+/*!**********************************************************************************!*\
+  !*** ./src/app/tools/icon-set-config/services/icon-set-configuration.service.ts ***!
+  \**********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -7805,9 +7805,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _domain_iconConfiguration__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../domain/iconConfiguration */ 26976);
 /* harmony import */ var _domain_entity_common_constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../domain/entity/common/constants */ 59544);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var src_app_tools_icon_set_config_service_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/tools/icon-set-config/service/icon-dictionary.service */ 63357);
-/* harmony import */ var src_app_domain_service_element_registry_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/domain/service/element-registry.service */ 42130);
-/* harmony import */ var _header_service_title_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../header/service/title.service */ 38437);
+/* harmony import */ var src_app_tools_icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/tools/icon-set-config/services/icon-dictionary.service */ 6932);
+/* harmony import */ var src_app_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/domain/services/element-registry.service */ 85511);
+/* harmony import */ var _header_services_title_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../header/services/title.service */ 41876);
 
 
 
@@ -7944,7 +7944,7 @@ class IconSetConfigurationService {
     return config;
   }
   static #_ = this.ɵfac = function IconSetConfigurationService_Factory(t) {
-    return new (t || IconSetConfigurationService)(_angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵinject"](src_app_tools_icon_set_config_service_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_4__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵinject"](src_app_domain_service_element_registry_service__WEBPACK_IMPORTED_MODULE_5__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵinject"](_header_service_title_service__WEBPACK_IMPORTED_MODULE_6__.TitleService));
+    return new (t || IconSetConfigurationService)(_angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵinject"](src_app_tools_icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_4__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵinject"](src_app_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_5__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵinject"](_header_services_title_service__WEBPACK_IMPORTED_MODULE_6__.TitleService));
   };
   static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵdefineInjectable"]({
     token: IconSetConfigurationService,
@@ -7955,10 +7955,10 @@ class IconSetConfigurationService {
 
 /***/ }),
 
-/***/ 17067:
-/*!*********************************************************************************!*\
-  !*** ./src/app/tools/icon-set-config/service/icon-set-customization.service.ts ***!
-  \*********************************************************************************/
+/***/ 46252:
+/*!**********************************************************************************!*\
+  !*** ./src/app/tools/icon-set-config/services/icon-set-customization.service.ts ***!
+  \**********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -7970,12 +7970,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _domain_entity_common_dictionary__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../domain/entity/common/dictionary */ 92145);
 /* harmony import */ var _domain_entity_common_elementTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../domain/entity/common/elementTypes */ 36020);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var _icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./icon-set-configuration.service */ 57292);
-/* harmony import */ var _icon_dictionary_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./icon-dictionary.service */ 63357);
-/* harmony import */ var _import_service_import_domain_story_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../import/service/import-domain-story.service */ 59799);
-/* harmony import */ var _header_service_title_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../header/service/title.service */ 38437);
-/* harmony import */ var _domain_service_storage_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../domain/service/storage.service */ 38079);
-/* harmony import */ var src_app_domain_service_element_registry_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/domain/service/element-registry.service */ 42130);
+/* harmony import */ var _icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./icon-set-configuration.service */ 46527);
+/* harmony import */ var _icon_dictionary_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./icon-dictionary.service */ 6932);
+/* harmony import */ var _import_services_import_domain_story_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../import/services/import-domain-story.service */ 93586);
+/* harmony import */ var _header_services_title_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../header/services/title.service */ 41876);
+/* harmony import */ var _domain_services_storage_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../domain/services/storage.service */ 50624);
+/* harmony import */ var src_app_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/domain/services/element-registry.service */ 85511);
 /* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/material/snack-bar */ 40382);
 
 
@@ -8319,7 +8319,7 @@ class IconSetCustomizationService {
     });
   }
   static #_ = this.ɵfac = function IconSetCustomizationService_Factory(t) {
-    return new (t || IconSetCustomizationService)(_angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_3__.IconSetConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_4__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_import_service_import_domain_story_service__WEBPACK_IMPORTED_MODULE_5__.ImportDomainStoryService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_header_service_title_service__WEBPACK_IMPORTED_MODULE_6__.TitleService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_domain_service_storage_service__WEBPACK_IMPORTED_MODULE_7__.StorageService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](src_app_domain_service_element_registry_service__WEBPACK_IMPORTED_MODULE_8__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_11__.MatSnackBar));
+    return new (t || IconSetCustomizationService)(_angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_3__.IconSetConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_4__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_import_services_import_domain_story_service__WEBPACK_IMPORTED_MODULE_5__.ImportDomainStoryService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_header_services_title_service__WEBPACK_IMPORTED_MODULE_6__.TitleService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_domain_services_storage_service__WEBPACK_IMPORTED_MODULE_7__.StorageService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](src_app_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_8__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_11__.MatSnackBar));
   };
   static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵdefineInjectable"]({
     token: IconSetCustomizationService,
@@ -8439,10 +8439,10 @@ class InfoDialogComponent {
 
 /***/ }),
 
-/***/ 59799:
-/*!*********************************************************************!*\
-  !*** ./src/app/tools/import/service/import-domain-story.service.ts ***!
-  \*********************************************************************/
+/***/ 93586:
+/*!**********************************************************************!*\
+  !*** ./src/app/tools/import/services/import-domain-story.service.ts ***!
+  \**********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -8457,12 +8457,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/material/dialog */ 72768);
 /* harmony import */ var _header_domain_infoDialogData__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../header/domain/infoDialogData */ 76647);
 /* harmony import */ var _domain_entity_common_constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../domain/entity/common/constants */ 59544);
-/* harmony import */ var src_app_tools_icon_set_config_service_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/tools/icon-set-config/service/icon-dictionary.service */ 63357);
-/* harmony import */ var src_app_tools_import_service_import_repair_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/tools/import/service/import-repair.service */ 10330);
-/* harmony import */ var src_app_tools_header_service_title_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/tools/header/service/title.service */ 38437);
-/* harmony import */ var src_app_tools_modeler_service_renderer_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/tools/modeler/service/renderer.service */ 6733);
-/* harmony import */ var _domain_service_dialog_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../domain/service/dialog.service */ 66886);
-/* harmony import */ var _icon_set_config_service_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../icon-set-config/service/icon-set-configuration.service */ 57292);
+/* harmony import */ var src_app_tools_icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/tools/icon-set-config/services/icon-dictionary.service */ 6932);
+/* harmony import */ var src_app_tools_import_services_import_repair_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/tools/import/services/import-repair.service */ 56511);
+/* harmony import */ var src_app_tools_header_services_title_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/tools/header/services/title.service */ 41876);
+/* harmony import */ var src_app_tools_modeler_services_renderer_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/tools/modeler/services/renderer.service */ 63812);
+/* harmony import */ var _domain_services_dialog_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../domain/services/dialog.service */ 12855);
+/* harmony import */ var _icon_set_config_services_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../icon-set-config/services/icon-set-configuration.service */ 46527);
 /* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/material/snack-bar */ 40382);
 
 
@@ -8698,7 +8698,7 @@ class ImportDomainStoryService {
     return title;
   }
   static #_ = this.ɵfac = function ImportDomainStoryService_Factory(t) {
-    return new (t || ImportDomainStoryService)(_angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵinject"](src_app_tools_icon_set_config_service_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_6__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵinject"](src_app_tools_import_service_import_repair_service__WEBPACK_IMPORTED_MODULE_7__.ImportRepairService), _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵinject"](src_app_tools_header_service_title_service__WEBPACK_IMPORTED_MODULE_8__.TitleService), _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵinject"](src_app_tools_modeler_service_renderer_service__WEBPACK_IMPORTED_MODULE_9__.RendererService), _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵinject"](_domain_service_dialog_service__WEBPACK_IMPORTED_MODULE_10__.DialogService), _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵinject"](_icon_set_config_service_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_11__.IconSetConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵinject"](_angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_14__.MatSnackBar));
+    return new (t || ImportDomainStoryService)(_angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵinject"](src_app_tools_icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_6__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵinject"](src_app_tools_import_services_import_repair_service__WEBPACK_IMPORTED_MODULE_7__.ImportRepairService), _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵinject"](src_app_tools_header_services_title_service__WEBPACK_IMPORTED_MODULE_8__.TitleService), _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵinject"](src_app_tools_modeler_services_renderer_service__WEBPACK_IMPORTED_MODULE_9__.RendererService), _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵinject"](_domain_services_dialog_service__WEBPACK_IMPORTED_MODULE_10__.DialogService), _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵinject"](_icon_set_config_services_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_11__.IconSetConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵinject"](_angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_14__.MatSnackBar));
   };
   static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵdefineInjectable"]({
     token: ImportDomainStoryService,
@@ -8709,10 +8709,10 @@ class ImportDomainStoryService {
 
 /***/ }),
 
-/***/ 10330:
-/*!***************************************************************!*\
-  !*** ./src/app/tools/import/service/import-repair.service.ts ***!
-  \***************************************************************/
+/***/ 56511:
+/*!****************************************************************!*\
+  !*** ./src/app/tools/import/services/import-repair.service.ts ***!
+  \****************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -8893,7 +8893,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 96623);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ 95536);
-/* harmony import */ var _service_label_dictionary_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../service/label-dictionary.service */ 72824);
+/* harmony import */ var _services_label_dictionary_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../services/label-dictionary.service */ 69731);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ 39191);
 /* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material/button */ 95912);
 /* harmony import */ var _angular_material_list__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material/list */ 68708);
@@ -9018,7 +9018,7 @@ class LabelDictionaryComponent {
     this.closeEmitter.emit();
   }
   static #_ = this.ɵfac = function LabelDictionaryComponent_Factory(t) {
-    return new (t || LabelDictionaryComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_service_label_dictionary_service__WEBPACK_IMPORTED_MODULE_0__.LabelDictionaryService));
+    return new (t || LabelDictionaryComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_services_label_dictionary_service__WEBPACK_IMPORTED_MODULE_0__.LabelDictionaryService));
   };
   static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({
     type: LabelDictionaryComponent,
@@ -9072,10 +9072,10 @@ class LabelDictionaryComponent {
 
 /***/ }),
 
-/***/ 72824:
-/*!****************************************************************************!*\
-  !*** ./src/app/tools/label-dictionary/service/label-dictionary.service.ts ***!
-  \****************************************************************************/
+/***/ 69731:
+/*!*****************************************************************************!*\
+  !*** ./src/app/tools/label-dictionary/services/label-dictionary.service.ts ***!
+  \*****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -9084,9 +9084,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var src_app_domain_entity_common_elementTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/domain/entity/common/elementTypes */ 36020);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var src_app_tools_label_dictionary_service_mass_naming_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/tools/label-dictionary/service/mass-naming.service */ 60612);
-/* harmony import */ var src_app_domain_service_element_registry_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/domain/service/element-registry.service */ 42130);
-/* harmony import */ var _icon_set_config_service_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../icon-set-config/service/icon-dictionary.service */ 63357);
+/* harmony import */ var src_app_tools_label_dictionary_services_mass_naming_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/tools/label-dictionary/services/mass-naming.service */ 75961);
+/* harmony import */ var src_app_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/domain/services/element-registry.service */ 85511);
+/* harmony import */ var _icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../icon-set-config/services/icon-dictionary.service */ 6932);
 
 
 
@@ -9165,7 +9165,7 @@ class LabelDictionaryService {
     }
   }
   static #_ = this.ɵfac = function LabelDictionaryService_Factory(t) {
-    return new (t || LabelDictionaryService)(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](src_app_tools_label_dictionary_service_mass_naming_service__WEBPACK_IMPORTED_MODULE_1__.MassNamingService), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](src_app_domain_service_element_registry_service__WEBPACK_IMPORTED_MODULE_2__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_icon_set_config_service_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_3__.IconDictionaryService));
+    return new (t || LabelDictionaryService)(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](src_app_tools_label_dictionary_services_mass_naming_service__WEBPACK_IMPORTED_MODULE_1__.MassNamingService), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](src_app_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_2__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_3__.IconDictionaryService));
   };
   static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineInjectable"]({
     token: LabelDictionaryService,
@@ -9176,10 +9176,10 @@ class LabelDictionaryService {
 
 /***/ }),
 
-/***/ 60612:
-/*!***********************************************************************!*\
-  !*** ./src/app/tools/label-dictionary/service/mass-naming.service.ts ***!
-  \***********************************************************************/
+/***/ 75961:
+/*!************************************************************************!*\
+  !*** ./src/app/tools/label-dictionary/services/mass-naming.service.ts ***!
+  \************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -9187,8 +9187,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   MassNamingService: () => (/* binding */ MassNamingService)
 /* harmony export */ });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var src_app_domain_service_element_registry_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/domain/service/element-registry.service */ 42130);
-/* harmony import */ var _modeler_service_command_stack_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../modeler/service/command-stack.service */ 16998);
+/* harmony import */ var src_app_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/domain/services/element-registry.service */ 85511);
+/* harmony import */ var _modeler_services_command_stack_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../modeler/services/command-stack.service */ 44005);
 
 
 
@@ -9211,7 +9211,7 @@ class MassNamingService {
     this.commandStackService.execute('domainStoryObjects.massRename', context);
   }
   static #_ = this.ɵfac = function MassNamingService_Factory(t) {
-    return new (t || MassNamingService)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](src_app_domain_service_element_registry_service__WEBPACK_IMPORTED_MODULE_0__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_modeler_service_command_stack_service__WEBPACK_IMPORTED_MODULE_1__.CommandStackService));
+    return new (t || MassNamingService)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](src_app_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_0__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_modeler_services_command_stack_service__WEBPACK_IMPORTED_MODULE_1__.CommandStackService));
   };
   static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjectable"]({
     token: MassNamingService,
@@ -9438,8 +9438,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   ModelerComponent: () => (/* binding */ ModelerComponent)
 /* harmony export */ });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var _service_modeler_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../service/modeler.service */ 492);
-/* harmony import */ var _autosave_service_autosave_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../autosave/service/autosave.service */ 37642);
+/* harmony import */ var _services_modeler_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../services/modeler.service */ 40439);
+/* harmony import */ var _autosave_services_autosave_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../autosave/services/autosave.service */ 41707);
 
 
 
@@ -9453,7 +9453,7 @@ class ModelerComponent {
     this.autosaveService.loadLatestDraft();
   }
   static #_ = this.ɵfac = function ModelerComponent_Factory(t) {
-    return new (t || ModelerComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_service_modeler_service__WEBPACK_IMPORTED_MODULE_0__.ModelerService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_autosave_service_autosave_service__WEBPACK_IMPORTED_MODULE_1__.AutosaveService));
+    return new (t || ModelerComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_services_modeler_service__WEBPACK_IMPORTED_MODULE_0__.ModelerService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_autosave_services_autosave_service__WEBPACK_IMPORTED_MODULE_1__.AutosaveService));
   };
   static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineComponent"]({
     type: ModelerComponent,
@@ -9472,10 +9472,10 @@ class ModelerComponent {
 
 /***/ }),
 
-/***/ 16998:
-/*!****************************************************************!*\
-  !*** ./src/app/tools/modeler/service/command-stack.service.ts ***!
-  \****************************************************************/
+/***/ 44005:
+/*!*****************************************************************!*\
+  !*** ./src/app/tools/modeler/services/command-stack.service.ts ***!
+  \*****************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -9504,10 +9504,10 @@ class CommandStackService {
 
 /***/ }),
 
-/***/ 51962:
-/*!**************************************************************!*\
-  !*** ./src/app/tools/modeler/service/initializer.service.ts ***!
-  \**************************************************************/
+/***/ 52317:
+/*!***************************************************************!*\
+  !*** ./src/app/tools/modeler/services/initializer.service.ts ***!
+  \***************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -9530,16 +9530,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bpmn_modeler_updateHandler_elementUpdateHandler__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../bpmn/modeler/updateHandler/elementUpdateHandler */ 26830);
 /* harmony import */ var _bpmn_modeler_updateHandler_headlineAndDescriptionUpdateHandler__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../bpmn/modeler/updateHandler/headlineAndDescriptionUpdateHandler */ 87613);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var _domain_service_dirty_flag_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../../domain/service/dirty-flag.service */ 50239);
-/* harmony import */ var _icon_set_config_service_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../icon-set-config/service/icon-dictionary.service */ 63357);
-/* harmony import */ var _domain_service_element_registry_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../../domain/service/element-registry.service */ 42130);
-/* harmony import */ var _icon_set_config_service_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../../icon-set-config/service/icon-set-configuration.service */ 57292);
-/* harmony import */ var _label_dictionary_service_label_dictionary_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../../label-dictionary/service/label-dictionary.service */ 72824);
-/* harmony import */ var _replay_service_replay_state_service__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../../replay/service/replay-state.service */ 31340);
-/* harmony import */ var _domain_service_dialog_service__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../../../domain/service/dialog.service */ 66886);
-/* harmony import */ var _command_stack_service__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./command-stack.service */ 16998);
-/* harmony import */ var _header_service_title_service__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../../header/service/title.service */ 38437);
-/* harmony import */ var _export_service_html_presentation_service__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../../export/service/html-presentation.service */ 58116);
+/* harmony import */ var _domain_services_dirty_flag_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../../domain/services/dirty-flag.service */ 94658);
+/* harmony import */ var _icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../icon-set-config/services/icon-dictionary.service */ 6932);
+/* harmony import */ var _domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../../domain/services/element-registry.service */ 85511);
+/* harmony import */ var _icon_set_config_services_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../../icon-set-config/services/icon-set-configuration.service */ 46527);
+/* harmony import */ var _label_dictionary_services_label_dictionary_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../../label-dictionary/services/label-dictionary.service */ 69731);
+/* harmony import */ var _replay_services_replay_state_service__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../../replay/services/replay-state.service */ 72355);
+/* harmony import */ var _domain_services_dialog_service__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../../../domain/services/dialog.service */ 12855);
+/* harmony import */ var _command_stack_service__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./command-stack.service */ 44005);
+/* harmony import */ var _header_services_title_service__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../../header/services/title.service */ 41876);
+/* harmony import */ var _export_services_html_presentation_service__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../../export/services/html-presentation.service */ 87047);
 
 
 
@@ -9726,7 +9726,7 @@ class InitializerService {
     }
   }
   static #_ = this.ɵfac = function InitializerService_Factory(t) {
-    return new (t || InitializerService)(_angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_domain_service_dirty_flag_service__WEBPACK_IMPORTED_MODULE_14__.DirtyFlagService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_icon_set_config_service_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_15__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_domain_service_element_registry_service__WEBPACK_IMPORTED_MODULE_16__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_icon_set_config_service_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_17__.IconSetConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_label_dictionary_service_label_dictionary_service__WEBPACK_IMPORTED_MODULE_18__.LabelDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_replay_service_replay_state_service__WEBPACK_IMPORTED_MODULE_19__.ReplayStateService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_domain_service_dialog_service__WEBPACK_IMPORTED_MODULE_20__.DialogService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_command_stack_service__WEBPACK_IMPORTED_MODULE_21__.CommandStackService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_header_service_title_service__WEBPACK_IMPORTED_MODULE_22__.TitleService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_export_service_html_presentation_service__WEBPACK_IMPORTED_MODULE_23__.HtmlPresentationService));
+    return new (t || InitializerService)(_angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_domain_services_dirty_flag_service__WEBPACK_IMPORTED_MODULE_14__.DirtyFlagService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_15__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_16__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_icon_set_config_services_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_17__.IconSetConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_label_dictionary_services_label_dictionary_service__WEBPACK_IMPORTED_MODULE_18__.LabelDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_replay_services_replay_state_service__WEBPACK_IMPORTED_MODULE_19__.ReplayStateService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_domain_services_dialog_service__WEBPACK_IMPORTED_MODULE_20__.DialogService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_command_stack_service__WEBPACK_IMPORTED_MODULE_21__.CommandStackService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_header_services_title_service__WEBPACK_IMPORTED_MODULE_22__.TitleService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_export_services_html_presentation_service__WEBPACK_IMPORTED_MODULE_23__.HtmlPresentationService));
   };
   static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵdefineInjectable"]({
     token: InitializerService,
@@ -9737,10 +9737,10 @@ class InitializerService {
 
 /***/ }),
 
-/***/ 492:
-/*!**********************************************************!*\
-  !*** ./src/app/tools/modeler/service/modeler.service.ts ***!
-  \**********************************************************/
+/***/ 40439:
+/*!***********************************************************!*\
+  !*** ./src/app/tools/modeler/services/modeler.service.ts ***!
+  \***********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -9752,11 +9752,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_tools_modeler_bpmn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/tools/modeler/bpmn */ 96064);
 /* harmony import */ var _bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../bpmn/modeler/numbering/numbering */ 33862);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var _initializer_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./initializer.service */ 51962);
-/* harmony import */ var _domain_service_element_registry_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../domain/service/element-registry.service */ 42130);
-/* harmony import */ var _icon_set_config_service_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../icon-set-config/service/icon-dictionary.service */ 63357);
-/* harmony import */ var _icon_set_config_service_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../icon-set-config/service/icon-set-configuration.service */ 57292);
-/* harmony import */ var _domain_service_storage_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../domain/service/storage.service */ 38079);
+/* harmony import */ var _initializer_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./initializer.service */ 52317);
+/* harmony import */ var _domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../domain/services/element-registry.service */ 85511);
+/* harmony import */ var _icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../icon-set-config/services/icon-dictionary.service */ 6932);
+/* harmony import */ var _icon_set_config_services_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../icon-set-config/services/icon-set-configuration.service */ 46527);
+/* harmony import */ var _domain_services_storage_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../domain/services/storage.service */ 50624);
 
 
 
@@ -9870,7 +9870,7 @@ class ModelerService {
     })();
   }
   static #_ = this.ɵfac = function ModelerService_Factory(t) {
-    return new (t || ModelerService)(_angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_initializer_service__WEBPACK_IMPORTED_MODULE_3__.InitializerService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_domain_service_element_registry_service__WEBPACK_IMPORTED_MODULE_4__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_icon_set_config_service_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_5__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_icon_set_config_service_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_6__.IconSetConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_domain_service_storage_service__WEBPACK_IMPORTED_MODULE_7__.StorageService));
+    return new (t || ModelerService)(_angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_initializer_service__WEBPACK_IMPORTED_MODULE_3__.InitializerService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_4__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_5__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_icon_set_config_services_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_6__.IconSetConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_domain_services_storage_service__WEBPACK_IMPORTED_MODULE_7__.StorageService));
   };
   static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵdefineInjectable"]({
     token: ModelerService,
@@ -9881,10 +9881,10 @@ class ModelerService {
 
 /***/ }),
 
-/***/ 6733:
-/*!***********************************************************!*\
-  !*** ./src/app/tools/modeler/service/renderer.service.ts ***!
-  \***********************************************************/
+/***/ 63812:
+/*!************************************************************!*\
+  !*** ./src/app/tools/modeler/services/renderer.service.ts ***!
+  \************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -9892,9 +9892,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   RendererService: () => (/* binding */ RendererService)
 /* harmony export */ });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var src_app_tools_modeler_service_modeler_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/tools/modeler/service/modeler.service */ 492);
-/* harmony import */ var src_app_domain_service_element_registry_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/domain/service/element-registry.service */ 42130);
-/* harmony import */ var src_app_domain_service_dirty_flag_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/domain/service/dirty-flag.service */ 50239);
+/* harmony import */ var src_app_tools_modeler_services_modeler_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/tools/modeler/services/modeler.service */ 40439);
+/* harmony import */ var src_app_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/domain/services/element-registry.service */ 85511);
+/* harmony import */ var src_app_domain_services_dirty_flag_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/domain/services/dirty-flag.service */ 94658);
 
 
 
@@ -9925,7 +9925,7 @@ class RendererService {
     return this.elementRegistryService.createObjectListForDSTDownload().map(c => c.businessObject);
   }
   static #_ = this.ɵfac = function RendererService_Factory(t) {
-    return new (t || RendererService)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](src_app_tools_modeler_service_modeler_service__WEBPACK_IMPORTED_MODULE_0__.ModelerService), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](src_app_domain_service_element_registry_service__WEBPACK_IMPORTED_MODULE_1__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](src_app_domain_service_dirty_flag_service__WEBPACK_IMPORTED_MODULE_2__.DirtyFlagService));
+    return new (t || RendererService)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](src_app_tools_modeler_services_modeler_service__WEBPACK_IMPORTED_MODULE_0__.ModelerService), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](src_app_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_1__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](src_app_domain_services_dirty_flag_service__WEBPACK_IMPORTED_MODULE_2__.DirtyFlagService));
   };
   static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineInjectable"]({
     token: RendererService,
@@ -9960,10 +9960,10 @@ const HIGHLIGHT_STROKE_WIDTH = '4';
 
 /***/ }),
 
-/***/ 67601:
-/*!******************************************************************!*\
-  !*** ./src/app/tools/replay/service/dom-manipulation.service.ts ***!
-  \******************************************************************/
+/***/ 95802:
+/*!*******************************************************************!*\
+  !*** ./src/app/tools/replay/services/dom-manipulation.service.ts ***!
+  \*******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -9973,7 +9973,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_domain_entity_common_elementTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/domain/entity/common/elementTypes */ 36020);
 /* harmony import */ var _domain_replayConstants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../domain/replayConstants */ 97961);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var src_app_domain_service_element_registry_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/domain/service/element-registry.service */ 42130);
+/* harmony import */ var src_app_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/domain/services/element-registry.service */ 85511);
 
 
 
@@ -10084,7 +10084,7 @@ class DomManipulationService {
     return notShownElements;
   }
   static #_ = this.ɵfac = function DomManipulationService_Factory(t) {
-    return new (t || DomManipulationService)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](src_app_domain_service_element_registry_service__WEBPACK_IMPORTED_MODULE_2__.ElementRegistryService));
+    return new (t || DomManipulationService)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](src_app_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_2__.ElementRegistryService));
   };
   static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineInjectable"]({
     token: DomManipulationService,
@@ -10095,10 +10095,10 @@ class DomManipulationService {
 
 /***/ }),
 
-/***/ 31340:
-/*!**************************************************************!*\
-  !*** ./src/app/tools/replay/service/replay-state.service.ts ***!
-  \**************************************************************/
+/***/ 72355:
+/*!***************************************************************!*\
+  !*** ./src/app/tools/replay/services/replay-state.service.ts ***!
+  \***************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -10132,10 +10132,10 @@ class ReplayStateService {
 
 /***/ }),
 
-/***/ 76452:
-/*!********************************************************!*\
-  !*** ./src/app/tools/replay/service/replay.service.ts ***!
-  \********************************************************/
+/***/ 3687:
+/*!*********************************************************!*\
+  !*** ./src/app/tools/replay/services/replay.service.ts ***!
+  \*********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -10145,9 +10145,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ 95536);
 /* harmony import */ var _domain_entity_common_constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../domain/entity/common/constants */ 59544);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var src_app_tools_replay_service_replay_state_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/tools/replay/service/replay-state.service */ 31340);
-/* harmony import */ var src_app_tools_replay_service_dom_manipulation_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/tools/replay/service/dom-manipulation.service */ 67601);
-/* harmony import */ var _story_creator_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./story-creator.service */ 77985);
+/* harmony import */ var src_app_tools_replay_services_replay_state_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/tools/replay/services/replay-state.service */ 72355);
+/* harmony import */ var src_app_tools_replay_services_dom_manipulation_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/tools/replay/services/dom-manipulation.service */ 95802);
+/* harmony import */ var _story_creator_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./story-creator.service */ 97720);
 /* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material/snack-bar */ 40382);
 
 
@@ -10216,7 +10216,7 @@ class ReplayService {
     this.domManipulationService.showAll();
   }
   static #_ = this.ɵfac = function ReplayService_Factory(t) {
-    return new (t || ReplayService)(_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵinject"](src_app_tools_replay_service_replay_state_service__WEBPACK_IMPORTED_MODULE_1__.ReplayStateService), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵinject"](src_app_tools_replay_service_dom_manipulation_service__WEBPACK_IMPORTED_MODULE_2__.DomManipulationService), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵinject"](_story_creator_service__WEBPACK_IMPORTED_MODULE_3__.StoryCreatorService), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵinject"](_angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_6__.MatSnackBar));
+    return new (t || ReplayService)(_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵinject"](src_app_tools_replay_services_replay_state_service__WEBPACK_IMPORTED_MODULE_1__.ReplayStateService), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵinject"](src_app_tools_replay_services_dom_manipulation_service__WEBPACK_IMPORTED_MODULE_2__.DomManipulationService), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵinject"](_story_creator_service__WEBPACK_IMPORTED_MODULE_3__.StoryCreatorService), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵinject"](_angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_6__.MatSnackBar));
   };
   static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineInjectable"]({
     token: ReplayService,
@@ -10227,10 +10227,10 @@ class ReplayService {
 
 /***/ }),
 
-/***/ 77985:
-/*!***************************************************************!*\
-  !*** ./src/app/tools/replay/service/story-creator.service.ts ***!
-  \***************************************************************/
+/***/ 97720:
+/*!****************************************************************!*\
+  !*** ./src/app/tools/replay/services/story-creator.service.ts ***!
+  \****************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -10239,7 +10239,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _domain_entity_common_dictionary__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../domain/entity/common/dictionary */ 92145);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var _domain_service_element_registry_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../domain/service/element-registry.service */ 42130);
+/* harmony import */ var _domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../domain/services/element-registry.service */ 85511);
 
 
 
@@ -10346,7 +10346,7 @@ class StoryCreatorService {
     }
   }
   static #_ = this.ɵfac = function StoryCreatorService_Factory(t) {
-    return new (t || StoryCreatorService)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_domain_service_element_registry_service__WEBPACK_IMPORTED_MODULE_1__.ElementRegistryService));
+    return new (t || StoryCreatorService)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_1__.ElementRegistryService));
   };
   static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjectable"]({
     token: StoryCreatorService,
@@ -10538,18 +10538,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tools_label_dictionary_presentation_label_dictionary_dialog_label_dictionary_dialog_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../tools/label-dictionary/presentation/label-dictionary-dialog/label-dictionary-dialog.component */ 68701);
 /* harmony import */ var _domain_entity_common_constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../domain/entity/common/constants */ 59544);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var _service_settings_settings_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../service/settings/settings.service */ 32754);
-/* harmony import */ var _tools_modeler_service_modeler_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../tools/modeler/service/modeler.service */ 492);
-/* harmony import */ var _tools_replay_service_replay_state_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../tools/replay/service/replay-state.service */ 31340);
-/* harmony import */ var _domain_service_dirty_flag_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../domain/service/dirty-flag.service */ 50239);
-/* harmony import */ var _domain_service_dialog_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../domain/service/dialog.service */ 66886);
-/* harmony import */ var _tools_replay_service_replay_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../../tools/replay/service/replay.service */ 76452);
-/* harmony import */ var _tools_export_service_export_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../../tools/export/service/export.service */ 13486);
-/* harmony import */ var _tools_import_service_import_domain_story_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../../tools/import/service/import-domain-story.service */ 59799);
-/* harmony import */ var _tools_header_service_title_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../../../tools/header/service/title.service */ 38437);
-/* harmony import */ var _tools_modeler_service_renderer_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../../../tools/modeler/service/renderer.service */ 6733);
+/* harmony import */ var _services_settings_settings_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../services/settings/settings.service */ 1299);
+/* harmony import */ var _tools_modeler_services_modeler_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../tools/modeler/services/modeler.service */ 40439);
+/* harmony import */ var _tools_replay_services_replay_state_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../tools/replay/services/replay-state.service */ 72355);
+/* harmony import */ var _domain_services_dirty_flag_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../domain/services/dirty-flag.service */ 94658);
+/* harmony import */ var _domain_services_dialog_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../domain/services/dialog.service */ 12855);
+/* harmony import */ var _tools_replay_services_replay_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../../tools/replay/services/replay.service */ 3687);
+/* harmony import */ var _tools_export_services_export_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../../tools/export/services/export.service */ 39595);
+/* harmony import */ var _tools_import_services_import_domain_story_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../../tools/import/services/import-domain-story.service */ 93586);
+/* harmony import */ var _tools_header_services_title_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../../../tools/header/services/title.service */ 41876);
+/* harmony import */ var _tools_modeler_services_renderer_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../../../tools/modeler/services/renderer.service */ 63812);
 /* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @angular/material/snack-bar */ 40382);
-/* harmony import */ var _tools_replay_service_story_creator_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../../../tools/replay/service/story-creator.service */ 77985);
+/* harmony import */ var _tools_replay_services_story_creator_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../../../tools/replay/services/story-creator.service */ 97720);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @angular/common */ 39191);
 
 
@@ -10815,7 +10815,7 @@ class HeaderButtonsComponent {
     return this.titleService.hasTitleOrDescription() || this.exportService.isDomainStoryExportable();
   }
   static #_ = this.ɵfac = function HeaderButtonsComponent_Factory(t) {
-    return new (t || HeaderButtonsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_17__["ɵɵdirectiveInject"](_service_settings_settings_service__WEBPACK_IMPORTED_MODULE_6__.SettingsService), _angular_core__WEBPACK_IMPORTED_MODULE_17__["ɵɵdirectiveInject"](_tools_modeler_service_modeler_service__WEBPACK_IMPORTED_MODULE_7__.ModelerService), _angular_core__WEBPACK_IMPORTED_MODULE_17__["ɵɵdirectiveInject"](_tools_replay_service_replay_state_service__WEBPACK_IMPORTED_MODULE_8__.ReplayStateService), _angular_core__WEBPACK_IMPORTED_MODULE_17__["ɵɵdirectiveInject"](_domain_service_dirty_flag_service__WEBPACK_IMPORTED_MODULE_9__.DirtyFlagService), _angular_core__WEBPACK_IMPORTED_MODULE_17__["ɵɵdirectiveInject"](_domain_service_dialog_service__WEBPACK_IMPORTED_MODULE_10__.DialogService), _angular_core__WEBPACK_IMPORTED_MODULE_17__["ɵɵdirectiveInject"](_tools_replay_service_replay_service__WEBPACK_IMPORTED_MODULE_11__.ReplayService), _angular_core__WEBPACK_IMPORTED_MODULE_17__["ɵɵdirectiveInject"](_tools_export_service_export_service__WEBPACK_IMPORTED_MODULE_12__.ExportService), _angular_core__WEBPACK_IMPORTED_MODULE_17__["ɵɵdirectiveInject"](_tools_import_service_import_domain_story_service__WEBPACK_IMPORTED_MODULE_13__.ImportDomainStoryService), _angular_core__WEBPACK_IMPORTED_MODULE_17__["ɵɵdirectiveInject"](_tools_header_service_title_service__WEBPACK_IMPORTED_MODULE_14__.TitleService), _angular_core__WEBPACK_IMPORTED_MODULE_17__["ɵɵdirectiveInject"](_tools_modeler_service_renderer_service__WEBPACK_IMPORTED_MODULE_15__.RendererService), _angular_core__WEBPACK_IMPORTED_MODULE_17__["ɵɵdirectiveInject"](_angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_19__.MatSnackBar), _angular_core__WEBPACK_IMPORTED_MODULE_17__["ɵɵdirectiveInject"](_tools_replay_service_story_creator_service__WEBPACK_IMPORTED_MODULE_16__.StoryCreatorService));
+    return new (t || HeaderButtonsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_17__["ɵɵdirectiveInject"](_services_settings_settings_service__WEBPACK_IMPORTED_MODULE_6__.SettingsService), _angular_core__WEBPACK_IMPORTED_MODULE_17__["ɵɵdirectiveInject"](_tools_modeler_services_modeler_service__WEBPACK_IMPORTED_MODULE_7__.ModelerService), _angular_core__WEBPACK_IMPORTED_MODULE_17__["ɵɵdirectiveInject"](_tools_replay_services_replay_state_service__WEBPACK_IMPORTED_MODULE_8__.ReplayStateService), _angular_core__WEBPACK_IMPORTED_MODULE_17__["ɵɵdirectiveInject"](_domain_services_dirty_flag_service__WEBPACK_IMPORTED_MODULE_9__.DirtyFlagService), _angular_core__WEBPACK_IMPORTED_MODULE_17__["ɵɵdirectiveInject"](_domain_services_dialog_service__WEBPACK_IMPORTED_MODULE_10__.DialogService), _angular_core__WEBPACK_IMPORTED_MODULE_17__["ɵɵdirectiveInject"](_tools_replay_services_replay_service__WEBPACK_IMPORTED_MODULE_11__.ReplayService), _angular_core__WEBPACK_IMPORTED_MODULE_17__["ɵɵdirectiveInject"](_tools_export_services_export_service__WEBPACK_IMPORTED_MODULE_12__.ExportService), _angular_core__WEBPACK_IMPORTED_MODULE_17__["ɵɵdirectiveInject"](_tools_import_services_import_domain_story_service__WEBPACK_IMPORTED_MODULE_13__.ImportDomainStoryService), _angular_core__WEBPACK_IMPORTED_MODULE_17__["ɵɵdirectiveInject"](_tools_header_services_title_service__WEBPACK_IMPORTED_MODULE_14__.TitleService), _angular_core__WEBPACK_IMPORTED_MODULE_17__["ɵɵdirectiveInject"](_tools_modeler_services_renderer_service__WEBPACK_IMPORTED_MODULE_15__.RendererService), _angular_core__WEBPACK_IMPORTED_MODULE_17__["ɵɵdirectiveInject"](_angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_19__.MatSnackBar), _angular_core__WEBPACK_IMPORTED_MODULE_17__["ɵɵdirectiveInject"](_tools_replay_services_story_creator_service__WEBPACK_IMPORTED_MODULE_16__.StoryCreatorService));
   };
   static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_17__["ɵɵdefineComponent"]({
     type: HeaderButtonsComponent,
@@ -10893,9 +10893,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs */ 95536);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var src_app_workbench_service_settings_settings_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/workbench/service/settings/settings.service */ 32754);
-/* harmony import */ var src_app_tools_modeler_service_modeler_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/tools/modeler/service/modeler.service */ 492);
-/* harmony import */ var _tools_icon_set_config_service_icon_set_customization_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../tools/icon-set-config/service/icon-set-customization.service */ 17067);
+/* harmony import */ var src_app_workbench_services_settings_settings_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/workbench/services/settings/settings.service */ 1299);
+/* harmony import */ var src_app_tools_modeler_services_modeler_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/tools/modeler/services/modeler.service */ 40439);
+/* harmony import */ var _tools_icon_set_config_services_icon_set_customization_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../tools/icon-set-config/services/icon-set-customization.service */ 46252);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common */ 39191);
 /* harmony import */ var _general_general_settings_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./general/general-settings.component */ 94781);
 /* harmony import */ var src_app_tools_icon_set_config_presentation_icon_set_configuration_icon_set_configuration_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/tools/icon-set-config/presentation/icon-set-configuration/icon-set-configuration.component */ 26103);
@@ -10945,7 +10945,7 @@ class SettingsComponent {
     this.showIconSetCustomization.next(true);
   }
   static #_ = this.ɵfac = function SettingsComponent_Factory(t) {
-    return new (t || SettingsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](src_app_workbench_service_settings_settings_service__WEBPACK_IMPORTED_MODULE_0__.SettingsService), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](src_app_tools_modeler_service_modeler_service__WEBPACK_IMPORTED_MODULE_1__.ModelerService), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](_tools_icon_set_config_service_icon_set_customization_service__WEBPACK_IMPORTED_MODULE_2__.IconSetCustomizationService));
+    return new (t || SettingsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](src_app_workbench_services_settings_settings_service__WEBPACK_IMPORTED_MODULE_0__.SettingsService), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](src_app_tools_modeler_services_modeler_service__WEBPACK_IMPORTED_MODULE_1__.ModelerService), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](_tools_icon_set_config_services_icon_set_customization_service__WEBPACK_IMPORTED_MODULE_2__.IconSetCustomizationService));
   };
   static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineComponent"]({
     type: SettingsComponent,
@@ -11055,10 +11055,10 @@ class SettingsModule {
 
 /***/ }),
 
-/***/ 32754:
-/*!****************************************************************!*\
-  !*** ./src/app/workbench/service/settings/settings.service.ts ***!
-  \****************************************************************/
+/***/ 1299:
+/*!*****************************************************************!*\
+  !*** ./src/app/workbench/services/settings/settings.service.ts ***!
+  \*****************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
