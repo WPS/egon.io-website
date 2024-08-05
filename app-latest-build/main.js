@@ -9504,6 +9504,239 @@ class CommandStackService {
 
 /***/ }),
 
+/***/ 51037:
+/*!*************************************************************!*\
+  !*** ./src/app/tool/modeler/service/initializer.service.ts ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   InitializerService: () => (/* binding */ InitializerService)
+/* harmony export */ });
+/* harmony import */ var _domain_entity_common_elementTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../domain/entity/common/elementTypes */ 36020);
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @angular/material/dialog */ 72768);
+/* harmony import */ var _domain_activityDialogData__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../domain/activityDialogData */ 14696);
+/* harmony import */ var _presentation_activity_dialog_activity_dialog_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../presentation/activity-dialog/activity-dialog.component */ 75691);
+/* harmony import */ var _utils_mathExtensions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils/mathExtensions */ 67858);
+/* harmony import */ var _bpmn_modeler_domainStoryRenderer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../bpmn/modeler/domainStoryRenderer */ 47708);
+/* harmony import */ var _bpmn_modeler_context_pad_domainStoryContextPadProvider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../bpmn/modeler/context-pad/domainStoryContextPadProvider */ 11446);
+/* harmony import */ var _bpmn_modeler_palette_domainStoryPalette__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../bpmn/modeler/palette/domainStoryPalette */ 24088);
+/* harmony import */ var _bpmn_modeler_labeling_dsLabelEditingProvider__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../bpmn/modeler/labeling/dsLabelEditingProvider */ 36671);
+/* harmony import */ var _bpmn_modeler_change_icon_replaceOptions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../bpmn/modeler/change-icon/replaceOptions */ 64577);
+/* harmony import */ var _bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../bpmn/modeler/numbering/numbering */ 93213);
+/* harmony import */ var _bpmn_modeler_updateHandler_activityUpdateHandlers__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../bpmn/modeler/updateHandler/activityUpdateHandlers */ 20117);
+/* harmony import */ var _bpmn_modeler_updateHandler_massRenameHandler__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../bpmn/modeler/updateHandler/massRenameHandler */ 56080);
+/* harmony import */ var _bpmn_modeler_updateHandler_elementUpdateHandler__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../bpmn/modeler/updateHandler/elementUpdateHandler */ 72279);
+/* harmony import */ var _bpmn_modeler_updateHandler_headlineAndDescriptionUpdateHandler__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../bpmn/modeler/updateHandler/headlineAndDescriptionUpdateHandler */ 89866);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @angular/core */ 96623);
+/* harmony import */ var _domain_service_dirty_flag_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../../domain/service/dirty-flag.service */ 50239);
+/* harmony import */ var _icon_set_config_service_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../icon-set-config/service/icon-dictionary.service */ 19878);
+/* harmony import */ var _domain_service_element_registry_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../../domain/service/element-registry.service */ 42130);
+/* harmony import */ var _icon_set_config_service_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../../icon-set-config/service/icon-set-configuration.service */ 89105);
+/* harmony import */ var _label_dictionary_service_label_dictionary_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../../label-dictionary/service/label-dictionary.service */ 4879);
+/* harmony import */ var _replay_service_replay_state_service__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../../replay/service/replay-state.service */ 1671);
+/* harmony import */ var _domain_service_dialog_service__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../../../domain/service/dialog.service */ 66886);
+/* harmony import */ var _command_stack_service__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./command-stack.service */ 38277);
+/* harmony import */ var _header_service_title_service__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../../header/service/title.service */ 5048);
+/* harmony import */ var _export_service_html_presentation_service__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../../export/service/html-presentation.service */ 46057);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class InitializerService {
+  constructor(dirtyFlagService, iconDictionaryService, elementRegistryService, configurationService, labelDictionaryService, replayStateService, dialogService, commandStackService, titleService, htmlPresentationService) {
+    this.dirtyFlagService = dirtyFlagService;
+    this.iconDictionaryService = iconDictionaryService;
+    this.elementRegistryService = elementRegistryService;
+    this.configurationService = configurationService;
+    this.labelDictionaryService = labelDictionaryService;
+    this.replayStateService = replayStateService;
+    this.dialogService = dialogService;
+    this.commandStackService = commandStackService;
+    this.titleService = titleService;
+    this.htmlPresentationService = htmlPresentationService;
+  }
+  initializeDomainStoryModelerClasses() {
+    (0,_bpmn_modeler_context_pad_domainStoryContextPadProvider__WEBPACK_IMPORTED_MODULE_5__.initializeContextPadProvider)(this.dirtyFlagService, this.iconDictionaryService);
+    /** The Palette and the Context Menu need the Icons present in the Domain,
+     * so the IconDictionaryService and the IconSetConfigurationService needs to be given to the Palette **/
+    (0,_bpmn_modeler_palette_domainStoryPalette__WEBPACK_IMPORTED_MODULE_6__.initializePalette)(this.iconDictionaryService, this.configurationService);
+    (0,_bpmn_modeler_domainStoryRenderer__WEBPACK_IMPORTED_MODULE_4__.initializeRenderer)(this.iconDictionaryService, this.elementRegistryService, this.dirtyFlagService);
+    (0,_bpmn_modeler_labeling_dsLabelEditingProvider__WEBPACK_IMPORTED_MODULE_7__.initializeLabelEditingProvider)(this.labelDictionaryService);
+    (0,_bpmn_modeler_change_icon_replaceOptions__WEBPACK_IMPORTED_MODULE_8__.initializeReplaceOptions)(this.iconDictionaryService);
+    (0,_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_9__.initializeNumbering)(this.elementRegistryService);
+    (0,_bpmn_modeler_updateHandler_activityUpdateHandlers__WEBPACK_IMPORTED_MODULE_10__.initializeActivityUpdateHandler)(this.elementRegistryService);
+  }
+  propagateDomainStoryModelerClassesToServices(commandStack, elementRegistry, canvas, selection, modeler) {
+    this.commandStackService.setCommandStack(commandStack);
+    this.elementRegistryService.setElementRegistry(elementRegistry);
+    this.htmlPresentationService.setModelerClasses(canvas, selection, modeler);
+  }
+  initializeDomainStoryModelerEventHandlers(commandStack, eventBus) {
+    (0,_bpmn_modeler_updateHandler_activityUpdateHandlers__WEBPACK_IMPORTED_MODULE_10__["default"])(commandStack, eventBus);
+    (0,_bpmn_modeler_updateHandler_massRenameHandler__WEBPACK_IMPORTED_MODULE_11__["default"])(commandStack, eventBus);
+    (0,_bpmn_modeler_updateHandler_elementUpdateHandler__WEBPACK_IMPORTED_MODULE_12__["default"])(commandStack, eventBus);
+    (0,_bpmn_modeler_updateHandler_headlineAndDescriptionUpdateHandler__WEBPACK_IMPORTED_MODULE_13__["default"])(commandStack, this.titleService);
+  }
+  initiateEventBusListeners(eventBus, commandStack) {
+    eventBus.on('element.dblclick', e => {
+      if (!this.replayStateService.getReplayOn()) {
+        const element = e.element;
+        if (element.type === _domain_entity_common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTIVITY) {
+          // override the doubleClickListener on activities
+          this.activityDoubleClick(element, eventBus, commandStack);
+        } else {
+          const renderedNumberRegistry = (0,_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_9__.getNumberRegistry)();
+          // add a DoubleClickListener to the number on activities
+          if (renderedNumberRegistry.length > 1) {
+            const allActivities = this.elementRegistryService.getActivitiesFromActors();
+            if (allActivities.length > 0) {
+              const htmlCanvas = document.getElementById('canvas');
+              if (htmlCanvas) {
+                const container = htmlCanvas.getElementsByClassName('djs-container');
+                const svgElements = container[0].getElementsByTagName('svg');
+                const outerSVGElement = svgElements[0];
+                const viewport = outerSVGElement.getElementsByClassName('viewport')[0];
+                let transform = viewport.getAttribute('transform');
+                let transformX = 0;
+                let transformY = 0;
+                let zoomX = 1;
+                let zoomY = 1;
+                let nums;
+                const clickX = e.originalEvent.offsetX;
+                const clickY = e.originalEvent.offsetY;
+                // adjust for zoom and panning
+                if (transform) {
+                  transform = transform.replace('matrix(', '');
+                  transform.replace(')', '');
+                  nums = transform.split(',');
+                  zoomX = parseFloat(nums[0]);
+                  zoomY = parseFloat(nums[3]);
+                  transformX = parseInt(nums[4], undefined);
+                  transformY = parseInt(nums[5], undefined);
+                }
+                const width = 25 * zoomX;
+                const height = 22 * zoomY;
+                for (let i = 1; i < renderedNumberRegistry.length; i++) {
+                  const currentNum = renderedNumberRegistry[i];
+                  if (currentNum) {
+                    const tspan = currentNum.getElementsByTagName('tspan')[0];
+                    const tx = tspan.getAttribute('x');
+                    const ty = tspan.getAttribute('y');
+                    const tNumber = parseInt(tspan.innerHTML, undefined);
+                    const elementX = Math.floor(tx * zoomX + (transformX - 11 * zoomX));
+                    const elementY = Math.floor(ty * zoomY + (transformY - 15 * zoomY));
+                    allActivities.forEach(activity => {
+                      const activityNumber = activity.businessObject.number;
+                      if (activityNumber === tNumber) {
+                        if ((0,_utils_mathExtensions__WEBPACK_IMPORTED_MODULE_3__.positionsMatch)(width, height, elementX, elementY, clickX, clickY)) {
+                          this.activityDoubleClick(activity, eventBus, commandStack);
+                        }
+                      }
+                    });
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    });
+    // when in replay, do not allow any interaction on the canvas
+    eventBus.on(['element.click', 'element.dblclick', 'element.mousedown', 'drag.init', 'canvas.viewbox.changing', 'autoPlace', 'popupMenu.open'], 10000000000, event => {
+      if (this.replayStateService.getReplayOn()) {
+        event.stopPropagation();
+        event.preventDefault();
+      }
+    });
+  }
+  /** Overrrides for Canvas Functions **/
+  activityDoubleClick(activity, eventBus, commandStack) {
+    const source = activity.source;
+    // ensure the right number when changing the direction of an activity
+    (0,_bpmn_modeler_labeling_dsLabelEditingProvider__WEBPACK_IMPORTED_MODULE_7__.toggleStashUse)(false);
+    const config = new _angular_material_dialog__WEBPACK_IMPORTED_MODULE_24__.MatDialogConfig();
+    config.disableClose = false;
+    config.autoFocus = true;
+    if (activity.businessObject.number && source && source.type.includes(_domain_entity_common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTOR)) {
+      config.data = new _domain_activityDialogData__WEBPACK_IMPORTED_MODULE_1__.ActivityDialogData(activity, (0,_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_9__.getMultipleNumberRegistry)()[activity.businessObject.number], true, data => this.saveActivityInputLabel(data, eventBus, commandStack));
+    } else if (source && source.type.includes(_domain_entity_common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.WORKOBJECT)) {
+      config.data = new _domain_activityDialogData__WEBPACK_IMPORTED_MODULE_1__.ActivityDialogData(activity, false, false, activityData => this.saveActivityInputLabel(activityData, eventBus, commandStack));
+    }
+    this.dialogService.openDialog(_presentation_activity_dialog_activity_dialog_component__WEBPACK_IMPORTED_MODULE_2__.ActivityDialogComponent, config);
+  }
+  saveActivityInputLabel(activityData, eventBus, commandStack) {
+    const label = activityData.activityLabel;
+    const hasNumber = activityData.activityNumber ?? false;
+    const activityNumber = activityData.activityNumber;
+    const multipleNumberAllowed = activityData.multipleNumbers ?? false;
+    const element = activityData.activity;
+    const activitiesFromActors = this.elementRegistryService.getActivitiesFromActors();
+    const index = activitiesFromActors.indexOf(element);
+    activitiesFromActors.splice(index, 1);
+    if (hasNumber) {
+      (0,_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_9__.setNumberIsMultiple)(activityNumber, multipleNumberAllowed);
+    }
+    element.businessObject.multipleNumberAllowed = multipleNumberAllowed;
+    let options;
+    if (hasNumber) {
+      options = {
+        businessObject: element.businessObject,
+        newLabel: label,
+        newNumber: activityNumber,
+        element
+      };
+    } else {
+      options = {
+        businessObject: element.businessObject,
+        newLabel: label,
+        element
+      };
+    }
+    commandStack.execute('activity.changed', options);
+    if (element.businessObject.multipleNumberAllowed !== false) {
+      if ((0,_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_9__.getMultipleNumberRegistry)()[activityNumber] === false) {
+        (0,_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_9__.updateExistingNumbersAtEditing)(activitiesFromActors, activityNumber, eventBus);
+      }
+    } else if (element.businessObject.multipleNumberAllowed === false) {
+      (0,_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_9__.updateExistingNumbersAtEditing)(activitiesFromActors, activityNumber, eventBus);
+    }
+  }
+  static #_ = this.ɵfac = function InitializerService_Factory(t) {
+    return new (t || InitializerService)(_angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_domain_service_dirty_flag_service__WEBPACK_IMPORTED_MODULE_14__.DirtyFlagService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_icon_set_config_service_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_15__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_domain_service_element_registry_service__WEBPACK_IMPORTED_MODULE_16__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_icon_set_config_service_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_17__.IconSetConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_label_dictionary_service_label_dictionary_service__WEBPACK_IMPORTED_MODULE_18__.LabelDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_replay_service_replay_state_service__WEBPACK_IMPORTED_MODULE_19__.ReplayStateService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_domain_service_dialog_service__WEBPACK_IMPORTED_MODULE_20__.DialogService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_command_stack_service__WEBPACK_IMPORTED_MODULE_21__.CommandStackService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_header_service_title_service__WEBPACK_IMPORTED_MODULE_22__.TitleService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_export_service_html_presentation_service__WEBPACK_IMPORTED_MODULE_23__.HtmlPresentationService));
+  };
+  static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵdefineInjectable"]({
+    token: InitializerService,
+    factory: InitializerService.ɵfac,
+    providedIn: 'root'
+  });
+}
+
+/***/ }),
+
 /***/ 53367:
 /*!*********************************************************!*\
   !*** ./src/app/tool/modeler/service/modeler.service.ts ***!
@@ -9519,7 +9752,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_tool_modeler_bpmn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/tool/modeler/bpmn */ 48023);
 /* harmony import */ var _bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../bpmn/modeler/numbering/numbering */ 93213);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var _workbench_service_modeler_initializer_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../workbench/service/modeler/initializer.service */ 49364);
+/* harmony import */ var _initializer_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./initializer.service */ 51037);
 /* harmony import */ var _domain_service_element_registry_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../domain/service/element-registry.service */ 42130);
 /* harmony import */ var _icon_set_config_service_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../icon-set-config/service/icon-dictionary.service */ 19878);
 /* harmony import */ var _icon_set_config_service_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../icon-set-config/service/icon-set-configuration.service */ 89105);
@@ -9637,7 +9870,7 @@ class ModelerService {
     })();
   }
   static #_ = this.ɵfac = function ModelerService_Factory(t) {
-    return new (t || ModelerService)(_angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_workbench_service_modeler_initializer_service__WEBPACK_IMPORTED_MODULE_3__.InitializerService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_domain_service_element_registry_service__WEBPACK_IMPORTED_MODULE_4__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_icon_set_config_service_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_5__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_icon_set_config_service_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_6__.IconSetConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_domain_service_storage_service__WEBPACK_IMPORTED_MODULE_7__.StorageService));
+    return new (t || ModelerService)(_angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_initializer_service__WEBPACK_IMPORTED_MODULE_3__.InitializerService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_domain_service_element_registry_service__WEBPACK_IMPORTED_MODULE_4__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_icon_set_config_service_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_5__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_icon_set_config_service_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_6__.IconSetConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵinject"](_domain_service_storage_service__WEBPACK_IMPORTED_MODULE_7__.StorageService));
   };
   static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵdefineInjectable"]({
     token: ModelerService,
@@ -10819,239 +11052,6 @@ class SettingsModule {
     exports: [_general_general_settings_component__WEBPACK_IMPORTED_MODULE_4__.GeneralSettingsComponent, src_app_tool_icon_set_config_presentation_icon_set_configuration_icon_set_configuration_component__WEBPACK_IMPORTED_MODULE_0__.IconSetConfigurationComponent, _tool_label_dictionary_presentation_label_dictionary_label_dictionary_component__WEBPACK_IMPORTED_MODULE_5__.LabelDictionaryComponent]
   });
 })();
-
-/***/ }),
-
-/***/ 49364:
-/*!******************************************************************!*\
-  !*** ./src/app/workbench/service/modeler/initializer.service.ts ***!
-  \******************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   InitializerService: () => (/* binding */ InitializerService)
-/* harmony export */ });
-/* harmony import */ var _domain_entity_common_elementTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../domain/entity/common/elementTypes */ 36020);
-/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @angular/material/dialog */ 72768);
-/* harmony import */ var _tool_modeler_domain_activityDialogData__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../tool/modeler/domain/activityDialogData */ 14696);
-/* harmony import */ var _tool_modeler_presentation_activity_dialog_activity_dialog_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../tool/modeler/presentation/activity-dialog/activity-dialog.component */ 75691);
-/* harmony import */ var _utils_mathExtensions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils/mathExtensions */ 67858);
-/* harmony import */ var _tool_modeler_bpmn_modeler_domainStoryRenderer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../tool/modeler/bpmn/modeler/domainStoryRenderer */ 47708);
-/* harmony import */ var _tool_modeler_bpmn_modeler_context_pad_domainStoryContextPadProvider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../tool/modeler/bpmn/modeler/context-pad/domainStoryContextPadProvider */ 11446);
-/* harmony import */ var _tool_modeler_bpmn_modeler_palette_domainStoryPalette__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../tool/modeler/bpmn/modeler/palette/domainStoryPalette */ 24088);
-/* harmony import */ var _tool_modeler_bpmn_modeler_labeling_dsLabelEditingProvider__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../tool/modeler/bpmn/modeler/labeling/dsLabelEditingProvider */ 36671);
-/* harmony import */ var _tool_modeler_bpmn_modeler_change_icon_replaceOptions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../tool/modeler/bpmn/modeler/change-icon/replaceOptions */ 64577);
-/* harmony import */ var _tool_modeler_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../tool/modeler/bpmn/modeler/numbering/numbering */ 93213);
-/* harmony import */ var _tool_modeler_bpmn_modeler_updateHandler_activityUpdateHandlers__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../tool/modeler/bpmn/modeler/updateHandler/activityUpdateHandlers */ 20117);
-/* harmony import */ var _tool_modeler_bpmn_modeler_updateHandler_massRenameHandler__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../tool/modeler/bpmn/modeler/updateHandler/massRenameHandler */ 56080);
-/* harmony import */ var _tool_modeler_bpmn_modeler_updateHandler_elementUpdateHandler__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../tool/modeler/bpmn/modeler/updateHandler/elementUpdateHandler */ 72279);
-/* harmony import */ var _tool_modeler_bpmn_modeler_updateHandler_headlineAndDescriptionUpdateHandler__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../tool/modeler/bpmn/modeler/updateHandler/headlineAndDescriptionUpdateHandler */ 89866);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var _domain_service_dirty_flag_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../../domain/service/dirty-flag.service */ 50239);
-/* harmony import */ var _tool_icon_set_config_service_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../../tool/icon-set-config/service/icon-dictionary.service */ 19878);
-/* harmony import */ var _domain_service_element_registry_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../../domain/service/element-registry.service */ 42130);
-/* harmony import */ var _tool_icon_set_config_service_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../../../tool/icon-set-config/service/icon-set-configuration.service */ 89105);
-/* harmony import */ var _tool_label_dictionary_service_label_dictionary_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../../../tool/label-dictionary/service/label-dictionary.service */ 4879);
-/* harmony import */ var _tool_replay_service_replay_state_service__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../../../tool/replay/service/replay-state.service */ 1671);
-/* harmony import */ var _domain_service_dialog_service__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../../../domain/service/dialog.service */ 66886);
-/* harmony import */ var _tool_modeler_service_command_stack_service__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../../../tool/modeler/service/command-stack.service */ 38277);
-/* harmony import */ var _tool_header_service_title_service__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../../../tool/header/service/title.service */ 5048);
-/* harmony import */ var _tool_export_service_html_presentation_service__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../../../tool/export/service/html-presentation.service */ 46057);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-class InitializerService {
-  constructor(dirtyFlagService, iconDictionaryService, elementRegistryService, configurationService, labelDictionaryService, replayStateService, dialogService, commandStackService, titleService, htmlPresentationService) {
-    this.dirtyFlagService = dirtyFlagService;
-    this.iconDictionaryService = iconDictionaryService;
-    this.elementRegistryService = elementRegistryService;
-    this.configurationService = configurationService;
-    this.labelDictionaryService = labelDictionaryService;
-    this.replayStateService = replayStateService;
-    this.dialogService = dialogService;
-    this.commandStackService = commandStackService;
-    this.titleService = titleService;
-    this.htmlPresentationService = htmlPresentationService;
-  }
-  initializeDomainStoryModelerClasses() {
-    (0,_tool_modeler_bpmn_modeler_context_pad_domainStoryContextPadProvider__WEBPACK_IMPORTED_MODULE_5__.initializeContextPadProvider)(this.dirtyFlagService, this.iconDictionaryService);
-    /** The Palette and the Context Menu need the Icons present in the Domain,
-     * so the IconDictionaryService and the IconSetConfigurationService needs to be given to the Palette **/
-    (0,_tool_modeler_bpmn_modeler_palette_domainStoryPalette__WEBPACK_IMPORTED_MODULE_6__.initializePalette)(this.iconDictionaryService, this.configurationService);
-    (0,_tool_modeler_bpmn_modeler_domainStoryRenderer__WEBPACK_IMPORTED_MODULE_4__.initializeRenderer)(this.iconDictionaryService, this.elementRegistryService, this.dirtyFlagService);
-    (0,_tool_modeler_bpmn_modeler_labeling_dsLabelEditingProvider__WEBPACK_IMPORTED_MODULE_7__.initializeLabelEditingProvider)(this.labelDictionaryService);
-    (0,_tool_modeler_bpmn_modeler_change_icon_replaceOptions__WEBPACK_IMPORTED_MODULE_8__.initializeReplaceOptions)(this.iconDictionaryService);
-    (0,_tool_modeler_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_9__.initializeNumbering)(this.elementRegistryService);
-    (0,_tool_modeler_bpmn_modeler_updateHandler_activityUpdateHandlers__WEBPACK_IMPORTED_MODULE_10__.initializeActivityUpdateHandler)(this.elementRegistryService);
-  }
-  propagateDomainStoryModelerClassesToServices(commandStack, elementRegistry, canvas, selection, modeler) {
-    this.commandStackService.setCommandStack(commandStack);
-    this.elementRegistryService.setElementRegistry(elementRegistry);
-    this.htmlPresentationService.setModelerClasses(canvas, selection, modeler);
-  }
-  initializeDomainStoryModelerEventHandlers(commandStack, eventBus) {
-    (0,_tool_modeler_bpmn_modeler_updateHandler_activityUpdateHandlers__WEBPACK_IMPORTED_MODULE_10__["default"])(commandStack, eventBus);
-    (0,_tool_modeler_bpmn_modeler_updateHandler_massRenameHandler__WEBPACK_IMPORTED_MODULE_11__["default"])(commandStack, eventBus);
-    (0,_tool_modeler_bpmn_modeler_updateHandler_elementUpdateHandler__WEBPACK_IMPORTED_MODULE_12__["default"])(commandStack, eventBus);
-    (0,_tool_modeler_bpmn_modeler_updateHandler_headlineAndDescriptionUpdateHandler__WEBPACK_IMPORTED_MODULE_13__["default"])(commandStack, this.titleService);
-  }
-  initiateEventBusListeners(eventBus, commandStack) {
-    eventBus.on('element.dblclick', e => {
-      if (!this.replayStateService.getReplayOn()) {
-        const element = e.element;
-        if (element.type === _domain_entity_common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTIVITY) {
-          // override the doubleClickListener on activities
-          this.activityDoubleClick(element, eventBus, commandStack);
-        } else {
-          const renderedNumberRegistry = (0,_tool_modeler_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_9__.getNumberRegistry)();
-          // add a DoubleClickListener to the number on activities
-          if (renderedNumberRegistry.length > 1) {
-            const allActivities = this.elementRegistryService.getActivitiesFromActors();
-            if (allActivities.length > 0) {
-              const htmlCanvas = document.getElementById('canvas');
-              if (htmlCanvas) {
-                const container = htmlCanvas.getElementsByClassName('djs-container');
-                const svgElements = container[0].getElementsByTagName('svg');
-                const outerSVGElement = svgElements[0];
-                const viewport = outerSVGElement.getElementsByClassName('viewport')[0];
-                let transform = viewport.getAttribute('transform');
-                let transformX = 0;
-                let transformY = 0;
-                let zoomX = 1;
-                let zoomY = 1;
-                let nums;
-                const clickX = e.originalEvent.offsetX;
-                const clickY = e.originalEvent.offsetY;
-                // adjust for zoom and panning
-                if (transform) {
-                  transform = transform.replace('matrix(', '');
-                  transform.replace(')', '');
-                  nums = transform.split(',');
-                  zoomX = parseFloat(nums[0]);
-                  zoomY = parseFloat(nums[3]);
-                  transformX = parseInt(nums[4], undefined);
-                  transformY = parseInt(nums[5], undefined);
-                }
-                const width = 25 * zoomX;
-                const height = 22 * zoomY;
-                for (let i = 1; i < renderedNumberRegistry.length; i++) {
-                  const currentNum = renderedNumberRegistry[i];
-                  if (currentNum) {
-                    const tspan = currentNum.getElementsByTagName('tspan')[0];
-                    const tx = tspan.getAttribute('x');
-                    const ty = tspan.getAttribute('y');
-                    const tNumber = parseInt(tspan.innerHTML, undefined);
-                    const elementX = Math.floor(tx * zoomX + (transformX - 11 * zoomX));
-                    const elementY = Math.floor(ty * zoomY + (transformY - 15 * zoomY));
-                    allActivities.forEach(activity => {
-                      const activityNumber = activity.businessObject.number;
-                      if (activityNumber === tNumber) {
-                        if ((0,_utils_mathExtensions__WEBPACK_IMPORTED_MODULE_3__.positionsMatch)(width, height, elementX, elementY, clickX, clickY)) {
-                          this.activityDoubleClick(activity, eventBus, commandStack);
-                        }
-                      }
-                    });
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    });
-    // when in replay, do not allow any interaction on the canvas
-    eventBus.on(['element.click', 'element.dblclick', 'element.mousedown', 'drag.init', 'canvas.viewbox.changing', 'autoPlace', 'popupMenu.open'], 10000000000, event => {
-      if (this.replayStateService.getReplayOn()) {
-        event.stopPropagation();
-        event.preventDefault();
-      }
-    });
-  }
-  /** Overrrides for Canvas Functions **/
-  activityDoubleClick(activity, eventBus, commandStack) {
-    const source = activity.source;
-    // ensure the right number when changing the direction of an activity
-    (0,_tool_modeler_bpmn_modeler_labeling_dsLabelEditingProvider__WEBPACK_IMPORTED_MODULE_7__.toggleStashUse)(false);
-    const config = new _angular_material_dialog__WEBPACK_IMPORTED_MODULE_24__.MatDialogConfig();
-    config.disableClose = false;
-    config.autoFocus = true;
-    if (activity.businessObject.number && source && source.type.includes(_domain_entity_common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTOR)) {
-      config.data = new _tool_modeler_domain_activityDialogData__WEBPACK_IMPORTED_MODULE_1__.ActivityDialogData(activity, (0,_tool_modeler_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_9__.getMultipleNumberRegistry)()[activity.businessObject.number], true, data => this.saveActivityInputLabel(data, eventBus, commandStack));
-    } else if (source && source.type.includes(_domain_entity_common_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.WORKOBJECT)) {
-      config.data = new _tool_modeler_domain_activityDialogData__WEBPACK_IMPORTED_MODULE_1__.ActivityDialogData(activity, false, false, activityData => this.saveActivityInputLabel(activityData, eventBus, commandStack));
-    }
-    this.dialogService.openDialog(_tool_modeler_presentation_activity_dialog_activity_dialog_component__WEBPACK_IMPORTED_MODULE_2__.ActivityDialogComponent, config);
-  }
-  saveActivityInputLabel(activityData, eventBus, commandStack) {
-    const label = activityData.activityLabel;
-    const hasNumber = activityData.activityNumber ?? false;
-    const activityNumber = activityData.activityNumber;
-    const multipleNumberAllowed = activityData.multipleNumbers ?? false;
-    const element = activityData.activity;
-    const activitiesFromActors = this.elementRegistryService.getActivitiesFromActors();
-    const index = activitiesFromActors.indexOf(element);
-    activitiesFromActors.splice(index, 1);
-    if (hasNumber) {
-      (0,_tool_modeler_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_9__.setNumberIsMultiple)(activityNumber, multipleNumberAllowed);
-    }
-    element.businessObject.multipleNumberAllowed = multipleNumberAllowed;
-    let options;
-    if (hasNumber) {
-      options = {
-        businessObject: element.businessObject,
-        newLabel: label,
-        newNumber: activityNumber,
-        element
-      };
-    } else {
-      options = {
-        businessObject: element.businessObject,
-        newLabel: label,
-        element
-      };
-    }
-    commandStack.execute('activity.changed', options);
-    if (element.businessObject.multipleNumberAllowed !== false) {
-      if ((0,_tool_modeler_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_9__.getMultipleNumberRegistry)()[activityNumber] === false) {
-        (0,_tool_modeler_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_9__.updateExistingNumbersAtEditing)(activitiesFromActors, activityNumber, eventBus);
-      }
-    } else if (element.businessObject.multipleNumberAllowed === false) {
-      (0,_tool_modeler_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_9__.updateExistingNumbersAtEditing)(activitiesFromActors, activityNumber, eventBus);
-    }
-  }
-  static #_ = this.ɵfac = function InitializerService_Factory(t) {
-    return new (t || InitializerService)(_angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_domain_service_dirty_flag_service__WEBPACK_IMPORTED_MODULE_14__.DirtyFlagService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_tool_icon_set_config_service_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_15__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_domain_service_element_registry_service__WEBPACK_IMPORTED_MODULE_16__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_tool_icon_set_config_service_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_17__.IconSetConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_tool_label_dictionary_service_label_dictionary_service__WEBPACK_IMPORTED_MODULE_18__.LabelDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_tool_replay_service_replay_state_service__WEBPACK_IMPORTED_MODULE_19__.ReplayStateService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_domain_service_dialog_service__WEBPACK_IMPORTED_MODULE_20__.DialogService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_tool_modeler_service_command_stack_service__WEBPACK_IMPORTED_MODULE_21__.CommandStackService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_tool_header_service_title_service__WEBPACK_IMPORTED_MODULE_22__.TitleService), _angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵinject"](_tool_export_service_html_presentation_service__WEBPACK_IMPORTED_MODULE_23__.HtmlPresentationService));
-  };
-  static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_25__["ɵɵdefineInjectable"]({
-    token: InitializerService,
-    factory: InitializerService.ɵfac,
-    providedIn: 'root'
-  });
-}
 
 /***/ }),
 
