@@ -8721,8 +8721,8 @@ class ImportDomainStoryService {
     this.setImportedConfigurationAndEmit(config);
   }
   showPreviousV050Dialog(version) {
-    const title = 'Compatability-Warning';
-    const text = 'The uploaded Domain-Story is from version ' + version + '. There may be problems with the default actors or workobjects contained in the story.';
+    const title = 'Old File Format Detected';
+    const text = 'You uploaded a Domain Story that was created with Egon version ' + version + '. The file format has since changed. Egon converted your Domain Story to the new format but it cannot guarantee that your Domain Story is complete.';
     const config = new _angular_material_dialog__WEBPACK_IMPORTED_MODULE_13__.MatDialogConfig();
     config.disableClose = false;
     config.autoFocus = true;
