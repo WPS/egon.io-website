@@ -4325,10 +4325,14 @@ var ElementTypes;
     return '';
   }
   ElementTypes.getIconId = getIconId;
+  // this check will give the wrong result for imported domain stories created with <= 1.3.x
+  // because the "-custom" suffix for custom icons was introduced with a later version
   function isCustomType(type) {
     return type.endsWith(ElementTypes.CUSTOM);
   }
   ElementTypes.isCustomType = isCustomType;
+  // this check will give the wrong result for imported domain stories created with <= 1.3.x
+  // because the "-custom" suffix for custom icons was introduced with a later version
   function isCustomSvgType(type) {
     return type.endsWith('_svg' + ElementTypes.CUSTOM);
   }
