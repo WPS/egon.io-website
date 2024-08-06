@@ -929,19 +929,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var inherits__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inherits */ 98069);
 /* harmony import */ var inherits__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(inherits__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var diagram_js_lib_draw_BaseRenderer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! diagram-js/lib/draw/BaseRenderer */ 14694);
+/* harmony import */ var diagram_js_lib_draw_BaseRenderer__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! diagram-js/lib/draw/BaseRenderer */ 14694);
 /* harmony import */ var ids__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ids */ 70678);
 /* harmony import */ var src_app_tools_modeler_bpmn_modeler_labeling_dsLabelEditingPreview__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/tools/modeler/bpmn/modeler/labeling/dsLabelEditingPreview */ 91889);
-/* harmony import */ var diagram_js_lib_util_RenderUtil__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! diagram-js/lib/util/RenderUtil */ 96546);
-/* harmony import */ var tiny_svg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! tiny-svg */ 57491);
-/* harmony import */ var min_dom__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! min-dom */ 73599);
-/* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! min-dash */ 81410);
+/* harmony import */ var diagram_js_lib_util_RenderUtil__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! diagram-js/lib/util/RenderUtil */ 96546);
+/* harmony import */ var tiny_svg__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! tiny-svg */ 57491);
+/* harmony import */ var min_dom__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! min-dom */ 73599);
+/* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! min-dash */ 81410);
 /* harmony import */ var src_app_tools_modeler_bpmn_modeler_labeling_dsLabelEditingProvider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/tools/modeler/bpmn/modeler/labeling/dsLabelEditingProvider */ 46604);
 /* harmony import */ var src_app_tools_modeler_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/tools/modeler/bpmn/modeler/numbering/numbering */ 33862);
 /* harmony import */ var src_app_tools_modeler_bpmn_modeler_labeling_dsLabelUtil__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/tools/modeler/bpmn/modeler/labeling/dsLabelUtil */ 5513);
 /* harmony import */ var src_app_tools_modeler_bpmn_modeler_labeling_position__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/tools/modeler/bpmn/modeler/labeling/position */ 68105);
 /* harmony import */ var src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/domain/entities/elementTypes */ 73190);
 /* harmony import */ var _utils_mathExtensions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../utils/mathExtensions */ 67858);
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./util */ 44741);
+
 
 
 
@@ -973,7 +975,7 @@ function initializeRenderer(iconDictionaryService, elementRegistryService, dirty
   _dirtyFlagService = dirtyFlagService;
 }
 function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, commandStack) {
-  diagram_js_lib_draw_BaseRenderer__WEBPACK_IMPORTED_MODULE_9__["default"].call(this, eventBus, 2000);
+  diagram_js_lib_draw_BaseRenderer__WEBPACK_IMPORTED_MODULE_10__["default"].call(this, eventBus, 2000);
   let rendererId = RENDERER_IDS.next();
   let markers = {};
   let computeStyle = styles.computeStyle;
@@ -1001,7 +1003,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
     return {
       box: box,
       fitBox: true,
-      style: (0,min_dash__WEBPACK_IMPORTED_MODULE_10__.assign)({}, textRenderer.getExternalStyle(), {
+      style: (0,min_dash__WEBPACK_IMPORTED_MODULE_11__.assign)({}, textRenderer.getExternalStyle(), {
         fill: "black",
         position: "absolute"
       })
@@ -1011,7 +1013,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
     return {
       box: box,
       fitBox: true,
-      style: (0,min_dash__WEBPACK_IMPORTED_MODULE_10__.assign)({}, textRenderer.getExternalStyle(), {
+      style: (0,min_dash__WEBPACK_IMPORTED_MODULE_11__.assign)({}, textRenderer.getExternalStyle(), {
         fill: "black",
         fontSize: 50,
         position: "absolute",
@@ -1023,7 +1025,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
     return {
       box: box,
       fitBox: true,
-      style: (0,min_dash__WEBPACK_IMPORTED_MODULE_10__.assign)({}, textRenderer.getExternalStyle(), {
+      style: (0,min_dash__WEBPACK_IMPORTED_MODULE_11__.assign)({}, textRenderer.getExternalStyle(), {
         fill: "white",
         fontSize: 150,
         position: "absolute",
@@ -1074,7 +1076,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
         return renderLabel(parentGfx, semantic.name, {
           box: box,
           fitBox: true,
-          style: (0,min_dash__WEBPACK_IMPORTED_MODULE_10__.assign)({}, textRenderer.getExternalStyle(), {
+          style: (0,min_dash__WEBPACK_IMPORTED_MODULE_11__.assign)({}, textRenderer.getExternalStyle(), {
             fill: "black",
             wordWrap: "break-word",
             overflowWrap: "break-word",
@@ -1108,16 +1110,16 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
     number = String(number);
     let text = textRenderer.createText(number || "", options);
     let height = 0;
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.classes)(text).add("djs-labelNumber");
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.classes)(text).add("djs-labelNumber");
     setCoordinates(type, text, options, height, parentGfx);
     // !IMPORTANT!
     // When converting svg-files via Inkscape or Photoshop the svg-circle is converted to a black dot that obscures the number.
     // To circumvent this, we draw an arc.
-    let circle = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.create)("path");
+    let circle = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.create)("path");
     let radius = 11;
     let x = options.box.x + 18 + (number > 9 ? 3 : 0);
     let y = options.box.y - radius + 7;
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.attr)(circle, {
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.attr)(circle, {
       d: `
       M ${x} ${y}
       m ${radius},0
@@ -1127,8 +1129,8 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
       fill: "white",
       stroke: "black"
     });
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.append)(parentGfx, circle);
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.append)(parentGfx, text);
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.append)(parentGfx, circle);
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.append)(parentGfx, text);
     return text;
   }
   // the coordinates of the activity label must be set directly and will not be taken from the box
@@ -1148,9 +1150,9 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
   function renderLabel(parentGfx, label, options, type) {
     let text = textRenderer.createText(label || "", options);
     let height = 0;
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.classes)(text).add("djs-label");
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.classes)(text).add("djs-label");
     setCoordinates(type, text, options, height, parentGfx);
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.append)(parentGfx, text);
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.append)(parentGfx, text);
     return text;
   }
   // determine the Y-coordinate of the label / number to be rendered
@@ -1178,7 +1180,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
     if (!element.businessObject.pickedColor) {
       element.businessObject.pickedColor = DEFAULT_COLOR;
     }
-    let rect = drawRect(parentGfx, element.width, element.height, 0, (0,min_dash__WEBPACK_IMPORTED_MODULE_10__.assign)({
+    let rect = drawRect(parentGfx, element.width, element.height, 0, (0,min_dash__WEBPACK_IMPORTED_MODULE_11__.assign)({
       fill: "none",
       stroke: element.businessObject.pickedColor
     }, element.attrs));
@@ -1206,10 +1208,9 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
   }
   function getIconSvg(iconSvg, element) {
     const pickedColor = element.businessObject.pickedColor;
-    let isCustomIcon = iconSvg.startsWith("data") && src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.isCustomType(element.type);
-    if (isCustomIcon) {
-      const svg = src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.isCustomSvgType(element.type) ? applyColorToCustomSvgIcon(pickedColor, iconSvg) : iconSvg;
-      return '<svg viewBox="0 0 24 24" width="48" height="48" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' + '<image width="24" height="24" xlink:href="' + svg + '"/></svg>';
+    if ((0,_util__WEBPACK_IMPORTED_MODULE_9__.isCustomIcon)(iconSvg)) {
+      const svgBase64 = src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.isCustomSvgType(element.type) ? applyColorToCustomSvgIcon(pickedColor, iconSvg) : iconSvg;
+      return '<svg viewBox="0 0 24 24" width="48" height="48" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' + '<image width="24" height="24" xlink:href="' + svgBase64 + '"/></svg>';
     } else {
       return applyColorToIcon(pickedColor, iconSvg);
     }
@@ -1221,9 +1222,9 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
     };
     let iconSRC = _iconDictionaryService.getTypeIconSRC(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.ACTOR, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.getIconId(element.type));
     iconSRC = getIconSvg(iconSRC, element);
-    let actor = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.create)(iconSRC);
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.attr)(actor, svgDynamicSizeAttributes);
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.append)(parent, actor);
+    let actor = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.create)(iconSRC);
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.attr)(actor, svgDynamicSizeAttributes);
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.append)(parent, actor);
     renderEmbeddedLabel(parent, element, "center", -5);
     return actor;
   };
@@ -1237,9 +1238,9 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
       workObject;
     let iconSRC = _iconDictionaryService.getTypeIconSRC(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.WORKOBJECT, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.getIconId(element.type));
     iconSRC = getIconSvg(iconSRC, element);
-    workObject = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.create)(iconSRC);
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.attr)(workObject, svgDynamicSizeAttributes);
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.append)(parent, workObject);
+    workObject = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.create)(iconSRC);
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.attr)(workObject, svgDynamicSizeAttributes);
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.append)(parent, workObject);
     renderEmbeddedLabel(parent, element, "center", -5);
     return workObject;
   };
@@ -1260,7 +1261,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
     adjustForTextOverlap(element);
     if (element) {
       let attrs = useColorForActivity(element);
-      let x = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.append)(p, (0,diagram_js_lib_util_RenderUtil__WEBPACK_IMPORTED_MODULE_12__.createLine)(element.waypoints, attrs));
+      let x = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.append)(p, (0,diagram_js_lib_util_RenderUtil__WEBPACK_IMPORTED_MODULE_13__.createLine)(element.waypoints, attrs));
       renderExternalLabel(p, element);
       renderExternalNumber(p, element);
       // just adjusting the start- and endpoint of the connection-element moves only the drawn connection,
@@ -1324,7 +1325,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
       strokeLinejoin: "round",
       strokeDasharray: "5, 5"
     });
-    return (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.append)(p, (0,diagram_js_lib_util_RenderUtil__WEBPACK_IMPORTED_MODULE_12__.createLine)(element.waypoints, attrs));
+    return (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.append)(p, (0,diagram_js_lib_util_RenderUtil__WEBPACK_IMPORTED_MODULE_13__.createLine)(element.waypoints, attrs));
   };
   this.drawAnnotation = function (parentGfx, element) {
     let style = {
@@ -1337,12 +1338,12 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
       if (height === 0 && element.businessObject.number) {
         height = element.businessObject.number;
       }
-      (0,min_dash__WEBPACK_IMPORTED_MODULE_10__.assign)(element, {
+      (0,min_dash__WEBPACK_IMPORTED_MODULE_11__.assign)(element, {
         height: height
       });
       // for some reason the keyword height is not exported, so we use another, which we know will be exported,
       // to ensure persistent annotation heights between sessions
-      (0,min_dash__WEBPACK_IMPORTED_MODULE_10__.assign)(element.businessObject, {
+      (0,min_dash__WEBPACK_IMPORTED_MODULE_11__.assign)(element.businessObject, {
         number: height
       });
     }
@@ -1376,16 +1377,16 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
       strokeWidth: 2,
       stroke: "black"
     });
-    let path = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.create)("path");
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.attr)(path, {
+    let path = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.create)("path");
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.attr)(path, {
       d: d
     });
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.attr)(path, attrs);
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.append)(parentGfx, path);
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.attr)(path, attrs);
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.append)(parentGfx, path);
     return path;
   }
   function drawRect(parentGfx, width, height, r, offset, attrs) {
-    if ((0,min_dash__WEBPACK_IMPORTED_MODULE_10__.isObject)(offset)) {
+    if ((0,min_dash__WEBPACK_IMPORTED_MODULE_11__.isObject)(offset)) {
       attrs = offset;
       offset = 0;
     }
@@ -1395,8 +1396,8 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
       strokeWidth: 2,
       fill: "white"
     });
-    let rect = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.create)("rect");
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.attr)(rect, {
+    let rect = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.create)("rect");
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.attr)(rect, {
       x: offset,
       y: offset,
       width: width - offset * 2,
@@ -1404,8 +1405,8 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
       rx: r,
       ry: r
     });
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.attr)(rect, attrs);
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.append)(parentGfx, rect);
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.attr)(rect, attrs);
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.append)(parentGfx, rect);
     return rect;
   }
   // marker functions
@@ -1419,8 +1420,8 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
   function createMarker(type, fill, stroke) {
     let id = type + "-" + fill + "-" + stroke + "-" + rendererId;
     if (type === "activity") {
-      let sequenceflowEnd = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.create)("path");
-      (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.attr)(sequenceflowEnd, {
+      let sequenceflowEnd = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.create)("path");
+      (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.attr)(sequenceflowEnd, {
         d: "M 1 5 L 11 10 L 1 15 Z"
       });
       addMarker(id, {
@@ -1438,7 +1439,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
     }
   }
   function addMarker(id, options) {
-    let attrs = (0,min_dash__WEBPACK_IMPORTED_MODULE_10__.assign)({
+    let attrs = (0,min_dash__WEBPACK_IMPORTED_MODULE_11__.assign)({
       fill: "black",
       strokeWidth: 1,
       strokeLinecap: "round",
@@ -1453,10 +1454,10 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
     if (attrs.strokeDasharray === "none") {
       attrs.strokeDasharray = [10000, 1];
     }
-    let marker = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.create)("marker");
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.attr)(options.element, attrs);
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.append)(marker, options.element);
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.attr)(marker, {
+    let marker = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.create)("marker");
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.attr)(options.element, attrs);
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.append)(marker, options.element);
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.attr)(marker, {
       id: id,
       viewBox: "0 0 20 20",
       refX: ref.x,
@@ -1465,22 +1466,22 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
       markerHeight: 20 * scale,
       orient: "auto"
     });
-    let defs = (0,min_dom__WEBPACK_IMPORTED_MODULE_13__.query)("defs", canvas._svg);
+    let defs = (0,min_dom__WEBPACK_IMPORTED_MODULE_14__.query)("defs", canvas._svg);
     if (!defs) {
-      defs = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.create)("defs");
-      (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.append)(canvas._svg, defs);
+      defs = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.create)("defs");
+      (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.append)(canvas._svg, defs);
     }
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.append)(defs, marker);
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.append)(defs, marker);
     markers[id] = marker;
   }
   // path functions
   this.getWorkObjectPath = function (shape) {
     let rectangle = getRectPath(shape);
-    return (0,diagram_js_lib_util_RenderUtil__WEBPACK_IMPORTED_MODULE_12__.componentsToPath)(rectangle);
+    return (0,diagram_js_lib_util_RenderUtil__WEBPACK_IMPORTED_MODULE_13__.componentsToPath)(rectangle);
   };
   this.getGroupPath = function (shape) {
     let rectangle = getRectPath(shape);
-    return (0,diagram_js_lib_util_RenderUtil__WEBPACK_IMPORTED_MODULE_12__.componentsToPath)(rectangle);
+    return (0,diagram_js_lib_util_RenderUtil__WEBPACK_IMPORTED_MODULE_13__.componentsToPath)(rectangle);
   };
   this.getActivityPath = function (connection) {
     let waypoints = connection.waypoints.map(function (p) {
@@ -1492,14 +1493,14 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
         activityPath.push(["L", waypoint.x, waypoint.y]);
       }
     });
-    return (0,diagram_js_lib_util_RenderUtil__WEBPACK_IMPORTED_MODULE_12__.componentsToPath)(activityPath);
+    return (0,diagram_js_lib_util_RenderUtil__WEBPACK_IMPORTED_MODULE_13__.componentsToPath)(activityPath);
   };
   this.getActorPath = function (shape) {
     let rectangle = getRectPath(shape);
-    return (0,diagram_js_lib_util_RenderUtil__WEBPACK_IMPORTED_MODULE_12__.componentsToPath)(rectangle);
+    return (0,diagram_js_lib_util_RenderUtil__WEBPACK_IMPORTED_MODULE_13__.componentsToPath)(rectangle);
   };
 }
-inherits__WEBPACK_IMPORTED_MODULE_0___default()(DomainStoryRenderer, diagram_js_lib_draw_BaseRenderer__WEBPACK_IMPORTED_MODULE_9__["default"]);
+inherits__WEBPACK_IMPORTED_MODULE_0___default()(DomainStoryRenderer, diagram_js_lib_draw_BaseRenderer__WEBPACK_IMPORTED_MODULE_10__["default"]);
 DomainStoryRenderer.$inject = ["eventBus", "styles", "canvas", "textRenderer", "pathMap", "commandStack"];
 DomainStoryRenderer.prototype.canRender = function (element) {
   return /^domainStory:/.test(element.type);
@@ -3730,6 +3731,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   getBusinessObject: () => (/* binding */ getBusinessObject),
 /* harmony export */   is: () => (/* binding */ is),
 /* harmony export */   isAny: () => (/* binding */ isAny),
+/* harmony export */   isCustomIcon: () => (/* binding */ isCustomIcon),
 /* harmony export */   reworkGroupElements: () => (/* binding */ reworkGroupElements),
 /* harmony export */   undoGroupRework: () => (/* binding */ undoGroupRework)
 /* harmony export */ });
@@ -3771,6 +3773,10 @@ function undoGroupRework(parent, shape) {
   const svgGroupParent = svgGroup.parentElement.parentElement;
   svgGroup.removeChild(svgShape);
   svgGroupParent.appendChild(svgShape);
+}
+function isCustomIcon(iconSvg) {
+  // custom icons are provided as "Data URL" with a base64-encoded image as payload
+  return iconSvg.startsWith("data");
 }
 
 /***/ }),
