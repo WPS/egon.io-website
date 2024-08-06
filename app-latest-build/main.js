@@ -4107,7 +4107,7 @@ class AppModule {
       deps: [_domain_services_dirty_flag_service__WEBPACK_IMPORTED_MODULE_24__.DirtyFlagService, src_app_tools_icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_17__.IconDictionaryService, src_app_tools_icon_set_config_services_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_11__.IconSetConfigurationService, src_app_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_10__.ElementRegistryService, src_app_tools_label_dictionary_services_label_dictionary_service__WEBPACK_IMPORTED_MODULE_8__.LabelDictionaryService]
     }, {
       provide: _tools_icon_set_config_services_icon_set_customization_service__WEBPACK_IMPORTED_MODULE_26__.IconSetChangedService,
-      useClass: src_app_tools_import_services_import_domain_story_service__WEBPACK_IMPORTED_MODULE_4__.ImportDomainStoryService
+      useExisting: src_app_tools_import_services_import_domain_story_service__WEBPACK_IMPORTED_MODULE_4__.ImportDomainStoryService
     }],
     imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_30__.BrowserModule, _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_31__.NoopAnimationsModule, _angular_forms__WEBPACK_IMPORTED_MODULE_28__.ReactiveFormsModule, src_app_workbench_presentation_settings_settings_module__WEBPACK_IMPORTED_MODULE_19__.SettingsModule, _workbench_presentation_header_domain_story_modeler_module_module__WEBPACK_IMPORTED_MODULE_21__.DomainStoryModelerModuleModule, _material_module__WEBPACK_IMPORTED_MODULE_23__.MaterialModule, ngx_color_picker__WEBPACK_IMPORTED_MODULE_32__.ColorPickerModule]
   });
@@ -7704,7 +7704,7 @@ class IconDictionaryService {
   addNewIconsToDictionary(customIcons) {
     customIcons.keysArray().forEach(key => {
       const custom = customIcons.get(key);
-      this.addIMGToIconDictionary(custom.src, key);
+      this.addIMGToIconDictionary(custom, key);
     });
     this.addIconsToCss(customIcons);
   }
@@ -8088,7 +8088,7 @@ class IconSetCustomizationService {
     if (storedIconSetConfiguration) {
       this.importConfiguration(storedIconSetConfiguration, false);
     }
-    const importedConfiguration = this.iconSetConfigurationService.getCurrentConfiguration();
+    const importedConfiguration = iconSetChangedService.getConfiguration();
     if (importedConfiguration) {
       this.importConfiguration(importedConfiguration, false);
     }
@@ -8577,10 +8577,7 @@ class ImportDomainStoryService {
   iconConfigrationChanged() {
     return this.importedConfigurationEmitter.asObservable();
   }
-  get importedConfigurationEvent() {
-    return this.importedConfigurationEmitter.asObservable();
-  }
-  getImportedConfiguration() {
+  getConfiguration() {
     const config = {
       name: this.importedConfiguration?.name || '',
       actors: this.importedConfiguration?.actors || new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__.Dictionary(),
