@@ -469,8 +469,9 @@ function DomainStoryContextPadProvider(injector, connect, translate, elementFact
     startConnect = function (event, element, autoActivate) {
       connect.start(event, element, autoActivate);
     };
+    let canBeColored = !src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.isCustomType(element.type) || src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.isCustomSvgType(element.type);
     if (element.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.WORKOBJECT)) {
-      if (!src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.isCustomType(element.type) || src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.isCustomSvgType(element.type)) {
+      if (canBeColored) {
         addColorChange(actions);
       }
       addConnectWithActivity(actions, startConnect);
@@ -479,7 +480,7 @@ function DomainStoryContextPadProvider(injector, connect, translate, elementFact
       addWorkObjects(appendAction, actions);
       addChangeWorkObjectTypeMenu(actions);
     } else if (element.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTOR)) {
-      if (!src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.isCustomType(element.type) || src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.isCustomSvgType(element.type)) {
+      if (canBeColored) {
         addColorChange(actions);
       }
       addConnectWithActivity(actions, startConnect);
@@ -3774,9 +3775,10 @@ function undoGroupRework(parent, shape) {
   svgGroup.removeChild(svgShape);
   svgGroupParent.appendChild(svgShape);
 }
-function isCustomIcon(iconSvg) {
+function isCustomIcon(icon) {
+  // default icons are provided as SVG
   // custom icons are provided as "Data URL" with a base64-encoded image as payload
-  return iconSvg.startsWith("data");
+  return icon.startsWith("data");
 }
 
 /***/ }),
