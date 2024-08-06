@@ -1207,13 +1207,13 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
       return iconSvg.substring(0, index) + ' fill=" ' + pickedColor + '" ' + iconSvg.substring(index);
     }
   }
-  function getIconSvg(iconSvg, element) {
+  function getIconSvg(icon, element) {
     const pickedColor = element.businessObject.pickedColor;
-    if ((0,_util__WEBPACK_IMPORTED_MODULE_9__.isCustomIcon)(iconSvg)) {
-      const svgBase64 = src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.isCustomSvgType(element.type) ? applyColorToCustomSvgIcon(pickedColor, iconSvg) : iconSvg;
-      return '<svg viewBox="0 0 24 24" width="48" height="48" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' + '<image width="24" height="24" xlink:href="' + svgBase64 + '"/></svg>';
+    if ((0,_util__WEBPACK_IMPORTED_MODULE_9__.isCustomIcon)(icon)) {
+      const dataURL = src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.isCustomSvgType(element.type) ? applyColorToCustomSvgIcon(pickedColor, icon) : icon;
+      return '<svg viewBox="0 0 24 24" width="48" height="48" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' + '<image width="24" height="24" xlink:href="' + dataURL + '"/></svg>';
     } else {
-      return applyColorToIcon(pickedColor, iconSvg);
+      return applyColorToIcon(pickedColor, icon);
     }
   }
   this.drawActor = function (parent, element) {
