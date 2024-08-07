@@ -10336,6 +10336,10 @@ function sanitizeForDesktop(str) {
   return str ? str.replace(reg, match => map[match]) : '';
 }
 function sanitizeIconName(name) {
+  if (!name) {
+    return '';
+  }
+  let nameWithoutFileEnding = name.lastIndexOf('.') > 0 ? name.substring(0, name.lastIndexOf('.')) : name;
   const map = {
     '/': '',
     '\\': '',
@@ -10348,13 +10352,10 @@ function sanitizeIconName(name) {
     '|': '',
     '(': '',
     ')': '',
-    ' ': '-',
-    '.': '_'
+    ' ': '-'
   };
-  const reg = /[/\\:*?"<>|() .]/gi;
-  return name ? name.replace(reg, match => {
-    return map[match];
-  }) : '';
+  const reg = /[/\\:*?"<>|() ]/gi;
+  return nameWithoutFileEnding.trim().replace(reg, match => map[match]);
 }
 
 /***/ }),
