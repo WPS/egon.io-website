@@ -10684,7 +10684,7 @@ function HeaderComponent_Conditional_13_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵtextInterpolate1"](" Sentence: ", _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵpipeBind1"](2, 1, ctx_r1.sentenceDescription$), "");
   }
 }
-function HeaderComponent_Conditional_18_Template(rf, ctx) {
+function HeaderComponent_Conditional_19_Template(rf, ctx) {
   if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵelementStart"](0, "mat-card", 10)(1, "span", 14);
     _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵtext"](2);
@@ -10768,9 +10768,9 @@ class HeaderComponent {
   static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵdefineComponent"]({
     type: HeaderComponent,
     selectors: [["app-header"]],
-    decls: 20,
-    vars: 21,
-    consts: [["color", "primary"], ["title", "Hide Description", 1, "headerButton"], ["title", "Show Description", 1, "headerButton"], [1, "mr-10", "titel-scrollbar"], ["title", "Edit Title and Description", 1, "headline", 3, "click"], [1, "material-icons", "materialIconButton", "editIcon"], [1, "titleSpacer"], ["title", "Replay Sentence"], [1, "buttonSpacer"], [1, "nowrap", 3, "import", "openSettings", "startReplay", "stopReplay", "nextSentence", "previousSentence", "newStory", "showKeyboardShortCuts", "openLabelDictionary", "openDownloadDialog", "hasDomainStory", "hasTitle", "isDirty", "isReplayable"], [1, "smallScrollbar", "description"], ["title", "Hide Description", 1, "headerButton", 3, "click"], [1, "material-icons", "materialIconButton", "toggle"], ["title", "Show Description", 1, "headerButton", 3, "click"], [1, "descriptionText"]],
+    decls: 21,
+    vars: 24,
+    consts: [["color", "primary"], ["title", "Hide Description", 1, "headerButton"], ["title", "Show Description", 1, "headerButton"], [1, "mr-10", "titel-scrollbar"], ["title", "Edit Title and Description", 1, "headline", 3, "click"], [1, "material-icons", "materialIconButton", "editIcon"], [1, "titleSpacer"], ["title", "Replay Sentence"], [1, "buttonSpacer"], [1, "nowrap", 3, "import", "openSettings", "startReplay", "stopReplay", "nextSentence", "previousSentence", "newStory", "showKeyboardShortCuts", "openLabelDictionary", "openDownloadDialog", "hasDomainStory", "hasTitle", "isDirty", "isReplayable", "isReplaying"], [1, "smallScrollbar", "description"], ["title", "Hide Description", 1, "headerButton", 3, "click"], [1, "material-icons", "materialIconButton", "toggle"], ["title", "Show Description", 1, "headerButton", 3, "click"], [1, "descriptionText"]],
     template: function HeaderComponent_Template(rf, ctx) {
       if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵelementStart"](0, "mat-toolbar", 0)(1, "mat-toolbar-row");
@@ -10793,6 +10793,7 @@ class HeaderComponent {
         _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵelement"](15, "span", 8);
         _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵelementStart"](16, "app-header-buttons", 9);
         _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵpipe"](17, "async");
+        _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵpipe"](18, "async");
         _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵlistener"]("import", function HeaderComponent_Template_app_header_buttons_import_16_listener() {
           return ctx.onImport();
         })("openSettings", function HeaderComponent_Template_app_header_buttons_openSettings_16_listener() {
@@ -10815,22 +10816,22 @@ class HeaderComponent {
           return ctx.openDownloadDialog();
         });
         _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵelementEnd"]()()();
-        _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵtemplate"](18, HeaderComponent_Conditional_18_Template, 4, 3, "mat-card", 10);
-        _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵpipe"](19, "async");
+        _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵtemplate"](19, HeaderComponent_Conditional_19_Template, 4, 3, "mat-card", 10);
+        _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵpipe"](20, "async");
       }
       if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵconditional"](2, _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵpipeBind1"](3, 9, ctx.showDescription) ? 2 : -1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵconditional"](2, _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵpipeBind1"](3, 10, ctx.showDescription) ? 2 : -1);
         _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵconditional"](4, !_angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵpipeBind1"](5, 11, ctx.showDescription) ? 4 : -1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵconditional"](4, !_angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵpipeBind1"](5, 12, ctx.showDescription) ? 4 : -1);
         _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵadvance"](4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵpipeBind1"](9, 13, ctx.title$), " ");
+        _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵpipeBind1"](9, 14, ctx.title$), " ");
         _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵadvance"](5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵconditional"](13, _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵpipeBind1"](14, 15, ctx.isReplay$) ? 13 : -1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵconditional"](13, _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵpipeBind1"](14, 16, ctx.isReplay$) ? 13 : -1);
         _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵadvance"](3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵproperty"]("hasDomainStory", ctx.hasDomainStory)("hasTitle", ctx.hasTitle)("isDirty", _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵpipeBind1"](17, 17, ctx.isDirty$))("isReplayable", ctx.isReplayable);
-        _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵconditional"](18, _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵpipeBind1"](19, 19, ctx.showDescription$) ? 18 : -1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵproperty"]("hasDomainStory", ctx.hasDomainStory)("hasTitle", ctx.hasTitle)("isDirty", _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵpipeBind1"](17, 18, ctx.isDirty$))("isReplayable", ctx.isReplayable)("isReplaying", _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵpipeBind1"](18, 20, ctx.isReplay$));
+        _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵadvance"](3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵconditional"](19, _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵpipeBind1"](20, 22, ctx.showDescription$) ? 19 : -1);
       }
     },
     dependencies: [_header_buttons_header_buttons_component__WEBPACK_IMPORTED_MODULE_9__.HeaderButtonsComponent, _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_13__.MatToolbar, _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_13__.MatToolbarRow, _angular_material_card__WEBPACK_IMPORTED_MODULE_14__.MatCard, _angular_common__WEBPACK_IMPORTED_MODULE_15__.AsyncPipe],
