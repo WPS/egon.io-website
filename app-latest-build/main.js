@@ -6373,7 +6373,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   allIcons: () => (/* binding */ allIcons),
 /* harmony export */   appendedIcons: () => (/* binding */ appendedIcons),
 /* harmony export */   getAllStandardIconKeys: () => (/* binding */ getAllStandardIconKeys),
-/* harmony export */   overrideAppendedIcons: () => (/* binding */ overrideAppendedIcons)
+/* harmony export */   overrideAppendedIcons: () => (/* binding */ overrideAppendedIcons),
+/* harmony export */   updateAppendedIcons: () => (/* binding */ updateAppendedIcons)
 /* harmony export */ });
 /* harmony import */ var src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/domain/entities/dictionary */ 20843);
 
@@ -6479,6 +6480,11 @@ function getAllStandardIconKeys() {
 function overrideAppendedIcons(newIcons) {
   appendedIcons = newIcons;
 }
+function updateAppendedIcons(newIcons) {
+  for (const key in newIcons.keysArray().entries()) {
+    appendedIcons.add(newIcons.get(key), key);
+  }
+}
 
 /***/ }),
 
@@ -6531,7 +6537,7 @@ class IconConfiguration {
     Object.keys(newAppendedIcons).forEach(key => {
       appen.set(key, newAppendedIcons[key]);
     });
-    (0,src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_1__.overrideAppendedIcons)(appen);
+    (0,src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_1__.updateAppendedIcons)(appen);
   }
   createCustomConf(iconSetConfiguration) {
     this.domainName = iconSetConfiguration.name;
