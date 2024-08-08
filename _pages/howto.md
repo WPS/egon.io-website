@@ -112,11 +112,17 @@ To adapt the icon set to your domain, click on ![Gear Button](/assets/images/but
 - Egon comes with built-in icons. Select which ones want in your pallette. An icon can either be used as work object **or** as actor. 
 - Use drag&drop to change the order in which the selected icons appear in the pallette.
 
-You can share your icon set with other users by exporting it as `.domain` file. We recommend to name your icon set before you export it (e.g., use the name of the domain or sub-domain that you are modeling). Other users can then import your `.domain` file. This is also useful if you model a lot of different domains and want to switch between different icon sets.
+You can share your icon set with other users by exporting it as `.iconset` file. We recommend to name your icon set before you export it (e.g., use the name of the domain or sub-domain that you are modeling). Other users can then import your `.iconset` file. This is also useful if you model a lot of different domains and want to switch between different icon sets.
 
-If you import a Domain Story from a `.egn` or `.egn.svg` file, your icon set will change automatically to the one with which the Domain Story was created -- even if you do not have the corresponding `.domain` file.
+If you import a Domain Story from a `.egn` or `.egn.svg` file, your icon set will change automatically to the one with which the Domain Story was created -- even if you do not have the corresponding `.iconset` file.
 
-In addition to the built-in icons, you can upload your own icons and then select them. Different image formats are allowed, but you will achieve best results with SVG because it is scalable (like the icons that come with the modeler). Also, we recommend to use square images because they look better in the pallet and the context pad. If you want a consistent look, consider using the same icon set that we use for the predefined icons—[Google's Material icons](https://fonts.google.com/icons?icon.set=Material+Icons).
+In addition to the built-in icons, you can upload your own icons and then select them as actors or work objects. 
+
+> We strongly recommend to use square SVG images for icons.
+ 
+Other image formats are allowed as well, but only SVG can be colored and it can be zoomed without getting pixelated. Square images look better in the pallet and the context pad. 
+
+If you want a consistent look, consider using the same icon set that we use for the predefined icons—[Google's Material icons](https://fonts.google.com/icons?icon.set=Material+Icons).
 
 ## Touch Support
 
