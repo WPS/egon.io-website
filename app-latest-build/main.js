@@ -469,20 +469,15 @@ function DomainStoryContextPadProvider(injector, connect, translate, elementFact
     startConnect = function (event, element, autoActivate) {
       connect.start(event, element, autoActivate);
     };
-    let canBeColored = !src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.isCustomType(element.type) || src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.isCustomSvgType(element.type);
     if (element.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.WORKOBJECT)) {
-      if (canBeColored) {
-        addColorChange(actions);
-      }
+      addColorChange(actions);
       addConnectWithActivity(actions, startConnect);
       addTextAnnotation(actions);
       addActors(appendAction, actions);
       addWorkObjects(appendAction, actions);
       addChangeWorkObjectTypeMenu(actions);
     } else if (element.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTOR)) {
-      if (canBeColored) {
-        addColorChange(actions);
-      }
+      addColorChange(actions);
       addConnectWithActivity(actions, startConnect);
       addTextAnnotation(actions);
       addWorkObjects(appendAction, actions);
@@ -1210,7 +1205,14 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
   function getIconSvg(icon, element) {
     const pickedColor = element.businessObject.pickedColor;
     if ((0,_util__WEBPACK_IMPORTED_MODULE_9__.isCustomIcon)(icon)) {
-      const dataURL = src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.isCustomSvgType(element.type) ? applyColorToCustomSvgIcon(pickedColor, icon) : icon;
+      let dataURL;
+      if ((0,_util__WEBPACK_IMPORTED_MODULE_9__.isCustomSvgIcon)(icon)) {
+        dataURL = applyColorToCustomSvgIcon(pickedColor, icon);
+      } else {
+        dataURL = icon;
+        // show info message: Only SVG icons can be colored
+      }
+
       return '<svg viewBox="0 0 24 24" width="48" height="48" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' + '<image width="24" height="24" xlink:href="' + dataURL + '"/></svg>';
     } else {
       return applyColorToIcon(pickedColor, icon);
@@ -3733,6 +3735,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   is: () => (/* binding */ is),
 /* harmony export */   isAny: () => (/* binding */ isAny),
 /* harmony export */   isCustomIcon: () => (/* binding */ isCustomIcon),
+/* harmony export */   isCustomSvgIcon: () => (/* binding */ isCustomSvgIcon),
 /* harmony export */   reworkGroupElements: () => (/* binding */ reworkGroupElements),
 /* harmony export */   undoGroupRework: () => (/* binding */ undoGroupRework)
 /* harmony export */ });
@@ -3779,6 +3782,11 @@ function isCustomIcon(icon) {
   // default icons are provided as SVG
   // custom icons are provided as "Data URL" with a base64-encoded image as payload
   return icon.startsWith("data");
+}
+function isCustomSvgIcon(icon) {
+  // default icons are provided as SVG
+  // custom icons are provided as "Data URL" with a base64-encoded image as payload
+  return icon.startsWith("data:image/svg");
 }
 
 /***/ }),
@@ -4347,7 +4355,6 @@ var ElementTypes;
   ElementTypes["GROUP"] = "domainStory:group";
   ElementTypes["TEXTANNOTATION"] = "domainStory:textAnnotation";
   ElementTypes["DOMAINSTORY"] = "domainStory:";
-  ElementTypes["CUSTOM"] = "-custom";
 })(ElementTypes || (ElementTypes = {}));
 (function (ElementTypes) {
   function getIconId(type) {
@@ -4359,18 +4366,6 @@ var ElementTypes;
     return '';
   }
   ElementTypes.getIconId = getIconId;
-  // this check will give the wrong result for imported domain stories created with <= 1.3.x
-  // because the "-custom" suffix for custom icons was introduced with a later version
-  function isCustomType(type) {
-    return type.endsWith(ElementTypes.CUSTOM);
-  }
-  ElementTypes.isCustomType = isCustomType;
-  // this check will give the wrong result for imported domain stories created with <= 1.3.x
-  // because the "-custom" suffix for custom icons was introduced with a later version
-  function isCustomSvgType(type) {
-    return type.endsWith('_svg' + ElementTypes.CUSTOM);
-  }
-  ElementTypes.isCustomSvgType = isCustomSvgType;
 })(ElementTypes || (ElementTypes = {}));
 
 /***/ }),
@@ -6898,7 +6893,7 @@ class IconSetConfigurationComponent {
     for (let iconInputFile of files) {
       const reader = new FileReader();
       const name = (0,src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_1__.sanitizeIconName)(iconInputFile.name);
-      const iconName = name + _domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.CUSTOM;
+      const iconName = name + '-custom'; // this suffix helps users to see which icons they uploaded; it should not be used to check if an icon is actually custom or not since this convention was introduce after v1.3.0 and is therefore not reliable information
       reader.onloadend = e => {
         if (e.target) {
           const src = e.target.result;
