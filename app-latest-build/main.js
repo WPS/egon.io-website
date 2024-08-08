@@ -1194,9 +1194,9 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
     return rest + "base64," + encodedColoredSvg;
   }
   function applyColorToIcon(pickedColor = DEFAULT_COLOR, iconSvg) {
-    const match = iconSvg.match(/fill[=:]/);
-    if (match && match.length > 0) {
-      return iconSvg.replaceAll(/fill="(?!none).*?"/g, `fill="${pickedColor}"`).replaceAll(/fill:\s*#\w*[; ]/g, `fill:${pickedColor}`);
+    const match = iconSvg.match(/fill=\s*"(?!none).*?"|fill:\s*[#r]\w*[;\s]{1}/);
+    if (match && match.some(it => it)) {
+      return iconSvg.replaceAll(/fill=\s*"(?!none).*?"/g, `fill="${pickedColor} "`).replaceAll(/fill:\s*[#r]\w*[;\s]{1}/g, `fill:${pickedColor};`);
     } else {
       const index = iconSvg.indexOf("<svg ") + 5;
       return iconSvg.substring(0, index) + ' fill=" ' + pickedColor + '" ' + iconSvg.substring(index);
