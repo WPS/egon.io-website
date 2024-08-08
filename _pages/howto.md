@@ -8,7 +8,7 @@ toc_sticky: true
 
 ## Introduction
 
-Egon is a tool speficially designed to model Domain Stories. It is **not** a general purpose drwagin tool. That means that it implements the grammatical rules of [Domain Storytelling](https://domainstorytelling.org/). 
+Egon is a tool specifically designed to model Domain Stories. It is **not** a general purpose drawing tool. That means that it implements the grammatical rules of [Domain Storytelling](https://domainstorytelling.org/). 
 
 There is no login or registration required to use Egon. Egon runs completely in your browser and it does not save your data in the cloud.
 
@@ -35,7 +35,7 @@ Left of the title is an arrow button that lets you hide the description to gain 
 
 ![The palette for a cinema domain](/assets/images/screenshots/palette.png){:height="100px" width="100px" .align-right}
 
-The pallete consist of four sections that contain (from top to bottom):
+The palette consist of four sections that contain (from top to bottom):
 -  The icons that are available as *actors*.
 -  The icons that are available as *work objects*.
 -  A rectangular shape to create *groups* of actors and work objects
@@ -43,7 +43,7 @@ The pallete consist of four sections that contain (from top to bottom):
       - The lasso tool lets you select several icons at once to move them easily.
       - The space tool creates or removes space. Click and drag the crosshair to the right or down to create space, or drag to the left or to the top to remove space.
 
-To add an actor, work object, or group to the canvas, click on it and then click again on an empty part of the canvas. On the canvaes, Egon will draw the icons for actors larger than the ones for work objects so that is easier to distinguish them.
+To add an actor, work object, or group to the canvas, click on it and then click again on an empty part of the canvas. On the canvas, Egon will draw the icons for actors larger than the ones for work objects so that is easier to distinguish them.
 
 Annotations and activities can only be created from the context menu (see next section).
 
@@ -56,11 +56,11 @@ If you have added an actor or work object to the canvas, or if you click on an e
 - Top section:
   - *Wrench*: Change the icon to another the icon. Note: You cannot change the type (e.g., turn a work object into an actor).
   - *Trash bin*: Delete the actor/work object.
-  - *Color palette*: Change the color of the icon.
+  - *Color palette*: Change the color of the icon (only works with built-in icons and custom SVG icons, see below).
 - Middle section:
   - *Arrow*: Connect two icons with an arrow that represents an *activity*. A sequence number will be added to the activity automatically if the arrow starts from an actor.
   - *Annotation*: Add comments to actors and work objects.
-- Bottom section: If you add an icon from this pallete to the canvas, an arrow will be created automatically, connecting the selected actor/work object with the newly created one.
+- Bottom section: If you add an icon from this palette to the canvas, an arrow will be created automatically, connecting the selected actor/work object with the newly created one.
 
 ## Naming Actors and Work Objects
 
@@ -74,13 +74,13 @@ If you want to model activities that happen simultaneously, check  the "multiple
 
 ## Renaming Multiple Work Objects or Activities
 
-To rename multiple work objects or activities, click the dictionary button ![Dictionary Button](/assets/images/buttons/spellcheck.png). Actors cannot be renamed in the dictionary because they ususally appear only once per Domain Story.
+To rename multiple work objects or activities, click the dictionary button ![Dictionary Button](/assets/images/buttons/spellcheck.png). Actors cannot be renamed in the dictionary because they usually appear only once per Domain Story.
 
 ## Exporting and Importing Domain Stories
 
 To save your Domain Story, download it as a file by clicking the export button ![Export Button](/assets/images/buttons/archive.png). The following file formats are available:
 
-- `.egn`: A text file that contains the "source code" of your Domain Story. It can later be importet by you or other Egon users. Egon uses the JSON format and produces files that are propely formatted. This makes it easy to keep track of changes when the files are kept in a source code repository like *git*.
+- `.egn`: A text file that contains the "source code" of your Domain Story. It can later be imported by you or other Egon users. Egon uses the JSON format and produces files that are properly formatted. This makes it easy to keep track of changes when the files are kept in a source code repository like *git*.
 - `.egn.svg`: A scalable image. Great for adding your Domain Story in collaborative whiteboards like Miro. This image also contains an embedded `.dst` file.
 - `.png`: An image, e.g. for embedding in documents.
 - `.html`: A presentation that lets people replay the story in their browser without the need of using Egon.
