@@ -4318,24 +4318,6 @@ class Dictionary {
     const found = this.entries.filter(entry => entry.key === key);
     return found[0] ? found[0].value : null;
   }
-  sort(fn) {
-    this.entries.sort(fn);
-  }
-  sortByName() {
-    this.entries.sort((a, b) => {
-      if (a.key.includes('_custom') == b.key.includes('_custom')) {
-        if (a.key < b.key) return -1;else {
-          return 1;
-        }
-      } else {
-        if (a.key.includes('_custom')) {
-          return -1;
-        } else {
-          return 1;
-        }
-      }
-    });
-  }
 }
 class Entry {
   constructor(value, key) {
@@ -6873,17 +6855,7 @@ class IconSetConfigurationComponent {
     });
   }
   sortByName(a, b) {
-    if (a.includes('_custom') == b.includes('_custom')) {
-      if (a < b) return -1;else {
-        return 1;
-      }
-    } else {
-      if (a.includes('_custom')) {
-        return -1;
-      } else {
-        return 1;
-      }
-    }
+    return a.toLowerCase().localeCompare(b.toLowerCase());
   }
   /** Default Icon Set **/
   loadMinimalIconConfigurationWithDefaultIcons() {
