@@ -9003,8 +9003,9 @@ function LabelDictionaryComponent_For_13_Template(rf, ctx) {
   }
 }
 class LabelDictionaryComponent {
-  constructor(labelDictionaryService) {
+  constructor(labelDictionaryService, cd) {
     this.labelDictionaryService = labelDictionaryService;
+    this.cd = cd;
     this.closeEmitter = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.EventEmitter();
     this.labelDictionaryService.createLabelDictionaries();
     this.workObjectEntries = this.labelDictionaryService.getWorkObjectLabels();
@@ -9016,6 +9017,7 @@ class LabelDictionaryComponent {
     this.labelDictionaryService.createLabelDictionaries();
     this.workobjectEntriesSubject.next(this.labelDictionaryService.getWorkObjectLabels());
     this.activityEntriesSubject.next(this.labelDictionaryService.getActivityLabels());
+    this.cd.detectChanges();
   }
   save() {
     this.workObjectEntries = this.workobjectEntriesSubject.value;
@@ -9062,7 +9064,7 @@ class LabelDictionaryComponent {
     this.closeEmitter.emit();
   }
   static #_ = this.ɵfac = function LabelDictionaryComponent_Factory(t) {
-    return new (t || LabelDictionaryComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_services_label_dictionary_service__WEBPACK_IMPORTED_MODULE_0__.LabelDictionaryService));
+    return new (t || LabelDictionaryComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_services_label_dictionary_service__WEBPACK_IMPORTED_MODULE_0__.LabelDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_1__.ChangeDetectorRef));
   };
   static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({
     type: LabelDictionaryComponent,
