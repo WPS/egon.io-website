@@ -10,7 +10,7 @@ toc_sticky: true
 
 Note: Yet to be released changes appear here.
 
-## v2.0.0-beta (1-7)
+## v2.0.0
 - `Feature`: The description in the headline can be collapsed to give you more modeling space on the canvas. See [User Guide](https://egon.io/howto#headline).
 - `Feature`: The `.egn`file export uses a stringified format.  That makes it easier to keep your exported Domain Stories in source code repositories and diff changes. 
 - `Feature`: Auto-save prevents losing a Domain Story because of browser crashes or accidentally closing your browser. See [User Guide](https://egon.io/howto#auto-save-and-creating-new-domain-stories).

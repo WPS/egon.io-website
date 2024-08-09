@@ -18,7 +18,7 @@ excerpt: "A lightweight tool to support [*Domain Storytelling*](https://domainst
 [Domain Storytelling](https://domainstorytelling.org) is a collaborative, visual, and agile way to build domain-driven software. Egon.io is a lightweight tool to support it.
 
 [<i class="fas fa-play"></i> Use V1 Online](app-v1){: .btn .btn--primary .btn--x-large}
-[<i class="fas fa-play"></i> Use BETA V2 Online](app-v2){: .btn .btn--primary .btn--x-large}
+[<i class="fas fa-play"></i> Use V2 Online](app-v2){: .btn .btn--primary .btn--x-large}
 [<i class="fas fa-play"></i> Use the latest build Online](app-latest){: .btn .btn--primary .btn--x-large}
 [<i class="fas fa-book"></i> Changelog](/changelog){: .btn .btn--info .btn--x-large}
 [<i class="fas fa-code"></i> Source](https://github.com/WPS/domain-story-modeler){: .btn .btn--info .btn--x-large}
