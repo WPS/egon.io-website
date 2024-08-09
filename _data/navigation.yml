@@ -1,7 +1,5 @@
 main:
   - title: "Home"
     url: /
-  - title: "User Guide (v2)"
+  - title: "User Guide"
     url: /howto
-  - title: "User Guide (v1)"
-    url: /howto_v1

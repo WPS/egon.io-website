@@ -20,5 +20,9 @@ Note: Yet to be released changes appear here.
 - `Fix`: On Linux, sequence numbers are now displayed as circles (like on Windows and Mac).
 - `Fix`: Improved cropping for image exports.
 
+If you have used one of the `v2.0.0-beta` versions or the latest build (`v2.x.x.-dev`), we recommend clearing your local browser storage and then reloading the page. This will reset your icon configuration to default and delete the automatically saved drafts. Instructions:
+- [Firefox](https://support.mozilla.org/en-US/kb/clear-cookies-and-site-data-firefox#w_clear-cookies-for-the-current-website)
+- Chrome: In the address bar, click the button in the left corner (*show website information*), then *cookies and website date*, *manage website data*, and delete the data for egon.io.
+
 ## v1.5.1
 The changelog for this version and previous releases can be found on [GitHub](https://github.com/WPS/egon.io/releases)
