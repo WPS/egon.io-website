@@ -735,12 +735,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ DomainStoryElementFactory)
 /* harmony export */ });
-/* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! min-dash */ 81410);
+/* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! min-dash */ 81410);
 /* harmony import */ var inherits__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inherits */ 98069);
 /* harmony import */ var inherits__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(inherits__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var bpmn_js_lib_features_modeling_ElementFactory__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! bpmn-js/lib/features/modeling/ElementFactory */ 5557);
-/* harmony import */ var bpmn_js_lib_util_LabelUtil__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! bpmn-js/lib/util/LabelUtil */ 81454);
+/* harmony import */ var bpmn_js_lib_features_modeling_ElementFactory__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! bpmn-js/lib/features/modeling/ElementFactory */ 5557);
+/* harmony import */ var bpmn_js_lib_util_LabelUtil__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! bpmn-js/lib/util/LabelUtil */ 81454);
 /* harmony import */ var _domainStoryIdFactory__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./domainStoryIdFactory */ 43331);
+/* harmony import */ var src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/domain/entities/elementTypes */ 73190);
+
 
 
 
@@ -752,7 +754,7 @@ __webpack_require__.r(__webpack_exports__);
  * A custom factory that knows how to create BPMN _and_ custom elements.
  */
 function DomainStoryElementFactory(bpmnFactory, moddle) {
-  bpmn_js_lib_features_modeling_ElementFactory__WEBPACK_IMPORTED_MODULE_2__["default"].call(this, bpmnFactory, moddle);
+  bpmn_js_lib_features_modeling_ElementFactory__WEBPACK_IMPORTED_MODULE_3__["default"].call(this, bpmnFactory, moddle);
   let self = this;
   let domainStoryIdFactory = new _domainStoryIdFactory__WEBPACK_IMPORTED_MODULE_1__["default"]();
   /**
@@ -766,9 +768,9 @@ function DomainStoryElementFactory(bpmnFactory, moddle) {
   this.create = function (elementType, attrs) {
     let type = attrs.type;
     if (elementType === "label") {
-      return self.baseCreate(elementType, (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)({
+      return self.baseCreate(elementType, (0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)({
         type: "label"
-      }, bpmn_js_lib_util_LabelUtil__WEBPACK_IMPORTED_MODULE_4__.DEFAULT_LABEL_SIZE, attrs));
+      }, bpmn_js_lib_util_LabelUtil__WEBPACK_IMPORTED_MODULE_5__.DEFAULT_LABEL_SIZE, attrs));
     }
     // add type to businessObject if custom
     if (/^domainStory:/.test(type)) {
@@ -783,7 +785,7 @@ function DomainStoryElementFactory(bpmnFactory, moddle) {
       } else {
         attrs.id = domainStoryIdFactory.getId(elementType);
       }
-      (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)(attrs.businessObject, {
+      (0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)(attrs.businessObject, {
         id: attrs.id
       });
       let id = attrs.id;
@@ -794,27 +796,27 @@ function DomainStoryElementFactory(bpmnFactory, moddle) {
       };
       attrs.businessObject.set = function (key, value) {
         if (key === "id") {
-          (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)(attrs.businessObject, {
+          (0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)(attrs.businessObject, {
             id: value
           });
         }
       };
       if (!attrs.businessObject.$type) {
-        (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)(attrs.businessObject, {
+        (0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)(attrs.businessObject, {
           $type: "Element"
         });
       }
-      (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)(attrs.businessObject, {
+      (0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)(attrs.businessObject, {
         di: {}
       });
       if (!attrs.businessObject.$descriptor) {
-        (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)(attrs.businessObject, {
+        (0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)(attrs.businessObject, {
           $descriptor: {}
         });
       }
       // add width and height if shape
       if ((!/:activity$/.test(type) || !/:connection$/.test(type)) && !(/:group$/.test(type) && attrs.height || attrs.width)) {
-        (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)(attrs, self._getCustomElementSize(type));
+        (0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)(attrs, self._getCustomElementSize(type));
       }
       if (!("$instanceOf" in attrs.businessObject)) {
         // ensure we can use ModelUtil#is for type checks
@@ -829,7 +831,7 @@ function DomainStoryElementFactory(bpmnFactory, moddle) {
     return self.createBpmnElement(elementType, attrs);
   };
 }
-inherits__WEBPACK_IMPORTED_MODULE_0___default()(DomainStoryElementFactory, bpmn_js_lib_features_modeling_ElementFactory__WEBPACK_IMPORTED_MODULE_2__["default"]);
+inherits__WEBPACK_IMPORTED_MODULE_0___default()(DomainStoryElementFactory, bpmn_js_lib_features_modeling_ElementFactory__WEBPACK_IMPORTED_MODULE_3__["default"]);
 DomainStoryElementFactory.$inject = ["bpmnFactory", "moddle"];
 /**
  * returns the default size of custom shapes.
@@ -847,11 +849,11 @@ DomainStoryElementFactory.prototype._getCustomElementSize = function (type) {
       width: 75,
       height: 75
     },
-    "domainStory:textAnnotation": {
+    [src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.TEXTANNOTATION]: {
       width: 100,
       height: 30
     },
-    "domainStory:group": {
+    [src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.GROUP]: {
       width: 525,
       height: 275
     }
