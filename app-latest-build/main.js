@@ -9692,20 +9692,22 @@ class InitializerService {
         event.preventDefault();
       }
     });
-    let pasteColor;
+    let pasteColor = [];
     eventBus.on('copyPaste.pasteElement', 10000, e => {
-      pasteColor = e.descriptor.oldBusinessObject.pickedColor;
+      pasteColor.push(e.descriptor.oldBusinessObject.pickedColor);
     });
     eventBus.on('create.end', e => {
       if (!pasteColor) {
         return;
       }
-      const element = e.elements[0];
-      element.businessObject.pickedColor = pasteColor;
-      pasteColor = undefined;
-      eventBus.fire('element.changed', {
-        element
-      });
+      for (let elementsKey in e.elements) {
+        const element = e.elements[elementsKey];
+        element.businessObject.pickedColor = pasteColor[parseInt(elementsKey)];
+        eventBus.fire('element.changed', {
+          element
+        });
+      }
+      pasteColor = [];
     });
   }
   /** Overrrides for Canvas Functions **/
