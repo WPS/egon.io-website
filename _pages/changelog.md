@@ -19,6 +19,8 @@ Note: Yet to be released changes appear here.
 
 - `Feature`: Load domain story from public URL. [See #68](https://github.com/WPS/egon.io/issues/68)
 - `Feature`: Annotations can be colored. [See #138](https://github.com/WPS/egon.io/issues/138)
+
+## v2.0.1
 - `Fix`: Copy/paste also copies color of copied model element. [See #103](https://github.com/WPS/egon.io/issues/103)
 - `Fix`: When domain stories with colored icons are imported and a colored icon is selected, the color picker now shows the correct color as hex value.
 - `Fix`: Stories created with v1.3.0 or earlier may contain whitespace characters in the name of custom icons which caused the import to fail. Whitespace is now replaced with `-` to be consistent with the current behavior of uploading custom icons. [See #150](https://github.com/WPS/egon.io/issues/150)
