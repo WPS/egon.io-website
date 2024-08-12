@@ -8546,7 +8546,7 @@ class ImportDomainStoryService {
       let elements;
       let config;
       let configFromFile;
-      let dstAndConfig = this.extractDstAndConfig(dstText, isSVG);
+      let dstAndConfig = this.extractDstAndConfig(dstText);
       if (dstAndConfig == null) {
         return;
       }
@@ -8590,7 +8590,7 @@ class ImportDomainStoryService {
         elements = this.handleVersionNumber(importVersionNumber, elements);
       }
       if (!this.importRepairService.checkForUnreferencedElementsInActivitiesAndRepair(elements)) {
-        this.showBrokenImportDialog(isSVG ? 'SVG' : 'DST');
+        this.showBrokenImportDialog();
       }
       this.titleService.updateTitleAndDescription(this.title, lastElement.info, false);
       this.importRepairService.adjustPositions(elements);
@@ -8606,12 +8606,12 @@ class ImportDomainStoryService {
     }
     return elements;
   }
-  extractDstAndConfig(dstText, isSVG) {
+  extractDstAndConfig(dstText) {
     let dstAndConfig = null;
     try {
       dstAndConfig = JSON.parse(dstText);
     } catch (e) {
-      this.showBrokenImportDialog(isSVG ? 'SVG' : 'DST');
+      this.showBrokenImportDialog();
     }
     return dstAndConfig;
   }
@@ -8671,9 +8671,8 @@ class ImportDomainStoryService {
     this.importedConfiguration = config;
     this.importedConfigurationEmitter.emit(config);
   }
-  showBrokenImportDialog(type) {
-    const message = `Error during import: The uploaded ${type} type is not complete, there could be
-    elements missing from the canvas.`;
+  showBrokenImportDialog() {
+    const message = `Error during import: The imported domain story is not complete. Please check if there are elements missing from the canvas.`;
     this.snackbar.open(message, undefined, {
       duration: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_2__.SNACKBAR_DURATION_LONGER,
       panelClass: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_2__.SNACKBAR_ERROR
