@@ -9709,8 +9709,15 @@ class InitializerService {
       }
     });
     let pasteColor = [];
+    let pasteText = [];
+    let pasteHeight = [];
     eventBus.on('copyPaste.pasteElement', 10000, e => {
+      console.log('old: ', e.descriptor.oldBusinessObject);
       pasteColor.push(e.descriptor.oldBusinessObject.pickedColor);
+      if (e.descriptor.oldBusinessObject.type.includes(_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.TEXTANNOTATION)) {
+        pasteText.push(e.descriptor.oldBusinessObject.text ?? '');
+        pasteHeight.push(e.descriptor.oldBusinessObject.height);
+      }
     });
     eventBus.on('create.end', e => {
       if (!pasteColor) {
@@ -9718,12 +9725,22 @@ class InitializerService {
       }
       for (let elementsKey in e.elements) {
         const element = e.elements[elementsKey];
+        if (element.businessObject.type.includes(_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.TEXTANNOTATION)) {
+          element.businessObject.text = pasteText[0];
+          element.businessObject.number = pasteHeight[0];
+          element.businessObject.height = pasteHeight[0];
+          pasteText.shift();
+          pasteHeight.shift();
+        }
+        console.log('new: ', element.businessObject);
         element.businessObject.pickedColor = pasteColor[parseInt(elementsKey)];
         eventBus.fire('element.changed', {
           element
         });
       }
       pasteColor = [];
+      pasteText = [];
+      pasteHeight = [];
     });
   }
   /** Overrrides for Canvas Functions **/
