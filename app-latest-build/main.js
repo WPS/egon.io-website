@@ -523,6 +523,8 @@ function DomainStoryContextPadProvider(injector, connect, translate, elementFact
           }
         }
       });
+    } else if (element.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.TEXTANNOTATION)) {
+      addColorChange(actions);
     }
     return actions;
   };
@@ -1337,7 +1339,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
   this.drawDSConnection = function (p, element) {
     let attrs = "";
     attrs = computeStyle(attrs, {
-      stroke: "#000000",
+      stroke: element.businessObject.pickedColor ?? "black",
       strokeWidth: 1.5,
       strokeLinejoin: "round",
       strokeDasharray: "5, 5"
@@ -1376,14 +1378,14 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
       }
     });
     drawPath(parentGfx, textPathData, {
-      stroke: "black"
+      stroke: element.businessObject.pickedColor ?? "black"
     });
     renderLabel(parentGfx, text, {
       box: element,
       align: "left-top",
       padding: 5,
       style: {
-        fill: "black"
+        fill: element.businessObject.pickedColor ?? "black"
       }
     });
     return textElement;
@@ -3493,6 +3495,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ elementUpdateHandler)
 /* harmony export */ });
 /* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util */ 44741);
+/* harmony import */ var _domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../domain/entities/elementTypes */ 73190);
+
 
 
 
@@ -3506,6 +3510,12 @@ function elementUpdateHandler(commandStack, eventBus) {
     this.execute = function (context) {
       let semantic = context.businessObject;
       let element = context.element;
+      if (semantic.type.includes(_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.TEXTANNOTATION) && element.incoming[0]) {
+        element.incoming[0].businessObject.pickedColor = context.newColor;
+        eventBus.fire("element.changed", {
+          element: element.incoming[0]
+        });
+      }
       semantic.pickedColor = context.newColor;
       eventBus.fire("element.changed", {
         element
@@ -3514,6 +3524,12 @@ function elementUpdateHandler(commandStack, eventBus) {
     this.revert = function (context) {
       let semantic = context.businessObject;
       let element = context.element;
+      if (semantic.type.includes(_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.TEXTANNOTATION) && element.incoming[0]) {
+        element.incoming[0].businessObject.pickedColor = context.oldColor;
+        eventBus.fire("element.changed", {
+          element: element.incoming[0]
+        });
+      }
       semantic.pickedColor = context.oldColor;
       eventBus.fire("element.changed", {
         element
@@ -11017,7 +11033,7 @@ class HeaderButtonsComponent {
     },
     decls: 2,
     vars: 2,
-    consts: [["id", "buttonStartReplay", "title", "Start replay", 1, "headerButton", 3, "click", "disabled"], [1, "material-icons", "materialIconButton"], ["id", "buttonImport", "title", "Import story from file", "onclick", "document.getElementById('import').click();", 1, "headerButton"], ["id", "buttonUrlImport", "title", "Import story from URL", 1, "headerButton", 3, "click"], ["type", "file", "accept", ".dst, .svg, .egn, .svg", "id", "import", "onclick", "this.value=null;", "name", "file", 2, "display", "none", 3, "change"], ["id", "export", "title", "Export story as .egn, .svg or .png file", 1, "headerButton", 3, "click", "disabled"], [1, "material-icons-outlined", "materialIconButton"], ["title", "Label Dictionary", 1, "headerButton", 3, "click", "disabled"], ["title", "Label Dictionary", 1, "material-icons", "materialIconButton"], ["title", "Settings", 1, "headerButton", 3, "click"], ["title", "Change Icons and Settings", 1, "material-icons", "materialIconButton"], ["title", "Show keyboard shortcuts", 1, "headerButton", 3, "click"], ["title", "Create a new domain story", 1, "headerButton", 3, "click"], ["title", "Previous sentence", 1, "headerButton", 3, "click"], ["title", "Next sentence", 1, "headerButton", 3, "click"], ["title", "Stop replay", 1, "headerButton", 3, "click"]],
+    consts: [["id", "buttonStartReplay", "title", "Start replay", 1, "headerButton", 3, "click", "disabled"], [1, "material-icons", "materialIconButton"], ["id", "buttonImport", "title", "Import story from file", "onclick", "document.getElementById('import').click();", 1, "headerButton"], ["id", "buttonUrlImport", "title", "Import story from URL", 1, "headerButton", 3, "click"], ["type", "file", "accept", ".dst, .svg, .egn, .svg", "id", "import", "onclick", "this.value=null;", 2, "display", "none", 3, "change"], ["id", "export", "title", "Export story as .egn, .svg or .png file", 1, "headerButton", 3, "click", "disabled"], [1, "material-icons-outlined", "materialIconButton"], ["title", "Label Dictionary", 1, "headerButton", 3, "click", "disabled"], ["title", "Label Dictionary", 1, "material-icons", "materialIconButton"], ["title", "Settings", 1, "headerButton", 3, "click"], ["title", "Change Icons and Settings", 1, "material-icons", "materialIconButton"], ["title", "Show keyboard shortcuts", 1, "headerButton", 3, "click"], ["title", "Create a new domain story", 1, "headerButton", 3, "click"], ["title", "Previous sentence", 1, "headerButton", 3, "click"], ["title", "Next sentence", 1, "headerButton", 3, "click"], ["title", "Stop replay", 1, "headerButton", 3, "click"]],
     template: function HeaderButtonsComponent_Template(rf, ctx) {
       if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](0, HeaderButtonsComponent_Conditional_0_Template, 26, 11, "div")(1, HeaderButtonsComponent_Conditional_1_Template, 10, 0, "div");
