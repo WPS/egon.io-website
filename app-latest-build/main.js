@@ -1353,7 +1353,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
     };
     let text = element.businessObject.text || "";
     if (element.businessObject.text) {
-      let height = (0,src_app_tools_modeler_bpmn_modeler_labeling_dsLabelEditingPreview__WEBPACK_IMPORTED_MODULE_2__.getAnnotationBoxHeight)();
+      let height = element.height ?? 0;
       if (height === 0 && element.businessObject.number) {
         height = element.businessObject.number;
       }
@@ -2064,8 +2064,7 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ DSLabelEditingPreview),
-/* harmony export */   getAnnotationBoxHeight: () => (/* binding */ getAnnotationBoxHeight)
+/* harmony export */   "default": () => (/* binding */ DSLabelEditingPreview)
 /* harmony export */ });
 /* harmony import */ var tiny_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tiny-svg */ 57491);
 /* harmony import */ var diagram_js_lib_util_SvgTransformUtil__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! diagram-js/lib/util/SvgTransformUtil */ 81384);
@@ -2079,10 +2078,6 @@ __webpack_require__.r(__webpack_exports__);
 
 const MARKER_HIDDEN = "djs-element-hidden",
   MARKER_LABEL_HIDDEN = "djs-label-hidden";
-let annotationBoxHeight = 0;
-function getAnnotationBoxHeight() {
-  return annotationBoxHeight;
-}
 function DSLabelEditingPreview(eventBus, canvas, pathMap) {
   let self = this;
   let defaultLayer = canvas.getDefaultLayer();
@@ -2094,7 +2089,6 @@ function DSLabelEditingPreview(eventBus, canvas, pathMap) {
     if ((0,_util__WEBPACK_IMPORTED_MODULE_1__.is)(element, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.TEXTANNOTATION)) {
       absoluteElementBBox = canvas.getAbsoluteBBox(element);
       gfx = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_2__.create)("g");
-      annotationBoxHeight = element.height;
       let textPathData = pathMap.getScaledPath("TEXT_ANNOTATION", {
         xScaleFactor: 1,
         yScaleFactor: 1,
@@ -2127,7 +2121,6 @@ function DSLabelEditingPreview(eventBus, canvas, pathMap) {
       let height = context.height,
         dy = context.dy;
       let newElementHeight = Math.max(element.height / absoluteElementBBox.height * (height + dy), 0);
-      annotationBoxHeight = newElementHeight;
       let textPathData = pathMap.getScaledPath("TEXT_ANNOTATION", {
         xScaleFactor: 1,
         yScaleFactor: 1,
@@ -2310,7 +2303,7 @@ DSLabelEditingProvider.prototype.activate = function (element) {
     });
   }
   // text annotations
-  if ((0,_util__WEBPACK_IMPORTED_MODULE_2__.is)(element, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.TEXTANNOTATION)) {
+  if (element.businessObject.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.TEXTANNOTATION)) {
     (0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)(options, {
       resizable: true,
       autoResize: true
@@ -2435,7 +2428,7 @@ DSLabelEditingProvider.prototype.getEditingBBox = function (element) {
     });
   }
   // text annotations
-  if ((0,_util__WEBPACK_IMPORTED_MODULE_2__.is)(element, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.TEXTANNOTATION)) {
+  if (element.businessObject.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.TEXTANNOTATION)) {
     (0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)(bounds, {
       width: bbox.width,
       height: bbox.height,
@@ -2499,7 +2492,7 @@ function getLabelAttr(semantic) {
   if (semantic.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTOR) || semantic.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.WORKOBJECT) || semantic.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTIVITY) || semantic.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.GROUP)) {
     return "name";
   }
-  if ((0,_util__WEBPACK_IMPORTED_MODULE_1__.is)(semantic, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.TEXTANNOTATION)) {
+  if (semantic.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.TEXTANNOTATION)) {
     return "text";
   }
 }
@@ -3763,25 +3756,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   getBusinessObject: () => (/* binding */ getBusinessObject),
 /* harmony export */   is: () => (/* binding */ is),
-/* harmony export */   isAny: () => (/* binding */ isAny),
 /* harmony export */   isCustomIcon: () => (/* binding */ isCustomIcon),
 /* harmony export */   isCustomSvgIcon: () => (/* binding */ isCustomSvgIcon),
 /* harmony export */   reworkGroupElements: () => (/* binding */ reworkGroupElements),
 /* harmony export */   undoGroupRework: () => (/* binding */ undoGroupRework)
 /* harmony export */ });
-/* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! min-dash */ 81410);
 
 function is(element, type) {
   const bo = getBusinessObject(element);
-  return bo && typeof bo.$instanceOf == "function" && bo.$instanceOf(type);
+  return bo && bo.type === type;
 }
 function getBusinessObject(element) {
   return element && element.businessObject || element;
-}
-function isAny(element, types) {
-  return (0,min_dash__WEBPACK_IMPORTED_MODULE_0__.some)(types, function (t) {
-    return is(element, t);
-  });
 }
 function reworkGroupElements(parent, shape) {
   parent.children.slice().forEach(innerShape => {
@@ -9712,7 +9698,6 @@ class InitializerService {
     let pasteText = [];
     let pasteHeight = [];
     eventBus.on('copyPaste.pasteElement', 10000, e => {
-      console.log('old: ', e.descriptor.oldBusinessObject);
       pasteColor.push(e.descriptor.oldBusinessObject.pickedColor);
       if (e.descriptor.oldBusinessObject.type.includes(_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.TEXTANNOTATION)) {
         pasteText.push(e.descriptor.oldBusinessObject.text ?? '');
@@ -9732,7 +9717,6 @@ class InitializerService {
           pasteText.shift();
           pasteHeight.shift();
         }
-        console.log('new: ', element.businessObject);
         element.businessObject.pickedColor = pasteColor[parseInt(elementsKey)];
         eventBus.fire('element.changed', {
           element
