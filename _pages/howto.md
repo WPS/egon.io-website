@@ -14,16 +14,27 @@ There is no login or registration required to use Egon. Egon runs completely in 
 
 ## Launching Egon
 
-Egon is available as...:
- - [Online version](https://egon.io/): Just click *Use Online* and start modeling.
- - Docker image: tbd
-  
-Developers have more options, see developer's [readme](https://github.com/WPS/egon.io/).
+### Online
 
+We provide an [online version](https://egon.io/) on our webpage. Just click *Use Online* and start modeling.
+
+>  **Updating to the latest version:** If you have used one of the `v2.0.0-beta` versions or the latest build (`v2.x.x.-dev`), you need to clear your local browser storage and then reload the page in order for Egon to load properly. This will reset your icon configuration to default and delete the automatically saved drafts. Instructions:
+> - [Firefox](https://support.mozilla.org/en-US/kb/clear-cookies-and-site-data-firefox#w_clear-cookies-for-the-current-website)
+> - Chrome: In the address bar, click the button in the left corner (*show website information*), then *cookies and website date*, *manage website data*, and delete the data for egon.io.
+
+ ### Docker
+
+ tbd
+  
 <!-- 
  TODO: include this as soon as the Docker container is publicly available
  - Docker image: You can run Egon as Docker container using [this image](https://github.com/WPS/egon.io/pkgs/container/egon.io).
 -->
+
+### For Developers
+
+Please see the developer's [readme](https://github.com/WPS/egon.io/ on how to build and run Egon on your machine.
+
 
 ## Headline
 

@@ -5,13 +5,10 @@ layout: single
 toc: true
 toc_sticky: true
 ---
-# Updating to the Latest Version
-
-If you have used one of the `v2.0.0-beta` versions or the latest build (`v2.x.x.-dev`), we recommend clearing your local browser storage and then reloading the page. This will reset your icon configuration to default and delete the automatically saved drafts. Instructions:
-- [Firefox](https://support.mozilla.org/en-US/kb/clear-cookies-and-site-data-firefox#w_clear-cookies-for-the-current-website)
-- Chrome: In the address bar, click the button in the left corner (*show website information*), then *cookies and website date*, *manage website data*, and delete the data for egon.io.
 
 # Changelog
+
+> Have you used *v2.0.0-beta* or *latest build*? Please follow these [instructions](https://egon.io/howto#launching-egon) before using the *v2.0.0* or newer.
 
 ## Latest Build
 
