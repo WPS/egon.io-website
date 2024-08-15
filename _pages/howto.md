@@ -22,9 +22,9 @@ We provide an [online version](https://egon.io/) on our webpage. Just click *Use
 > - [Firefox](https://support.mozilla.org/en-US/kb/clear-cookies-and-site-data-firefox#w_clear-cookies-for-the-current-website)
 > - Chrome: In the address bar, click the button in the left corner (*show website information*), then *cookies and website date*, *manage website data*, and delete the data for egon.io.
 
- ### Docker
+### Docker
 
- tbd
+tbd
   
 <!-- 
  TODO: include this as soon as the Docker container is publicly available

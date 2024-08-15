@@ -16,6 +16,7 @@ Note: Yet to be released changes appear here.
 
 - `Feature`: Load domain story from public URL. [See #68](https://github.com/WPS/egon.io/issues/68)
 - `Feature`: Annotations can be colored. [See #138](https://github.com/WPS/egon.io/issues/138)
+- `Fix`: Copy/paste annotations. [See #153](https://github.com/WPS/egon.io/issues/153)
 
 ## v2.0.1
 - `Fix`: Copy/paste also copies color of copied model element. [See #103](https://github.com/WPS/egon.io/issues/103)
