@@ -33,7 +33,7 @@ tbd
 
 ### For Developers
 
-Please see the developer's [readme](https://github.com/WPS/egon.io/ on how to build and run Egon on your machine.
+Please see the developer's [readme](https://github.com/WPS/egon.io/) on how to build and run Egon on your machine.
 
 
 ## Headline
