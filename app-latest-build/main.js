@@ -3911,7 +3911,7 @@ class AppComponent {
     });
     document.addEventListener('errorColoringOnlySvg', () => {
       this.snackbar.open('Only SVG icons can be colored', undefined, {
-        duration: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_1__.SNACKBAR_DURATION * 2,
+        duration: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_1__.SNACKBAR_DURATION_LONG,
         panelClass: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_1__.SNACKBAR_INFO
       });
     });
@@ -4214,6 +4214,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   SNACKBAR_ERROR: () => (/* binding */ SNACKBAR_ERROR),
 /* harmony export */   SNACKBAR_INFO: () => (/* binding */ SNACKBAR_INFO),
 /* harmony export */   SNACKBAR_SUCCESS: () => (/* binding */ SNACKBAR_SUCCESS),
+/* harmony export */   VERSION_KEY: () => (/* binding */ VERSION_KEY),
 /* harmony export */   YELLOW: () => (/* binding */ YELLOW)
 /* harmony export */ });
 /** DEFAULT VALUES **/
@@ -4223,7 +4224,9 @@ const INITIAL_ICON_SET_NAME = 'default';
 /** LocalStorageTags **/
 const APPENDED_ICONS_TAG = 'appendedIcons';
 // String value of tag should not be renamed, because existing configurations would not load
-const ICON_SET_CONFIGURATION_TAG = 'domainConfigurationTag';
+const ICON_SET_CONFIGURATION_TAG = 'iconSetConfigurationTag';
+/** Version Key **/
+const VERSION_KEY = 'versionKey';
 /** AUTOSAVE DEFAULTS **/
 const DEFAULT_AUTOSAVES_ENABLED = true;
 const DEFAULT_AUTOSAVES_MAX_DRAFTS = 5;
@@ -9837,14 +9840,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   ModelerService: () => (/* binding */ ModelerService)
 /* harmony export */ });
 /* harmony import */ var _home_runner_work_egon_io_egon_io_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 56207);
-/* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! min-dash */ 81410);
+/* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! min-dash */ 81410);
 /* harmony import */ var src_app_tools_modeler_bpmn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/tools/modeler/bpmn */ 96064);
 /* harmony import */ var _bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../bpmn/modeler/numbering/numbering */ 33862);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var _initializer_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./initializer.service */ 52317);
-/* harmony import */ var _domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../domain/services/element-registry.service */ 85511);
-/* harmony import */ var _icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../icon-set-config/services/icon-dictionary.service */ 6932);
-/* harmony import */ var _icon_set_config_services_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../icon-set-config/services/icon-set-configuration.service */ 46527);
+/* harmony import */ var _domain_entities_constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../domain/entities/constants */ 40550);
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../environments/environment */ 45312);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/core */ 96623);
+/* harmony import */ var _initializer_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./initializer.service */ 52317);
+/* harmony import */ var _domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../domain/services/element-registry.service */ 85511);
+/* harmony import */ var _icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../icon-set-config/services/icon-dictionary.service */ 6932);
+/* harmony import */ var _icon_set_config_services_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../icon-set-config/services/icon-set-configuration.service */ 46527);
+/* harmony import */ var _domain_services_storage_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../domain/services/storage.service */ 50624);
+/* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/material/snack-bar */ 40382);
+
+
+
+
 
 
 
@@ -9855,19 +9866,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class ModelerService {
-  constructor(initializerService, elementRegistryService, iconDictionaryService, iconSetConfigurationService) {
+  constructor(initializerService, elementRegistryService, iconDictionaryService, iconSetConfigurationService, storageService, snackbar) {
     this.initializerService = initializerService;
     this.elementRegistryService = elementRegistryService;
     this.iconDictionaryService = iconDictionaryService;
     this.iconSetConfigurationService = iconSetConfigurationService;
+    this.storageService = storageService;
+    this.snackbar = snackbar;
   }
   postInit() {
+    this.checkCurrentVersion();
     const storedIconSetConfiguration = this.iconSetConfigurationService.getStoredIconSetConfiguration();
     if (storedIconSetConfiguration) {
       this.iconDictionaryService.setCustomConfiguration(storedIconSetConfiguration);
       this.iconSetConfigurationService.loadConfiguration(storedIconSetConfiguration);
     }
-    // this.initializerService.initializeDomainStoryModelerClasses();
     this.modeler = new src_app_tools_modeler_bpmn__WEBPACK_IMPORTED_MODULE_1__["default"]({
       container: '#canvas',
       keyboard: {
@@ -9894,10 +9907,24 @@ class ModelerService {
     this.initializerService.initiateEventBusListeners(this.eventBus, this.commandStack);
     this.modeler.createDiagram();
     // expose bpmnjs to window for debugging purposes
-    (0,min_dash__WEBPACK_IMPORTED_MODULE_7__.assign)(window, {
+    (0,min_dash__WEBPACK_IMPORTED_MODULE_10__.assign)(window, {
       bpmnjs: this.modeler
     });
     this.startDebounce();
+  }
+  checkCurrentVersion() {
+    const version = this.storageService.get(_domain_entities_constants__WEBPACK_IMPORTED_MODULE_3__.VERSION_KEY);
+    if (version === null) {
+      this.storageService.set(_domain_entities_constants__WEBPACK_IMPORTED_MODULE_3__.VERSION_KEY, _environments_environment__WEBPACK_IMPORTED_MODULE_4__.environment.version);
+    }
+    if (version !== null && version !== _environments_environment__WEBPACK_IMPORTED_MODULE_4__.environment.version) {
+      this.snackbar.open('The current version has changed. We recommend to clear the local storage.', 'More information', {
+        duration: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_3__.SNACKBAR_DURATION_LONGER,
+        panelClass: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_3__.SNACKBAR_INFO
+      }).onAction().subscribe(() => {
+        window.open('https://egon.io/howto#launching-egon');
+      });
+    }
   }
   restart(iconSetConfiguration, domainStory) {
     const currentStory = domainStory != undefined ? domainStory : this.elementRegistryService.createObjectListForDSTDownload().map(e => e.businessObject);
@@ -9956,9 +9983,9 @@ class ModelerService {
     })();
   }
   static #_ = this.ɵfac = function ModelerService_Factory(t) {
-    return new (t || ModelerService)(_angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵinject"](_initializer_service__WEBPACK_IMPORTED_MODULE_3__.InitializerService), _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵinject"](_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_4__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵinject"](_icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_5__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵinject"](_icon_set_config_services_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_6__.IconSetConfigurationService));
+    return new (t || ModelerService)(_angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵinject"](_initializer_service__WEBPACK_IMPORTED_MODULE_5__.InitializerService), _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵinject"](_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_6__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵinject"](_icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_7__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵinject"](_icon_set_config_services_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_8__.IconSetConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵinject"](_domain_services_storage_service__WEBPACK_IMPORTED_MODULE_9__.StorageService), _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵinject"](_angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_12__.MatSnackBar));
   };
-  static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵdefineInjectable"]({
+  static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵdefineInjectable"]({
     token: ModelerService,
     factory: ModelerService.ɵfac,
     providedIn: 'root'
