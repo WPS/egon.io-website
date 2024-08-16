@@ -7977,14 +7977,11 @@ class IconSetCustomizationService {
     if (storedIconSetConfiguration) {
       this.importConfiguration(storedIconSetConfiguration, false);
     }
-    const importedConfiguration = iconSetChangedService.getConfiguration();
-    if (importedConfiguration) {
-      this.importConfiguration(importedConfiguration, false);
-    }
   }
   importConfiguration(customConfig, saveIconSet = true) {
     const actorKeys = customConfig.actors.keysArray();
     const workObjectKeys = customConfig.workObjects.keysArray();
+    const usedIcons = this.elementRegistryService.getUsedIcons();
     this.changeName(customConfig.name);
     actorKeys.forEach(iconName => {
       if (!this.allIconListItems.has(iconName)) {
@@ -7993,6 +7990,11 @@ class IconSetCustomizationService {
       const selectedActorNames = this.selectedActors$.value;
       if (!selectedActorNames.includes(iconName)) {
         this.selectActor(iconName);
+      }
+    });
+    this.selectedActors$.value.forEach(iconName => {
+      if (!actorKeys.includes(iconName) && !usedIcons.actors.includes(iconName)) {
+        this.deselectActor(iconName);
       }
     });
     workObjectKeys.forEach(iconName => {
@@ -8004,8 +8006,13 @@ class IconSetCustomizationService {
         this.selectWorkObject(iconName);
       }
     });
+    this.selectedWorkobjects$.value.forEach(iconName => {
+      if (!workObjectKeys.includes(iconName) && !usedIcons.workobjects.includes(iconName)) {
+        this.deselectWorkobject(iconName);
+      }
+    });
     if (saveIconSet) {
-      this.saveIconSet(this.elementRegistryService.getUsedIcons(), true);
+      this.saveIconSet(usedIcons, true);
     }
   }
   /** Getter & Setter **/
