@@ -9918,7 +9918,7 @@ class ModelerService {
       this.storageService.set(_domain_entities_constants__WEBPACK_IMPORTED_MODULE_3__.VERSION_KEY, _environments_environment__WEBPACK_IMPORTED_MODULE_4__.environment.version);
     }
     if (version !== null && version !== _environments_environment__WEBPACK_IMPORTED_MODULE_4__.environment.version) {
-      this.snackbar.open('The current version has changed. We recommend to clear the local storage.', 'More information', {
+      this.snackbar.open("Egon was updated. Clear your browser's local storage.", 'More information', {
         duration: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_3__.SNACKBAR_DURATION_LONGER,
         panelClass: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_3__.SNACKBAR_INFO
       }).onAction().subscribe(() => {
