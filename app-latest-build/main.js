@@ -10189,17 +10189,7 @@ class DomManipulationService {
     const allObjects = this.elementRegistryService.getAllCanvasObjects().concat(this.elementRegistryService.getAllGroups());
     allObjects.forEach(element => {
       if (!shownElements.includes(element.businessObject)) {
-        if (element.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.CONNECTION)) {
-          // @ts-ignore
-          if (!element.source.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.GROUP)) {
-            notShownElements.push(element.businessObject);
-          } else {
-            // @ts-ignore
-            shownElements.push(element.target);
-          }
-        } else {
-          notShownElements.push(element.businessObject);
-        }
+        notShownElements.push(element.businessObject);
       }
     });
     return notShownElements;
@@ -10338,9 +10328,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   StoryCreatorService: () => (/* binding */ StoryCreatorService)
 /* harmony export */ });
-/* harmony import */ var _domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../domain/entities/dictionary */ 20843);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var _domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../domain/services/element-registry.service */ 85511);
+/* harmony import */ var _domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../domain/entities/elementTypes */ 73190);
+/* harmony import */ var _domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../domain/entities/dictionary */ 20843);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 96623);
+/* harmony import */ var _domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../domain/services/element-registry.service */ 85511);
+
 
 
 
@@ -10349,7 +10341,7 @@ class StoryCreatorService {
     this.elementRegistryService = elementRegistryService;
   }
   traceActivitiesAndCreateStory() {
-    const tracedActivityMap = new _domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__.Dictionary();
+    const tracedActivityMap = new _domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
     const story = [];
     const activities = this.elementRegistryService.getActivitiesFromActors();
     const tracedActivityMapKeys = [];
@@ -10420,6 +10412,7 @@ class StoryCreatorService {
     const initialSource = [];
     const activities = tracedActivity;
     const targetObjects = [];
+    const actorTextAnnotations = [];
     tracedActivity.forEach(parallelSentence => {
       initialSource.push(parallelSentence.source);
       const firstTarget = parallelSentence.target;
@@ -10438,18 +10431,35 @@ class StoryCreatorService {
         }
       }
     });
-    return initialSource.map(e => e.businessObject).concat(activities.map(a => a.businessObject)).concat(targetObjects.map(t => t.businessObject));
+    initialSource.forEach(actor => this.addTextAnnotationsForActorOrGroup(actor, actorTextAnnotations));
+    targetObjects.forEach(target => {
+      if (target.businessObject.type.includes(_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTOR)) {
+        this.addTextAnnotationsForActorOrGroup(target, actorTextAnnotations);
+      }
+    });
+    return initialSource.map(e => e.businessObject).concat(activities.map(a => a.businessObject)).concat(targetObjects.map(t => t.businessObject)).concat(actorTextAnnotations.map(ta => ta.businessObject));
+  }
+  addTextAnnotationsForActorOrGroup(object, objectTextAnnotations) {
+    object.outgoing?.forEach(connection => {
+      // connections outgoing from actors or groups without number must be connections to text annotations
+      if (!connection.businessObject.number) {
+        objectTextAnnotations.push(connection);
+        objectTextAnnotations.push(connection.target);
+      }
+    });
   }
   addGroupsToLastSentence(story) {
     const groups = this.elementRegistryService.getAllGroups();
+    const annotationsForGroups = [];
+    groups.forEach(group => this.addTextAnnotationsForActorOrGroup(group, annotationsForGroups));
     if (groups.length > 0 && story.length > 0) {
-      story[story.length - 1].objects = story[story.length - 1].objects.concat(groups.map(g => g.businessObject));
+      story[story.length - 1].objects = story[story.length - 1].objects.concat(groups.map(g => g.businessObject)).concat(annotationsForGroups.map(a => a.businessObject));
     }
   }
   static #_ = this.ɵfac = function StoryCreatorService_Factory(t) {
-    return new (t || StoryCreatorService)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_1__.ElementRegistryService));
+    return new (t || StoryCreatorService)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_2__.ElementRegistryService));
   };
-  static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjectable"]({
+  static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineInjectable"]({
     token: StoryCreatorService,
     factory: StoryCreatorService.ɵfac,
     providedIn: 'root'
