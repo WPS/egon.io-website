@@ -8479,6 +8479,11 @@ class ImportDomainStoryService {
         this.importEGN(blob, filename, false);
       } else if (filename.match(egnSvgPattern)) {
         this.importEGN(blob, filename, true);
+      } else {
+        this.snackbar.open('Url not valid', undefined, {
+          duration: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_2__.SNACKBAR_DURATION_LONG,
+          panelClass: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_2__.SNACKBAR_ERROR
+        });
       }
       this.modelerService.commandStackChanged();
     }).catch(() => this.snackbar.open('Cross-origin request blocked', undefined, {
