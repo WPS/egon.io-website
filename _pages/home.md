@@ -19,7 +19,7 @@ excerpt: "A lightweight tool to support [*Domain Storytelling*](https://domainst
 
 ## Current Version:
 
-[<i class="fas fa-play"></i> Use online](app-v2){: .btn .btn--primary .btn--x-large}
+[<i class="fas fa-play"></i> Use online](app){: .btn .btn--primary .btn--x-large}
 [<i class="fas fa-play"></i> Use latest build*](app-latest){: .btn .btn--primary .btn--x-large}
 *) only recommended for testing new features
 
