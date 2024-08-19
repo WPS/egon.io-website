@@ -15,8 +15,12 @@ toc_sticky: true
 Note: Yet to be released changes appear here.
 
 - `Feature`: Load domain story from public URL. [See #68](https://github.com/WPS/egon.io/issues/68)
+- `Feature`: Added 33 icons to the icon set. [See #151](https://github.com/WPS/egon.io/issue/151)
 - `Feature`: Annotations can be colored. [See #138](https://github.com/WPS/egon.io/issues/138)
+- `Feature`: Detect if local storage needs to be cleared after deployment of new Egon version. [See #154](https://github.com/WPS/egon.io/issues/154)
 - `Fix`: Copy/paste annotations. [See #153](https://github.com/WPS/egon.io/issues/153)
+- `Fix`: In replay, annotations of groups and actors are only visible if the group/actor is visible. [See #156](https://github.com/WPS/egon.io/issues/156)
+- `Fix`: Importing an icon set removes unused icons of previous icon set. [See #155](https://github.com/WPS/egon.io/issues/155)
 
 ## v2.0.1
 - `Fix`: Copy/paste also copies color of copied model element. [See #103](https://github.com/WPS/egon.io/issues/103)
