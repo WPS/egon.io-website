@@ -19,14 +19,14 @@ excerpt: "A lightweight tool to support [*Domain Storytelling*](https://domainst
 
 ## Current Version:
 
-[<i class="fas fa-play"></i> Use online](app-v2){: .btn .btn--primary .btn--x-large}
+[<i class="fas fa-play"></i> Use online](app){: .btn .btn--primary .btn--x-large}
 [<i class="fas fa-play"></i> Use latest build*](app-latest){: .btn .btn--primary .btn--x-large}
 *) only recommended for testing new features
 
 > Have you used *v2.0.0-beta* or *latest build*? Please follow these [instructions](https://egon.io/howto#launching-egon) before using the *current* version.
 
 [<i class="fas fa-book"></i> Changelog](/changelog){: .btn .btn--info .btn--x-large}
-[<i class="fas fa-code"></i> Source](https://github.com/WPS/domain-story-modeler){: .btn .btn--info .btn--x-large}
+[<i class="fas fa-code"></i> Source](https://github.com/WPS/egon.io){: .btn .btn--info .btn--x-large}
 [<i class="fas fa-portrait"></i> Examples](https://github.com/WPS/egon.io-examples){: .btn .btn--info .btn--x-large}
 [<i class="fas fa-book"></i> User guide](/howto){: .btn .btn--info .btn--x-large}
 
