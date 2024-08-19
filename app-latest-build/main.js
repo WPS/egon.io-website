@@ -239,7 +239,6 @@ function Replace(modeling) {
  * @param modeling
  */
 function replaceElement(oldElement, newElementData, modeling) {
-  // let modeling = this._modeling;
   let newElement = setCenterOfElement(newElementData, oldElement, modeling);
   let outgoingActivities = newElement.outgoing;
   let incomingActivities = newElement.incoming;
@@ -273,9 +272,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ ReplaceMenuProvider)
 /* harmony export */ });
-/* harmony import */ var _replace__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./replace */ 86552);
-/* harmony import */ var _replaceOptions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./replaceOptions */ 15916);
-/* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! min-dash */ 81410);
+/* harmony import */ var src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/domain/entities/elementTypes */ 73190);
+/* harmony import */ var _replace__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./replace */ 86552);
+/* harmony import */ var _replaceOptions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./replaceOptions */ 15916);
+/* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! min-dash */ 81410);
+
 
 
 
@@ -285,7 +286,7 @@ __webpack_require__.r(__webpack_exports__);
  * This module is an element agnostic replace menu provider for the popup menu.
  */
 function ReplaceMenuProvider(modeling) {
-  this._dsReplace = new _replace__WEBPACK_IMPORTED_MODULE_0__["default"](modeling);
+  this._dsReplace = new _replace__WEBPACK_IMPORTED_MODULE_1__["default"](modeling);
   this._modeling = modeling;
 }
 ReplaceMenuProvider.$inject = ["modeling"];
@@ -299,10 +300,10 @@ ReplaceMenuProvider.$inject = ["modeling"];
  */
 ReplaceMenuProvider.prototype.getEntries = function (element) {
   let entries;
-  if (element.type.includes("actor")) {
-    entries = _replaceOptions__WEBPACK_IMPORTED_MODULE_1__.actorReplaceOptions(element.type);
-  } else if (element.type.includes("workObject")) {
-    entries = _replaceOptions__WEBPACK_IMPORTED_MODULE_1__.workObjectReplaceOptions(element.type);
+  if (element.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTOR)) {
+    entries = _replaceOptions__WEBPACK_IMPORTED_MODULE_2__.actorReplaceOptions(element.type);
+  } else if (element.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.WORKOBJECT)) {
+    entries = _replaceOptions__WEBPACK_IMPORTED_MODULE_2__.workObjectReplaceOptions(element.type);
   }
   return this._createEntries(element, entries);
 };
@@ -318,7 +319,7 @@ ReplaceMenuProvider.prototype.getEntries = function (element) {
 ReplaceMenuProvider.prototype._createEntries = function (element, replaceOptions) {
   let menuEntries = [];
   let self = this;
-  (0,min_dash__WEBPACK_IMPORTED_MODULE_2__.forEach)(replaceOptions, function (definition) {
+  (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.forEach)(replaceOptions, function (definition) {
     let entry = self._createMenuEntry(definition, element);
     menuEntries.push(entry);
   });
@@ -450,7 +451,6 @@ function DomainStoryContextPadProvider(injector, connect, translate, elementFact
   let startConnect;
   let selectedElement;
   injector.invoke(bpmn_js_lib_features_context_pad_ContextPadProvider__WEBPACK_IMPORTED_MODULE_5__["default"], this);
-  let autoPlace = injector.get("autoPlace", false);
   let cached = (0,min_dash__WEBPACK_IMPORTED_MODULE_6__.bind)(this.getContextPadEntries, this);
   document.addEventListener("pickedColor", event => {
     if (selectedElement) {
@@ -3139,9 +3139,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-/**
- * A palette that allows you to create BPMN _and_ custom elements.
- */
 let iconDictionary;
 let configuration;
 function initializePalette(iconDictionaryService, configurationService) {
@@ -3511,9 +3508,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ headlineAndDescriptionUpdateHandler)
 /* harmony export */ });
-/**
- * a handler that updates the text of a BPMN element.
- */
 function headlineAndDescriptionUpdateHandler(commandStack, titleService) {
   commandStack.registerHandler("story.updateHeadlineAndDescription", handlerFunction);
   function handlerFunction() {
