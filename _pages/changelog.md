@@ -8,13 +8,13 @@ toc_sticky: true
 
 # Changelog
 
-> Have you used *v2.0.0-beta* or *latest build*? Please follow these [instructions](https://egon.io/howto#launching-egon) before using the *v2.0.0* or newer.
+> Have you used an earlier version of *Egon v2* or *latest build*? Please follow these [instructions](https://egon.io/howto#launching-egon) before using the *v2.0.0* or newer.
 
 ## Latest Build
 
-Note: Yet to be released changes appear here.
-
 - `Feature`: Load domain story from public URL. [See #68](https://github.com/WPS/egon.io/issues/68)
+
+## v2.1.0
 - `Feature`: Added 33 icons to the icon set. [See #151](https://github.com/WPS/egon.io/issue/151)
 - `Feature`: Annotations can be colored. [See #138](https://github.com/WPS/egon.io/issues/138)
 - `Feature`: Detect if local storage needs to be cleared after deployment of new Egon version. [See #154](https://github.com/WPS/egon.io/issues/154)
