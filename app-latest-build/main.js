@@ -9573,12 +9573,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   ModelerModule: () => (/* binding */ ModelerModule)
 /* harmony export */ });
 /* harmony import */ var _activity_dialog_activity_dialog_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./activity-dialog/activity-dialog.component */ 89142);
-/* harmony import */ var _modeler_modeler_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modeler/modeler.component */ 87286);
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ 39191);
-/* harmony import */ var _material_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../material.module */ 89439);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ 48015);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 96623);
-
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ 39191);
+/* harmony import */ var _material_module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../material.module */ 89439);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ 48015);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 96623);
 
 
 
@@ -9588,61 +9586,20 @@ class ModelerModule {
   static #_ = this.ɵfac = function ModelerModule_Factory(t) {
     return new (t || ModelerModule)();
   };
-  static #_2 = this.ɵmod = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineNgModule"]({
+  static #_2 = this.ɵmod = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineNgModule"]({
     type: ModelerModule
   });
-  static #_3 = this.ɵinj = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineInjector"]({
-    imports: [_angular_common__WEBPACK_IMPORTED_MODULE_4__.CommonModule, _material_module__WEBPACK_IMPORTED_MODULE_2__.MaterialModule, _angular_forms__WEBPACK_IMPORTED_MODULE_5__.ReactiveFormsModule]
+  static #_3 = this.ɵinj = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjector"]({
+    imports: [_angular_common__WEBPACK_IMPORTED_MODULE_3__.CommonModule, _material_module__WEBPACK_IMPORTED_MODULE_1__.MaterialModule, _angular_forms__WEBPACK_IMPORTED_MODULE_4__.ReactiveFormsModule]
   });
 }
 (function () {
-  (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵsetNgModuleScope"](ModelerModule, {
-    declarations: [_activity_dialog_activity_dialog_component__WEBPACK_IMPORTED_MODULE_0__.ActivityDialogComponent, _modeler_modeler_component__WEBPACK_IMPORTED_MODULE_1__.ModelerComponent],
-    imports: [_angular_common__WEBPACK_IMPORTED_MODULE_4__.CommonModule, _material_module__WEBPACK_IMPORTED_MODULE_2__.MaterialModule, _angular_forms__WEBPACK_IMPORTED_MODULE_5__.ReactiveFormsModule],
-    exports: [_activity_dialog_activity_dialog_component__WEBPACK_IMPORTED_MODULE_0__.ActivityDialogComponent, _modeler_modeler_component__WEBPACK_IMPORTED_MODULE_1__.ModelerComponent]
+  (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵsetNgModuleScope"](ModelerModule, {
+    declarations: [_activity_dialog_activity_dialog_component__WEBPACK_IMPORTED_MODULE_0__.ActivityDialogComponent],
+    imports: [_angular_common__WEBPACK_IMPORTED_MODULE_3__.CommonModule, _material_module__WEBPACK_IMPORTED_MODULE_1__.MaterialModule, _angular_forms__WEBPACK_IMPORTED_MODULE_4__.ReactiveFormsModule],
+    exports: [_activity_dialog_activity_dialog_component__WEBPACK_IMPORTED_MODULE_0__.ActivityDialogComponent]
   });
 })();
-
-/***/ }),
-
-/***/ 87286:
-/*!*************************************************************************!*\
-  !*** ./src/app/tools/modeler/presentation/modeler/modeler.component.ts ***!
-  \*************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   ModelerComponent: () => (/* binding */ ModelerComponent)
-/* harmony export */ });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var _services_modeler_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../services/modeler.service */ 40439);
-
-
-class ModelerComponent {
-  constructor(modelerService) {
-    this.modelerService = modelerService;
-  }
-  ngOnInit() {
-    this.modelerService.postInit();
-  }
-  static #_ = this.ɵfac = function ModelerComponent_Factory(t) {
-    return new (t || ModelerComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_services_modeler_service__WEBPACK_IMPORTED_MODULE_0__.ModelerService));
-  };
-  static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({
-    type: ModelerComponent,
-    selectors: [["app-modeler"]],
-    decls: 1,
-    vars: 0,
-    consts: [["id", "canvas"]],
-    template: function ModelerComponent_Template(rf, ctx) {
-      if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "div", 0);
-      }
-    },
-    styles: ["#canvas[_ngcontent-%COMP%], #canvas[_ngcontent-%COMP%]    > div[_ngcontent-%COMP%] {\n  top: 0;\n  width: 100%;\n  height: 100%;\n  position: relative;\n  bottom: 0;\n  overflow: hidden;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm1vZGVsZXIuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7O0VBRUUsTUFBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0VBQ0Esa0JBQUE7RUFDQSxTQUFBO0VBQ0EsZ0JBQUE7QUFDRiIsImZpbGUiOiJtb2RlbGVyLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiI2NhbnZhcyxcbiNjYW52YXMgPiBkaXYge1xuICB0b3A6IDA7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IDEwMCU7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgYm90dG9tOiAwO1xuICBvdmVyZmxvdzogaGlkZGVuO1xufVxuIl19 */\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL3NyYy9hcHAvdG9vbHMvbW9kZWxlci9wcmVzZW50YXRpb24vbW9kZWxlci9tb2RlbGVyLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOztFQUVFLE1BQUE7RUFDQSxXQUFBO0VBQ0EsWUFBQTtFQUNBLGtCQUFBO0VBQ0EsU0FBQTtFQUNBLGdCQUFBO0FBQ0Y7QUFDQSxnZkFBZ2YiLCJzb3VyY2VzQ29udGVudCI6WyIjY2FudmFzLFxuI2NhbnZhcyA+IGRpdiB7XG4gIHRvcDogMDtcbiAgd2lkdGg6IDEwMCU7XG4gIGhlaWdodDogMTAwJTtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xuICBib3R0b206IDA7XG4gIG92ZXJmbG93OiBoaWRkZW47XG59XG4iXSwic291cmNlUm9vdCI6IiJ9 */"]
-  });
-}
 
 /***/ }),
 
