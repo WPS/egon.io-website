@@ -3201,7 +3201,7 @@ function appendCSSStyleCheat(customIcons) {
 }
 function initPalette(actions, spaceTool, lassoTool, createAction) {
   let config = iconDictionary?.getCurrentIconConfigurationForBPMN();
-  let customIcons = localStorage.getItem(src_app_domain_entities_constants__WEBPACK_IMPORTED_MODULE_3__.APPENDED_ICONS_TAG);
+  let customIcons = localStorage.getItem(src_app_domain_entities_constants__WEBPACK_IMPORTED_MODULE_3__.APPENDED_ICONS_KEY);
   if (customIcons) {
     customIcons = JSON.parse(customIcons);
     if (customIconsLegacy(customIcons)) {
@@ -4129,7 +4129,7 @@ class Configuration {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   APPENDED_ICONS_TAG: () => (/* binding */ APPENDED_ICONS_TAG),
+/* harmony export */   APPENDED_ICONS_KEY: () => (/* binding */ APPENDED_ICONS_KEY),
 /* harmony export */   BLACK: () => (/* binding */ BLACK),
 /* harmony export */   BLUE: () => (/* binding */ BLUE),
 /* harmony export */   CYAN: () => (/* binding */ CYAN),
@@ -4137,9 +4137,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   DEFAULT_AUTOSAVES_ENABLED: () => (/* binding */ DEFAULT_AUTOSAVES_ENABLED),
 /* harmony export */   DEFAULT_AUTOSAVES_INTERVAL: () => (/* binding */ DEFAULT_AUTOSAVES_INTERVAL),
 /* harmony export */   DEFAULT_AUTOSAVES_MAX_DRAFTS: () => (/* binding */ DEFAULT_AUTOSAVES_MAX_DRAFTS),
+/* harmony export */   DRAFTS_KEY: () => (/* binding */ DRAFTS_KEY),
 /* harmony export */   GREEN: () => (/* binding */ GREEN),
 /* harmony export */   GREY: () => (/* binding */ GREY),
-/* harmony export */   ICON_SET_CONFIGURATION_TAG: () => (/* binding */ ICON_SET_CONFIGURATION_TAG),
+/* harmony export */   ICON_SET_CONFIGURATION_KEY: () => (/* binding */ ICON_SET_CONFIGURATION_KEY),
 /* harmony export */   IMPLICIT_ROOT_ID: () => (/* binding */ IMPLICIT_ROOT_ID),
 /* harmony export */   INITIAL_DESCRIPTION: () => (/* binding */ INITIAL_DESCRIPTION),
 /* harmony export */   INITIAL_ICON_SET_NAME: () => (/* binding */ INITIAL_ICON_SET_NAME),
@@ -4162,12 +4163,11 @@ __webpack_require__.r(__webpack_exports__);
 const INITIAL_TITLE = '< title >';
 const INITIAL_DESCRIPTION = '';
 const INITIAL_ICON_SET_NAME = 'default';
-/** LocalStorageTags **/
-const APPENDED_ICONS_TAG = 'appendedIcons';
-// String value of tag should not be renamed, because existing configurations would not load
-const ICON_SET_CONFIGURATION_TAG = 'iconSetConfigurationTag';
-/** Version Key **/
-const VERSION_KEY = 'versionKey';
+/** LocalStorage KEYS **/
+const APPENDED_ICONS_KEY = 'appendedIcons';
+const ICON_SET_CONFIGURATION_KEY = 'iconSetConfiguration';
+const DRAFTS_KEY = 'autosaveDrafts';
+const VERSION_KEY = 'version';
 /** AUTOSAVE DEFAULTS **/
 const DEFAULT_AUTOSAVES_ENABLED = true;
 const DEFAULT_AUTOSAVES_MAX_DRAFTS = 5;
@@ -5265,8 +5265,7 @@ class AutosaveConfigurationService {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   AutosaveService: () => (/* binding */ AutosaveService),
-/* harmony export */   DRAFTS_TAG: () => (/* binding */ DRAFTS_TAG)
+/* harmony export */   AutosaveService: () => (/* binding */ AutosaveService)
 /* harmony export */ });
 /* harmony import */ var _domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../domain/entities/elementTypes */ 73190);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! rxjs */ 63150);
@@ -5292,7 +5291,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const DRAFTS_TAG = 'autosaveDrafts';
 class AutosaveService {
   constructor(autosaveConfiguration, exportService, iconDictionaryService, rendererService, snackbar, storageService, titleService, iconSetConfigurationService) {
     this.autosaveConfiguration = autosaveConfiguration;
@@ -5322,7 +5320,7 @@ class AutosaveService {
     this.rendererService.importStory(story, true, config, false);
   }
   removeAllDrafts() {
-    this.storageService.set(DRAFTS_TAG, []);
+    this.storageService.set(_domain_entities_constants__WEBPACK_IMPORTED_MODULE_1__.DRAFTS_KEY, []);
     this.autosavedDraftsChanged$.next();
   }
   loadLatestDraft() {
@@ -5376,10 +5374,10 @@ class AutosaveService {
     return a.title === b.title && a.description === b.description && JSON.stringify(a.configAndDST) === JSON.stringify(b.configAndDST);
   }
   writeDrafts(drafts) {
-    this.storageService.set(DRAFTS_TAG, drafts);
+    this.storageService.set(_domain_entities_constants__WEBPACK_IMPORTED_MODULE_1__.DRAFTS_KEY, drafts);
   }
   readDrafts() {
-    return this.storageService.get(DRAFTS_TAG) ?? [];
+    return this.storageService.get(_domain_entities_constants__WEBPACK_IMPORTED_MODULE_1__.DRAFTS_KEY) ?? [];
   }
   createDraft() {
     const dst = JSON.stringify(this.rendererService.getStory(), null, 2);
@@ -7796,7 +7794,7 @@ class IconSetConfigurationService {
     };
   }
   getStoredIconSetConfiguration() {
-    const iconSetString = this.storageService.get(_domain_entities_constants__WEBPACK_IMPORTED_MODULE_3__.ICON_SET_CONFIGURATION_TAG);
+    const iconSetString = this.storageService.get(_domain_entities_constants__WEBPACK_IMPORTED_MODULE_3__.ICON_SET_CONFIGURATION_KEY);
     if (!iconSetString) {
       return;
     } else {
@@ -7821,7 +7819,7 @@ class IconSetConfigurationService {
       actors: actors,
       workObjects: workObjects
     };
-    this.storageService.set(_domain_entities_constants__WEBPACK_IMPORTED_MODULE_3__.ICON_SET_CONFIGURATION_TAG, JSON.stringify(configForStorage, null, 2));
+    this.storageService.set(_domain_entities_constants__WEBPACK_IMPORTED_MODULE_3__.ICON_SET_CONFIGURATION_KEY, JSON.stringify(configForStorage, null, 2));
   }
   createConfigFromCanvas() {
     const config = {
