@@ -3127,13 +3127,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ PaletteProvider),
 /* harmony export */   initializePalette: () => (/* binding */ initializePalette)
 /* harmony export */ });
-/* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! min-dash */ 81410);
-/* harmony import */ var src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/tools/icon-set-config/domain/allIcons */ 61070);
-/* harmony import */ var src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/domain/entities/dictionary */ 20843);
-/* harmony import */ var src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/domain/entities/elementTypes */ 73190);
-/* harmony import */ var src_app_domain_entities_constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/domain/entities/constants */ 40550);
-
-
+/* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! min-dash */ 81410);
+/* harmony import */ var src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/domain/entities/dictionary */ 20843);
+/* harmony import */ var src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/domain/entities/elementTypes */ 73190);
 
 
 
@@ -3161,10 +3157,10 @@ PaletteProvider.prototype.getPaletteEntries = function () {
     lassoTool = this._lassoTool;
   function createAction(type, group, className, title, options) {
     function createListener(event) {
-      let shape = elementFactory.createShape((0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)({
+      let shape = elementFactory.createShape((0,min_dash__WEBPACK_IMPORTED_MODULE_2__.assign)({
         type: type
       }, options));
-      (0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)(shape.businessObject, {
+      (0,min_dash__WEBPACK_IMPORTED_MODULE_2__.assign)(shape.businessObject, {
         id: shape.id
       });
       if (options) {
@@ -3188,7 +3184,7 @@ PaletteProvider.prototype.getPaletteEntries = function () {
 function appendCSSStyleCheat(customIcons) {
   const sheetEl = document.createElement("style");
   document.head.appendChild(sheetEl);
-  let customIconDict = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
+  let customIconDict = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__.Dictionary();
   customIconDict.appendDict(customIcons);
   let customIconDictKeys = customIconDict.keysArray();
   customIconDictKeys.forEach(name => {
@@ -3201,42 +3197,27 @@ function appendCSSStyleCheat(customIcons) {
 }
 function initPalette(actions, spaceTool, lassoTool, createAction) {
   let config = iconDictionary?.getCurrentIconConfigurationForBPMN();
-  let customIcons = localStorage.getItem(src_app_domain_entities_constants__WEBPACK_IMPORTED_MODULE_3__.APPENDED_ICONS_KEY);
-  if (customIcons) {
-    customIcons = JSON.parse(customIcons);
-    if (customIconsLegacy(customIcons)) {
-      customIcons = convertLegacyAppendedIconsToDict(customIcons);
-    }
-    if (customIcons.entries && customIcons.entries.forEach) {
-      const customIconsDict = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
-      customIcons.entries.forEach(entry => {
-        customIconsDict.putEntry(entry);
-      });
-      (0,src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_0__.overrideAppendedIcons)(customIconsDict);
-      appendCSSStyleCheat(customIcons);
-    }
-  }
   iconDictionary?.initTypeDictionaries(config.actors, config.workObjects);
-  let actorTypes = iconDictionary?.getTypeDictionary(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTOR);
+  let actorTypes = iconDictionary?.getTypeDictionary(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.ACTOR);
   actorTypes?.keysArray().forEach(name => {
-    addCanvasObjectTypes(name, createAction, actions, "actor", src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTOR);
+    addCanvasObjectTypes(name, createAction, actions, "actor", src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.ACTOR);
   });
-  (0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)(actions, {
+  (0,min_dash__WEBPACK_IMPORTED_MODULE_2__.assign)(actions, {
     "actor-separator": {
       group: "actor",
       separator: true
     }
   });
-  let workObjectTypes = iconDictionary?.getTypeDictionary(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.WORKOBJECT);
+  let workObjectTypes = iconDictionary?.getTypeDictionary(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.WORKOBJECT);
   workObjectTypes?.keysArray().forEach(name => {
-    addCanvasObjectTypes(name, createAction, actions, "actor", src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.WORKOBJECT);
+    addCanvasObjectTypes(name, createAction, actions, "actor", src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.WORKOBJECT);
   });
-  (0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)(actions, {
+  (0,min_dash__WEBPACK_IMPORTED_MODULE_2__.assign)(actions, {
     "workObject-separator": {
       group: "workObject",
       separator: true
     },
-    "domainStory-group": createAction(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.GROUP, "group", "icon-domain-story-tool-group", "group"),
+    "domainStory-group": createAction(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.GROUP, "group", "icon-domain-story-tool-group", "group"),
     "group-separator": {
       group: "group",
       separator: true
@@ -3268,17 +3249,7 @@ function addCanvasObjectTypes(name, createAction, actions, className, elementTyp
   let icon = iconDictionary.getIconForBPMN(elementType, name);
   let action = [];
   action["domainStory-" + className + name] = createAction(`${elementType}${name}`, className, icon, name);
-  (0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)(actions, action);
-}
-function customIconsLegacy(customIcons) {
-  return !(Object.keys(customIcons).length === 1 && Object.keys(customIcons)[0] === "entries");
-}
-function convertLegacyAppendedIconsToDict(customIcons) {
-  let dict = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
-  Object.keys(customIcons).forEach(key => {
-    dict.set(key, customIcons[key]);
-  });
-  return dict;
+  (0,min_dash__WEBPACK_IMPORTED_MODULE_2__.assign)(actions, action);
 }
 // For some reason its important to use ' in the content for the Palette and ContextPad
 // Do not change!
@@ -4129,7 +4100,6 @@ class Configuration {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   APPENDED_ICONS_KEY: () => (/* binding */ APPENDED_ICONS_KEY),
 /* harmony export */   BLACK: () => (/* binding */ BLACK),
 /* harmony export */   BLUE: () => (/* binding */ BLUE),
 /* harmony export */   CYAN: () => (/* binding */ CYAN),
@@ -4164,7 +4134,6 @@ const INITIAL_TITLE = '< title >';
 const INITIAL_DESCRIPTION = '';
 const INITIAL_ICON_SET_NAME = 'default';
 /** LocalStorage KEYS **/
-const APPENDED_ICONS_KEY = 'appendedIcons';
 const ICON_SET_CONFIGURATION_KEY = 'iconSetConfiguration';
 const DRAFTS_KEY = 'autosaveDrafts';
 const VERSION_KEY = 'version';
