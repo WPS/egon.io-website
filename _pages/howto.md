@@ -14,22 +14,21 @@ There is no login or registration required to use Egon. Egon runs completely in 
 
 ## Launching Egon
 
-### Online
-
-We provide an [online version](https://egon.io/) on our webpage. Just click *Use Online* and start modeling.
-
 >  **Updating to the latest version:** If you have used one of the `v2.0.0-beta` versions or the latest build (`v2.x.x.-dev`), you need to clear your local browser storage and then reload the page in order for Egon to load properly. This will reset your icon configuration to default and delete the automatically saved drafts. Instructions:
 > - [Firefox](https://support.mozilla.org/en-US/kb/clear-cookies-and-site-data-firefox#w_clear-cookies-for-the-current-website)
 > - Chrome: In the address bar, click the button in the left corner (*show website information*), then *cookies and website date*, *manage website data*, and delete the data for egon.io.
 
+### Online
+
+We provide an [online version](https://egon.io/) on our webpage. Just click *Use Online* and start modeling.
+
 ### Docker
 
-tbd
-  
-<!-- 
- TODO: include this as soon as the Docker container is publicly available
- - Docker image: You can run Egon as Docker container using [this image](https://github.com/WPS/egon.io/pkgs/container/egon.io).
--->
+We provide a Docker image on GitHub: `docker pull ghcr.io/wps/egon.io:latest`
+
+### Host Egon on your own Web Server
+
+You can [download Egon as `zip`file](https://github.com/WPS/egon.io/releases), unpack it and put the `egon`folder on your own web server.
 
 ### For Developers
 
@@ -87,16 +86,26 @@ If you want to model activities that happen simultaneously, check  the "multiple
 
 To rename multiple work objects or activities, click the dictionary button ![Dictionary Button](/assets/images/buttons/spellcheck.png). Actors cannot be renamed in the dictionary because they usually appear only once per Domain Story.
 
-## Exporting and Importing Domain Stories
+## Exporting Domain Stories
 
-To save your Domain Story, download it as a file by clicking the export button ![Export Button](/assets/images/buttons/archive.png). The following file formats are available:
+To save your Domain Story on your computer, download it as a file by clicking the export button ![Export Button](/assets/images/buttons/archive.png). The following file formats are available:
 
 - `.egn`: A text file that contains the "source code" of your Domain Story. It can later be imported by you or other Egon users. Egon uses the JSON format and produces files that are properly formatted. This makes it easy to keep track of changes when the files are kept in a source code repository like *git*.
 - `.egn.svg`: A scalable image. Great for adding your Domain Story in collaborative whiteboards like Miro. This image also contains an embedded `.dst` file.
 - `.png`: An image, e.g. for embedding in documents.
 - `.html`: A presentation that lets people replay the story in their browser without the need of using Egon.
 
-To load a previously created Domain Story, import a `.egn` or `.egn.svg` file using the upload button ![Upload Button](/assets/images/buttons/unarchive.png).
+## Importing Domain Stories
+
+To load a previously created Domain Story, you can...
+- import an `.egn` or `.egn.svg` file by clicking the import button ![Upload Button](/assets/images/buttons/unarchive.png) and selecting the file
+- drag an `.egn` or `.egn.svg` file from your local file system and drop it onto the canvas
+
+<!-- include this for v2.2.0
+- import it from a public URL by clicking the import button ![Upload Button](/assets/images/buttons/cloud.png) and pasting the URL
+
+> Import from URL only works with providers that allow CORS, e.g. GitHub and BitBucket. If you want to share a domain story via public URL, make sure it points to the raw format and contains the full file name and file ending!
+-->
 
 ## Auto-Save and Creating new Domain Stories
 
@@ -129,7 +138,7 @@ If you import a Domain Story from a `.egn` or `.egn.svg` file, your icon set wil
 
 In addition to the built-in icons, you can upload your own icons and then select them as actors or work objects. 
 
-> We strongly recommend to use square SVG images for icons.
+> We strongly recommend to use square SVG images for icons. Keep the file name short (as Egon will add `-custom`to it) and memorable (so you can search for it).
  
 Other image formats are allowed as well, but only SVG can be colored and it can be zoomed without getting pixelated. Square images look better in the pallet and the context pad. 
 
