@@ -426,13 +426,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var inherits__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inherits */ 98069);
 /* harmony import */ var inherits__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(inherits__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var bpmn_js_lib_features_context_pad_ContextPadProvider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! bpmn-js/lib/features/context-pad/ContextPadProvider */ 30862);
-/* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! min-dash */ 81410);
+/* harmony import */ var bpmn_js_lib_features_context_pad_ContextPadProvider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! bpmn-js/lib/features/context-pad/ContextPadProvider */ 30862);
+/* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! min-dash */ 81410);
 /* harmony import */ var _numbering_numbering__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../numbering/numbering */ 33862);
 /* harmony import */ var src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/domain/entities/elementTypes */ 73190);
-/* harmony import */ var src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/tools/icon-set-config/domain/allIcons */ 61070);
-/* harmony import */ var _utils_colorConverter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../utils/colorConverter */ 99683);
-
+/* harmony import */ var _utils_colorConverter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../utils/colorConverter */ 99683);
 
 
 
@@ -450,8 +448,8 @@ function initializeContextPadProvider(dirtyFlag, iconDictionary) {
 function DomainStoryContextPadProvider(injector, connect, translate, elementFactory, create, canvas, contextPad, popupMenu, replaceMenuProvider, commandStack, eventBus, modeling) {
   let startConnect;
   let selectedElement;
-  injector.invoke(bpmn_js_lib_features_context_pad_ContextPadProvider__WEBPACK_IMPORTED_MODULE_5__["default"], this);
-  let cached = (0,min_dash__WEBPACK_IMPORTED_MODULE_6__.bind)(this.getContextPadEntries, this);
+  injector.invoke(bpmn_js_lib_features_context_pad_ContextPadProvider__WEBPACK_IMPORTED_MODULE_4__["default"], this);
+  let cached = (0,min_dash__WEBPACK_IMPORTED_MODULE_5__.bind)(this.getContextPadEntries, this);
   document.addEventListener("pickedColor", event => {
     if (selectedElement) {
       executeCommandStack(event);
@@ -462,15 +460,14 @@ function DomainStoryContextPadProvider(injector, connect, translate, elementFact
   this.getContextPadEntries = function (element) {
     selectedElement = element;
     let pickedColor = selectedElement.businessObject.pickedColor;
-    if ((0,_utils_colorConverter__WEBPACK_IMPORTED_MODULE_4__.isHexWithAlpha)(pickedColor)) {
-      pickedColor = (0,_utils_colorConverter__WEBPACK_IMPORTED_MODULE_4__.hexToRGBA)(pickedColor);
+    if ((0,_utils_colorConverter__WEBPACK_IMPORTED_MODULE_3__.isHexWithAlpha)(pickedColor)) {
+      pickedColor = (0,_utils_colorConverter__WEBPACK_IMPORTED_MODULE_3__.hexToRGBA)(pickedColor);
     }
     document.dispatchEvent(new CustomEvent("defaultColor", {
       detail: {
         color: pickedColor ?? "#000000"
       }
     }));
-    const allStandardIconKeys = (0,src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.getAllStandardIconKeys)();
     let actions = cached(element);
     startConnect = function (event, element, autoActivate) {
       connect.start(event, element, autoActivate);
@@ -491,7 +488,7 @@ function DomainStoryContextPadProvider(injector, connect, translate, elementFact
     } else if (element.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.GROUP)) {
       delete actions.delete;
       addTextAnnotation(actions);
-      (0,min_dash__WEBPACK_IMPORTED_MODULE_6__.assign)(actions, {
+      (0,min_dash__WEBPACK_IMPORTED_MODULE_5__.assign)(actions, {
         deleteGroup: {
           group: "edit",
           className: "bpmn-icon-trash",
@@ -508,7 +505,7 @@ function DomainStoryContextPadProvider(injector, connect, translate, elementFact
     } else if (element.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTIVITY)) {
       moveDeleteActionToEndOfArray(actions);
       addColorChange(actions);
-      (0,min_dash__WEBPACK_IMPORTED_MODULE_6__.assign)(actions, {
+      (0,min_dash__WEBPACK_IMPORTED_MODULE_5__.assign)(actions, {
         delete: {
           group: "edit",
           className: "bpmn-icon-trash",
@@ -530,7 +527,7 @@ function DomainStoryContextPadProvider(injector, connect, translate, elementFact
   };
   function moveDeleteActionToEndOfArray(actions) {
     delete actions.delete;
-    (0,min_dash__WEBPACK_IMPORTED_MODULE_6__.assign)(actions, {
+    (0,min_dash__WEBPACK_IMPORTED_MODULE_5__.assign)(actions, {
       changeDirection: {
         group: "edit",
         className: "icon-domain-story-changeDirection",
@@ -545,14 +542,14 @@ function DomainStoryContextPadProvider(injector, connect, translate, elementFact
     });
   }
   function addChangeActorTypeMenu(actions) {
-    (0,min_dash__WEBPACK_IMPORTED_MODULE_6__.assign)(actions, {
+    (0,min_dash__WEBPACK_IMPORTED_MODULE_5__.assign)(actions, {
       replace: {
         group: "edit",
         className: "bpmn-icon-screw-wrench",
         title: translate("Change type"),
         action: {
           click: function (event, element) {
-            let position = (0,min_dash__WEBPACK_IMPORTED_MODULE_6__.assign)(getReplaceMenuPosition(element), {
+            let position = (0,min_dash__WEBPACK_IMPORTED_MODULE_5__.assign)(getReplaceMenuPosition(element), {
               cursor: {
                 x: event.x,
                 y: event.y
@@ -565,7 +562,7 @@ function DomainStoryContextPadProvider(injector, connect, translate, elementFact
     });
   }
   function addColorChange(actions) {
-    (0,min_dash__WEBPACK_IMPORTED_MODULE_6__.assign)(actions, {
+    (0,min_dash__WEBPACK_IMPORTED_MODULE_5__.assign)(actions, {
       colorChange: {
         group: "edit",
         className: "icon-domain-story-color-picker",
@@ -579,12 +576,12 @@ function DomainStoryContextPadProvider(injector, connect, translate, elementFact
     });
   }
   function addTextAnnotation(actions) {
-    (0,min_dash__WEBPACK_IMPORTED_MODULE_6__.assign)(actions, {
+    (0,min_dash__WEBPACK_IMPORTED_MODULE_5__.assign)(actions, {
       "append.text-annotation": appendAction(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.TEXTANNOTATION, "bpmn-icon-text-annotation", "textannotation", "connect")
     });
   }
   function addConnectWithActivity(actions, startConnect) {
-    (0,min_dash__WEBPACK_IMPORTED_MODULE_6__.assign)(actions, {
+    (0,min_dash__WEBPACK_IMPORTED_MODULE_5__.assign)(actions, {
       connect: {
         group: "connect",
         className: "bpmn-icon-connection",
@@ -603,7 +600,7 @@ function DomainStoryContextPadProvider(injector, connect, translate, elementFact
       let icon = iconDictionaryService.getIconForBPMN(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.WORKOBJECT, workObjectType);
       let action = [];
       action["append.workObject" + name] = appendAction(`${src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.WORKOBJECT}${workObjectType}`, icon, name, "workObjects");
-      (0,min_dash__WEBPACK_IMPORTED_MODULE_6__.assign)(actions, action);
+      (0,min_dash__WEBPACK_IMPORTED_MODULE_5__.assign)(actions, action);
     });
   }
   function addActors(appendAction, actions) {
@@ -613,18 +610,18 @@ function DomainStoryContextPadProvider(injector, connect, translate, elementFact
       let icon = iconDictionaryService.getIconForBPMN(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTOR, actorType);
       let action = [];
       action["append.actor" + name] = appendAction(`${src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTOR}${actorType}`, icon, name, "actors");
-      (0,min_dash__WEBPACK_IMPORTED_MODULE_6__.assign)(actions, action);
+      (0,min_dash__WEBPACK_IMPORTED_MODULE_5__.assign)(actions, action);
     });
   }
   function addChangeWorkObjectTypeMenu(actions) {
-    (0,min_dash__WEBPACK_IMPORTED_MODULE_6__.assign)(actions, {
+    (0,min_dash__WEBPACK_IMPORTED_MODULE_5__.assign)(actions, {
       replace: {
         group: "edit",
         className: "bpmn-icon-screw-wrench",
         title: translate("Change type"),
         action: {
           click: function (event, element) {
-            let position = (0,min_dash__WEBPACK_IMPORTED_MODULE_6__.assign)(getReplaceMenuPosition(element), {
+            let position = (0,min_dash__WEBPACK_IMPORTED_MODULE_5__.assign)(getReplaceMenuPosition(element), {
               cursor: {
                 x: event.x,
                 y: event.y
@@ -684,7 +681,7 @@ function DomainStoryContextPadProvider(injector, connect, translate, elementFact
       });
     }
     function appendStart(event, element) {
-      let shape = elementFactory.createShape((0,min_dash__WEBPACK_IMPORTED_MODULE_6__.assign)({
+      let shape = elementFactory.createShape((0,min_dash__WEBPACK_IMPORTED_MODULE_5__.assign)({
         type: type
       }, options));
       let context = {
@@ -707,8 +704,8 @@ function DomainStoryContextPadProvider(injector, connect, translate, elementFact
   function getSelectedBusinessObject(event) {
     const oldColor = selectedElement.businessObject.pickedColor;
     let newColor = event.detail.color;
-    if ((0,_utils_colorConverter__WEBPACK_IMPORTED_MODULE_4__.isHexWithAlpha)(oldColor)) {
-      newColor = (0,_utils_colorConverter__WEBPACK_IMPORTED_MODULE_4__.rgbaToHex)(newColor);
+    if ((0,_utils_colorConverter__WEBPACK_IMPORTED_MODULE_3__.isHexWithAlpha)(oldColor)) {
+      newColor = (0,_utils_colorConverter__WEBPACK_IMPORTED_MODULE_3__.rgbaToHex)(newColor);
     }
     return {
       businessObject: selectedElement.businessObject,
@@ -722,7 +719,7 @@ function DomainStoryContextPadProvider(injector, connect, translate, elementFact
     dirtyFlagService.makeDirty();
   }
 }
-inherits__WEBPACK_IMPORTED_MODULE_0___default()(DomainStoryContextPadProvider, bpmn_js_lib_features_context_pad_ContextPadProvider__WEBPACK_IMPORTED_MODULE_5__["default"]);
+inherits__WEBPACK_IMPORTED_MODULE_0___default()(DomainStoryContextPadProvider, bpmn_js_lib_features_context_pad_ContextPadProvider__WEBPACK_IMPORTED_MODULE_4__["default"]);
 DomainStoryContextPadProvider.$inject = ["injector", "connect", "translate", "elementFactory", "create", "canvas", "contextPad", "popupMenu", "replaceMenuProvider", "commandStack", "eventBus", "modeling"];
 
 /***/ }),
@@ -6350,17 +6347,15 @@ class SvgService {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   allIcons: () => (/* binding */ allIcons),
-/* harmony export */   appendedIcons: () => (/* binding */ appendedIcons),
-/* harmony export */   getAllStandardIconKeys: () => (/* binding */ getAllStandardIconKeys),
-/* harmony export */   overrideAppendedIcons: () => (/* binding */ overrideAppendedIcons),
-/* harmony export */   updateAppendedIcons: () => (/* binding */ updateAppendedIcons)
+/* harmony export */   addCustomIcons: () => (/* binding */ addCustomIcons),
+/* harmony export */   builtInIcons: () => (/* binding */ builtInIcons),
+/* harmony export */   customIcons: () => (/* binding */ customIcons)
 /* harmony export */ });
 /* harmony import */ var src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/domain/entities/dictionary */ 20843);
 
-let appendedIcons = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__.Dictionary();
+let customIcons = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__.Dictionary();
 // These SVGs are used to render the actors/work objects on the canvas and in the iconset configuration. For palette and context pad, icons.css is used.
-const allIcons = {
+const builtInIcons = {
   Person: '<svg viewBox="0 0 24 26" xmlns="http://www.w3.org/2000/svg"><path d="M12 5.9c1.16 0 2.1.94 2.1 2.1s-.94 2.1-2.1 2.1S9.9 9.16 9.9 8s.94-2.1 2.1-2.1m0 9c2.97 0 6.1 1.46 6.1 2.1v1.1H5.9V17c0-.64 3.13-2.1 6.1-2.1M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 9c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z"/><path d="M0 0h24v24H0z" fill="none"/></svg>',
   Group: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="48" viewBox="0 0 24 26"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.5 13c-1.2 0-3.07.34-4.5 1-1.43-.67-3.3-1-4.5-1C5.33 13 1 14.08 1 16.25V19h22v-2.75c0-2.17-4.33-3.25-6.5-3.25zm-4 4.5h-10v-1.25c0-.54 2.56-1.75 5-1.75s5 1.21 5 1.75v1.25zm9 0H14v-1.25c0-.46-.2-.86-.52-1.22.88-.3 1.96-.53 3.02-.53 2.44 0 5 1.21 5 1.75v1.25zM7.5 12c1.93 0 3.5-1.57 3.5-3.5S9.43 5 7.5 5 4 6.57 4 8.5 5.57 12 7.5 12zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 5.5c1.93 0 3.5-1.57 3.5-3.5S18.43 5 16.5 5 13 6.57 13 8.5s1.57 3.5 3.5 3.5zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"/></svg>',
   Pet: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 28"><path fill="none" d="M0 0h24v24H0V0z"/><circle cx="4.5" cy="9.5" r="2.5"/><circle cx="9" cy="5.5" r="2.5"/><circle cx="15" cy="5.5" r="2.5"/><circle cx="19.5" cy="9.5" r="2.5"/><path d="M17.34 14.86c-.87-1.02-1.6-1.89-2.48-2.91-.46-.54-1.05-1.08-1.75-1.32-.11-.04-.22-.07-.33-.09-.25-.04-.52-.04-.78-.04s-.53 0-.79.05c-.11.02-.22.05-.33.09-.7.24-1.28.78-1.75 1.32-.87 1.02-1.6 1.89-2.48 2.91-1.31 1.31-2.92 2.76-2.62 4.79.29 1.02 1.02 2.03 2.33 2.32.73.15 3.06-.44 5.54-.44h.18c2.48 0 4.81.58 5.54.44 1.31-.29 2.04-1.31 2.33-2.32.31-2.04-1.3-3.49-2.61-4.8z"/></svg>',
@@ -6487,17 +6482,9 @@ const allIcons = {
   Videocam: '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M15 8v8H5V8h10m1-2H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4V7c0-.55-.45-1-1-1z"/></svg>',
   Wysiwyg: '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><g><rect fill="none" height="24" width="24"/><path d="M19,3H5C3.89,3,3,3.9,3,5v14c0,1.1,0.89,2,2,2h14c1.1,0,2-0.9,2-2V5C21,3.9,20.11,3,19,3z M19,19H5V7h14V19z M17,12H7v-2 h10V12z M13,16H7v-2h6V16z"/></g></svg>'
 };
-function getAllStandardIconKeys() {
-  const allIconsDict = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__.Dictionary();
-  allIconsDict.addEach(allIcons);
-  return allIconsDict.keysArray();
-}
-function overrideAppendedIcons(newIcons) {
-  appendedIcons = newIcons;
-}
-function updateAppendedIcons(newIcons) {
+function addCustomIcons(newIcons) {
   for (const key in newIcons.keysArray().entries()) {
-    appendedIcons.add(newIcons.get(key), key);
+    customIcons.add(newIcons.get(key), key);
   }
 }
 
@@ -6524,41 +6511,35 @@ __webpack_require__.r(__webpack_exports__);
 
 class IconConfiguration {
   constructor(allIconDictionary) {
-    this.domainName = _domain_entities_constants__WEBPACK_IMPORTED_MODULE_3__.INITIAL_ICON_SET_NAME;
+    this.iconSetName = _domain_entities_constants__WEBPACK_IMPORTED_MODULE_3__.INITIAL_ICON_SET_NAME;
     this.allIconDictionary = allIconDictionary;
   }
-  /**
-   * Select the Iconset which you want to use
-   */
   getDefaultConf() {
     return defaultConf;
   }
-  updateAllIconRegistry(allIconDictionary) {
-    this.allIconDictionary = allIconDictionary;
-  }
-  appendSRCFile(actors, actorsDict, workObjects, workObjectsDict) {
-    const newAppendedIcons = {};
+  addCustomIcons(actors, actorsDict, workObjects, workObjectsDict) {
+    const newCustomIcons = {};
     actors.forEach(name => {
       if (!this.allIconDictionary.has(name)) {
-        newAppendedIcons[name] = actorsDict.get(name);
+        newCustomIcons[name] = actorsDict.get(name);
       }
     });
     workObjects.forEach(name => {
       if (!this.allIconDictionary.has(name)) {
-        newAppendedIcons[name] = workObjectsDict.get(name);
+        newCustomIcons[name] = workObjectsDict.get(name);
       }
     });
-    const appen = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__.Dictionary();
-    Object.keys(newAppendedIcons).forEach(key => {
-      appen.set(key, newAppendedIcons[key]);
+    const customIcons = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__.Dictionary();
+    Object.keys(newCustomIcons).forEach(key => {
+      customIcons.set(key, newCustomIcons[key]);
     });
-    (0,src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_1__.updateAppendedIcons)(appen);
+    (0,src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_1__.addCustomIcons)(customIcons);
   }
   createCustomConf(iconSetConfiguration) {
-    this.domainName = iconSetConfiguration.name;
+    this.iconSetName = iconSetConfiguration.name;
     let actors = iconSetConfiguration.actors;
     let workObjects = iconSetConfiguration.workObjects;
-    this.appendSRCFile(actors.keysArray(), actors, workObjects.keysArray(), workObjects);
+    this.addCustomIcons(actors.keysArray(), actors, workObjects.keysArray(), workObjects);
     return new src_app_domain_entities_configuration__WEBPACK_IMPORTED_MODULE_2__.Configuration(actors.keysArray(), workObjects.keysArray());
   }
 }
@@ -6572,23 +6553,23 @@ const defaultConf = {
 
 /***/ }),
 
-/***/ 87831:
-/*!****************************************************************!*\
-  !*** ./src/app/tools/icon-set-config/domain/iconFilterEnum.ts ***!
-  \****************************************************************/
+/***/ 76954:
+/*!*******************************************************************!*\
+  !*** ./src/app/tools/icon-set-config/domain/iconFilterOptions.ts ***!
+  \*******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   IconFilterEnum: () => (/* binding */ IconFilterEnum)
+/* harmony export */   IconFilterOptions: () => (/* binding */ IconFilterOptions)
 /* harmony export */ });
-var IconFilterEnum;
-(function (IconFilterEnum) {
-  IconFilterEnum["ICON_FILTER_ACTOR"] = "ICON_FILTER_ACTOR";
-  IconFilterEnum["ICON_FILTER_WORKOBJECT"] = "ICON_FILTER_WORKOBJECT";
-  IconFilterEnum["ICON_FILTER_UNASSIGNED"] = "ICON_FILTER_UNASSIGNED";
-  IconFilterEnum["ICON_FILTER_NONE"] = "ICON_FILTER_NONE";
-})(IconFilterEnum || (IconFilterEnum = {}));
+var IconFilterOptions;
+(function (IconFilterOptions) {
+  IconFilterOptions["ONLY_ACTORS"] = "ICON_FILTER_ACTOR";
+  IconFilterOptions["ONLY_WORKOBJECTS"] = "ICON_FILTER_WORKOBJECT";
+  IconFilterOptions["ONLY_UNASSIGNED"] = "ICON_FILTER_UNASSIGNED";
+  IconFilterOptions["NO_FILTER"] = "";
+})(IconFilterOptions || (IconFilterOptions = {}));
 
 /***/ }),
 
@@ -6853,7 +6834,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_tools_icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/tools/icon-set-config/services/icon-dictionary.service */ 6932);
 /* harmony import */ var src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/utils/sanitizer */ 43515);
 /* harmony import */ var _domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../domain/entities/elementTypes */ 73190);
-/* harmony import */ var _domain_iconFilterEnum__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../domain/iconFilterEnum */ 87831);
+/* harmony import */ var _domain_iconFilterOptions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../domain/iconFilterOptions */ 76954);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/core */ 96623);
 /* harmony import */ var src_app_tools_icon_set_config_services_icon_set_configuration_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/tools/icon-set-config/services/icon-set-configuration.service */ 46527);
 /* harmony import */ var _services_icon_set_customization_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../services/icon-set-customization.service */ 46252);
@@ -6893,7 +6874,7 @@ class IconSetConfigurationComponent {
     this.iconDictionaryService = iconDictionaryService;
     this.iconSetCustomizationService = iconSetCustomizationService;
     this.elementRegistryService = elementRegistryService;
-    this.filter = new rxjs__WEBPACK_IMPORTED_MODULE_10__.BehaviorSubject(_domain_iconFilterEnum__WEBPACK_IMPORTED_MODULE_3__.IconFilterEnum.ICON_FILTER_NONE);
+    this.filter = new rxjs__WEBPACK_IMPORTED_MODULE_10__.BehaviorSubject(_domain_iconFilterOptions__WEBPACK_IMPORTED_MODULE_3__.IconFilterOptions.NO_FILTER);
     this.selectedActors = new rxjs__WEBPACK_IMPORTED_MODULE_10__.BehaviorSubject([]);
     this.selectedWorkobjects = new rxjs__WEBPACK_IMPORTED_MODULE_10__.BehaviorSubject([]);
     this.allIconNames = new rxjs__WEBPACK_IMPORTED_MODULE_10__.BehaviorSubject([]);
@@ -6974,24 +6955,24 @@ class IconSetConfigurationComponent {
   }
   /** Filter **/
   filterForActors() {
-    if (this.filter.value !== _domain_iconFilterEnum__WEBPACK_IMPORTED_MODULE_3__.IconFilterEnum.ICON_FILTER_ACTOR) {
-      this.filter.next(_domain_iconFilterEnum__WEBPACK_IMPORTED_MODULE_3__.IconFilterEnum.ICON_FILTER_ACTOR);
+    if (this.filter.value !== _domain_iconFilterOptions__WEBPACK_IMPORTED_MODULE_3__.IconFilterOptions.ONLY_ACTORS) {
+      this.filter.next(_domain_iconFilterOptions__WEBPACK_IMPORTED_MODULE_3__.IconFilterOptions.ONLY_ACTORS);
     } else {
-      this.filter.next(_domain_iconFilterEnum__WEBPACK_IMPORTED_MODULE_3__.IconFilterEnum.ICON_FILTER_NONE);
+      this.filter.next(_domain_iconFilterOptions__WEBPACK_IMPORTED_MODULE_3__.IconFilterOptions.NO_FILTER);
     }
   }
   filterForWorkobjects() {
-    if (this.filter.value !== _domain_iconFilterEnum__WEBPACK_IMPORTED_MODULE_3__.IconFilterEnum.ICON_FILTER_WORKOBJECT) {
-      this.filter.next(_domain_iconFilterEnum__WEBPACK_IMPORTED_MODULE_3__.IconFilterEnum.ICON_FILTER_WORKOBJECT);
+    if (this.filter.value !== _domain_iconFilterOptions__WEBPACK_IMPORTED_MODULE_3__.IconFilterOptions.ONLY_WORKOBJECTS) {
+      this.filter.next(_domain_iconFilterOptions__WEBPACK_IMPORTED_MODULE_3__.IconFilterOptions.ONLY_WORKOBJECTS);
     } else {
-      this.filter.next(_domain_iconFilterEnum__WEBPACK_IMPORTED_MODULE_3__.IconFilterEnum.ICON_FILTER_NONE);
+      this.filter.next(_domain_iconFilterOptions__WEBPACK_IMPORTED_MODULE_3__.IconFilterOptions.NO_FILTER);
     }
   }
   filterForUnassigned() {
-    if (this.filter.value !== _domain_iconFilterEnum__WEBPACK_IMPORTED_MODULE_3__.IconFilterEnum.ICON_FILTER_UNASSIGNED) {
-      this.filter.next(_domain_iconFilterEnum__WEBPACK_IMPORTED_MODULE_3__.IconFilterEnum.ICON_FILTER_UNASSIGNED);
+    if (this.filter.value !== _domain_iconFilterOptions__WEBPACK_IMPORTED_MODULE_3__.IconFilterOptions.ONLY_UNASSIGNED) {
+      this.filter.next(_domain_iconFilterOptions__WEBPACK_IMPORTED_MODULE_3__.IconFilterOptions.ONLY_UNASSIGNED);
     } else {
-      this.filter.next(_domain_iconFilterEnum__WEBPACK_IMPORTED_MODULE_3__.IconFilterEnum.ICON_FILTER_NONE);
+      this.filter.next(_domain_iconFilterOptions__WEBPACK_IMPORTED_MODULE_3__.IconFilterOptions.NO_FILTER);
     }
   }
   filterByNameAndType($event) {
@@ -7001,16 +6982,16 @@ class IconSetConfigurationComponent {
   getFilteredNamesForType(type) {
     let allFiltered = [];
     switch (type) {
-      case _domain_iconFilterEnum__WEBPACK_IMPORTED_MODULE_3__.IconFilterEnum.ICON_FILTER_NONE:
+      case _domain_iconFilterOptions__WEBPACK_IMPORTED_MODULE_3__.IconFilterOptions.NO_FILTER:
         allFiltered = this.allIconNames.value;
         break;
-      case _domain_iconFilterEnum__WEBPACK_IMPORTED_MODULE_3__.IconFilterEnum.ICON_FILTER_ACTOR:
+      case _domain_iconFilterOptions__WEBPACK_IMPORTED_MODULE_3__.IconFilterOptions.ONLY_ACTORS:
         allFiltered = this.allIconNames.value.filter(name => this.iconSetCustomizationService.isIconActor(name));
         break;
-      case _domain_iconFilterEnum__WEBPACK_IMPORTED_MODULE_3__.IconFilterEnum.ICON_FILTER_WORKOBJECT:
+      case _domain_iconFilterOptions__WEBPACK_IMPORTED_MODULE_3__.IconFilterOptions.ONLY_WORKOBJECTS:
         allFiltered = this.allIconNames.value.filter(name => this.iconSetCustomizationService.isIconWorkObject(name));
         break;
-      case _domain_iconFilterEnum__WEBPACK_IMPORTED_MODULE_3__.IconFilterEnum.ICON_FILTER_UNASSIGNED:
+      case _domain_iconFilterOptions__WEBPACK_IMPORTED_MODULE_3__.IconFilterOptions.ONLY_UNASSIGNED:
         allFiltered = this.allIconNames.value.filter(name => !this.iconSetCustomizationService.isIconActor(name) && !this.iconSetCustomizationService.isIconWorkObject(name));
         break;
     }
@@ -7024,7 +7005,7 @@ class IconSetConfigurationComponent {
     selectors: [["app-icon-set-configuration"]],
     decls: 47,
     vars: 14,
-    consts: [[1, "content"], [1, "header"], [1, "searchbar"], ["mat-button", "", "title", "Unassigned Icons", 3, "click"], ["mat-button", "", "title", "Actors", 3, "click"], ["mat-button", "", "title", "Workobjects", 3, "click"], ["matInput", "", "type", "text", "placeholder", "Filter by name", 1, "textInput", 3, "input"], [1, "buttons"], ["mat-button", "", "title", "Upload Icon", 3, "click"], [1, "material-icons-outlined", "materialIconButton"], ["type", "file", "multiple", "", "accept", ".svg, image/png, image/jpeg, image/gif, image/bpmn", "id", "importIcon", "name", "file", "onclick", "this.value=null", 2, "display", "none", 3, "change"], ["mat-button", "", "title", "Reset to default icon set", 1, "button", 3, "click"], ["mat-button", "", "title", "Cancel changes", 3, "click"], [1, "divider"], ["mat-button", "", "title", "Save icon set", 3, "click"], ["mat-button", "", "title", "Import icon set", 3, "click"], ["type", "file", "accept", ".domain, .iconset", "id", "importDomain", "name", "file", "onclick", "this.value=null", 2, "display", "none", 3, "change"], ["mat-button", "", "title", "Export icon set", 3, "click"], [1, "iconList", "smallScrollbar"], [3, "iconName"], [1, "iconSetDetails"]],
+    consts: [[1, "content"], [1, "header"], [1, "searchbar"], ["mat-button", "", "title", "Unassigned Icons", 3, "click"], ["mat-button", "", "title", "Icons used as actors", 3, "click"], ["mat-button", "", "title", "Icons used as work objects", 3, "click"], ["matInput", "", "type", "text", "placeholder", "Filter by name", 1, "textInput", 3, "input"], [1, "buttons"], ["mat-button", "", "title", "Upload Icon", 3, "click"], [1, "material-icons-outlined", "materialIconButton"], ["type", "file", "multiple", "", "accept", ".svg, image/png, image/jpeg, image/gif, image/bpmn", "id", "importIcon", "name", "file", "onclick", "this.value=null", 2, "display", "none", 3, "change"], ["mat-button", "", "title", "Reset to default icon set", 1, "button", 3, "click"], ["mat-button", "", "title", "Cancel changes", 3, "click"], [1, "divider"], ["mat-button", "", "title", "Save icon set", 3, "click"], ["mat-button", "", "title", "Import icon set", 3, "click"], ["type", "file", "accept", ".domain, .iconset", "id", "importDomain", "name", "file", "onclick", "this.value=null", 2, "display", "none", 3, "change"], ["mat-button", "", "title", "Export icon set", 3, "click"], [1, "iconList", "smallScrollbar"], [3, "iconName"], [1, "iconSetDetails"]],
     template: function IconSetConfigurationComponent_Template(rf, ctx) {
       if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵelementStart"](0, "div", 0)(1, "div")(2, "div", 1)(3, "div", 2)(4, "div");
@@ -7052,7 +7033,7 @@ class IconSetConfigurationComponent {
           return ctx.filterForWorkobjects();
         });
         _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵelementStart"](16, "span");
-        _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵtext"](17, "Workobjects");
+        _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵtext"](17, "Work Objects");
         _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵelementEnd"]()();
         _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵelementStart"](18, "input", 6);
         _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵlistener"]("input", function IconSetConfigurationComponent_Template_input_input_18_listener($event) {
@@ -7347,9 +7328,10 @@ class IconDictionaryService {
     this.workObjectDictionary = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__.Dictionary();
     this.allIconDictionary = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__.Dictionary();
     this.iconDictionaryForBPMN = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__.Dictionary();
-    this.allIconDictionary.addEach(src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.allIcons);
+    this.allIconDictionary.addEach(src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.builtInIcons);
     this.iconConfig = new src_app_tools_icon_set_config_domain_iconConfiguration__WEBPACK_IMPORTED_MODULE_2__.IconConfiguration(this.allIconDictionary);
   }
+  // TODO: only used in tests
   initTypeDictionaries(actors, workObjects) {
     if (!actors || actors.length == 0) {
       actors = src_app_tools_icon_set_config_domain_iconConfiguration__WEBPACK_IMPORTED_MODULE_2__.defaultConf.actors;
@@ -7358,7 +7340,7 @@ class IconDictionaryService {
       workObjects = src_app_tools_icon_set_config_domain_iconConfiguration__WEBPACK_IMPORTED_MODULE_2__.defaultConf.workObjects;
     }
     const allTypes = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__.Dictionary();
-    allTypes.addEach(src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.allIcons);
+    allTypes.addEach(src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.builtInIcons);
     allTypes.appendDict(this.getAppendedIconDictionary());
     this.initDictionary(actors, allTypes, this.actorIconDictionary, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.ACTOR);
     this.initDictionary(workObjects, allTypes, this.workObjectDictionary, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.WORKOBJECT);
@@ -7406,8 +7388,8 @@ class IconDictionaryService {
       collection = this.workObjectDictionary;
     }
     const allTypes = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__.Dictionary();
-    allTypes.addEach(src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.allIcons);
-    allTypes.appendDict(src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.appendedIcons);
+    allTypes.addEach(src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.builtInIcons);
+    allTypes.appendDict(src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.customIcons);
     iconTypes.forEach(name => {
       if (!collection.has(name)) {
         const src = allTypes.get(name);
@@ -7504,7 +7486,7 @@ class IconDictionaryService {
     this.addIconsToCss(customIcons);
   }
   addIMGToIconDictionary(input, name) {
-    src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.appendedIcons.set(name, input);
+    src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.customIcons.set(name, input);
   }
   addIconsToCss(customIcons) {
     const sheetEl = document.getElementById('iconsCss');
@@ -7527,9 +7509,9 @@ class IconDictionaryService {
   }
   getAppendedIconDictionary() {
     const appendedDict = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__.Dictionary();
-    src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.appendedIcons.keysArray().forEach(key => {
+    src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.customIcons.keysArray().forEach(key => {
       if (!this.allIconDictionary.has(key)) {
-        appendedDict.set(key, src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.appendedIcons.get(key));
+        appendedDict.set(key, src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.customIcons.get(key));
       }
     });
     return appendedDict;
@@ -7559,8 +7541,8 @@ class IconDictionaryService {
   getIconSource(name) {
     if (this.allIconDictionary.has(name)) {
       return this.allIconDictionary.get(name);
-    } else if (src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.appendedIcons.has(name)) {
-      return src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.appendedIcons.get(name);
+    } else if (src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.customIcons.has(name)) {
+      return src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.customIcons.get(name);
     }
     return null;
   }
@@ -7668,7 +7650,7 @@ class IconSetConfigurationService {
     const actorKeys = actorDict.keysArray();
     const workObjectKeys = workObjectDict.keysArray();
     this.iconDictionaryService.updateIconRegistries([], [], customConfig);
-    this.iconDictionaryService.getIconConfiguration().appendSRCFile(actorKeys, actorDict, workObjectKeys, workObjectDict);
+    this.iconDictionaryService.getIconConfiguration().addCustomIcons(actorKeys, actorDict, workObjectKeys, workObjectDict);
     this.iconDictionaryService.addIconsFromIconSetConfiguration(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.ACTOR, actorKeys.map(a => src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.ACTOR + a));
     this.iconDictionaryService.addIconsFromIconSetConfiguration(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.WORKOBJECT, workObjectKeys.map(w => src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.WORKOBJECT + w));
     if (updateIconSetName) {
