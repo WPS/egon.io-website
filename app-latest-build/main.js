@@ -8486,34 +8486,14 @@ class ImportDomainStoryService {
   performImport() {
     // @ts-ignore
     const file = document.getElementById('import').files[0];
-    const filename = file.name;
-    const dstSvgPattern = /.*(.dst)(\s*\(\d+\)){0,1}\.svg/;
-    const egnSvgPattern = /.*(.egn)(\s*\(\d+\)){0,1}\.svg/;
-    if (filename.endsWith('.dst')) {
-      this.importDST(file, filename, false);
-    } else if (filename.match(dstSvgPattern)) {
-      this.importDST(file, filename, true);
-    } else if (filename.endsWith('.egn')) {
-      this.importEGN(file, filename, false);
-    } else if (filename.match(egnSvgPattern)) {
-      this.importEGN(file, filename, true);
-    }
+    this.import(file, file.name);
     this.modelerService.commandStackChanged();
   }
   performDropImport(file) {
-    const filename = file.name;
-    const dstSvgPattern = /.*(.dst)(\s*\(\d+\)){0,1}\.svg/;
-    const egnSvgPattern = /.*(.egn)(\s*\(\d+\)){0,1}\.svg/;
-    if (filename.endsWith('.dst')) {
-      this.importDST(file, filename, false);
-    } else if (filename.match(dstSvgPattern)) {
-      this.importDST(file, filename, true);
-    } else if (filename.endsWith('.egn')) {
-      this.importEGN(file, filename, false);
-    } else if (filename.match(egnSvgPattern)) {
-      this.importEGN(file, filename, true);
+    if (this.isSupportedFileEnding(file.name)) {
+      this.import(file, file.name);
     } else {
-      this.snackbar.open('File not supported', undefined, {
+      this.snackbar.open('File type not supported', undefined, {
         duration: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_2__.SNACKBAR_DURATION_LONG,
         panelClass: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_2__.SNACKBAR_ERROR
       });
@@ -8528,6 +8508,7 @@ class ImportDomainStoryService {
       });
       return;
     }
+    fileUrl = this.convertToDownloadableUrl(fileUrl);
     fetch(fileUrl).then(response => {
       return response.blob();
     }).then(blob => {
@@ -8536,18 +8517,10 @@ class ImportDomainStoryService {
       if (!filename) {
         throw new Error('Unable to extract filename from URL');
       }
-      const dstSvgPattern = /.*(.dst)(\s*\(\d+\)){0,1}\.svg/;
-      const egnSvgPattern = /.*(.egn)(\s*\(\d+\)){0,1}\.svg/;
-      if (filename.endsWith('.dst')) {
-        this.importDST(blob, filename, false);
-      } else if (filename.match(dstSvgPattern)) {
-        this.importDST(blob, filename, true);
-      } else if (filename.endsWith('.egn')) {
-        this.importEGN(blob, filename, false);
-      } else if (filename.match(egnSvgPattern)) {
-        this.importEGN(blob, filename, true);
+      if (this.isSupportedFileEnding(filename)) {
+        this.import(blob, filename);
       } else {
-        this.snackbar.open('Url not valid', undefined, {
+        this.snackbar.open('File type not supported', undefined, {
           duration: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_2__.SNACKBAR_DURATION_LONG,
           panelClass: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_2__.SNACKBAR_ERROR
         });
@@ -8558,81 +8531,100 @@ class ImportDomainStoryService {
       panelClass: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_2__.SNACKBAR_ERROR
     }));
   }
-  openUploadUrlDialog() {
+  convertToDownloadableUrl(fileUrl) {
+    // Convert GitHub URLs to raw content
+    const githubPattern = /https:\/\/github\.com\/(.+)\/(blob|blame)\/(.+)/;
+    if (githubPattern.test(fileUrl)) {
+      fileUrl = fileUrl.replace(githubPattern, 'https://raw.githubusercontent.com/$1/$3');
+    }
+    //Convert Dropbox URLs to dl content
+    const dropboxPattern = /https:\/\/www\.dropbox\.com\/(.+)/;
+    if (dropboxPattern.test(fileUrl)) {
+      fileUrl = fileUrl.replace(dropboxPattern, 'https://dl.dropbox.com/$1');
+    }
+    return fileUrl;
+  }
+  isSupportedFileEnding(filename) {
+    let isSupported = false;
+    const dstSvgPattern = /.*(.dst)(\s*\(\d+\)){0,1}\.svg/;
+    const egnSvgPattern = /.*(.egn)(\s*\(\d+\)){0,1}\.svg/;
+    if (filename != null) {
+      isSupported = filename.endsWith('.dst') || filename.endsWith('.egn') || filename.match(dstSvgPattern) != null || filename.match(egnSvgPattern) != null;
+    }
+    return isSupported;
+  }
+  openImportFromUrlDialog() {
     const config = new _angular_material_dialog__WEBPACK_IMPORTED_MODULE_12__.MatDialogConfig();
     config.disableClose = false;
     config.autoFocus = true;
     config.data = fileUrl => this.importFromUrl(fileUrl);
     this.dialogService.openDialog(_presentation_import_dialog_import_dialog_component__WEBPACK_IMPORTED_MODULE_3__.ImportDialogComponent, config);
   }
-  importDST(input, filename, isSVG) {
-    const fileReader = new FileReader();
-    const titleText = this.restoreTitleFromFileName(filename, isSVG);
-    // no need to put this on the commandStack
-    this.titleService.updateTitleAndDescription(titleText, null, false);
-    fileReader.onloadend = e => {
-      if (e && e.target) {
-        this.fileReaderFunction(e.target.result, isSVG, false);
-      }
-    };
-    fileReader.readAsText(input);
+  import(input, filename) {
+    const egnSvgPattern = /.*(.egn)(\s*\(\d+\)){0,1}\.svg/;
+    const isSVG = filename.endsWith('.svg');
+    let isEGN = filename.endsWith('.egn');
+    if (isSVG) {
+      isEGN = filename.match(egnSvgPattern) != null;
+    }
+    try {
+      const fileReader = new FileReader();
+      const titleText = this.restoreTitleFromFileName(filename, isSVG);
+      // no need to put this on the commandStack
+      this.titleService.updateTitleAndDescription(titleText, null, false);
+      fileReader.onloadend = e => {
+        if (e && e.target) {
+          this.fileReaderFunction(e.target.result, isSVG, isEGN);
+        }
+      };
+      fileReader.readAsText(input);
+      this.importSuccessful();
+    } catch (error) {
+      this.importFailed();
+    }
   }
-  importEGN(input, filename, isSVG) {
-    const fileReader = new FileReader();
-    const titleText = this.restoreTitleFromFileName(filename, isSVG);
-    // no need to put this on the commandStack
-    this.titleService.updateTitleAndDescription(titleText, null, false);
-    fileReader.onloadend = e => {
-      if (e && e.target) {
-        this.fileReaderFunction(e.target.result, isSVG, true);
-      }
-    };
-    fileReader.readAsText(input);
-  }
-  fileReaderFunction(text, isSVG, isEGN) {
-    let dstText;
+  fileReaderFunction(text, isSvgFile, isEgnFormat) {
+    let contentAsJson;
     if (typeof text === 'string') {
-      if (isSVG) {
-        dstText = this.removeXMLComments(text);
+      if (isSvgFile) {
+        contentAsJson = this.extractJsonFromSvgComment(text);
       } else {
-        dstText = text;
+        contentAsJson = text;
       }
       let elements;
-      let config;
-      let configFromFile;
-      let dstAndConfig = this.extractDstAndConfig(dstText);
-      if (dstAndConfig == null) {
+      let iconSetConfig;
+      let iconSetFromFile;
+      let storyAndIconSet = this.extractStoryAndIconSet(contentAsJson);
+      if (storyAndIconSet == null) {
         return;
       }
       // current implementation
-      if (dstAndConfig.domain) {
-        configFromFile = isEGN ? dstAndConfig.domain : JSON.parse(dstAndConfig.domain);
-        config = this.iconSetConfigurationService.createIconSetConfiguration(configFromFile);
-        elements = isEGN ? dstAndConfig.dst : JSON.parse(dstAndConfig.dst);
+      if (storyAndIconSet.domain) {
+        iconSetFromFile = isEgnFormat ? storyAndIconSet.domain : JSON.parse(storyAndIconSet.domain);
+        iconSetConfig = this.iconSetConfigurationService.createIconSetConfiguration(iconSetFromFile);
+        elements = isEgnFormat ? storyAndIconSet.dst : JSON.parse(storyAndIconSet.dst);
       } else {
         // legacy implementation
-        if (dstAndConfig.config) {
-          configFromFile = JSON.parse(dstAndConfig.config);
-          config = this.iconSetConfigurationService.createIconSetConfiguration(configFromFile);
-          elements = JSON.parse(dstAndConfig.dst);
+        if (storyAndIconSet.config) {
+          iconSetFromFile = JSON.parse(storyAndIconSet.config);
+          iconSetConfig = this.iconSetConfigurationService.createIconSetConfiguration(iconSetFromFile);
+          elements = JSON.parse(storyAndIconSet.dst);
         } else {
-          // implementation prior to configuration
-          elements = JSON.parse(dstText);
-          config = this.iconSetConfigurationService.createMinimalConfigurationWithDefaultIcons();
+          // even older legacy implementation (prior to configurable icon set):
+          elements = JSON.parse(contentAsJson);
+          iconSetConfig = this.iconSetConfigurationService.createMinimalConfigurationWithDefaultIcons();
         }
       }
       this.importRepairService.removeWhitespacesFromIcons(elements);
-      const configChanged = this.checkConfigForChanges(config);
+      const configChanged = this.checkConfigForChanges(iconSetConfig);
       let lastElement = elements[elements.length - 1];
       if (!lastElement.id) {
         lastElement = elements.pop();
         let importVersionNumber = lastElement;
-        // if the last element has the importedVersionNumber has the tag version,
-        // then there exists another meta tag 'info' for the description
+        // if the last element has the tag 'version',
+        // then there exists another tag 'info' for the description
         if (importVersionNumber.version) {
           lastElement = elements.pop();
-        }
-        if (importVersionNumber.version) {
           importVersionNumber = importVersionNumber.version;
         } else {
           importVersionNumber = '?';
@@ -8648,9 +8640,21 @@ class ImportDomainStoryService {
       }
       this.titleService.updateTitleAndDescription(this.title, lastElement.info, false);
       this.importRepairService.adjustPositions(elements);
-      this.updateIconRegistries(elements, config);
-      this.rendererService.importStory(elements, configChanged, config);
+      this.updateIconRegistries(elements, iconSetConfig);
+      this.rendererService.importStory(elements, configChanged, iconSetConfig);
     }
+  }
+  importSuccessful() {
+    this.snackbar.open('Import successful', undefined, {
+      duration: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_2__.SNACKBAR_DURATION,
+      panelClass: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_2__.SNACKBAR_SUCCESS
+    });
+  }
+  importFailed() {
+    this.snackbar.open('Import failed', undefined, {
+      duration: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_2__.SNACKBAR_DURATION,
+      panelClass: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_2__.SNACKBAR_ERROR
+    });
   }
   handleVersionNumber(importVersionNumber, elements) {
     const versionPrefix = +importVersionNumber.substring(0, importVersionNumber.lastIndexOf('.'));
@@ -8660,7 +8664,7 @@ class ImportDomainStoryService {
     }
     return elements;
   }
-  extractDstAndConfig(dstText) {
+  extractStoryAndIconSet(dstText) {
     let dstAndConfig = null;
     try {
       dstAndConfig = JSON.parse(dstText);
@@ -8669,7 +8673,7 @@ class ImportDomainStoryService {
     }
     return dstAndConfig;
   }
-  removeXMLComments(xmlText) {
+  extractJsonFromSvgComment(xmlText) {
     xmlText = xmlText.substring(xmlText.indexOf('<DST>'));
     while (xmlText.includes('<!--') || xmlText.includes('-->')) {
       xmlText = xmlText.replace('<!--', '').replace('-->', '');
@@ -10924,7 +10928,7 @@ function HeaderButtonsComponent_Conditional_0_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function HeaderButtonsComponent_Conditional_0_Template_button_click_7_listener() {
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r1);
       const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
-      return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵresetView"](ctx_r1.openUploadUrlDialog.emit());
+      return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵresetView"](ctx_r1.openImportFromUrlDialog.emit());
     });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "span", 1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](9, " cloud_upload ");
@@ -11047,7 +11051,7 @@ class HeaderButtonsComponent {
     this.showKeyboardShortCuts = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
     this.openLabelDictionary = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
     this.openDownloadDialog = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
-    this.openUploadUrlDialog = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
+    this.openImportFromUrlDialog = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
   }
   static #_ = this.ɵfac = function HeaderButtonsComponent_Factory(t) {
     return new (t || HeaderButtonsComponent)();
@@ -11073,7 +11077,7 @@ class HeaderButtonsComponent {
       showKeyboardShortCuts: "showKeyboardShortCuts",
       openLabelDictionary: "openLabelDictionary",
       openDownloadDialog: "openDownloadDialog",
-      openUploadUrlDialog: "openUploadUrlDialog"
+      openImportFromUrlDialog: "openImportFromUrlDialog"
     },
     decls: 2,
     vars: 2,
@@ -11245,8 +11249,8 @@ class HeaderComponent {
   openDownloadDialog() {
     this.exportService.openDownloadDialog();
   }
-  openUploadUrlDialog() {
-    this.importService.openUploadUrlDialog();
+  openImportFromUrlDialog() {
+    this.importService.openImportFromUrlDialog();
   }
   get hasDomainStory() {
     return this.exportService.isDomainStoryExportable();
@@ -11265,7 +11269,7 @@ class HeaderComponent {
     selectors: [["app-header"]],
     decls: 21,
     vars: 24,
-    consts: [["color", "primary"], ["title", "Hide Description", 1, "headerButton"], ["title", "Show Description", 1, "headerButton"], [1, "mr-10", "titel-scrollbar"], ["title", "Edit Title and Description", 1, "headline", 3, "click"], [1, "material-icons", "materialIconButton", "editIcon"], [1, "titleSpacer"], ["title", "Replay Sentence"], [1, "buttonSpacer"], [1, "nowrap", 3, "import", "openSettings", "startReplay", "stopReplay", "nextSentence", "previousSentence", "newStory", "showKeyboardShortCuts", "openLabelDictionary", "openDownloadDialog", "openUploadUrlDialog", "hasDomainStory", "hasTitle", "isDirty", "isReplayable", "isReplaying"], [1, "smallScrollbar", "description"], ["title", "Hide Description", 1, "headerButton", 3, "click"], [1, "material-icons", "materialIconButton", "toggle"], ["title", "Show Description", 1, "headerButton", 3, "click"], [1, "descriptionText"]],
+    consts: [["color", "primary"], ["title", "Hide Description", 1, "headerButton"], ["title", "Show Description", 1, "headerButton"], [1, "mr-10", "titel-scrollbar"], ["title", "Edit Title and Description", 1, "headline", 3, "click"], [1, "material-icons", "materialIconButton", "editIcon"], [1, "titleSpacer"], ["title", "Replay Sentence"], [1, "buttonSpacer"], [1, "nowrap", 3, "import", "openSettings", "startReplay", "stopReplay", "nextSentence", "previousSentence", "newStory", "showKeyboardShortCuts", "openLabelDictionary", "openDownloadDialog", "openImportFromUrlDialog", "hasDomainStory", "hasTitle", "isDirty", "isReplayable", "isReplaying"], [1, "smallScrollbar", "description"], ["title", "Hide Description", 1, "headerButton", 3, "click"], [1, "material-icons", "materialIconButton", "toggle"], ["title", "Show Description", 1, "headerButton", 3, "click"], [1, "descriptionText"]],
     template: function HeaderComponent_Template(rf, ctx) {
       if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵelementStart"](0, "mat-toolbar", 0)(1, "mat-toolbar-row");
@@ -11309,8 +11313,8 @@ class HeaderComponent {
           return ctx.openLabelDictionary();
         })("openDownloadDialog", function HeaderComponent_Template_app_header_buttons_openDownloadDialog_16_listener() {
           return ctx.openDownloadDialog();
-        })("openUploadUrlDialog", function HeaderComponent_Template_app_header_buttons_openUploadUrlDialog_16_listener() {
-          return ctx.openUploadUrlDialog();
+        })("openImportFromUrlDialog", function HeaderComponent_Template_app_header_buttons_openImportFromUrlDialog_16_listener() {
+          return ctx.openImportFromUrlDialog();
         });
         _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵelementEnd"]()()();
         _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵtemplate"](19, HeaderComponent_Conditional_19_Template, 4, 3, "mat-card", 10);
