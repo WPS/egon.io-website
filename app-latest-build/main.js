@@ -4677,7 +4677,14 @@ class ElementRegistryService {
         }
       });
     }
-    return groupObjects;
+    const seenIds = new Set();
+    return groupObjects.filter(groupObject => {
+      const isNewId = !seenIds.has(groupObject.id);
+      if (isNewId) {
+        seenIds.add(groupObject.id);
+      }
+      return isNewId;
+    });
   }
   checkChildForGroup(groupObjects, allObjects) {
     const registryElementNames = Object.keys(this.registry);
