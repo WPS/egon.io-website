@@ -8498,7 +8498,7 @@ class ImportDomainStoryService {
       return response.blob();
     }).then(blob => {
       const string = fileUrl.split('/');
-      const filename = string[string.length - 1].replace(/%20/g, ' ');
+      const filename = string[string.length - 1].replace(/%20/g, ' ').replace(/(\.egn\.svg).*/, '$1');
       if (!filename) {
         throw new Error('Unable to extract filename from URL');
       }
