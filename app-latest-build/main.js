@@ -6567,7 +6567,7 @@ function addCustomIcons(newIcons) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   IconConfiguration: () => (/* binding */ IconConfiguration),
-/* harmony export */   defaultConf: () => (/* binding */ defaultConf)
+/* harmony export */   defaultIconSet: () => (/* binding */ defaultIconSet)
 /* harmony export */ });
 /* harmony import */ var src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/domain/entities/dictionary */ 20843);
 /* harmony import */ var src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/tools/icon-set-config/domain/allIcons */ 61070);
@@ -6583,7 +6583,7 @@ class IconConfiguration {
     this.allIconDictionary = allIconDictionary;
   }
   getDefaultConf() {
-    return defaultConf;
+    return defaultIconSet;
   }
   addCustomIcons(actors, actorsDict, workObjects, workObjectsDict) {
     const newCustomIcons = {};
@@ -6611,10 +6611,7 @@ class IconConfiguration {
     return new src_app_domain_entities_configuration__WEBPACK_IMPORTED_MODULE_2__.Configuration(actors.keysArray(), workObjects.keysArray());
   }
 }
-/**
- * Default Iconset
- */
-const defaultConf = {
+const defaultIconSet = {
   actors: ['Person', 'Group', 'System'],
   workObjects: ['Document', 'Folder', 'Call', 'Email', 'Conversation', 'Info']
 };
@@ -7401,10 +7398,10 @@ class IconDictionaryService {
   }
   initTypeDictionaries(actors, workObjects) {
     if (!actors || actors.length == 0) {
-      actors = src_app_tools_icon_set_config_domain_iconConfiguration__WEBPACK_IMPORTED_MODULE_2__.defaultConf.actors;
+      actors = src_app_tools_icon_set_config_domain_iconConfiguration__WEBPACK_IMPORTED_MODULE_2__.defaultIconSet.actors;
     }
     if (!workObjects || workObjects.length == 0) {
-      workObjects = src_app_tools_icon_set_config_domain_iconConfiguration__WEBPACK_IMPORTED_MODULE_2__.defaultConf.workObjects;
+      workObjects = src_app_tools_icon_set_config_domain_iconConfiguration__WEBPACK_IMPORTED_MODULE_2__.defaultIconSet.workObjects;
     }
     const allTypes = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__.Dictionary();
     allTypes.addEach(src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.builtInIcons);
@@ -7762,10 +7759,10 @@ class IconSetConfigurationService {
   }
   createMinimalConfigurationWithDefaultIcons() {
     const minimalConfig = this.createConfigFromCanvas();
-    _domain_iconConfiguration__WEBPACK_IMPORTED_MODULE_2__.defaultConf.actors.forEach(iconName => {
+    _domain_iconConfiguration__WEBPACK_IMPORTED_MODULE_2__.defaultIconSet.actors.forEach(iconName => {
       minimalConfig.actors.add(this.iconDictionaryService.getIconSource(iconName), iconName);
     });
-    _domain_iconConfiguration__WEBPACK_IMPORTED_MODULE_2__.defaultConf.workObjects.forEach(iconName => {
+    _domain_iconConfiguration__WEBPACK_IMPORTED_MODULE_2__.defaultIconSet.workObjects.forEach(iconName => {
       minimalConfig.workObjects.add(this.iconDictionaryService.getIconSource(iconName), iconName);
     });
     return minimalConfig;
