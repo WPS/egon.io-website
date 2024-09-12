@@ -104,7 +104,12 @@ To load a previously created Domain Story, you can...
 <!-- include this for v2.2.0
 - import it from a public URL by clicking the import button ![Upload Button](/assets/images/buttons/cloud.png) and pasting the URL
 
-> Import from URL only works with providers that allow CORS, e.g. GitHub and BitBucket. If you want to share a domain story via public URL, make sure it points to the raw format and contains the full file name and file ending!
+> Importing from URL has limitations: 
+- the link must contain the file name and file ending
+- the server you want to download from must send the 'Access-Control-Allow-Origin' response header (if not, import will fail with a  CORS error)
+- the link must point to the "raw" file (for GitHub and Dropbox, Egon will try to automatically convert any link to a raw download link)
+- works with GitHub, BitBucket, Dropbox
+- does **not** work with GoogleDrive, OneDrive and Nextcloud
 -->
 
 ## Auto-Save and Creating new Domain Stories
