@@ -13,6 +13,8 @@ toc_sticky: true
 ## Latest Build
 
 - `Feature`: Load domain story from public URL. [See #68](https://github.com/WPS/egon.io/issues/68)
+- `Feature`: Export animated SVG. [See #55](https://github.com/WPS/egon.io/issues/55)
+- `Fix`: Creating overlapping groups.  [See #158](https://github.com/WPS/egon.io/issues/158)
 
 ## v2.1.0
 - `Feature`: Added 33 icons to the icon set. [See #151](https://github.com/WPS/egon.io/issues/151)
