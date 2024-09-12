@@ -102,14 +102,14 @@ To load a previously created Domain Story, you can...
 - drag an `.egn` or `.egn.svg` file from your local file system and drop it onto the canvas
 
 <!-- include this for v2.2.0
-- import it from a public URL by clicking the import button ![Upload Button](/assets/images/buttons/cloud.png) and pasting the URL
+- import it from a public URL by clicking the import button ![Import Button](/assets/images/buttons/cloud.png) and pasting the URL
 
 > Importing from URL has limitations: 
-- the link must contain the file name and file ending
-- the server you want to download from must send the 'Access-Control-Allow-Origin' response header (if not, import will fail with a  CORS error)
-- the link must point to the "raw" file (for GitHub and Dropbox, Egon will try to automatically convert any link to a raw download link)
-- works with GitHub, BitBucket, Dropbox
-- does **not** work with GoogleDrive, OneDrive and Nextcloud
+> - the link must contain the file name and file ending
+> - the server you want to download from must send the 'Access-Control-Allow-Origin' response header (if not, import will fail with a  CORS error)
+> - the link must point to the "raw" file (for GitHub and Dropbox, Egon will try to automatically convert any link to a raw download link)
+> - works with GitHub, BitBucket, Dropbox
+> - does **not** work with GoogleDrive, OneDrive and Nextcloud
 -->
 
 ## Auto-Save and Creating new Domain Stories
