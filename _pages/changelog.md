@@ -15,8 +15,8 @@ toc_sticky: true
 - `Feature`: Load domain story from public URL. [See #68](https://github.com/WPS/egon.io/issues/68)
 
 ## v2.1.0
-- `Feature`: Added 33 icons to the icon set. [See #151](https://github.com/WPS/egon.io/issue/151)
-- `Feature`: Drag&drop files on canvas to import domain stories. [See #118](https://github.com/WPS/egon.io/issue/118)
+- `Feature`: Added 33 icons to the icon set. [See #151](https://github.com/WPS/egon.io/issues/151)
+- `Feature`: Drag&drop files on canvas to import domain stories. [See #118](https://github.com/WPS/egon.io/issues/118)
 - `Feature`: Annotations can be colored. [See #138](https://github.com/WPS/egon.io/issues/138)
 - `Feature`: Detect if local storage needs to be cleared after deployment of new Egon version. [See #154](https://github.com/WPS/egon.io/issues/154)
 - `Fix`: Copy/paste annotations. [See #153](https://github.com/WPS/egon.io/issues/153)
