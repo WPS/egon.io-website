@@ -14,7 +14,7 @@ There is no login or registration required to use Egon. Egon runs completely in 
 
 ## Launching Egon
 
->  **Updating to the latest version:** If you have used one of the `v2.0.0-beta` versions or the latest build (`v2.x.x.-dev`), you need to clear your local browser storage and then reload the page in order for Egon to load properly. This will reset your icon configuration to default and delete the automatically saved drafts. Instructions:
+>  **Updating to the latest version:** If you have used an earlier `v2.x.x` versions or the latest build (`v2.x.x.-dev`), you need to clear your local browser storage and then reload the page in order for Egon to load properly. This will reset your icon configuration to default and delete the automatically saved drafts. Instructions:
 > - [Firefox](https://support.mozilla.org/en-US/kb/clear-cookies-and-site-data-firefox#w_clear-cookies-for-the-current-website)
 > - Chrome: In the address bar, click the button in the left corner (*show website information*), then *cookies and website date*, *manage website data*, and delete the data for egon.io.
 
