@@ -5479,50 +5479,28 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function ExportDialogComponent_Conditional_16_Template(rf, ctx) {
+function ExportDialogComponent_For_22_Template(rf, ctx) {
   if (rf & 1) {
     const _r1 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "br");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "label", 4)(2, "input", 5);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtwoWayListener"]("ngModelChange", function ExportDialogComponent_Conditional_16_Template_input_ngModelChange_2_listener($event) {
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r1);
-      const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtwoWayBindingSet"](ctx_r1.seconds, $event) || (ctx_r1.seconds = $event);
-      return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵresetView"]($event);
-    });
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](3, " Set delay for animation time ");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-  }
-  if (rf & 2) {
-    const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtwoWayProperty"]("ngModel", ctx_r1.seconds);
-  }
-}
-function ExportDialogComponent_For_23_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r3 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "button", 6);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function ExportDialogComponent_For_23_Template_button_click_0_listener() {
-      const i_r4 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r3).$index;
-      const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-      return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵresetView"](ctx_r1.doOption(i_r4));
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "button", 4);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function ExportDialogComponent_For_22_Template_button_click_0_listener() {
+      const i_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r1).$index;
+      const ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+      return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵresetView"](ctx_r2.doOption(i_r2));
     });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
   }
   if (rf & 2) {
-    const option_r5 = ctx.$implicit;
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("title", option_r5.tooltip);
+    const option_r4 = ctx.$implicit;
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("title", option_r4.tooltip);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"](" ", option_r5.text, " ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"](" ", option_r4.text, " ");
   }
 }
 class ExportDialogComponent {
   constructor(dialogRef, data) {
     this.dialogRef = dialogRef;
-    this.seconds = 1;
     this.isAnimatedSvgExport = false;
     this.withTitle = new rxjs_internal_BehaviorSubject__WEBPACK_IMPORTED_MODULE_2__.BehaviorSubject(true);
     this.useWhiteBackground = new rxjs_internal_BehaviorSubject__WEBPACK_IMPORTED_MODULE_2__.BehaviorSubject(true);
@@ -5532,7 +5510,7 @@ class ExportDialogComponent {
   ngOnInit() {}
   doOption(i) {
     if (this.isAnimatedSvgExport) {
-      this.options[i].fn(this.withTitle.value, this.useWhiteBackground.value, this.seconds);
+      this.options[i].fn(this.withTitle.value, this.useWhiteBackground.value, this.isAnimatedSvgExport);
     } else {
       this.options[i].fn(this.withTitle.value, this.useWhiteBackground.value);
     }
@@ -5555,9 +5533,9 @@ class ExportDialogComponent {
   static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({
     type: ExportDialogComponent,
     selectors: [["app-export-dialog"]],
-    decls: 24,
-    vars: 9,
-    consts: [["type", "checkbox", 3, "change", "checked"], ["type", "checkbox", 3, "ngModelChange", "ngModel"], ["mat-flat-button", "", 3, "click"], ["mat-stroked-button", "", 1, "mr-1", 3, "title"], [1, "ml-2"], ["type", "number", "max", "5", "min", "1", 1, "number-input", 3, "ngModelChange", "ngModel"], ["mat-stroked-button", "", 1, "mr-1", 3, "click", "title"]],
+    decls: 23,
+    vars: 8,
+    consts: [["type", "checkbox", 3, "change", "checked"], ["type", "checkbox", 3, "ngModelChange", "ngModel"], ["mat-flat-button", "", 3, "click"], ["mat-stroked-button", "", 1, "mr-1", 3, "title"], ["mat-stroked-button", "", 1, "mr-1", 3, "click", "title"]],
     template: function ExportDialogComponent_Template(rf, ctx) {
       if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "mat-dialog-content")(1, "h2");
@@ -5588,36 +5566,32 @@ class ExportDialogComponent {
         });
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](15, " Export animated SVG ");
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](16, ExportDialogComponent_Conditional_16_Template, 4, 1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](17, "mat-dialog-actions");
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](18, "br");
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](19, "div")(20, "button", 2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function ExportDialogComponent_Template_button_click_20_listener() {
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]()();
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](16, "mat-dialog-actions");
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](17, "br");
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](18, "div")(19, "button", 2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function ExportDialogComponent_Template_button_click_19_listener() {
           return ctx.close();
         });
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](21, "Cancel");
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](20, "Cancel");
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrepeaterCreate"](22, ExportDialogComponent_For_23_Template, 2, 2, "button", 3, _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrepeaterTrackByIdentity"]);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrepeaterCreate"](21, ExportDialogComponent_For_22_Template, 2, 2, "button", 3, _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrepeaterTrackByIdentity"]);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]()();
       }
       if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](ctx.title);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("checked", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipeBind1"](5, 5, ctx.withTitle));
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("checked", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipeBind1"](5, 4, ctx.withTitle));
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("checked", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipeBind1"](10, 7, ctx.useWhiteBackground));
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("checked", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipeBind1"](10, 6, ctx.useWhiteBackground));
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](5);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtwoWayProperty"]("ngModel", ctx.isAnimatedSvgExport);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵconditional"](16, ctx.isAnimatedSvgExport ? 16 : -1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](7);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrepeater"](ctx.options);
       }
     },
-    dependencies: [_angular_material_button__WEBPACK_IMPORTED_MODULE_4__.MatButton, _angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__.MatDialogActions, _angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__.MatDialogContent, _angular_forms__WEBPACK_IMPORTED_MODULE_5__.DefaultValueAccessor, _angular_forms__WEBPACK_IMPORTED_MODULE_5__.NumberValueAccessor, _angular_forms__WEBPACK_IMPORTED_MODULE_5__.CheckboxControlValueAccessor, _angular_forms__WEBPACK_IMPORTED_MODULE_5__.NgControlStatus, _angular_forms__WEBPACK_IMPORTED_MODULE_5__.MinValidator, _angular_forms__WEBPACK_IMPORTED_MODULE_5__.MaxValidator, _angular_forms__WEBPACK_IMPORTED_MODULE_5__.NgModel, _angular_common__WEBPACK_IMPORTED_MODULE_6__.AsyncPipe],
+    dependencies: [_angular_material_button__WEBPACK_IMPORTED_MODULE_4__.MatButton, _angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__.MatDialogActions, _angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__.MatDialogContent, _angular_forms__WEBPACK_IMPORTED_MODULE_5__.CheckboxControlValueAccessor, _angular_forms__WEBPACK_IMPORTED_MODULE_5__.NgControlStatus, _angular_forms__WEBPACK_IMPORTED_MODULE_5__.NgModel, _angular_common__WEBPACK_IMPORTED_MODULE_6__.AsyncPipe],
     styles: [".ml-2[_ngcontent-%COMP%] {\n  margin-left: 2rem;\n}\n\n.number-input[_ngcontent-%COMP%] {\n  margin-right: 0.5rem;\n  padding: 0.25rem 0.5rem;\n  border-radius: 0.25rem;\n  max-width: 5rem;\n}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL3NyYy9hcHAvdG9vbHMvZXhwb3J0L3ByZXNlbnRhdGlvbi9leHBvcnQtZGlhbG9nL2V4cG9ydC1kaWFsb2cuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxpQkFBQTtBQUNGOztBQUVBO0VBQ0Usb0JBQUE7RUFDQSx1QkFBQTtFQUNBLHNCQUFBO0VBQ0EsZUFBQTtBQUNGIiwic291cmNlc0NvbnRlbnQiOlsiLm1sLTIge1xuICBtYXJnaW4tbGVmdDogMnJlbTtcbn1cblxuLm51bWJlci1pbnB1dCB7XG4gIG1hcmdpbi1yaWdodDogMC41cmVtO1xuICBwYWRkaW5nOiAwLjI1cmVtIDAuNXJlbTtcbiAgYm9yZGVyLXJhZGl1czogMC4yNXJlbTtcbiAgbWF4LXdpZHRoOiA1cmVtO1xufVxuIl0sInNvdXJjZVJvb3QiOiIifQ== */"]
   });
 }
@@ -5763,10 +5737,10 @@ class ExportService {
     }
     document.body.removeChild(element);
   }
-  downloadSVG(withTitle, useWhiteBackground, seconds) {
+  downloadSVG(withTitle, useWhiteBackground, isAnimated) {
     const story = this.getStoryForDownload();
     const dst = this.createConfigAndDST(story);
-    const svgData = this.svgService.createSVGData(this.title, this.description, dst, withTitle, useWhiteBackground, seconds);
+    const svgData = this.svgService.createSVGData(this.title, this.description, dst, withTitle, useWhiteBackground, isAnimated);
     this.downloadFile(svgData, 'data:application/bpmn20-xml;charset=UTF-8,', (0,src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_0__.sanitizeForDesktop)(this.title + '_' + this.getCurrentDateString()), '.egn.svg', true);
   }
   downloadPNG(withTitle) {
@@ -5829,7 +5803,7 @@ class ExportService {
   }
   openDownloadDialog() {
     if (this.isDomainStoryExportable()) {
-      const SVGDownloadOption = new _domain_dialog_exportDialogData__WEBPACK_IMPORTED_MODULE_3__.ExportOption('SVG', 'Download an SVG-Image with the Domain-Story embedded. Can be used to save and share your Domain-Story.', (withTitle, useWhiteBackground, seconds) => this.downloadSVG(withTitle, useWhiteBackground, seconds));
+      const SVGDownloadOption = new _domain_dialog_exportDialogData__WEBPACK_IMPORTED_MODULE_3__.ExportOption('SVG', 'Download an SVG-Image with the Domain-Story embedded. Can be used to save and share your Domain-Story.', (withTitle, useWhiteBackground, isAnimated) => this.downloadSVG(withTitle, useWhiteBackground, isAnimated));
       const EGNDownloadOption = new _domain_dialog_exportDialogData__WEBPACK_IMPORTED_MODULE_3__.ExportOption('EGN', 'Download an EGN-File with the Domain-Story. Can be used to save and share your Domain-Story.', () => this.downloadDST());
       const PNGDownloadOption = new _domain_dialog_exportDialogData__WEBPACK_IMPORTED_MODULE_3__.ExportOption('PNG', 'Download a PNG-Image of the Domain-Story. This does not include the Domain-Story!', withTitle => this.downloadPNG(withTitle));
       const HTMLDownloadOption = new _domain_dialog_exportDialogData__WEBPACK_IMPORTED_MODULE_3__.ExportOption('HTML-Presentation', 'Download an HTML-Presentation. This does not include the Domain-Story!', () => this.downloadHTMLPresentation(this.modelerService.getModeler()));
@@ -6293,23 +6267,11 @@ class SvgService {
     this.storyCreatorService = storyCreatorService;
     this.cacheData = '';
   }
-  createSVGData(title, description, dst, withTitle, useWhiteBackground, seconds = undefined) {
+  createSVGData(title, description, dst, withTitle, useWhiteBackground, isAnimated = false) {
     this.cacheData = this.modelerService.getEncoded();
     let domainStorySvg = structuredClone(this.cacheData);
-    if (seconds) {
-      const story = this.storyCreatorService.traceActivitiesAndCreateStory();
-      let endSeconds = 0;
-      const usedElementId = [];
-      story.forEach(sentence => {
-        const objects = sentence.objects.filter(it => !usedElementId.includes(it.id));
-        objects.forEach(objectId => {
-          usedElementId.push(objectId.id);
-          const index = domainStorySvg.indexOf(objectId.id);
-          const insertIndex = domainStorySvg.indexOf('>', index) + 1;
-          domainStorySvg = `${domainStorySvg.slice(0, insertIndex)} <set end="${endSeconds}s" attributeName="visibility" to="hidden"/>  ${domainStorySvg.slice(insertIndex)}`;
-        });
-        endSeconds += seconds;
-      });
+    if (isAnimated) {
+      domainStorySvg = this.createAnimatedSvg(domainStorySvg);
     }
     let viewBoxIndex = domainStorySvg.indexOf('width="');
     let {
@@ -6357,6 +6319,47 @@ class SvgService {
       domainStorySvg = domainStorySvg.slice(0, svgIndex) + backgroundColorWhite + domainStorySvg.slice(svgIndex);
     }
     return this.appendDST(domainStorySvg, dst);
+  }
+  createAnimatedSvg(domainStorySvg) {
+    const story = this.storyCreatorService.traceActivitiesAndCreateStory();
+    const usedElementId = [];
+    const storyLength = story.length;
+    const visibleTimeInPercent = Math.floor(100 / storyLength);
+    const durationOfAnimation = storyLength * 1.5;
+    let senteceCounter = 1;
+    let currentVisibleTimeInPercent = visibleTimeInPercent;
+    let previouVisibleTimeInPercent = visibleTimeInPercent;
+    story.forEach(sentence => {
+      const objects = sentence.objects.filter(it => !usedElementId.includes(it.id));
+      objects.forEach(objectId => {
+        usedElementId.push(objectId.id);
+        const idIndex = domainStorySvg.indexOf(objectId.id);
+        const insertIdIndex = domainStorySvg.indexOf('>', idIndex);
+        domainStorySvg = `${domainStorySvg.slice(0, insertIdIndex)} id="group${senteceCounter}" ${domainStorySvg.slice(insertIdIndex)}`;
+        const index = domainStorySvg.indexOf(objectId.id);
+        const insertIndex = domainStorySvg.indexOf('>', index) + 1;
+        if (senteceCounter > 1) {
+          domainStorySvg = `${domainStorySvg.slice(0, insertIndex)}
+            <style>
+              #group${senteceCounter} {
+                  opacity: 0;
+                  animation: visibilityControl${senteceCounter} ${durationOfAnimation}s infinite;
+              }
+              @keyframes visibilityControl${senteceCounter} {
+                  ${previouVisibleTimeInPercent - 1}% { opacity: 0; }    /* Initially invisible */
+                  ${previouVisibleTimeInPercent}% { opacity: 1; }  /* Starts becoming visible */
+                  98% { opacity: 1; }   /* Stays visible */
+                  99% { opacity: 0; }   /* Starts disappearing */
+                  100% { opacity: 0; }  /* Fully invisible */
+              }
+            </style>  ${domainStorySvg.slice(insertIndex)}`;
+        }
+      });
+      senteceCounter += 1;
+      previouVisibleTimeInPercent = currentVisibleTimeInPercent;
+      currentVisibleTimeInPercent = visibleTimeInPercent * senteceCounter;
+    });
+    return domainStorySvg;
   }
   findIndexToInsertData(data) {
     let insertIndex = data.indexOf('</defs>');
