@@ -8532,7 +8532,7 @@ class ImportDialogComponent {
     template: function ImportDialogComponent_Template(rf, ctx) {
       if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "mat-dialog-content")(1, "label", 0)(2, "h2");
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](3, "Enter URL:");
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](3, "Import Domain Story from this URL:");
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]()();
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](4, "input", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipe"](5, "async");
@@ -8727,7 +8727,7 @@ class ImportDomainStoryService {
         });
       }
       this.modelerService.commandStackChanged();
-    }).catch(() => this.snackbar.open('Cross-origin request blocked', undefined, {
+    }).catch(() => this.snackbar.open('Request blocked by server (CORS error)', undefined, {
       duration: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_2__.SNACKBAR_DURATION_LONG,
       panelClass: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_2__.SNACKBAR_ERROR
     }));
