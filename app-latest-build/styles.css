@@ -1739,6 +1739,10 @@ textarea.cdk-textarea-autosize-measuring-firefox {
   color: var(--mat-app-text-color, inherit);
 }
 
+:root {
+  --borderGray10: #e8e9ed;
+}
+
 html {
   --mat-ripple-color: rgba(0, 0, 0, 0.1);
 }
