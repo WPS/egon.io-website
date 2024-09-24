@@ -5493,7 +5493,7 @@ function ExportDialogComponent_Conditional_18_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "span");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](1, "Animation speed:");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](2, "input", 8);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](2, "input", 7);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtwoWayListener"]("ngModelChange", function ExportDialogComponent_Conditional_18_Template_input_ngModelChange_2_listener($event) {
       _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r1);
       const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
@@ -5501,7 +5501,7 @@ function ExportDialogComponent_Conditional_18_Template(rf, ctx) {
       return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵresetView"]($event);
     });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](3, "span", 5);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](3, "span", 4);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function ExportDialogComponent_Conditional_18_Template_span_click_3_listener() {
       _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r1);
       const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
@@ -5520,7 +5520,7 @@ function ExportDialogComponent_Conditional_18_Template(rf, ctx) {
 function ExportDialogComponent_For_26_Template(rf, ctx) {
   if (rf & 1) {
     const _r3 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "button", 9);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "button", 8);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function ExportDialogComponent_For_26_Template_button_click_0_listener() {
       const i_r4 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r3).$index;
       const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
@@ -5577,16 +5577,16 @@ class ExportDialogComponent {
     selectors: [["app-export-dialog"]],
     decls: 27,
     vars: 9,
-    consts: [[1, "bold-2"], [1, "card"], [1, "row"], ["type", "checkbox", 3, "change", "checked"], ["type", "checkbox", 3, "ngModelChange", "ngModel"], [3, "click"], ["mat-flat-button", "", 3, "click"], ["mat-stroked-button", "", 1, "mr-1", 3, "title"], ["oninput", "this.value = this.value.replace(/[^1-9]/g, '');", 1, "number-input", 3, "ngModelChange", "ngModel", "max", "min", "maxLength"], ["mat-stroked-button", "", 1, "mr-1", 3, "click", "title"]],
+    consts: [[1, "card"], [1, "row"], ["type", "checkbox", 3, "change", "checked"], ["type", "checkbox", 3, "ngModelChange", "ngModel"], [3, "click"], ["mat-flat-button", "", 3, "click"], ["mat-stroked-button", "", 1, "mr-1", 3, "title"], ["oninput", "this.value = this.value.replace(/[^1-9]/g, '');", 1, "number-input", 3, "ngModelChange", "ngModel", "max", "min", "maxLength"], ["mat-stroked-button", "", 1, "mr-1", 3, "click", "title"]],
     template: function ExportDialogComponent_Template(rf, ctx) {
       if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "mat-dialog-content")(1, "h2", 0);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "mat-dialog-content")(1, "h2");
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](3, "div", 1)(4, "span");
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](3, "div", 0)(4, "span");
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](5, "Options for image export:");
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](6, "label", 2)(7, "input", 3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](6, "label", 1)(7, "input", 2);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipe"](8, "async");
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("change", function ExportDialogComponent_Template_input_change_7_listener($event) {
           return ctx.updateWithTitle($event);
@@ -5594,7 +5594,7 @@ class ExportDialogComponent {
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](9, " Add title and description to image ");
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](10, "label", 2)(11, "input", 3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](10, "label", 1)(11, "input", 2);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipe"](12, "async");
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("change", function ExportDialogComponent_Template_input_change_11_listener($event) {
           return ctx.updateUseWhiteBackground($event);
@@ -5602,13 +5602,13 @@ class ExportDialogComponent {
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](13, " Add white background to SVG (default: transparent) ");
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](14, "div", 2)(15, "input", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](14, "div", 1)(15, "input", 3);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtwoWayListener"]("ngModelChange", function ExportDialogComponent_Template_input_ngModelChange_15_listener($event) {
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtwoWayBindingSet"](ctx.isAnimatedSvgExport, $event) || (ctx.isAnimatedSvgExport = $event);
           return $event;
         });
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](16, "span", 5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](16, "span", 4);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function ExportDialogComponent_Template_span_click_16_listener() {
           return ctx.onExportAnimatedSvg();
         });
@@ -5617,13 +5617,13 @@ class ExportDialogComponent {
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](18, ExportDialogComponent_Conditional_18_Template, 5, 4);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]()()();
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](19, "br")(20, "br");
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](21, "mat-dialog-actions")(22, "div")(23, "button", 6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](21, "mat-dialog-actions")(22, "div")(23, "button", 5);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function ExportDialogComponent_Template_button_click_23_listener() {
           return ctx.close();
         });
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](24, "Cancel");
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrepeaterCreate"](25, ExportDialogComponent_For_26_Template, 2, 2, "button", 7, _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrepeaterTrackByIdentity"]);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrepeaterCreate"](25, ExportDialogComponent_For_26_Template, 2, 2, "button", 6, _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrepeaterTrackByIdentity"]);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]()();
       }
       if (rf & 2) {
@@ -5642,7 +5642,7 @@ class ExportDialogComponent {
       }
     },
     dependencies: [_angular_material_button__WEBPACK_IMPORTED_MODULE_4__.MatButton, _angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__.MatDialogActions, _angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__.MatDialogContent, _angular_forms__WEBPACK_IMPORTED_MODULE_5__.DefaultValueAccessor, _angular_forms__WEBPACK_IMPORTED_MODULE_5__.CheckboxControlValueAccessor, _angular_forms__WEBPACK_IMPORTED_MODULE_5__.NgControlStatus, _angular_forms__WEBPACK_IMPORTED_MODULE_5__.NgModel, _angular_common__WEBPACK_IMPORTED_MODULE_6__.AsyncPipe],
-    styles: [".ml-2[_ngcontent-%COMP%] {\n  margin-left: 2rem;\n}\n\n.card[_ngcontent-%COMP%] {\n  border: var(--borderGray10) solid 2px;\n  border-radius: 0.25rem;\n  padding: 0.5rem;\n  -webkit-user-select: none; \n \n\n  user-select: none; \n\n}\n\n.number-input[_ngcontent-%COMP%] {\n  max-width: 1rem;\n  text-align: center;\n  height: 1rem;\n  align-self: center;\n  border: var(--borderGray10) solid 2px;\n  border-radius: 3px;\n}\n\n.number-input[_ngcontent-%COMP%]:focus {\n  outline: none; \n\n  border-color: var(--borderGray10); \n\n  box-shadow: 0 0 5px var(--borderGray10); \n\n}\n\n.row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: row;\n  gap: 0.25rem;\n  cursor: pointer;\n}\n\n.bold-2[_ngcontent-%COMP%] {\n  font-weight: bold;\n}\n\ninput[_ngcontent-%COMP%] {\n  margin: 0;\n  padding: 0;\n}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL3NyYy9hcHAvdG9vbHMvZXhwb3J0L3ByZXNlbnRhdGlvbi9leHBvcnQtZGlhbG9nL2V4cG9ydC1kaWFsb2cuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxpQkFBQTtBQUNGOztBQUVBO0VBQ0UscUNBQUE7RUFDQSxzQkFBQTtFQUNBLGVBQUE7RUFDQSx5QkFBQSxFQUFBLFdBQUEsRUFDQSxvQkFBQTtFQUNBLGlCQUFBLEVBQUEsb0JBQUE7QUFDRjs7QUFFQTtFQUNFLGVBQUE7RUFDQSxrQkFBQTtFQUNBLFlBQUE7RUFDQSxrQkFBQTtFQUNBLHFDQUFBO0VBQ0Esa0JBQUE7QUFDRjs7QUFFQTtFQUNFLGFBQUEsRUFBQSwyQkFBQTtFQUNBLGlDQUFBLEVBQUEsd0JBQUE7RUFDQSx1Q0FBQSxFQUFBLG1DQUFBO0FBQ0Y7O0FBRUE7RUFDRSxhQUFBO0VBQ0EsbUJBQUE7RUFDQSxZQUFBO0VBQ0EsZUFBQTtBQUNGOztBQUVBO0VBQ0UsaUJBQUE7QUFDRjs7QUFFQTtFQUNFLFNBQUE7RUFDQSxVQUFBO0FBQ0YiLCJzb3VyY2VzQ29udGVudCI6WyIubWwtMiB7XG4gIG1hcmdpbi1sZWZ0OiAycmVtO1xufVxuXG4uY2FyZCB7XG4gIGJvcmRlcjogdmFyKC0tYm9yZGVyR3JheTEwKSBzb2xpZCAycHg7XG4gIGJvcmRlci1yYWRpdXM6IDAuMjVyZW07XG4gIHBhZGRpbmc6IDAuNXJlbTtcbiAgLXdlYmtpdC11c2VyLXNlbGVjdDogbm9uZTsgLyogU2FmYXJpICovXG4gIC1tcy11c2VyLXNlbGVjdDogbm9uZTsgLyogSUUgMTAgYW5kIElFIDExICovXG4gIHVzZXItc2VsZWN0OiBub25lOyAvKiBTdGFuZGFyZCBzeW50YXggKi9cbn1cblxuLm51bWJlci1pbnB1dCB7XG4gIG1heC13aWR0aDogMXJlbTtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBoZWlnaHQ6IDFyZW07XG4gIGFsaWduLXNlbGY6IGNlbnRlcjtcbiAgYm9yZGVyOiB2YXIoLS1ib3JkZXJHcmF5MTApIHNvbGlkIDJweDtcbiAgYm9yZGVyLXJhZGl1czogM3B4O1xufVxuXG4ubnVtYmVyLWlucHV0OmZvY3VzIHtcbiAgb3V0bGluZTogbm9uZTsgLyogUmVtb3ZlIGRlZmF1bHQgb3V0bGluZSAqL1xuICBib3JkZXItY29sb3I6IHZhcigtLWJvcmRlckdyYXkxMCk7IC8qIENoYW5nZSBib3JkZXIgY29sb3IgKi9cbiAgYm94LXNoYWRvdzogMCAwIDVweCB2YXIoLS1ib3JkZXJHcmF5MTApOyAvKiBPcHRpb25hbDogQWRkIGEgZ2xvd2luZyBlZmZlY3QgKi9cbn1cblxuLnJvdyB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtZGlyZWN0aW9uOiByb3c7XG4gIGdhcDogMC4yNXJlbTtcbiAgY3Vyc29yOiBwb2ludGVyO1xufVxuXG4uYm9sZC0yIHtcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XG59XG5cbmlucHV0IHtcbiAgbWFyZ2luOiAwO1xuICBwYWRkaW5nOiAwO1xufVxuIl0sInNvdXJjZVJvb3QiOiIifQ== */"]
+    styles: [".ml-2[_ngcontent-%COMP%] {\n  margin-left: 2rem;\n}\n\n.card[_ngcontent-%COMP%] {\n  border: var(--borderGray10) solid 2px;\n  border-radius: 0.25rem;\n  padding: 0.5rem;\n  -webkit-user-select: none; \n \n\n  user-select: none; \n\n}\n\n.number-input[_ngcontent-%COMP%] {\n  max-width: 1rem;\n  text-align: center;\n  height: 1rem;\n  align-self: center;\n  border: var(--borderGray10) solid 2px;\n  border-radius: 3px;\n  padding: 0 0.25rem;\n}\n\n.number-input[_ngcontent-%COMP%]:focus {\n  outline: none; \n\n  border-color: var(--borderGray10); \n\n  box-shadow: 0 0 5px var(--borderGray10); \n\n}\n\n.row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: row;\n  gap: 0.25rem;\n  cursor: pointer;\n}\n\ninput[_ngcontent-%COMP%] {\n  margin: 0;\n  padding: 0;\n}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL3NyYy9hcHAvdG9vbHMvZXhwb3J0L3ByZXNlbnRhdGlvbi9leHBvcnQtZGlhbG9nL2V4cG9ydC1kaWFsb2cuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxpQkFBQTtBQUNGOztBQUVBO0VBQ0UscUNBQUE7RUFDQSxzQkFBQTtFQUNBLGVBQUE7RUFDQSx5QkFBQSxFQUFBLFdBQUEsRUFDQSxvQkFBQTtFQUNBLGlCQUFBLEVBQUEsb0JBQUE7QUFDRjs7QUFFQTtFQUNFLGVBQUE7RUFDQSxrQkFBQTtFQUNBLFlBQUE7RUFDQSxrQkFBQTtFQUNBLHFDQUFBO0VBQ0Esa0JBQUE7RUFDQSxrQkFBQTtBQUNGOztBQUVBO0VBQ0UsYUFBQSxFQUFBLDJCQUFBO0VBQ0EsaUNBQUEsRUFBQSx3QkFBQTtFQUNBLHVDQUFBLEVBQUEsbUNBQUE7QUFDRjs7QUFFQTtFQUNFLGFBQUE7RUFDQSxtQkFBQTtFQUNBLFlBQUE7RUFDQSxlQUFBO0FBQ0Y7O0FBRUE7RUFDRSxTQUFBO0VBQ0EsVUFBQTtBQUNGIiwic291cmNlc0NvbnRlbnQiOlsiLm1sLTIge1xuICBtYXJnaW4tbGVmdDogMnJlbTtcbn1cblxuLmNhcmQge1xuICBib3JkZXI6IHZhcigtLWJvcmRlckdyYXkxMCkgc29saWQgMnB4O1xuICBib3JkZXItcmFkaXVzOiAwLjI1cmVtO1xuICBwYWRkaW5nOiAwLjVyZW07XG4gIC13ZWJraXQtdXNlci1zZWxlY3Q6IG5vbmU7IC8qIFNhZmFyaSAqL1xuICAtbXMtdXNlci1zZWxlY3Q6IG5vbmU7IC8qIElFIDEwIGFuZCBJRSAxMSAqL1xuICB1c2VyLXNlbGVjdDogbm9uZTsgLyogU3RhbmRhcmQgc3ludGF4ICovXG59XG5cbi5udW1iZXItaW5wdXQge1xuICBtYXgtd2lkdGg6IDFyZW07XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgaGVpZ2h0OiAxcmVtO1xuICBhbGlnbi1zZWxmOiBjZW50ZXI7XG4gIGJvcmRlcjogdmFyKC0tYm9yZGVyR3JheTEwKSBzb2xpZCAycHg7XG4gIGJvcmRlci1yYWRpdXM6IDNweDtcbiAgcGFkZGluZzogMCAwLjI1cmVtO1xufVxuXG4ubnVtYmVyLWlucHV0OmZvY3VzIHtcbiAgb3V0bGluZTogbm9uZTsgLyogUmVtb3ZlIGRlZmF1bHQgb3V0bGluZSAqL1xuICBib3JkZXItY29sb3I6IHZhcigtLWJvcmRlckdyYXkxMCk7IC8qIENoYW5nZSBib3JkZXIgY29sb3IgKi9cbiAgYm94LXNoYWRvdzogMCAwIDVweCB2YXIoLS1ib3JkZXJHcmF5MTApOyAvKiBPcHRpb25hbDogQWRkIGEgZ2xvd2luZyBlZmZlY3QgKi9cbn1cblxuLnJvdyB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtZGlyZWN0aW9uOiByb3c7XG4gIGdhcDogMC4yNXJlbTtcbiAgY3Vyc29yOiBwb2ludGVyO1xufVxuXG5pbnB1dCB7XG4gIG1hcmdpbjogMDtcbiAgcGFkZGluZzogMDtcbn1cbiJdLCJzb3VyY2VSb290IjoiIn0= */"]
   });
 }
 
