@@ -91,9 +91,16 @@ To rename multiple work objects or activities, click the dictionary button ![Dic
 To save your Domain Story on your computer, download it as a file by clicking the export button ![Export Button](/assets/images/buttons/archive.png). The following file formats are available:
 
 - `.egn`: A text file that contains the "source code" of your Domain Story. It can later be imported by you or other Egon users. Egon uses the JSON format and produces files that are properly formatted. This makes it easy to keep track of changes when the files are kept in a source code repository like *git*.
-- `.egn.svg`: A scalable image. Great for adding your Domain Story in collaborative whiteboards like Miro. This image also contains an embedded `.dst` file.
+- `.svg`: A scalable image. Great for adding your Domain Story in collaborative whiteboards like Miro. This image also contains an embedded `.egn` file.
 - `.png`: An image, e.g. for embedding in documents.
 - `.html`: A presentation that lets people replay the story in their browser without the need of using Egon.
+
+<!-- TODO: explain options for image exports 
+
+> Animated SVG images only work with some applications:
+> - works with veb browsers
+> - does **not** work with Miro and Inkscape; the image might be incomplete
+-->
 
 ## Importing Domain Stories
 
@@ -102,14 +109,15 @@ To load a previously created Domain Story, you can...
 - drag an `.egn` or `.egn.svg` file from your local file system and drop it onto the canvas
 
 <!-- include this for v2.2.0
-- import it from a public URL by clicking the import button ![Import Button](/assets/images/buttons/cloud.png) and pasting the URL
+- import from a public URL by clicking the import button ![Import Button](/assets/images/buttons/cloud.png) and pasting the URL
 
 > Importing from URL has limitations: 
 > - the link must contain the file name and file ending
-> - the server you want to download from must send the 'Access-Control-Allow-Origin' response header (if not, import will fail with a  CORS error)
+> - the server you want to download from must send the `Access-Control-Allow-Origin` response header (if not, import will fail with a CORS error)
 > - the link must point to the "raw" file (for GitHub and Dropbox, Egon will try to automatically convert any link to a raw download link)
-> - works with GitHub, BitBucket, Dropbox
-> - does **not** work with GoogleDrive, OneDrive and Nextcloud
+> - **works** with GitHub, BitBucket, Dropbox
+> - does **not** work with Googl Drive, OneDrive
+> - Nextcloud: Ask your server administrator to turn on `Access-Control-Allow-Origin`
 -->
 
 ## Auto-Save and Creating new Domain Stories
