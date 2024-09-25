@@ -5491,7 +5491,7 @@ function ExportDialogComponent_Conditional_18_Template(rf, ctx) {
   if (rf & 1) {
     const _r1 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "span");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](1, "Animation speed:");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](1, " - animation speed:");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](2, "input", 7);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtwoWayListener"]("ngModelChange", function ExportDialogComponent_Conditional_18_Template_input_ngModelChange_2_listener($event) {
@@ -5612,7 +5612,7 @@ class ExportDialogComponent {
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function ExportDialogComponent_Template_span_click_16_listener() {
           return ctx.onExportAnimatedSvg();
         });
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](17, "Export animated SVG.");
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](17, "Animated SVG");
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](18, ExportDialogComponent_Conditional_18_Template, 5, 4);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]()()();
