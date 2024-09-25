@@ -5839,7 +5839,13 @@ class ExportService {
     this.htmlPresentationService.downloadHTMLPresentation(filename, modeler).then();
   }
   getStoryForDownload() {
-    const story = this.rendererService.getStory();
+    let story = this.rendererService.getStory().sort((objA, objB) => {
+      if (objA.id !== undefined && objB.id !== undefined) {
+        return objA.id.localeCompare(objB.id);
+      } else {
+        return 0;
+      }
+    });
     story.push({
       info: this.titleService.getDescription()
     });
