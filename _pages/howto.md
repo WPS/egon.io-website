@@ -95,12 +95,10 @@ To save your Domain Story on your computer, download it as a file by clicking th
 - `.png`: An image, e.g. for embedding in documents.
 - `.html`: A presentation that lets people replay the story in their browser without the need of using Egon.
 
-<!-- TODO: explain options for image exports 
 
 > Animated SVG images only work with some applications:
-> - works with veb browsers
+> - works with web browsers (Firefox, Chrome, Safari)
 > - does **not** work with Miro and Inkscape; the image might be incomplete
--->
 
 ## Importing Domain Stories
 
@@ -108,7 +106,6 @@ To load a previously created Domain Story, you can...
 - import an `.egn` or `.egn.svg` file by clicking the import button ![Upload Button](/assets/images/buttons/unarchive.png) and selecting the file
 - drag an `.egn` or `.egn.svg` file from your local file system and drop it onto the canvas
 
-<!-- include this for v2.2.0
 - import from a public URL by clicking the import button ![Import Button](/assets/images/buttons/cloud.png) and pasting the URL
 
 > Importing from URL has limitations: 
@@ -118,7 +115,6 @@ To load a previously created Domain Story, you can...
 > - **works** with GitHub, BitBucket, Dropbox
 > - does **not** work with Googl Drive, OneDrive
 > - Nextcloud: Ask your server administrator to turn on `Access-Control-Allow-Origin`
--->
 
 ## Auto-Save and Creating new Domain Stories
 
