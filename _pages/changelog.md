@@ -9,7 +9,8 @@ toc_sticky: true
 > Have you used an earlier version of *Egon v2* or *latest build*? Please follow these [instructions](https://egon.io/howto#launching-egon) before using the *v2.0.0* or newer.
 
 ## Latest Build
-no changes yet
+- `Feature`: Added shortcut `ctrl+alt+s` for exporting as `.egn.svg` file
+- `Feature`: On MacOS, shortcuts use `cmd` as modifier key
 
 ## v2.2.0
 - `Feature`: Load domain story from public URL. [See #68](https://github.com/WPS/egon.io/issues/68)
