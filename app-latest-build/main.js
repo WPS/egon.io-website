@@ -3775,14 +3775,22 @@ class AppComponent {
     this.showSettings$ = new rxjs__WEBPACK_IMPORTED_MODULE_12__.BehaviorSubject(false);
     this.showDescription$ = new rxjs__WEBPACK_IMPORTED_MODULE_12__.BehaviorSubject(true);
     document.addEventListener('keydown', e => {
-      if (e.ctrlKey && e.key === 's') {
+      const modifierPressed = e.ctrlKey || e.metaKey;
+      if (modifierPressed && e.key === 's' && !e.altKey) {
         e.preventDefault();
         e.stopPropagation();
         if (this.exportService.isDomainStoryExportable()) {
           this.exportService.downloadDST();
         }
       }
-      if (e.ctrlKey && e.key === 'l') {
+      if (modifierPressed && e.altKey && e.key === 's') {
+        e.preventDefault();
+        e.stopPropagation();
+        if (this.exportService.isDomainStoryExportable()) {
+          this.exportService.downloadSVG(true, true, undefined);
+        }
+      }
+      if (modifierPressed && e.key === 'l') {
         e.preventDefault();
         e.stopPropagation();
         document.getElementById('import')?.click();
@@ -4278,28 +4286,6 @@ var ElementTypes;
 
 /***/ }),
 
-/***/ 11719:
-/*!***************************************************!*\
-  !*** ./src/app/domain/entities/infoDialogData.ts ***!
-  \***************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   InfoDialogData: () => (/* binding */ InfoDialogData)
-/* harmony export */ });
-class InfoDialogData {
-  constructor(title, infoText, isInfo, isLink = false, linkText) {
-    this.title = title;
-    this.infoText = infoText;
-    this.isInfo = isInfo;
-    this.isLink = isLink;
-    this.linkText = linkText;
-  }
-}
-
-/***/ }),
-
 /***/ 16126:
 /*!******************************************************!*\
   !*** ./src/app/domain/presentation/domain.module.ts ***!
@@ -4310,9 +4296,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   DomainModule: () => (/* binding */ DomainModule)
 /* harmony export */ });
-/* harmony import */ var _info_dialog_info_dialog_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./info-dialog/info-dialog.component */ 10454);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ 39191);
-/* harmony import */ var _material_module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../material.module */ 89439);
+/* harmony import */ var _material_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../material.module */ 89439);
+/* harmony import */ var _keyboard_shortcuts_dialog_keyboard_shortcuts_keyboard_shortcuts_dialog_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./keyboard-shortcuts-dialog/keyboard-shortcuts/keyboard-shortcuts-dialog.component */ 45466);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 96623);
 
 
@@ -4326,121 +4312,84 @@ class DomainModule {
     type: DomainModule
   });
   static #_3 = this.ɵinj = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjector"]({
-    imports: [_angular_common__WEBPACK_IMPORTED_MODULE_3__.CommonModule, _material_module__WEBPACK_IMPORTED_MODULE_1__.MaterialModule]
+    imports: [_angular_common__WEBPACK_IMPORTED_MODULE_3__.CommonModule, _material_module__WEBPACK_IMPORTED_MODULE_0__.MaterialModule]
   });
 }
 (function () {
   (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵsetNgModuleScope"](DomainModule, {
-    declarations: [_info_dialog_info_dialog_component__WEBPACK_IMPORTED_MODULE_0__.InfoDialogComponent],
-    imports: [_angular_common__WEBPACK_IMPORTED_MODULE_3__.CommonModule, _material_module__WEBPACK_IMPORTED_MODULE_1__.MaterialModule],
-    exports: [_info_dialog_info_dialog_component__WEBPACK_IMPORTED_MODULE_0__.InfoDialogComponent]
+    declarations: [_keyboard_shortcuts_dialog_keyboard_shortcuts_keyboard_shortcuts_dialog_component__WEBPACK_IMPORTED_MODULE_1__.KeyboardShortcutsDialogComponent],
+    imports: [_angular_common__WEBPACK_IMPORTED_MODULE_3__.CommonModule, _material_module__WEBPACK_IMPORTED_MODULE_0__.MaterialModule],
+    exports: [_keyboard_shortcuts_dialog_keyboard_shortcuts_keyboard_shortcuts_dialog_component__WEBPACK_IMPORTED_MODULE_1__.KeyboardShortcutsDialogComponent]
   });
 })();
 
 /***/ }),
 
-/***/ 10454:
-/*!**************************************************************************!*\
-  !*** ./src/app/domain/presentation/info-dialog/info-dialog.component.ts ***!
-  \**************************************************************************/
+/***/ 45466:
+/*!*************************************************************************************************************************!*\
+  !*** ./src/app/domain/presentation/keyboard-shortcuts-dialog/keyboard-shortcuts/keyboard-shortcuts-dialog.component.ts ***!
+  \*************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   InfoDialogComponent: () => (/* binding */ InfoDialogComponent)
+/* harmony export */   KeyboardShortcutsDialogComponent: () => (/* binding */ KeyboardShortcutsDialogComponent)
 /* harmony export */ });
-/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ 72768);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var src_app_domain_entities_infoDialogData__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/domain/entities/infoDialogData */ 11719);
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material/dialog */ 72768);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 96623);
 
 
 
-
-function InfoDialogComponent_Conditional_3_Template(rf, ctx) {
+const _forTrack0 = ($index, $item) => $item.description;
+function KeyboardShortcutsDialogComponent_For_4_Template(rf, ctx) {
   if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "span", 2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 2)(1, "span", 3);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "span");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](4);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]()();
   }
   if (rf & 2) {
-    const ctx_r0 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"]("", ctx_r0.infoText, " ");
+    const shortCut_r1 = ctx.$implicit;
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("", shortCut_r1.description, ":");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](shortCut_r1.shortCut);
   }
 }
-function InfoDialogComponent_Conditional_4_Template(rf, ctx) {
-  if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "a", 3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-  }
-  if (rf & 2) {
-    const ctx_r0 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpropertyInterpolate"]("href", ctx_r0.linkText, _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsanitizeUrl"]);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](ctx_r0.linkText);
-  }
-}
-function InfoDialogComponent_Conditional_5_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r2 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "mat-dialog-actions")(1, "button", 4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function InfoDialogComponent_Conditional_5_Template_button_click_1_listener() {
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r2);
-      const ctx_r0 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-      return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵresetView"](ctx_r0.close());
-    });
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](2, "Close");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]()();
-  }
-}
-class InfoDialogComponent {
-  constructor(dialogRef, data) {
-    this.dialogRef = dialogRef;
+class KeyboardShortcutsDialogComponent {
+  constructor(data) {
+    this.shortCuts = [];
     this.title = data.title;
-    this.infoText = data.infoText;
-    this.showConfirmButton = !data.isInfo;
-    this.hasLink = data.isLink;
-    this.linkText = data.linkText || '';
+    this.shortCuts = data.shortCuts ?? [];
   }
-  ngAfterViewInit() {
-    const span = document.getElementsByClassName('readOnlyText')[0];
-    span.style.height = span.scrollHeight + 'px';
-  }
-  close() {
-    this.dialogRef.close();
-  }
-  static #_ = this.ɵfac = function InfoDialogComponent_Factory(t) {
-    return new (t || InfoDialogComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__.MatDialogRef), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__.MAT_DIALOG_DATA));
+  static #_ = this.ɵfac = function KeyboardShortcutsDialogComponent_Factory(t) {
+    return new (t || KeyboardShortcutsDialogComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_material_dialog__WEBPACK_IMPORTED_MODULE_1__.MAT_DIALOG_DATA));
   };
-  static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({
-    type: InfoDialogComponent,
-    selectors: [["app-info-dialog"]],
-    decls: 6,
-    vars: 4,
-    consts: [[1, "content"], ["id", "info-dialog-title"], [1, "readOnlyText"], [3, "href"], [1, "mat-raised-button", 3, "click"]],
-    template: function InfoDialogComponent_Template(rf, ctx) {
+  static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
+    type: KeyboardShortcutsDialogComponent,
+    selectors: [["app-keyboard-shortcuts-dialog"]],
+    decls: 5,
+    vars: 1,
+    consts: [[1, "content"], ["id", "info-dialog-title"], [1, "row"], [1, "description-width"]],
+    template: function KeyboardShortcutsDialogComponent_Template(rf, ctx) {
       if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "mat-dialog-content", 0)(1, "h2", 1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](3, InfoDialogComponent_Conditional_3_Template, 2, 1, "span", 2)(4, InfoDialogComponent_Conditional_4_Template, 2, 2, "a", 3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](5, InfoDialogComponent_Conditional_5_Template, 3, 0, "mat-dialog-actions");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "mat-dialog-content", 0)(1, "h2", 1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrepeaterCreate"](3, KeyboardShortcutsDialogComponent_For_4_Template, 5, 2, "div", 2, _forTrack0);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
       }
       if (rf & 2) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](ctx.title);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵconditional"](3, ctx.infoText != "" ? 3 : -1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵconditional"](4, ctx.hasLink ? 4 : -1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵconditional"](5, ctx.showConfirmButton ? 5 : -1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx.title);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrepeater"](ctx.shortCuts);
       }
     },
-    dependencies: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__.MatDialogActions, _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__.MatDialogContent],
-    styles: [".readOnlyText[_ngcontent-%COMP%] {\n  display: block;\n  border: none;\n  resize: none;\n  width: 100%;\n  overflow: hidden;\n  white-space: pre-wrap;\n}\n\n.content[_ngcontent-%COMP%] {\n  height: -moz-fit-content;\n  height: fit-content;\n  width: 30vw;\n  overflow: hidden;\n}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL3NyYy9hcHAvZG9tYWluL3ByZXNlbnRhdGlvbi9pbmZvLWRpYWxvZy9pbmZvLWRpYWxvZy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGNBQUE7RUFDQSxZQUFBO0VBQ0EsWUFBQTtFQUNBLFdBQUE7RUFDQSxnQkFBQTtFQUNBLHFCQUFBO0FBQ0Y7O0FBRUE7RUFDRSx3QkFBQTtFQUFBLG1CQUFBO0VBQ0EsV0FBQTtFQUNBLGdCQUFBO0FBQ0YiLCJzb3VyY2VzQ29udGVudCI6WyIucmVhZE9ubHlUZXh0IHtcbiAgZGlzcGxheTogYmxvY2s7XG4gIGJvcmRlcjogbm9uZTtcbiAgcmVzaXplOiBub25lO1xuICB3aWR0aDogMTAwJTtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgd2hpdGUtc3BhY2U6IHByZS13cmFwO1xufVxuXG4uY29udGVudCB7XG4gIGhlaWdodDogZml0LWNvbnRlbnQ7XG4gIHdpZHRoOiAzMHZ3O1xuICBvdmVyZmxvdzogaGlkZGVuO1xufVxuIl0sInNvdXJjZVJvb3QiOiIifQ== */"]
+    dependencies: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_1__.MatDialogContent],
+    styles: [".content[_ngcontent-%COMP%] {\n  height: -moz-fit-content;\n  height: fit-content;\n  width: 30vw;\n  overflow: hidden;\n}\n\n.row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: row;\n}\n\n.description-width[_ngcontent-%COMP%] {\n  width: 12rem;\n}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL3NyYy9hcHAvZG9tYWluL3ByZXNlbnRhdGlvbi9rZXlib2FyZC1zaG9ydGN1dHMtZGlhbG9nL2tleWJvYXJkLXNob3J0Y3V0cy9rZXlib2FyZC1zaG9ydGN1dHMtZGlhbG9nLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0Usd0JBQUE7RUFBQSxtQkFBQTtFQUNBLFdBQUE7RUFDQSxnQkFBQTtBQUNGOztBQUVBO0VBQ0UsYUFBQTtFQUNBLG1CQUFBO0FBQ0Y7O0FBRUE7RUFDRSxZQUFBO0FBQ0YiLCJzb3VyY2VzQ29udGVudCI6WyIuY29udGVudCB7XG4gIGhlaWdodDogZml0LWNvbnRlbnQ7XG4gIHdpZHRoOiAzMHZ3O1xuICBvdmVyZmxvdzogaGlkZGVuO1xufVxuXG4ucm93IHtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC1kaXJlY3Rpb246IHJvdztcbn1cblxuLmRlc2NyaXB0aW9uLXdpZHRoIHtcbiAgd2lkdGg6IDEycmVtO1xufVxuIl0sInNvdXJjZVJvb3QiOiIifQ== */"]
   });
 }
 
@@ -4488,11 +4437,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   DialogService: () => (/* binding */ DialogService)
 /* harmony export */ });
-/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ 72768);
-/* harmony import */ var _entities_infoDialogData__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../entities/infoDialogData */ 11719);
-/* harmony import */ var _presentation_info_dialog_info_dialog_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../presentation/info-dialog/info-dialog.component */ 10454);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 96623);
-
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material/dialog */ 72768);
+/* harmony import */ var _presentation_keyboard_shortcuts_dialog_keyboard_shortcuts_keyboard_shortcuts_dialog_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../presentation/keyboard-shortcuts-dialog/keyboard-shortcuts/keyboard-shortcuts-dialog.component */ 45466);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 96623);
 
 
 
@@ -4505,18 +4452,62 @@ class DialogService {
     this.matDialog.open(dialog, config);
   }
   openKeyboardShortcutsDialog() {
-    const title = 'Keyboard Shortcuts';
-    const shortCutText = 'Undo:\t\t\t\t\tctrl + Z \n' + 'Redo:\t\t\t\t\tctrl + Y    OR   ctrl + shift + Z\n' + 'Select All:\t\t\t\tctrl + A\n' + 'Export as EGN:\t\t\tctrl + S\n' + 'Import Domain Story: \tctrl + L\n' + 'Search for text:\t\t\tctrl + F\n' + 'Direct editing:\t\t\tE\n' + 'Hand tool:\t\t\t\tH\n' + 'Lasso tool:\t\t\t\tL\n' + 'Space tool:\t\t\t\tS';
-    const config = new _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__.MatDialogConfig();
-    config.disableClose = false;
-    config.autoFocus = true;
-    config.data = new _entities_infoDialogData__WEBPACK_IMPORTED_MODULE_0__.InfoDialogData(title, shortCutText, true);
-    this.openDialog(_presentation_info_dialog_info_dialog_component__WEBPACK_IMPORTED_MODULE_1__.InfoDialogComponent, config);
+    const shortCuts = [];
+    shortCuts.push({
+      description: 'Undo',
+      shortCut: 'ctrl + Z'
+    });
+    shortCuts.push({
+      description: 'Redo',
+      shortCut: 'ctrl + Y    OR   ctrl + shift + Z'
+    });
+    shortCuts.push({
+      description: 'Select All',
+      shortCut: 'ctrl + A'
+    });
+    shortCuts.push({
+      description: 'Export as EGN',
+      shortCut: 'ctrl + S'
+    });
+    shortCuts.push({
+      description: 'Export as SVG',
+      shortCut: 'ctrl + alt + S'
+    });
+    shortCuts.push({
+      description: 'Import Domain Story',
+      shortCut: 'ctrl + L'
+    });
+    shortCuts.push({
+      description: 'Search for text',
+      shortCut: 'ctrl + F'
+    });
+    shortCuts.push({
+      description: 'Direct editing',
+      shortCut: 'E'
+    });
+    shortCuts.push({
+      description: 'Hand tool',
+      shortCut: 'H'
+    });
+    shortCuts.push({
+      description: 'Lasso tool',
+      shortCut: 'L'
+    });
+    shortCuts.push({
+      description: 'Space tool',
+      shortCut: 'S'
+    });
+    const config = new _angular_material_dialog__WEBPACK_IMPORTED_MODULE_1__.MatDialogConfig();
+    config.data = {
+      title: 'Keyboard Shortcuts',
+      shortCuts: shortCuts
+    };
+    this.openDialog(_presentation_keyboard_shortcuts_dialog_keyboard_shortcuts_keyboard_shortcuts_dialog_component__WEBPACK_IMPORTED_MODULE_0__.KeyboardShortcutsDialogComponent, config);
   }
   static #_ = this.ɵfac = function DialogService_Factory(t) {
-    return new (t || DialogService)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__.MatDialog));
+    return new (t || DialogService)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_angular_material_dialog__WEBPACK_IMPORTED_MODULE_1__.MatDialog));
   };
-  static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineInjectable"]({
+  static #_2 = this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjectable"]({
     token: DialogService,
     factory: DialogService.ɵfac,
     providedIn: 'root'
