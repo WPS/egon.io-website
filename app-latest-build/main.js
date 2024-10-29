@@ -3775,21 +3775,22 @@ class AppComponent {
     this.showSettings$ = new rxjs__WEBPACK_IMPORTED_MODULE_12__.BehaviorSubject(false);
     this.showDescription$ = new rxjs__WEBPACK_IMPORTED_MODULE_12__.BehaviorSubject(true);
     document.addEventListener('keydown', e => {
-      if (e.ctrlKey && e.key === 's' && !e.altKey) {
+      const modifierPressed = e.ctrlKey || e.metaKey;
+      if (modifierPressed && e.key === 's' && !e.altKey) {
         e.preventDefault();
         e.stopPropagation();
         if (this.exportService.isDomainStoryExportable()) {
           this.exportService.downloadDST();
         }
       }
-      if (e.ctrlKey && e.altKey && e.key === 's') {
+      if (modifierPressed && e.altKey && e.key === 's') {
         e.preventDefault();
         e.stopPropagation();
         if (this.exportService.isDomainStoryExportable()) {
           this.exportService.downloadSVG(true, true, undefined);
         }
       }
-      if (e.ctrlKey && e.key === 'l') {
+      if (modifierPressed && e.key === 'l') {
         e.preventDefault();
         e.stopPropagation();
         document.getElementById('import')?.click();
