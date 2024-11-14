@@ -11739,7 +11739,7 @@ class SettingsComponent {
           return ctx.openIconSetCustomization();
         });
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](9, "span", 5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](10, "Customize Icons for Your Domain");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](10, "Customize Icon Set");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]()();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](11, "button", 4);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipe"](12, "async");
