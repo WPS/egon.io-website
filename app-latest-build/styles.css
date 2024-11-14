@@ -3475,8 +3475,7 @@ html {
 /* FONTS */
 @font-face {
   font-family: Roboto;
-  font-style: normal;
-  font-weight: 700;
+  font-style: normal, bold;
   src: local("Roboto-Regular"), url('Roboto-Regular.woff');
 }
 /* You can add global styles to this file, and also import other style files */
