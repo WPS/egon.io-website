@@ -11,7 +11,7 @@ toc_sticky: true
 ## Latest Build
 - `Feature`: Added shortcut `ctrl+alt+s` for exporting as `.egn.svg` file
 - `Feature`: On MacOS, shortcuts use `cmd` as modifier key
-- Minor UI improvements
+- Redesign (more restrained and consistent look) and usability improvements (self-explanatory)
 
 ## v2.2.0
 - `Feature`: Load domain story from public URL. [See #68](https://github.com/WPS/egon.io/issues/68)
