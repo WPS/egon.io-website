@@ -5,12 +5,12 @@ search: false
 
 @charset "utf-8";
 
-// dark blue color of the Domain Storytelling logo
-$primary-color: #3EAFBF;
-$link-color: #3EAFBF;
+// accent color (nr. 400) of the of the app's custom color palette:
+$primary-color: #0093ac;
+$link-color: #0093ac;
 
-// light blue color of the Domain Storytelling logo
-$info-color: #A2D7E2; // used in .btn--info 
+// primary color (nr. 100) of the app's custom color palette:
+$info-color: #a4d7e1; // used in .btn--info 
 
 
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
