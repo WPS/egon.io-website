@@ -3,14 +3,14 @@ permalink: /
 title: "Egon.io"
 layout: splash
 header: 
-  overlay_color: "#3EAFBF"
+  overlay_color: "#a4d7e1"
 #  overlay_image: /assets/images/schiele/krumau-an-der-moldau.jpg
 #  overlay_image: /assets/images/schiele/crescent-of-houses.jpg
-  overlay_image: /assets/images/schiele/hauswand-am-fluss.jpg
+#  overlay_image: /assets/images/schiele/hauswand-am-fluss.jpg
 #  actions:
 #    - label: "Use Online"
 #      url: "app"
-  caption: "Photo: [**Frans Vandewalle**](https://www.flickr.com/photos/snarfel/6679805047/in/photostream/)"
+#  caption: "Photo: [**Frans Vandewalle**](https://www.flickr.com/photos/snarfel/6679805047/in/photostream/)"
 #  caption: "**Egon Schiele**: *Hauswand am Fluß*, Photo: [**Frans Vandewalle**](https://www.flickr.com/photos/snarfel/6679805047/in/photostream/)"
 excerpt: "A lightweight tool to support [*Domain Storytelling*](https://domainstorytelling.org)"
 ---
