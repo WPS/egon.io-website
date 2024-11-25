@@ -84,11 +84,11 @@ If you want to model activities that happen simultaneously, check  the "multiple
 
 ## Renaming Multiple Work Objects or Activities
 
-To rename multiple work objects or activities, click the dictionary button ![Dictionary Button](/assets/images/buttons/spellcheck.png). Actors cannot be renamed in the dictionary because they usually appear only once per Domain Story.
+To rename multiple work objects or activities, click the *label dictionary* button (<i class="material-icons">spellcheck</i>). Actors cannot be renamed in the dictionary because they usually appear only once per Domain Story.
 
 ## Exporting Domain Stories
 
-To save your Domain Story on your computer, download it as a file by clicking the export button ![Export Button](/assets/images/buttons/archive.png). The following file formats are available:
+To save your Domain Story on your computer, download it as a file by clicking the *export* button (<i class="material-icons">file_download</i>). The following file formats are available:
 
 - `.egn`: A text file that contains the "source code" of your Domain Story. It can later be imported by you or other Egon users. Egon uses the JSON format and produces files that are properly formatted. This makes it easy to keep track of changes when the files are kept in a source code repository like *git*.
 - `.svg`: A scalable image. Great for adding your Domain Story in collaborative whiteboards like Miro. This image also contains an embedded `.egn` file.
@@ -103,10 +103,10 @@ To save your Domain Story on your computer, download it as a file by clicking th
 ## Importing Domain Stories
 
 To load a previously created Domain Story, you can...
-- import an `.egn` or `.egn.svg` file by clicking the import button ![Upload Button](/assets/images/buttons/unarchive.png) and selecting the file
+- import an `.egn` or `.egn.svg` file by clicking the *import from file* button (<i class="material-icons">file_upload</i>) and selecting the file
 - drag an `.egn` or `.egn.svg` file from your local file system and drop it onto the canvas
 
-- import from a public URL by clicking the import button ![Import Button](/assets/images/buttons/cloud.png) and pasting the URL
+- import from a public URL by clicking the *import from URL* button (<i class="material-icons">cloud_upload</i>) and pasting the URL
 
 > Importing from URL has limitations: 
 > - the link must contain the file name and file ending
@@ -120,11 +120,11 @@ To load a previously created Domain Story, you can...
 
 Since saving Domain Stories by exporting them as files is a bit cumbersome, you can turn on the *auto-save* feature in the general settings. Egon runs completely in your browser and this is also where your current Domain Story is stored: In your browser's local storage. You can choose the saving interval (in seconds) between saving drafts and how many drafts are kept in storage. Drafts can be restored, overwriting the current state of your Domain Story.
 
-When you activate auto-save and later open Egon in your browser, it will restore the Domain Story that you last worked on. To create a new Domain Story, click the *New* button.
+When you activate auto-save and later open Egon in your browser, it will restore the Domain Story that you last worked on. To create a new Domain Story, click the *New* button (<i class="material-icons">note_add </i>).
 
 ## Replay
 
-The replay feature helps you to re-tell a Domain Story sentence by sentence. When you start to replay with the play button ![Play Button](/assets/images/buttons/play.png), all sentences except the first one disappear. Clicking the forward button ![Forward Button](/assets/images/buttons/forward.png) shows the next sentence and clicking the previous button ![Previous Button](/assets/images/buttons/previous.png) shows the previous one. The current sentence is highlighted. The stop replaying, click the stop button ![Stop Button](/assets/images/buttons/stop.png).
+The replay feature helps you to re-tell a Domain Story sentence by sentence. When you start to replay with the *play* button (<i class="material-icons">play_arrow</i>), all sentences except the first one disappear. Clicking the *next* button (<i class="material-icons">skip_next</i>) shows the next sentence and clicking the *previous* button (<i class="material-icons">skip_previous</i>) shows the previous one. The current sentence is highlighted. The stop replaying, click the *stop* button (<i class="material-icons">stop</i>).
 
 If a Domain Story contains groups, they appear with the last sentence.
 
@@ -132,11 +132,11 @@ Editing is disabled during replay, but you can zoom (ctrl + mouse wheel up and d
 
 ## Keyboard Shortcuts
 
-Click on ![Keyboard Button](/assets/images/buttons/keyboard.png) to display all available keyboard shortcuts.
+Click on the "shortcuts" button (<i class="material-icons">keyboard</i>) to display all available keyboard shortcuts.
 
 ## Customizing the Icon Set
 
-To adapt the icon set to your domain, click on ![Gear Button](/assets/images/buttons/gear.png) to open the icon customization:
+To adapt the icon set to your domain, click on the *settings* button (<i class="material-icons">settings</i>) to open the icon customization:
 
 - Egon comes with built-in icons. Select which ones want in your pallette. An icon can either be used as work object **or** as actor. 
 - Use drag&drop to change the order in which the selected icons appear in the pallette.
