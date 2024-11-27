@@ -6,12 +6,16 @@ toc: true
 toc_sticky: true
 ---
 
-> Have you used an earlier version of *Egon v2* or *latest build*? Please follow these [instructions](https://egon.io/howto#launching-egon) before using the *v2.0.0* or newer.
+> Have you used an earlier version of *Egon v2* or *latest build*? Please follow these [instructions](https://egon.io/howto#launching-egon) for updating to the newest version.
 
 ## Latest Build
-- `Feature`: Added shortcut `ctrl+alt+s` for exporting as `.egn.svg` file
-- `Feature`: On MacOS, shortcuts use `cmd` as modifier key
-- Redesign (more restrained and consistent look) and usability improvements (self-explanatory)
+no changes yet
+
+## v2.3.0
+- `Feature`: Added shortcut `ctrl+alt+s` for exporting as `.egn.svg` file [See #159](https://github.com/WPS/egon.io/issues/159)
+- `Feature`: On MacOS, shortcuts use `cmd` as modifier key [See #160](https://github.com/WPS/egon.io/issues/160)
+- `Feature`: Docker container runs on Apple Silicon [See #187](https://github.com/WPS/egon.io/issues/187)
+- Redesign (more restrained and consistent look) and usability improvements (self-explanatory) 
 
 ## v2.2.0
 - `Feature`: Load domain story from public URL. [See #68](https://github.com/WPS/egon.io/issues/68)
@@ -19,7 +23,6 @@ toc_sticky: true
 - `Feature`: Find icons by keyword (instead of name only). [See #157](https://github.com/WPS/egon.io/issues/157)
 - `Fix`: Creating overlapping groups.  [See #158](https://github.com/WPS/egon.io/issues/158)
 - `Fix`: .egn export produces JSON nodes that are in consistent order which makes diffing easier. **Note:** If you have committed .egn files to a repository and update them with .egn files created with v2.2.0 you will see many changes to the file. These are just structural and do not impact the content of the domain stories [See #161](https://github.com/WPS/egon.io/issues/161)
-
 
 ## v2.1.0
 - `Feature`: Added 33 icons to the icon set. [See #151](https://github.com/WPS/egon.io/issues/151)
