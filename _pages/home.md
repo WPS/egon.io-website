@@ -22,13 +22,17 @@ Egon runs in your browser, is free, does not require an account, does not track 
 ## Current Version:
 
 [<i class="fas fa-play"></i> Use online](app){: .btn .btn--primary .btn--x-large}
-[<i class="fas fa-play"></i> Use latest build*](app-latest){: .btn .btn--primary .btn--x-large}
-*) only recommended for testing new features
-
-[<i class="fas fa-book"></i> Changelog](/changelog){: .btn .btn--info .btn--x-large}
-[<i class="fas fa-code"></i> Source](https://github.com/WPS/egon.io){: .btn .btn--info .btn--x-large}
-[<i class="fas fa-portrait"></i> Examples](https://github.com/WPS/egon.io-examples){: .btn .btn--info .btn--x-large}
 [<i class="fas fa-book"></i> User guide](/howto){: .btn .btn--info .btn--x-large}
+[<i class="fas fa-book"></i> Changelog](/changelog){: .btn .btn--info .btn--x-large}
+[<i class="fas fa-portrait"></i> Examples](https://github.com/WPS/egon.io-examples){: .btn .btn--info .btn--x-large}
+[<i class="fas fa-code"></i> Source](https://github.com/WPS/egon.io){: .btn .btn--info .btn--x-large}
+
+## Development Version
+
+Only recommended for testing new features.
+
+[<i class="fas fa-play"></i> Use latest build](app-latest){: .btn .btn--primary .btn--x-large}
+
 
 ## Legacy Version:
 
