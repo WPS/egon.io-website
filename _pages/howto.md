@@ -24,7 +24,7 @@ We provide an [online version](https://egon.io/) on our webpage. Just click *Use
 
 ### Docker
 
-We provide a Docker image on GitHub: `docker pull ghcr.io/wps/egon.io:latest`
+We provide a Docker image on GitHub. Download it `docker pull ghcr.io/wps/egon.io:latest` and run it `docker run -p 4040:80 ghcr.io/wps/egon.io:latest` (replace "4040" with whatever port you want to use).
 
 ### Host Egon on your own Web Server
 
