@@ -974,7 +974,7 @@ function initializeRenderer(iconDictionaryService, elementRegistryService, dirty
   _elementRegistryService = elementRegistryService;
   _dirtyFlagService = dirtyFlagService;
 }
-function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, commandStack) {
+function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, commandStack) {
   diagram_js_lib_draw_BaseRenderer__WEBPACK_IMPORTED_MODULE_9__["default"].call(this, eventBus, 2000);
   let rendererId = RENDERER_IDS.next();
   let markers = {};
@@ -1485,7 +1485,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
   };
 }
 inherits__WEBPACK_IMPORTED_MODULE_0___default()(DomainStoryRenderer, diagram_js_lib_draw_BaseRenderer__WEBPACK_IMPORTED_MODULE_9__["default"]);
-DomainStoryRenderer.$inject = ["eventBus", "styles", "canvas", "textRenderer", "pathMap", "commandStack"];
+DomainStoryRenderer.$inject = ["eventBus", "styles", "canvas", "textRenderer", "commandStack"];
 DomainStoryRenderer.prototype.canRender = function (element) {
   return /^domainStory:/.test(element.type);
 };
@@ -1973,16 +1973,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _domainStoryRules__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./domainStoryRules */ 15313);
 /* harmony import */ var _domainStoryUpdater__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./domainStoryUpdater */ 75187);
 /* harmony import */ var diagram_js_lib_features_create__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! diagram-js/lib/features/create */ 48256);
-/* harmony import */ var bpmn_js_lib_draw_PathMap__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! bpmn-js/lib/draw/PathMap */ 56089);
 /* harmony import */ var bpmn_js_lib_features_popup_menu__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! bpmn-js/lib/features/popup-menu */ 30918);
 /* harmony import */ var diagram_js_lib_features_context_pad__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! diagram-js/lib/features/context-pad */ 93331);
-/* harmony import */ var diagram_js_lib_command_CommandStack__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! diagram-js/lib/command/CommandStack */ 77738);
+/* harmony import */ var diagram_js_lib_command_CommandStack__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! diagram-js/lib/command/CommandStack */ 77738);
 /* harmony import */ var _updateHandler_updateLabelHandler__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./updateHandler/updateLabelHandler */ 70670);
 /* harmony import */ var _updateHandler_headlineAndDescriptionUpdateHandler__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./updateHandler/headlineAndDescriptionUpdateHandler */ 87613);
 /* harmony import */ var _context_pad_domainStoryContextPadProvider__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./context-pad/domainStoryContextPadProvider */ 17325);
 /* harmony import */ var _change_icon_replaceMenuProvider__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./change-icon/replaceMenuProvider */ 44970);
 /* harmony import */ var _modeling_dSModeling__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modeling/dSModeling */ 81979);
-
 
 
 
@@ -2008,9 +2006,8 @@ __webpack_require__.r(__webpack_exports__);
   domainStoryRules: ["type", _domainStoryRules__WEBPACK_IMPORTED_MODULE_3__["default"]],
   domainStoryUpdater: ["type", _domainStoryUpdater__WEBPACK_IMPORTED_MODULE_4__["default"]],
   contextPadProvider: ["type", _context_pad_domainStoryContextPadProvider__WEBPACK_IMPORTED_MODULE_7__["default"]],
-  pathMap: ["type", bpmn_js_lib_draw_PathMap__WEBPACK_IMPORTED_MODULE_13__["default"]],
   replaceMenuProvider: ["type", _change_icon_replaceMenuProvider__WEBPACK_IMPORTED_MODULE_8__["default"]],
-  commandStack: ["type", diagram_js_lib_command_CommandStack__WEBPACK_IMPORTED_MODULE_14__["default"]],
+  commandStack: ["type", diagram_js_lib_command_CommandStack__WEBPACK_IMPORTED_MODULE_13__["default"]],
   updateLabelHandler: ["type", _updateHandler_updateLabelHandler__WEBPACK_IMPORTED_MODULE_5__["default"]],
   headlineAndDescriptionUpdateHandler: ["type", _updateHandler_headlineAndDescriptionUpdateHandler__WEBPACK_IMPORTED_MODULE_6__["default"]],
   modeling: ["type", _modeling_dSModeling__WEBPACK_IMPORTED_MODULE_9__["default"]]
@@ -2040,14 +2037,13 @@ __webpack_require__.r(__webpack_exports__);
 
 const MARKER_HIDDEN = "djs-element-hidden",
   MARKER_LABEL_HIDDEN = "djs-label-hidden";
-function DSLabelEditingPreview(eventBus, canvas, pathMap) {
+function DSLabelEditingPreview(eventBus, canvas) {
   let self = this;
   let defaultLayer = canvas.getDefaultLayer();
   let element, absoluteElementBBox, gfx;
   eventBus.on("directEditing.activate", function (context) {
     let activeProvider = context.active;
     element = activeProvider.element.label || activeProvider.element;
-    // text annotation
     if ((0,_util__WEBPACK_IMPORTED_MODULE_1__.is)(element, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.TEXTANNOTATION)) {
       absoluteElementBBox = canvas.getAbsoluteBBox(element);
       gfx = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_2__.create)("g");
@@ -2065,7 +2061,7 @@ function DSLabelEditingPreview(eventBus, canvas, pathMap) {
       (0,tiny_svg__WEBPACK_IMPORTED_MODULE_2__.attr)(path, {
         d: textPathData,
         strokeWidth: 2,
-        stroke: getStrokeColor(element)
+        stroke: "black"
       });
       (0,tiny_svg__WEBPACK_IMPORTED_MODULE_2__.append)(gfx, path);
       (0,tiny_svg__WEBPACK_IMPORTED_MODULE_2__.append)(defaultLayer, gfx);
@@ -2111,11 +2107,7 @@ function DSLabelEditingPreview(eventBus, canvas, pathMap) {
     }
   });
 }
-DSLabelEditingPreview.$inject = ["eventBus", "canvas", "pathMap"];
-// helpers ///////////////////
-function getStrokeColor() {
-  return "black";
-}
+DSLabelEditingPreview.$inject = ["eventBus", "canvas"];
 
 /***/ }),
 
@@ -2822,10 +2814,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _palette_domainStoryPalette__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../palette/domainStoryPalette */ 23285);
 /* harmony import */ var diagram_js_lib_features_create__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! diagram-js/lib/features/create */ 48256);
-/* harmony import */ var bpmn_js_lib_draw_PathMap__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! bpmn-js/lib/draw/PathMap */ 56089);
 /* harmony import */ var bpmn_js_lib_features_popup_menu__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! bpmn-js/lib/features/popup-menu */ 30918);
 /* harmony import */ var diagram_js_lib_features_context_pad__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! diagram-js/lib/features/context-pad */ 93331);
-/* harmony import */ var diagram_js_lib_command_CommandStack__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! diagram-js/lib/command/CommandStack */ 77738);
+/* harmony import */ var diagram_js_lib_command_CommandStack__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! diagram-js/lib/command/CommandStack */ 77738);
 /* harmony import */ var _updateHandler_updateLabelHandler__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../updateHandler/updateLabelHandler */ 70670);
 /* harmony import */ var _domainStoryUpdater__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../domainStoryUpdater */ 75187);
 /* harmony import */ var _domainStoryElementFactory__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../domainStoryElementFactory */ 73938);
@@ -2851,7 +2842,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   __depends__: [diagram_js_lib_features_create__WEBPACK_IMPORTED_MODULE_10__["default"], diagram_js_lib_features_context_pad__WEBPACK_IMPORTED_MODULE_11__["default"], bpmn_js_lib_features_popup_menu__WEBPACK_IMPORTED_MODULE_12__["default"]],
   __init__: ["domainStoryRenderer", "paletteProvider", "domainStoryRules", "domainStoryUpdater", "contextPadProvider", "replaceMenuProvider"],
@@ -2861,9 +2851,8 @@ __webpack_require__.r(__webpack_exports__);
   domainStoryRules: ["type", _domainStoryRules__WEBPACK_IMPORTED_MODULE_7__["default"]],
   domainStoryUpdater: ["type", _domainStoryUpdater__WEBPACK_IMPORTED_MODULE_2__["default"]],
   contextPadProvider: ["type", _context_pad_domainStoryContextPadProvider__WEBPACK_IMPORTED_MODULE_9__["default"]],
-  pathMap: ["type", bpmn_js_lib_draw_PathMap__WEBPACK_IMPORTED_MODULE_13__["default"]],
   replaceMenuProvider: ["type", _change_icon_replaceMenuProvider__WEBPACK_IMPORTED_MODULE_8__["default"]],
-  commandStack: ["type", diagram_js_lib_command_CommandStack__WEBPACK_IMPORTED_MODULE_14__["default"]],
+  commandStack: ["type", diagram_js_lib_command_CommandStack__WEBPACK_IMPORTED_MODULE_13__["default"]],
   updateLabelHandler: ["type", _updateHandler_updateLabelHandler__WEBPACK_IMPORTED_MODULE_1__["default"]],
   headlineAndDescriptionUpdateHandler: ["type", _updateHandler_headlineAndDescriptionUpdateHandler__WEBPACK_IMPORTED_MODULE_4__["default"]],
   modeling: ["type", _dSModeling__WEBPACK_IMPORTED_MODULE_6__["default"]]
