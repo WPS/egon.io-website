@@ -734,11 +734,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ DomainStoryElementFactory)
 /* harmony export */ });
-/* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! min-dash */ 81410);
+/* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! min-dash */ 81410);
 /* harmony import */ var inherits__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inherits */ 98069);
 /* harmony import */ var inherits__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(inherits__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var bpmn_js_lib_features_modeling_ElementFactory__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! bpmn-js/lib/features/modeling/ElementFactory */ 5557);
-/* harmony import */ var bpmn_js_lib_util_LabelUtil__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! bpmn-js/lib/util/LabelUtil */ 81454);
+/* harmony import */ var diagram_js_lib_core_ElementFactory__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! diagram-js/lib/core/ElementFactory */ 22037);
 /* harmony import */ var _domainStoryIdFactory__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./domainStoryIdFactory */ 43331);
 /* harmony import */ var src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/domain/entities/elementTypes */ 73190);
 
@@ -748,12 +747,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-/**
- * A custom factory that knows how to create BPMN _and_ custom elements.
- */
-function DomainStoryElementFactory(bpmnFactory, moddle) {
-  bpmn_js_lib_features_modeling_ElementFactory__WEBPACK_IMPORTED_MODULE_3__["default"].call(this, bpmnFactory, moddle);
+const DEFAULT_LABEL_SIZE = {
+  width: 90,
+  height: 20
+};
+function DomainStoryElementFactory() {
   let self = this;
   let domainStoryIdFactory = new _domainStoryIdFactory__WEBPACK_IMPORTED_MODULE_1__["default"]();
   /**
@@ -767,9 +765,9 @@ function DomainStoryElementFactory(bpmnFactory, moddle) {
   this.create = function (elementType, attrs) {
     let type = attrs.type;
     if (elementType === "label") {
-      return self.baseCreate(elementType, (0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)({
+      return self.baseCreate(elementType, (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)({
         type: "label"
-      }, bpmn_js_lib_util_LabelUtil__WEBPACK_IMPORTED_MODULE_5__.DEFAULT_LABEL_SIZE, attrs));
+      }, DEFAULT_LABEL_SIZE, attrs));
     }
     // add type to businessObject if custom
     if (/^domainStory:/.test(type)) {
@@ -784,7 +782,7 @@ function DomainStoryElementFactory(bpmnFactory, moddle) {
       } else {
         attrs.id = domainStoryIdFactory.getId(elementType);
       }
-      (0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)(attrs.businessObject, {
+      (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)(attrs.businessObject, {
         id: attrs.id
       });
       let id = attrs.id;
@@ -795,27 +793,27 @@ function DomainStoryElementFactory(bpmnFactory, moddle) {
       };
       attrs.businessObject.set = function (key, value) {
         if (key === "id") {
-          (0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)(attrs.businessObject, {
+          (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)(attrs.businessObject, {
             id: value
           });
         }
       };
       if (!attrs.businessObject.$type) {
-        (0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)(attrs.businessObject, {
+        (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)(attrs.businessObject, {
           $type: "Element"
         });
       }
-      (0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)(attrs.businessObject, {
+      (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)(attrs.businessObject, {
         di: {}
       });
       if (!attrs.businessObject.$descriptor) {
-        (0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)(attrs.businessObject, {
+        (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)(attrs.businessObject, {
           $descriptor: {}
         });
       }
       // add width and height if shape
       if ((!/:activity$/.test(type) || !/:connection$/.test(type)) && !(/:group$/.test(type) && attrs.height || attrs.width)) {
-        (0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)(attrs, self._getCustomElementSize(type));
+        (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)(attrs, self._getCustomElementSize(type));
       }
       if (!("$instanceOf" in attrs.businessObject)) {
         // ensure we can use ModelUtil#is for type checks
@@ -827,16 +825,12 @@ function DomainStoryElementFactory(bpmnFactory, moddle) {
       }
       return self.baseCreate(elementType, attrs);
     }
-    return self.createBpmnElement(elementType, attrs);
   };
 }
-inherits__WEBPACK_IMPORTED_MODULE_0___default()(DomainStoryElementFactory, bpmn_js_lib_features_modeling_ElementFactory__WEBPACK_IMPORTED_MODULE_3__["default"]);
-DomainStoryElementFactory.$inject = ["bpmnFactory", "moddle"];
+inherits__WEBPACK_IMPORTED_MODULE_0___default()(DomainStoryElementFactory, diagram_js_lib_core_ElementFactory__WEBPACK_IMPORTED_MODULE_4__["default"]);
+DomainStoryElementFactory.prototype.baseCreate = diagram_js_lib_core_ElementFactory__WEBPACK_IMPORTED_MODULE_4__["default"].prototype.create;
 /**
  * returns the default size of custom shapes.
- *
- * the following example shows an interface on how
- * to setup the custom shape's dimensions.
  * *
  * @param {String} type
  *
@@ -937,21 +931,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var inherits__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inherits */ 98069);
 /* harmony import */ var inherits__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(inherits__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var diagram_js_lib_draw_BaseRenderer__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! diagram-js/lib/draw/BaseRenderer */ 14694);
+/* harmony import */ var diagram_js_lib_draw_BaseRenderer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! diagram-js/lib/draw/BaseRenderer */ 14694);
 /* harmony import */ var ids__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ids */ 70678);
-/* harmony import */ var src_app_tools_modeler_bpmn_modeler_labeling_dsLabelEditingPreview__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/tools/modeler/bpmn/modeler/labeling/dsLabelEditingPreview */ 91889);
-/* harmony import */ var diagram_js_lib_util_RenderUtil__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! diagram-js/lib/util/RenderUtil */ 96546);
-/* harmony import */ var tiny_svg__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! tiny-svg */ 57491);
-/* harmony import */ var min_dom__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! min-dom */ 73599);
-/* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! min-dash */ 81410);
-/* harmony import */ var src_app_tools_modeler_bpmn_modeler_labeling_dsLabelEditingProvider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/tools/modeler/bpmn/modeler/labeling/dsLabelEditingProvider */ 46604);
-/* harmony import */ var src_app_tools_modeler_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/tools/modeler/bpmn/modeler/numbering/numbering */ 33862);
-/* harmony import */ var src_app_tools_modeler_bpmn_modeler_labeling_dsLabelUtil__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/tools/modeler/bpmn/modeler/labeling/dsLabelUtil */ 5513);
-/* harmony import */ var src_app_tools_modeler_bpmn_modeler_labeling_position__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/tools/modeler/bpmn/modeler/labeling/position */ 68105);
-/* harmony import */ var src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/domain/entities/elementTypes */ 73190);
-/* harmony import */ var _utils_mathExtensions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../utils/mathExtensions */ 67858);
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./util */ 44741);
-
+/* harmony import */ var diagram_js_lib_util_RenderUtil__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! diagram-js/lib/util/RenderUtil */ 96546);
+/* harmony import */ var tiny_svg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! tiny-svg */ 57491);
+/* harmony import */ var min_dom__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! min-dom */ 73599);
+/* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! min-dash */ 81410);
+/* harmony import */ var src_app_tools_modeler_bpmn_modeler_labeling_dsLabelEditingProvider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/tools/modeler/bpmn/modeler/labeling/dsLabelEditingProvider */ 46604);
+/* harmony import */ var src_app_tools_modeler_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/tools/modeler/bpmn/modeler/numbering/numbering */ 33862);
+/* harmony import */ var src_app_tools_modeler_bpmn_modeler_labeling_dsLabelUtil__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/tools/modeler/bpmn/modeler/labeling/dsLabelUtil */ 5513);
+/* harmony import */ var src_app_tools_modeler_bpmn_modeler_labeling_position__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/tools/modeler/bpmn/modeler/labeling/position */ 68105);
+/* harmony import */ var src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/domain/entities/elementTypes */ 73190);
+/* harmony import */ var _utils_mathExtensions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../utils/mathExtensions */ 67858);
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./util */ 44741);
 
 
 
@@ -983,7 +975,7 @@ function initializeRenderer(iconDictionaryService, elementRegistryService, dirty
   _dirtyFlagService = dirtyFlagService;
 }
 function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, commandStack) {
-  diagram_js_lib_draw_BaseRenderer__WEBPACK_IMPORTED_MODULE_10__["default"].call(this, eventBus, 2000);
+  diagram_js_lib_draw_BaseRenderer__WEBPACK_IMPORTED_MODULE_9__["default"].call(this, eventBus, 2000);
   let rendererId = RENDERER_IDS.next();
   let markers = {};
   let computeStyle = styles.computeStyle;
@@ -992,7 +984,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
     // whenever we want to edit an activity, it gets redrawn as a new object
     // and the custom information is lost,
     // so we stash it before the editing occurs and set the value here
-    let numberStash = (0,src_app_tools_modeler_bpmn_modeler_labeling_dsLabelEditingProvider__WEBPACK_IMPORTED_MODULE_3__.getNumberStash)();
+    let numberStash = (0,src_app_tools_modeler_bpmn_modeler_labeling_dsLabelEditingProvider__WEBPACK_IMPORTED_MODULE_2__.getNumberStash)();
     let semantic = element.businessObject;
     if (numberStash.use) {
       semantic.number = numberStash.number;
@@ -1004,40 +996,16 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
       box.x += 3;
     }
     let newRenderedNumber = renderNumber(parentGfx, semantic.number, numberStyle(box), element.type);
-    (0,src_app_tools_modeler_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_4__.addNumberToRegistry)(newRenderedNumber, semantic.number);
+    (0,src_app_tools_modeler_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_3__.addNumberToRegistry)(newRenderedNumber, semantic.number);
   }
   // style functions
   function numberStyle(box) {
     return {
       box: box,
       fitBox: true,
-      style: (0,min_dash__WEBPACK_IMPORTED_MODULE_11__.assign)({}, textRenderer.getExternalStyle(), {
+      style: (0,min_dash__WEBPACK_IMPORTED_MODULE_10__.assign)({}, textRenderer.getExternalStyle(), {
         fill: "black",
         position: "absolute"
-      })
-    };
-  }
-  function backgroundBoxStyle(box) {
-    return {
-      box: box,
-      fitBox: true,
-      style: (0,min_dash__WEBPACK_IMPORTED_MODULE_11__.assign)({}, textRenderer.getExternalStyle(), {
-        fill: "black",
-        fontSize: 50,
-        position: "absolute",
-        fontFamily: "Courier New"
-      })
-    };
-  }
-  function backgroundDotStyle(box) {
-    return {
-      box: box,
-      fitBox: true,
-      style: (0,min_dash__WEBPACK_IMPORTED_MODULE_11__.assign)({}, textRenderer.getExternalStyle(), {
-        fill: "white",
-        fontSize: 150,
-        position: "absolute",
-        fontFamily: "Courier"
       })
     };
   }
@@ -1058,12 +1026,12 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
   function renderExternalLabel(parentGfx, element) {
     let semantic = element.businessObject;
     let waypoints = element.waypoints;
-    let lines = (0,src_app_tools_modeler_bpmn_modeler_labeling_position__WEBPACK_IMPORTED_MODULE_6__.countLines)(semantic.name);
+    let lines = (0,src_app_tools_modeler_bpmn_modeler_labeling_position__WEBPACK_IMPORTED_MODULE_5__.countLines)(semantic.name);
     if (element.waypoints != null) {
-      let position = (0,src_app_tools_modeler_bpmn_modeler_labeling_position__WEBPACK_IMPORTED_MODULE_6__.labelPosition)(waypoints, lines);
+      let position = (0,src_app_tools_modeler_bpmn_modeler_labeling_position__WEBPACK_IMPORTED_MODULE_5__.labelPosition)(waypoints, lines);
       let startPoint = element.waypoints[position.selected];
       let endPoint = element.waypoints[position.selected + 1];
-      let angle = (0,_utils_mathExtensions__WEBPACK_IMPORTED_MODULE_8__.angleBetween)(startPoint, endPoint);
+      let angle = (0,_utils_mathExtensions__WEBPACK_IMPORTED_MODULE_7__.angleBetween)(startPoint, endPoint);
       let alignment = "left";
       let boxWidth = 500;
       let xStart = position.x;
@@ -1071,7 +1039,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
       if (angle === 0 || angle === 180) {
         boxWidth = Math.abs(startPoint.x - endPoint.x);
         alignment = "center";
-        xStart = (startPoint.x + endPoint.x) / 2 - (0,src_app_tools_modeler_bpmn_modeler_labeling_dsLabelUtil__WEBPACK_IMPORTED_MODULE_5__.calculateTextWidth)(semantic.name);
+        xStart = (startPoint.x + endPoint.x) / 2 - (0,src_app_tools_modeler_bpmn_modeler_labeling_dsLabelUtil__WEBPACK_IMPORTED_MODULE_4__.calculateTextWidth)(semantic.name);
       }
       let box = {
         textAlign: alignment,
@@ -1084,7 +1052,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
         return renderLabel(parentGfx, semantic.name, {
           box: box,
           fitBox: true,
-          style: (0,min_dash__WEBPACK_IMPORTED_MODULE_11__.assign)({}, textRenderer.getExternalStyle(), {
+          style: (0,min_dash__WEBPACK_IMPORTED_MODULE_10__.assign)({}, textRenderer.getExternalStyle(), {
             fill: "black",
             wordWrap: "break-word",
             overflowWrap: "break-word",
@@ -1098,12 +1066,12 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
   function renderExternalNumber(parentGfx, element) {
     if (element && element.source) {
       let semantic = element.businessObject;
-      let box = (0,src_app_tools_modeler_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_4__.numberBoxDefinitions)(element);
-      if (semantic.number == null && element.source.type && element.source.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.ACTOR)) {
-        (0,src_app_tools_modeler_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_4__.generateAutomaticNumber)(element, commandStack);
+      let box = (0,src_app_tools_modeler_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_3__.numberBoxDefinitions)(element);
+      if (semantic.number == null && element.source.type && element.source.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_6__.ElementTypes.ACTOR)) {
+        (0,src_app_tools_modeler_bpmn_modeler_numbering_numbering__WEBPACK_IMPORTED_MODULE_3__.generateAutomaticNumber)(element, commandStack);
       }
       // render the background for the number
-      if (semantic.number && element.source.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.ACTOR)) {
+      if (semantic.number && element.source.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_6__.ElementTypes.ACTOR)) {
         generateActivityNumber(parentGfx, element, box);
       } else {
         semantic.number = null;
@@ -1118,16 +1086,16 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
     number = String(number);
     let text = textRenderer.createText(number || "", options);
     let height = 0;
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.classes)(text).add("djs-labelNumber");
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.classes)(text).add("djs-labelNumber");
     setCoordinates(type, text, options, height, parentGfx);
     // !IMPORTANT!
     // When converting svg-files via Inkscape or Photoshop the svg-circle is converted to a black dot that obscures the number.
     // To circumvent this, we draw an arc.
-    let circle = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.create)("path");
+    let circle = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.create)("path");
     let radius = 11;
     let x = options.box.x + 18 + (number > 9 ? 3 : 0);
     let y = options.box.y - radius + 7;
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.attr)(circle, {
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.attr)(circle, {
       d: `
       M ${x} ${y}
       m ${radius},0
@@ -1137,8 +1105,8 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
       fill: "white",
       stroke: "black"
     });
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.append)(parentGfx, circle);
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.append)(parentGfx, text);
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.append)(parentGfx, circle);
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.append)(parentGfx, text);
     return text;
   }
   // the coordinates of the activity label must be set directly and will not be taken from the box
@@ -1158,9 +1126,9 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
   function renderLabel(parentGfx, label, options, type) {
     let text = textRenderer.createText(label || "", options);
     let height = 0;
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.classes)(text).add("djs-label");
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.classes)(text).add("djs-label");
     setCoordinates(type, text, options, height, parentGfx);
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.append)(parentGfx, text);
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.append)(parentGfx, text);
     return text;
   }
   // determine the Y-coordinate of the label / number to be rendered
@@ -1188,7 +1156,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
     if (!element.businessObject.pickedColor) {
       element.businessObject.pickedColor = DEFAULT_COLOR;
     }
-    let rect = drawRect(parentGfx, element.width, element.height, 0, (0,min_dash__WEBPACK_IMPORTED_MODULE_11__.assign)({
+    let rect = drawRect(parentGfx, element.width, element.height, 0, (0,min_dash__WEBPACK_IMPORTED_MODULE_10__.assign)({
       fill: "none",
       stroke: element.businessObject.pickedColor
     }, element.attrs));
@@ -1216,9 +1184,9 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
   }
   function getIconSvg(icon, element) {
     const pickedColor = element.businessObject.pickedColor;
-    if ((0,_util__WEBPACK_IMPORTED_MODULE_9__.isCustomIcon)(icon)) {
+    if ((0,_util__WEBPACK_IMPORTED_MODULE_8__.isCustomIcon)(icon)) {
       let dataURL;
-      if ((0,_util__WEBPACK_IMPORTED_MODULE_9__.isCustomSvgIcon)(icon)) {
+      if ((0,_util__WEBPACK_IMPORTED_MODULE_8__.isCustomSvgIcon)(icon)) {
         dataURL = applyColorToCustomSvgIcon(pickedColor, icon);
       } else {
         dataURL = icon;
@@ -1236,11 +1204,11 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
       width: element.width,
       height: element.height
     };
-    let iconSRC = _iconDictionaryService.getTypeIconSRC(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.ACTOR, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.getIconId(element.type));
+    let iconSRC = _iconDictionaryService.getTypeIconSRC(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_6__.ElementTypes.ACTOR, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_6__.ElementTypes.getIconId(element.type));
     iconSRC = getIconSvg(iconSRC, element);
-    let actor = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.create)(iconSRC);
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.attr)(actor, svgDynamicSizeAttributes);
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.append)(parent, actor);
+    let actor = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.create)(iconSRC);
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.attr)(actor, svgDynamicSizeAttributes);
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.append)(parent, actor);
     renderEmbeddedLabel(parent, element, "center", -5);
     return actor;
   };
@@ -1252,11 +1220,11 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
         y: element.height / 2 - 25
       },
       workObject;
-    let iconSRC = _iconDictionaryService.getTypeIconSRC(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.WORKOBJECT, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.getIconId(element.type));
+    let iconSRC = _iconDictionaryService.getTypeIconSRC(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_6__.ElementTypes.WORKOBJECT, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_6__.ElementTypes.getIconId(element.type));
     iconSRC = getIconSvg(iconSRC, element);
-    workObject = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.create)(iconSRC);
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.attr)(workObject, svgDynamicSizeAttributes);
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.append)(parent, workObject);
+    workObject = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.create)(iconSRC);
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.attr)(workObject, svgDynamicSizeAttributes);
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.append)(parent, workObject);
     renderEmbeddedLabel(parent, element, "center", -5);
     return workObject;
   };
@@ -1277,7 +1245,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
     adjustForTextOverlap(element);
     if (element) {
       let attrs = useColorForActivity(element);
-      let x = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.append)(p, (0,diagram_js_lib_util_RenderUtil__WEBPACK_IMPORTED_MODULE_13__.createLine)(element.waypoints, attrs));
+      let x = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.append)(p, (0,diagram_js_lib_util_RenderUtil__WEBPACK_IMPORTED_MODULE_12__.createLine)(element.waypoints, attrs));
       renderExternalLabel(p, element);
       renderExternalNumber(p, element);
       // just adjusting the start- and endpoint of the connection-element moves only the drawn connection,
@@ -1341,7 +1309,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
       strokeLinejoin: "round",
       strokeDasharray: "5, 5"
     });
-    return (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.append)(p, (0,diagram_js_lib_util_RenderUtil__WEBPACK_IMPORTED_MODULE_13__.createLine)(element.waypoints, attrs));
+    return (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.append)(p, (0,diagram_js_lib_util_RenderUtil__WEBPACK_IMPORTED_MODULE_12__.createLine)(element.waypoints, attrs));
   };
   this.drawAnnotation = function (parentGfx, element) {
     let style = {
@@ -1354,17 +1322,17 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
       if (height === 0 && element.businessObject.number) {
         height = element.businessObject.number;
       }
-      (0,min_dash__WEBPACK_IMPORTED_MODULE_11__.assign)(element, {
+      (0,min_dash__WEBPACK_IMPORTED_MODULE_10__.assign)(element, {
         height: height
       });
       // for some reason the keyword height is not exported, so we use another, which we know will be exported,
       // to ensure persistent annotation heights between sessions
-      (0,min_dash__WEBPACK_IMPORTED_MODULE_11__.assign)(element.businessObject, {
+      (0,min_dash__WEBPACK_IMPORTED_MODULE_10__.assign)(element.businessObject, {
         number: height
       });
     }
     let textElement = drawRect(parentGfx, element.width, element.height, 0, 0, style);
-    let textPathData = pathMap.getScaledPath("TEXT_ANNOTATION", {
+    let textPathData = (0,_util__WEBPACK_IMPORTED_MODULE_8__.getScaledPath)({
       xScaleFactor: 1,
       yScaleFactor: 1,
       containerWidth: element.width,
@@ -1393,16 +1361,16 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
       strokeWidth: 2,
       stroke: "black"
     });
-    let path = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.create)("path");
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.attr)(path, {
+    let path = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.create)("path");
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.attr)(path, {
       d: d
     });
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.attr)(path, attrs);
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.append)(parentGfx, path);
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.attr)(path, attrs);
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.append)(parentGfx, path);
     return path;
   }
   function drawRect(parentGfx, width, height, r, offset, attrs) {
-    if ((0,min_dash__WEBPACK_IMPORTED_MODULE_11__.isObject)(offset)) {
+    if ((0,min_dash__WEBPACK_IMPORTED_MODULE_10__.isObject)(offset)) {
       attrs = offset;
       offset = 0;
     }
@@ -1412,8 +1380,8 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
       strokeWidth: 2,
       fill: "white"
     });
-    let rect = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.create)("rect");
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.attr)(rect, {
+    let rect = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.create)("rect");
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.attr)(rect, {
       x: offset,
       y: offset,
       width: width - offset * 2,
@@ -1421,11 +1389,11 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
       rx: r,
       ry: r
     });
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.attr)(rect, attrs);
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.append)(parentGfx, rect);
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.attr)(rect, attrs);
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.append)(parentGfx, rect);
     return rect;
   }
-  // marker functions
+  // marker functions ("markers" are arrowheads of activities)
   function marker(type, fill, stroke) {
     let id = type + "-" + fill + "-" + stroke + "-" + rendererId;
     if (!markers[id]) {
@@ -1436,8 +1404,8 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
   function createMarker(type, fill, stroke) {
     let id = type + "-" + fill + "-" + stroke + "-" + rendererId;
     if (type === "activity") {
-      let sequenceflowEnd = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.create)("path");
-      (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.attr)(sequenceflowEnd, {
+      let sequenceflowEnd = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.create)("path");
+      (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.attr)(sequenceflowEnd, {
         d: "M 1 5 L 11 10 L 1 15 Z"
       });
       addMarker(id, {
@@ -1455,7 +1423,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
     }
   }
   function addMarker(id, options) {
-    let attrs = (0,min_dash__WEBPACK_IMPORTED_MODULE_11__.assign)({
+    let attrs = (0,min_dash__WEBPACK_IMPORTED_MODULE_10__.assign)({
       fill: "black",
       strokeWidth: 1,
       strokeLinecap: "round",
@@ -1470,10 +1438,10 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
     if (attrs.strokeDasharray === "none") {
       attrs.strokeDasharray = [10000, 1];
     }
-    let marker = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.create)("marker");
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.attr)(options.element, attrs);
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.append)(marker, options.element);
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.attr)(marker, {
+    let marker = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.create)("marker");
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.attr)(options.element, attrs);
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.append)(marker, options.element);
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.attr)(marker, {
       id: id,
       viewBox: "0 0 20 20",
       refX: ref.x,
@@ -1482,22 +1450,22 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
       markerHeight: 20 * scale,
       orient: "auto"
     });
-    let defs = (0,min_dom__WEBPACK_IMPORTED_MODULE_14__.query)("defs", canvas._svg);
+    let defs = (0,min_dom__WEBPACK_IMPORTED_MODULE_13__.query)("defs", canvas._svg);
     if (!defs) {
-      defs = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.create)("defs");
-      (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.append)(canvas._svg, defs);
+      defs = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.create)("defs");
+      (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.append)(canvas._svg, defs);
     }
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_12__.append)(defs, marker);
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_11__.append)(defs, marker);
     markers[id] = marker;
   }
   // path functions
   this.getWorkObjectPath = function (shape) {
     let rectangle = getRectPath(shape);
-    return (0,diagram_js_lib_util_RenderUtil__WEBPACK_IMPORTED_MODULE_13__.componentsToPath)(rectangle);
+    return (0,diagram_js_lib_util_RenderUtil__WEBPACK_IMPORTED_MODULE_12__.componentsToPath)(rectangle);
   };
   this.getGroupPath = function (shape) {
     let rectangle = getRectPath(shape);
-    return (0,diagram_js_lib_util_RenderUtil__WEBPACK_IMPORTED_MODULE_13__.componentsToPath)(rectangle);
+    return (0,diagram_js_lib_util_RenderUtil__WEBPACK_IMPORTED_MODULE_12__.componentsToPath)(rectangle);
   };
   this.getActivityPath = function (connection) {
     let waypoints = connection.waypoints.map(function (p) {
@@ -1509,14 +1477,14 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, pathMap, co
         activityPath.push(["L", waypoint.x, waypoint.y]);
       }
     });
-    return (0,diagram_js_lib_util_RenderUtil__WEBPACK_IMPORTED_MODULE_13__.componentsToPath)(activityPath);
+    return (0,diagram_js_lib_util_RenderUtil__WEBPACK_IMPORTED_MODULE_12__.componentsToPath)(activityPath);
   };
   this.getActorPath = function (shape) {
     let rectangle = getRectPath(shape);
-    return (0,diagram_js_lib_util_RenderUtil__WEBPACK_IMPORTED_MODULE_13__.componentsToPath)(rectangle);
+    return (0,diagram_js_lib_util_RenderUtil__WEBPACK_IMPORTED_MODULE_12__.componentsToPath)(rectangle);
   };
 }
-inherits__WEBPACK_IMPORTED_MODULE_0___default()(DomainStoryRenderer, diagram_js_lib_draw_BaseRenderer__WEBPACK_IMPORTED_MODULE_10__["default"]);
+inherits__WEBPACK_IMPORTED_MODULE_0___default()(DomainStoryRenderer, diagram_js_lib_draw_BaseRenderer__WEBPACK_IMPORTED_MODULE_9__["default"]);
 DomainStoryRenderer.$inject = ["eventBus", "styles", "canvas", "textRenderer", "pathMap", "commandStack"];
 DomainStoryRenderer.prototype.canRender = function (element) {
   return /^domainStory:/.test(element.type);
@@ -1535,23 +1503,23 @@ DomainStoryRenderer.prototype.drawShape = function (p, element) {
   element.businessObject.type = type;
   _elementRegistryService.correctInitialize();
   _dirtyFlagService.makeDirty();
-  if (type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.ACTOR)) {
+  if (type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_6__.ElementTypes.ACTOR)) {
     return this.drawActor(p, element);
-  } else if (type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.WORKOBJECT)) {
+  } else if (type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_6__.ElementTypes.WORKOBJECT)) {
     return this.drawWorkObject(p, element);
-  } else if (type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.TEXTANNOTATION)) {
+  } else if (type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_6__.ElementTypes.TEXTANNOTATION)) {
     return this.drawAnnotation(p, element);
-  } else if (type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.GROUP)) {
+  } else if (type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_6__.ElementTypes.GROUP)) {
     return this.drawGroup(p, element);
   }
 };
 DomainStoryRenderer.prototype.getShapePath = function (shape) {
   let type = shape.type;
-  if (type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.ACTOR)) {
+  if (type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_6__.ElementTypes.ACTOR)) {
     return this.getActorPath(shape);
-  } else if (type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.WORKOBJECT)) {
+  } else if (type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_6__.ElementTypes.WORKOBJECT)) {
     return this.getWorkObjectPath(shape);
-  } else if (type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.GROUP)) {
+  } else if (type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_6__.ElementTypes.GROUP)) {
     return this.getGroupPath(shape);
   }
 };
@@ -1562,9 +1530,9 @@ DomainStoryRenderer.prototype.drawConnection = function (p, element) {
   if (!element.businessObject.type) {
     element.businessObject.type = type;
   }
-  if (type === src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.ACTIVITY) {
+  if (type === src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_6__.ElementTypes.ACTIVITY) {
     return this.drawActivity(p, element);
-  } else if (type === src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_7__.ElementTypes.CONNECTION) {
+  } else if (type === src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_6__.ElementTypes.CONNECTION) {
     return this.drawDSConnection(p, element);
   }
 };
@@ -2004,18 +1972,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _palette_domainStoryPalette__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./palette/domainStoryPalette */ 23285);
 /* harmony import */ var _domainStoryRules__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./domainStoryRules */ 15313);
 /* harmony import */ var _domainStoryUpdater__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./domainStoryUpdater */ 75187);
-/* harmony import */ var bpmn_js_lib_features_modeling_ElementFactory__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! bpmn-js/lib/features/modeling/ElementFactory */ 5557);
 /* harmony import */ var diagram_js_lib_features_create__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! diagram-js/lib/features/create */ 48256);
-/* harmony import */ var bpmn_js_lib_draw_PathMap__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! bpmn-js/lib/draw/PathMap */ 56089);
+/* harmony import */ var bpmn_js_lib_draw_PathMap__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! bpmn-js/lib/draw/PathMap */ 56089);
 /* harmony import */ var bpmn_js_lib_features_popup_menu__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! bpmn-js/lib/features/popup-menu */ 30918);
 /* harmony import */ var diagram_js_lib_features_context_pad__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! diagram-js/lib/features/context-pad */ 93331);
-/* harmony import */ var diagram_js_lib_command_CommandStack__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! diagram-js/lib/command/CommandStack */ 77738);
+/* harmony import */ var diagram_js_lib_command_CommandStack__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! diagram-js/lib/command/CommandStack */ 77738);
 /* harmony import */ var _updateHandler_updateLabelHandler__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./updateHandler/updateLabelHandler */ 70670);
 /* harmony import */ var _updateHandler_headlineAndDescriptionUpdateHandler__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./updateHandler/headlineAndDescriptionUpdateHandler */ 87613);
 /* harmony import */ var _context_pad_domainStoryContextPadProvider__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./context-pad/domainStoryContextPadProvider */ 17325);
 /* harmony import */ var _change_icon_replaceMenuProvider__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./change-icon/replaceMenuProvider */ 44970);
 /* harmony import */ var _modeling_dSModeling__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modeling/dSModeling */ 81979);
-
 
 
 
@@ -2042,10 +2008,9 @@ __webpack_require__.r(__webpack_exports__);
   domainStoryRules: ["type", _domainStoryRules__WEBPACK_IMPORTED_MODULE_3__["default"]],
   domainStoryUpdater: ["type", _domainStoryUpdater__WEBPACK_IMPORTED_MODULE_4__["default"]],
   contextPadProvider: ["type", _context_pad_domainStoryContextPadProvider__WEBPACK_IMPORTED_MODULE_7__["default"]],
-  elementFactoryBpmn: ["type", bpmn_js_lib_features_modeling_ElementFactory__WEBPACK_IMPORTED_MODULE_13__["default"]],
-  pathMap: ["type", bpmn_js_lib_draw_PathMap__WEBPACK_IMPORTED_MODULE_14__["default"]],
+  pathMap: ["type", bpmn_js_lib_draw_PathMap__WEBPACK_IMPORTED_MODULE_13__["default"]],
   replaceMenuProvider: ["type", _change_icon_replaceMenuProvider__WEBPACK_IMPORTED_MODULE_8__["default"]],
-  commandStack: ["type", diagram_js_lib_command_CommandStack__WEBPACK_IMPORTED_MODULE_15__["default"]],
+  commandStack: ["type", diagram_js_lib_command_CommandStack__WEBPACK_IMPORTED_MODULE_14__["default"]],
   updateLabelHandler: ["type", _updateHandler_updateLabelHandler__WEBPACK_IMPORTED_MODULE_5__["default"]],
   headlineAndDescriptionUpdateHandler: ["type", _updateHandler_headlineAndDescriptionUpdateHandler__WEBPACK_IMPORTED_MODULE_6__["default"]],
   modeling: ["type", _modeling_dSModeling__WEBPACK_IMPORTED_MODULE_9__["default"]]
@@ -2086,7 +2051,7 @@ function DSLabelEditingPreview(eventBus, canvas, pathMap) {
     if ((0,_util__WEBPACK_IMPORTED_MODULE_1__.is)(element, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.TEXTANNOTATION)) {
       absoluteElementBBox = canvas.getAbsoluteBBox(element);
       gfx = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_2__.create)("g");
-      let textPathData = pathMap.getScaledPath("TEXT_ANNOTATION", {
+      let textPathData = (0,_util__WEBPACK_IMPORTED_MODULE_1__.getScaledPath)({
         xScaleFactor: 1,
         yScaleFactor: 1,
         containerWidth: element.width,
@@ -2113,12 +2078,11 @@ function DSLabelEditingPreview(eventBus, canvas, pathMap) {
     }
   });
   eventBus.on("directEditing.resize", function (context) {
-    // text annotation
     if ((0,_util__WEBPACK_IMPORTED_MODULE_1__.is)(element, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.TEXTANNOTATION)) {
       let height = context.height,
         dy = context.dy;
       let newElementHeight = Math.max(element.height / absoluteElementBBox.height * (height + dy), 0);
-      let textPathData = pathMap.getScaledPath("TEXT_ANNOTATION", {
+      let textPathData = (0,_util__WEBPACK_IMPORTED_MODULE_1__.getScaledPath)({
         xScaleFactor: 1,
         yScaleFactor: 1,
         containerWidth: element.width,
@@ -2857,12 +2821,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _palette_domainStoryPalette__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../palette/domainStoryPalette */ 23285);
-/* harmony import */ var bpmn_js_lib_features_modeling_ElementFactory__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! bpmn-js/lib/features/modeling/ElementFactory */ 5557);
 /* harmony import */ var diagram_js_lib_features_create__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! diagram-js/lib/features/create */ 48256);
-/* harmony import */ var bpmn_js_lib_draw_PathMap__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! bpmn-js/lib/draw/PathMap */ 56089);
+/* harmony import */ var bpmn_js_lib_draw_PathMap__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! bpmn-js/lib/draw/PathMap */ 56089);
 /* harmony import */ var bpmn_js_lib_features_popup_menu__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! bpmn-js/lib/features/popup-menu */ 30918);
 /* harmony import */ var diagram_js_lib_features_context_pad__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! diagram-js/lib/features/context-pad */ 93331);
-/* harmony import */ var diagram_js_lib_command_CommandStack__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! diagram-js/lib/command/CommandStack */ 77738);
+/* harmony import */ var diagram_js_lib_command_CommandStack__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! diagram-js/lib/command/CommandStack */ 77738);
 /* harmony import */ var _updateHandler_updateLabelHandler__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../updateHandler/updateLabelHandler */ 70670);
 /* harmony import */ var _domainStoryUpdater__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../domainStoryUpdater */ 75187);
 /* harmony import */ var _domainStoryElementFactory__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../domainStoryElementFactory */ 73938);
@@ -2889,7 +2852,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   __depends__: [diagram_js_lib_features_create__WEBPACK_IMPORTED_MODULE_10__["default"], diagram_js_lib_features_context_pad__WEBPACK_IMPORTED_MODULE_11__["default"], bpmn_js_lib_features_popup_menu__WEBPACK_IMPORTED_MODULE_12__["default"]],
   __init__: ["domainStoryRenderer", "paletteProvider", "domainStoryRules", "domainStoryUpdater", "contextPadProvider", "replaceMenuProvider"],
@@ -2899,10 +2861,9 @@ __webpack_require__.r(__webpack_exports__);
   domainStoryRules: ["type", _domainStoryRules__WEBPACK_IMPORTED_MODULE_7__["default"]],
   domainStoryUpdater: ["type", _domainStoryUpdater__WEBPACK_IMPORTED_MODULE_2__["default"]],
   contextPadProvider: ["type", _context_pad_domainStoryContextPadProvider__WEBPACK_IMPORTED_MODULE_9__["default"]],
-  elementFactoryBpmn: ["type", bpmn_js_lib_features_modeling_ElementFactory__WEBPACK_IMPORTED_MODULE_13__["default"]],
-  pathMap: ["type", bpmn_js_lib_draw_PathMap__WEBPACK_IMPORTED_MODULE_14__["default"]],
+  pathMap: ["type", bpmn_js_lib_draw_PathMap__WEBPACK_IMPORTED_MODULE_13__["default"]],
   replaceMenuProvider: ["type", _change_icon_replaceMenuProvider__WEBPACK_IMPORTED_MODULE_8__["default"]],
-  commandStack: ["type", diagram_js_lib_command_CommandStack__WEBPACK_IMPORTED_MODULE_15__["default"]],
+  commandStack: ["type", diagram_js_lib_command_CommandStack__WEBPACK_IMPORTED_MODULE_14__["default"]],
   updateLabelHandler: ["type", _updateHandler_updateLabelHandler__WEBPACK_IMPORTED_MODULE_1__["default"]],
   headlineAndDescriptionUpdateHandler: ["type", _updateHandler_headlineAndDescriptionUpdateHandler__WEBPACK_IMPORTED_MODULE_4__["default"]],
   modeling: ["type", _dSModeling__WEBPACK_IMPORTED_MODULE_6__["default"]]
@@ -3622,6 +3583,7 @@ UpdateLabelHandler.$inject = ["modeling", "textRenderer", "commandStack"];
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   getBusinessObject: () => (/* binding */ getBusinessObject),
+/* harmony export */   getScaledPath: () => (/* binding */ getScaledPath),
 /* harmony export */   is: () => (/* binding */ is),
 /* harmony export */   isCustomIcon: () => (/* binding */ isCustomIcon),
 /* harmony export */   isCustomSvgIcon: () => (/* binding */ isCustomSvgIcon),
@@ -3670,6 +3632,119 @@ function isCustomSvgIcon(icon) {
   // default icons are provided as SVG
   // custom icons are provided as "Data URL" with a base64-encoded image as payload
   return icon.startsWith("data:image/svg");
+}
+/**
+ * TODO: This is copied from bpmn-js 8.8.3 and might be simplified because we only use it for rendering annotations
+ * ---
+ * Scales the path to the given height and width.
+ * <h1>Use case</h1>
+ * <p>Use case is to scale the content of elements (event, gateways) based
+ * on the element bounding box's size.
+ * </p>
+ * <h1>Why not transform</h1>
+ * <p>Scaling a path with transform() will also scale the stroke and IE does not support
+ * the option 'non-scaling-stroke' to prevent this.
+ * Also there are use cases where only some parts of a path should be
+ * scaled.</p>
+ *
+ * @param {string} pathId The ID of the path.
+ * @param {Object} param <p>
+ *   Example param object scales the path to 60% size of the container (data.width, data.height).
+ *   <pre>
+ *   {
+ *     xScaleFactor: 0.6,
+ *     yScaleFactor:0.6,
+ *     containerWidth: data.width,
+ *     containerHeight: data.height,
+ *     position: {
+ *       mx: 0.46,
+ *       my: 0.2,
+ *     }
+ *   }
+ *   </pre>
+ *   <ul>
+ *    <li>targetpathwidth = xScaleFactor * containerWidth</li>
+ *    <li>targetpathheight = yScaleFactor * containerHeight</li>
+ *    <li>Position is used to set the starting coordinate of the path. M is computed:
+ *    <ul>
+ *      <li>position.x * containerWidth</li>
+ *      <li>position.y * containerHeight</li>
+ *    </ul>
+ *    Center of the container <pre> position: {
+ *       mx: 0.5,
+ *       my: 0.5,
+ *     }</pre>
+ *     Upper left corner of the container
+ *     <pre> position: {
+ *       mx: 0.0,
+ *       my: 0.0,
+ *     }</pre>
+ *    </li>
+ *   </ul>
+ * </p>
+ *
+ */
+function getScaledPath(param) {
+  const rawPath = {
+    d: "m {mx}, {my} m 10,0 l -10,0 l 0,{e.y0} l 10,0",
+    height: 30,
+    width: 10,
+    heightElements: [30],
+    widthElements: [10]
+  };
+  // positioning
+  // compute the start point of the path
+  var mx, my;
+  if (param.abspos) {
+    mx = param.abspos.x;
+    my = param.abspos.y;
+  } else {
+    mx = param.containerWidth * param.position.mx;
+    my = param.containerHeight * param.position.my;
+  }
+  var coordinates = {}; // map for the scaled coordinates
+  if (param.position) {
+    // path
+    var heightRatio = param.containerHeight / rawPath.height * param.yScaleFactor;
+    var widthRatio = param.containerWidth / rawPath.width * param.xScaleFactor;
+    // Apply height ratio
+    for (var heightIndex = 0; heightIndex < rawPath.heightElements.length; heightIndex++) {
+      coordinates["y" + heightIndex] = rawPath.heightElements[heightIndex] * heightRatio;
+    }
+    // Apply width ratio
+    for (var widthIndex = 0; widthIndex < rawPath.widthElements.length; widthIndex++) {
+      coordinates["x" + widthIndex] = rawPath.widthElements[widthIndex] * widthRatio;
+    }
+  }
+  // Apply value to raw path
+  var path = format(rawPath.d, {
+    mx: mx,
+    my: my,
+    e: coordinates
+  });
+  return path;
+}
+function format(str, obj) {
+  return String(str).replace(tokenRegex, function (all, key) {
+    return replacer(all, key, obj);
+  });
+}
+// copied and adjusted from https://github.com/adobe-webplatform/Snap.svg/blob/master/src/svg.js
+var tokenRegex = /\{([^{}]+)\}/g,
+  objNotationRegex = /(?:(?:^|\.)(.+?)(?=\[|\.|$|\()|\[('|")(.+?)\2\])(\(\))?/g; // matches .xxxxx or ["xxxxx"] to run over object properties
+function replacer(all, key, obj) {
+  var res = obj;
+  key.replace(objNotationRegex, function (all, name, quote, quotedName, isFunc) {
+    name = name || quotedName;
+    if (res) {
+      if (name in res) {
+        res = res[name];
+      }
+      typeof res == "function" && isFunc && (res = res());
+    }
+  });
+  res = (res == null || res == obj ? all : res) + "";
+  return res;
 }
 
 /***/ }),
