@@ -3550,10 +3550,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ UpdateLabelHandler)
 /* harmony export */ });
 /* harmony import */ var _labeling_dsLabelUtil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../labeling/dsLabelUtil */ 5513);
-/* harmony import */ var bpmn_js_lib_util_LabelUtil__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! bpmn-js/lib/util/LabelUtil */ 81454);
 /* harmony import */ var src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/domain/entities/elementTypes */ 73190);
 /* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../util */ 44741);
-
 
 
 
@@ -3569,33 +3567,6 @@ const NULL_DIMENSIONS = {
 function UpdateLabelHandler(modeling, textRenderer, commandStack) {
   commandStack.registerHandler("element.updateCustomLabel", handlerFunction);
   function handlerFunction() {
-    /**
-     * Set the label and return the changed elements.
-     *
-     * Element parameter can be label itself or connection (i.e. sequence flow).
-     *
-     * @param {djs.model.Base} element
-     * @param {String} text
-     */
-    this.preExecute = function (ctx) {
-      let element = ctx.element,
-        businessObject = element.businessObject,
-        newLabel = ctx.newLabel,
-        newNumber = ctx.newNumber;
-      if (!(0,bpmn_js_lib_util_LabelUtil__WEBPACK_IMPORTED_MODULE_3__.isLabel)(element) && (0,bpmn_js_lib_util_LabelUtil__WEBPACK_IMPORTED_MODULE_3__.isLabelExternal)(element) && !(0,bpmn_js_lib_util_LabelUtil__WEBPACK_IMPORTED_MODULE_3__.hasExternalLabel)(element) && (newLabel !== "" || newNumber !== "")) {
-        // create label
-        let paddingTop = 7;
-        let labelCenter = (0,bpmn_js_lib_util_LabelUtil__WEBPACK_IMPORTED_MODULE_3__.getExternalLabelMid)(element);
-        labelCenter = {
-          x: labelCenter.x,
-          y: labelCenter.y + paddingTop
-        };
-        modeling.createLabel(element, labelCenter, {
-          id: businessObject.id + "_label",
-          businessObject: businessObject
-        });
-      }
-    };
     this.execute = function (ctx) {
       ctx.oldLabel = (0,_labeling_dsLabelUtil__WEBPACK_IMPORTED_MODULE_0__.getLabel)(ctx.element);
       ctx.oldNumber = (0,_labeling_dsLabelUtil__WEBPACK_IMPORTED_MODULE_0__.getNumber)(ctx.element);
@@ -3607,36 +3578,29 @@ function UpdateLabelHandler(modeling, textRenderer, commandStack) {
     this.postExecute = function (ctx) {
       let element = ctx.element,
         label = element.label || element,
-        newLabel = ctx.newLabel,
         newBounds = ctx.newBounds;
-      if ((0,bpmn_js_lib_util_LabelUtil__WEBPACK_IMPORTED_MODULE_3__.isLabel)(label) && newLabel.trim() === "") {
-        modeling.removeShape(label);
-        return;
-      }
-      // ignore internal labels for elements except text annotations
-      if (!(0,bpmn_js_lib_util_LabelUtil__WEBPACK_IMPORTED_MODULE_3__.isLabelExternal)(element) && !(0,_util__WEBPACK_IMPORTED_MODULE_2__.is)(element, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.TEXTANNOTATION)) {
-        return;
-      }
-      let bo = (0,_util__WEBPACK_IMPORTED_MODULE_2__.getBusinessObject)(label);
-      let text = bo.name || bo.text;
-      // don't resize without text
-      if (!text) {
-        return;
-      }
-      // resize element based on label _or_ pre-defined bounds
-      if (typeof newBounds === "undefined") {
-        newBounds = textRenderer.getLayoutedBounds(label, text);
-      }
-      // setting newBounds to false or _null_ will
-      // disable the postExecute resize operation
-      if (newBounds) {
-        modeling.resizeShape(label, newBounds, NULL_DIMENSIONS);
+      // resize text annotation to amount of text that is entered
+      if ((0,_util__WEBPACK_IMPORTED_MODULE_2__.is)(element, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.TEXTANNOTATION)) {
+        let bo = (0,_util__WEBPACK_IMPORTED_MODULE_2__.getBusinessObject)(label);
+        let text = bo.name || bo.text;
+        // don't resize without text
+        if (!text) {
+          return;
+        }
+        // resize element based on label _or_ pre-defined bounds
+        if (typeof newBounds === "undefined") {
+          newBounds = textRenderer.getLayoutedBounds(label, text);
+        }
+        // setting newBounds to false or _null_ will
+        // disable the postExecute resize operation
+        if (newBounds) {
+          modeling.resizeShape(label, newBounds, NULL_DIMENSIONS);
+        }
       }
     };
   }
 }
 function setText(element, text, textNumber) {
-  // external label if present
   let label = element.label || element;
   let number = element.number || element;
   let labelTarget = element.labelTarget || element;
