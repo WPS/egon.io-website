@@ -3069,19 +3069,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ PaletteProvider),
 /* harmony export */   initializePalette: () => (/* binding */ initializePalette)
 /* harmony export */ });
-/* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! min-dash */ 81410);
-/* harmony import */ var src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/domain/entities/dictionary */ 20843);
-/* harmony import */ var src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/domain/entities/elementTypes */ 73190);
-
+/* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! min-dash */ 81410);
+/* harmony import */ var src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/domain/entities/elementTypes */ 73190);
 
 
 
 
 let iconDictionary;
-let configuration;
-function initializePalette(iconDictionaryService, configurationService) {
+function initializePalette(iconDictionaryService) {
   iconDictionary = iconDictionaryService;
-  configuration = configurationService;
 }
 function PaletteProvider(palette, create, elementFactory, spaceTool, lassoTool) {
   this._create = create;
@@ -3099,10 +3095,10 @@ PaletteProvider.prototype.getPaletteEntries = function () {
     lassoTool = this._lassoTool;
   function createAction(type, group, className, title, options) {
     function createListener(event) {
-      let shape = elementFactory.createShape((0,min_dash__WEBPACK_IMPORTED_MODULE_2__.assign)({
+      let shape = elementFactory.createShape((0,min_dash__WEBPACK_IMPORTED_MODULE_1__.assign)({
         type: type
       }, options));
-      (0,min_dash__WEBPACK_IMPORTED_MODULE_2__.assign)(shape.businessObject, {
+      (0,min_dash__WEBPACK_IMPORTED_MODULE_1__.assign)(shape.businessObject, {
         id: shape.id
       });
       if (options) {
@@ -3123,43 +3119,29 @@ PaletteProvider.prototype.getPaletteEntries = function () {
   }
   return initPalette(actions, spaceTool, lassoTool, createAction);
 };
-function appendCSSStyleCheat(customIcons) {
-  const sheetEl = document.createElement("style");
-  document.head.appendChild(sheetEl);
-  let customIconDict = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__.Dictionary();
-  customIconDict.appendDict(customIcons);
-  let customIconDictKeys = customIconDict.keysArray();
-  customIconDictKeys.forEach(name => {
-    if (iconDictionary.getCustomIconsDictionary().has(name)) {
-      let src = customIconDict.get(name);
-      const iconStyle = ".icon-domain-story-" + name.toLowerCase() + "::before{" + " display: block;" + ' content: url("data:image/svg+xml;utf8,' + wrapSRCInSVG(src) + '");' + " margin: 3px;}";
-      sheetEl.sheet.insertRule(iconStyle, sheetEl.sheet.cssRules.length);
-    }
-  });
-}
 function initPalette(actions, spaceTool, lassoTool, createAction) {
   let config = iconDictionary?.getCurrentIconConfigurationForBPMN();
   iconDictionary?.initTypeDictionaries(config.actors, config.workObjects);
-  let actorTypes = iconDictionary?.getIconsAssignedAs(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.ACTOR);
+  let actorTypes = iconDictionary?.getIconsAssignedAs(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTOR);
   actorTypes?.keysArray().forEach(name => {
-    addCanvasObjectTypes(name, createAction, actions, "actor", src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.ACTOR);
+    addCanvasObjectTypes(name, createAction, actions, "actor", src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTOR);
   });
-  (0,min_dash__WEBPACK_IMPORTED_MODULE_2__.assign)(actions, {
+  (0,min_dash__WEBPACK_IMPORTED_MODULE_1__.assign)(actions, {
     "actor-separator": {
       group: "actor",
       separator: true
     }
   });
-  let workObjectTypes = iconDictionary?.getIconsAssignedAs(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.WORKOBJECT);
+  let workObjectTypes = iconDictionary?.getIconsAssignedAs(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.WORKOBJECT);
   workObjectTypes?.keysArray().forEach(name => {
-    addCanvasObjectTypes(name, createAction, actions, "actor", src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.WORKOBJECT);
+    addCanvasObjectTypes(name, createAction, actions, "actor", src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.WORKOBJECT);
   });
-  (0,min_dash__WEBPACK_IMPORTED_MODULE_2__.assign)(actions, {
+  (0,min_dash__WEBPACK_IMPORTED_MODULE_1__.assign)(actions, {
     "workObject-separator": {
       group: "workObject",
       separator: true
     },
-    "domainStory-group": createAction(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.GROUP, "group", "icon-domain-story-tool-group", "group"),
+    "domainStory-group": createAction(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.GROUP, "group", "icon-domain-story-tool-group", "group"),
     "group-separator": {
       group: "group",
       separator: true
@@ -3191,12 +3173,7 @@ function addCanvasObjectTypes(name, createAction, actions, className, elementTyp
   let icon = iconDictionary.getIconForBPMN(elementType, name);
   let action = [];
   action["domainStory-" + className + name] = createAction(`${elementType}${name}`, className, icon, name);
-  (0,min_dash__WEBPACK_IMPORTED_MODULE_2__.assign)(actions, action);
-}
-// For some reason its important to use ' in the content for the Palette and ContextPad
-// Do not change!
-function wrapSRCInSVG(src) {
-  return "<svg viewBox='0 0 22 22' width='22' height='22' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>" + "<image width='22' height='22' xlink:href='" + src + "'/></svg>";
+  (0,min_dash__WEBPACK_IMPORTED_MODULE_1__.assign)(actions, action);
 }
 
 /***/ }),
@@ -4087,9 +4064,7 @@ class AppModule {
 function initialize(dirtyFlagService, iconDictionaryService, configurationService, elementRegistryService, labelDictionaryService) {
   return () => {
     (0,_tools_modeler_bpmn_modeler_context_pad_domainStoryContextPadProvider__WEBPACK_IMPORTED_MODULE_9__.initializeContextPadProvider)(dirtyFlagService, iconDictionaryService);
-    /** The Palette and the Context Menu need the Icons present in the Domain,
-     * so the IconDictionaryService and the IconSetConfigurationService needs to be given to the Palette **/
-    (0,_tools_modeler_bpmn_modeler_palette_domainStoryPalette__WEBPACK_IMPORTED_MODULE_10__.initializePalette)(iconDictionaryService, configurationService);
+    (0,_tools_modeler_bpmn_modeler_palette_domainStoryPalette__WEBPACK_IMPORTED_MODULE_10__.initializePalette)(iconDictionaryService);
     (0,_tools_modeler_bpmn_modeler_domainStoryRenderer__WEBPACK_IMPORTED_MODULE_11__.initializeRenderer)(iconDictionaryService, elementRegistryService, dirtyFlagService);
     (0,_tools_modeler_bpmn_modeler_labeling_dsLabelEditingProvider__WEBPACK_IMPORTED_MODULE_12__.initializeLabelEditingProvider)(labelDictionaryService);
     (0,_tools_modeler_bpmn_modeler_change_icon_replaceOptions__WEBPACK_IMPORTED_MODULE_13__.initializeReplaceOptions)(iconDictionaryService);
