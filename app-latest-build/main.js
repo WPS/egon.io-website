@@ -8092,7 +8092,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var getIconId = _domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.getIconId;
 
 
 
@@ -8375,14 +8374,14 @@ class IconSetCustomizationService {
   /** Update Icons **/
   addNewIcon(iconName) {
     const iconDict = new _domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
-    iconDict.add(this.getSrcForIcon(iconName), iconName);
+    iconDict.add(this.getDataUrlForIcon(iconName), iconName);
     this.iconDictionaryService.addIconsToCss(iconDict);
     this.addIconToAllIconList(iconName);
   }
   addIconToAllIconList(iconName) {
     this.allIconListItems.add(new rxjs__WEBPACK_IMPORTED_MODULE_7__.BehaviorSubject({
       name: iconName,
-      svg: this.getSrcForIcon(iconName),
+      svg: this.getDataUrlForIcon(iconName),
       isActor: this.isIconActor(iconName),
       isWorkObject: this.isIconWorkObject(iconName)
     }), iconName);
@@ -8406,14 +8405,7 @@ class IconSetCustomizationService {
       }
     });
   }
-  getSrcForIcon(name) {
-    let iconName;
-    if (name.includes(_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.DOMAINSTORY)) {
-      // TODO: td: This returns empty every time!
-      iconName = getIconId(name);
-    } else {
-      iconName = name;
-    }
+  getDataUrlForIcon(iconName) {
     const rawSrc = this.iconDictionaryService.getIconSource(iconName);
     if (!rawSrc) {
       return '';

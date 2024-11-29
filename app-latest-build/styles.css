@@ -3630,7 +3630,10 @@ mat-dialog-actions.mdc-dialog__actions {
   --mdc-snackbar-supporting-text-color: black;
 }
 
-/* BPMN elements */
+/**
+ * from diagram-js
+ */
+/* context pad */
 .djs-overlay-context-pad {
   min-width: 7.5rem;
   height: auto;
@@ -3646,9 +3649,6 @@ mat-dialog-actions.mdc-dialog__actions {
   background-color: #f7f7f8;
 }
 
-/**
- * from bpmn.io
- */
 /**
  * palette
  */
