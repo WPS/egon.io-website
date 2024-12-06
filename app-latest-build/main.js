@@ -371,10 +371,10 @@ function initializeReplaceOptions(iconDictionary) {
   iconDictionaryService = iconDictionary;
 }
 function actorReplaceOptions(name) {
-  const actorTypes = iconDictionaryService.getIconsAssignedAs(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTOR);
+  const actors = iconDictionaryService.getIconsAssignedAs(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTOR);
   let replaceOption = {};
   let i = 0;
-  actorTypes.keysArray().forEach(actorType => {
+  actors.keysArray().forEach(actorType => {
     if (!name.includes(actorType)) {
       const typeName = actorType;
       replaceOption[i] = {
@@ -391,10 +391,10 @@ function actorReplaceOptions(name) {
   return replaceOption;
 }
 function workObjectReplaceOptions(name) {
-  const workObjectTypes = iconDictionaryService.getIconsAssignedAs(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.WORKOBJECT);
+  const workObjects = iconDictionaryService.getIconsAssignedAs(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.WORKOBJECT);
   let replaceOption = {};
   let i = 0;
-  workObjectTypes.keysArray().forEach(workObjectType => {
+  workObjects.keysArray().forEach(workObjectType => {
     if (!name.includes(workObjectType)) {
       const typeName = workObjectType;
       replaceOption[i] = {
@@ -593,8 +593,8 @@ function DomainStoryContextPadProvider(injector, connect, translate, elementFact
     });
   }
   function addWorkObjects(appendAction, actions) {
-    let workObjectTypes = iconDictionaryService.getIconsAssignedAs(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.WORKOBJECT);
-    workObjectTypes.keysArray().forEach(workObjectType => {
+    let workObjects = iconDictionaryService.getIconsAssignedAs(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.WORKOBJECT);
+    workObjects.keysArray().forEach(workObjectType => {
       let name = workObjectType;
       let icon = iconDictionaryService.getIconForBPMN(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.WORKOBJECT, workObjectType);
       let action = [];
@@ -603,8 +603,8 @@ function DomainStoryContextPadProvider(injector, connect, translate, elementFact
     });
   }
   function addActors(appendAction, actions) {
-    let actorTypes = iconDictionaryService.getIconsAssignedAs(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTOR);
-    actorTypes.keysArray().forEach(actorType => {
+    let actors = iconDictionaryService.getIconsAssignedAs(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTOR);
+    actors.keysArray().forEach(actorType => {
       let name = actorType;
       let icon = iconDictionaryService.getIconForBPMN(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTOR, actorType);
       let action = [];
@@ -4219,8 +4219,8 @@ class Dictionary {
       this.set(key, object[key]);
     });
   }
-  addBuildInIcons(buildInIcons) {
-    buildInIcons.entries.forEach(entry => {
+  addBuiltInIcons(builtInIcons) {
+    builtInIcons.entries.forEach(entry => {
       if (!this.has(entry.key)) {
         this.entries.push(entry);
       }
@@ -7586,7 +7586,7 @@ class IconDictionaryService {
     this.workObjectDictionary = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__.Dictionary();
     this.builtInIconsDictionary = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__.Dictionary();
     this.iconDictionaryForBPMN = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__.Dictionary();
-    this.builtInIconsDictionary.addBuildInIcons(src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.builtInIcons);
+    this.builtInIconsDictionary.addBuiltInIcons(src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.builtInIcons);
     this.iconConfig = new src_app_tools_icon_set_config_domain_iconConfiguration__WEBPACK_IMPORTED_MODULE_2__.IconConfiguration(this.builtInIconsDictionary);
   }
   initTypeDictionaries(actors, workObjects) {
@@ -7597,15 +7597,15 @@ class IconDictionaryService {
       workObjects = src_app_tools_icon_set_config_domain_iconConfiguration__WEBPACK_IMPORTED_MODULE_2__.defaultIconSet.workObjects;
     }
     const allTypes = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__.Dictionary();
-    allTypes.addBuildInIcons(src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.builtInIcons);
-    allTypes.appendDict(this.getCustomIconsDictionary());
+    allTypes.addBuiltInIcons(src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.builtInIcons);
+    allTypes.appendDict(this.getCustomIcons());
     this.initDictionary(actors, allTypes, this.actorIconDictionary, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.ACTOR);
     this.initDictionary(workObjects, allTypes, this.workObjectDictionary, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.WORKOBJECT);
   }
-  initDictionary(keys, allTypes, dictionary, elementType) {
+  initDictionary(selectedIconNames, allIcons, dictionary, elementType) {
     dictionary.clear();
-    for (const key of keys) {
-      dictionary.add(allTypes.get(key), key);
+    for (const key of selectedIconNames) {
+      dictionary.add(allIcons.get(key), key);
     }
     dictionary.keysArray().forEach(name => {
       this.registerIconForBPMN(name, ICON_PREFIX + (0,_utils_sanitizer__WEBPACK_IMPORTED_MODULE_4__.sanitizeIconName)(name.toLowerCase()), elementType);
@@ -7645,7 +7645,7 @@ class IconDictionaryService {
       collection = this.workObjectDictionary;
     }
     const allTypes = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__.Dictionary();
-    allTypes.addBuildInIcons(src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.builtInIcons);
+    allTypes.addBuiltInIcons(src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.builtInIcons);
     allTypes.appendDict(src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.customIcons);
     iconTypes.forEach(name => {
       if (!collection.has(name)) {
@@ -7761,10 +7761,10 @@ class IconDictionaryService {
   getFullDictionary() {
     const fullDictionary = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__.Dictionary();
     fullDictionary.appendDict(this.builtInIconsDictionary);
-    fullDictionary.appendDict(this.getCustomIconsDictionary());
+    fullDictionary.appendDict(this.getCustomIcons());
     return fullDictionary;
   }
-  getCustomIconsDictionary() {
+  getCustomIcons() {
     const appendedDict = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__.Dictionary();
     src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.customIcons.keysArray().forEach(key => {
       if (!this.builtInIconsDictionary.has(key)) {
