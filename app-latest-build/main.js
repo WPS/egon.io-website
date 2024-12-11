@@ -8872,7 +8872,6 @@ class ImportDomainStoryService {
         this.showBrokenImportDialog();
       }
       this.titleService.updateTitleAndDescription(this.title, lastElement.info, false);
-      this.importRepairService.adjustPositions(elements);
       this.updateIconRegistries(elements, iconSetConfig);
       this.rendererService.importStory(elements, configChanged, iconSetConfig);
     }
@@ -9049,58 +9048,6 @@ class ImportRepairService {
       }
     }
     return elements;
-  }
-  /**
-   * Adjusts Positions of Elements to ensure the Domain Story starts in the visible parts of the canvas
-   */
-  adjustPositions(elements) {
-    let xLeft = 0;
-    let yUp = 0;
-    let isFirst = true;
-    this.findFirstElement(elements, isFirst, xLeft, yUp);
-    if (xLeft < 75 || xLeft > 150 || yUp < 0 || yUp > 50) {
-      // add Padding for the Palette and the top
-      xLeft -= 75;
-      yUp -= 50;
-      elements.forEach(element => this.adjustElementPosition(element, xLeft, yUp));
-    }
-  }
-  adjustElementPosition(element, xLeft, yUp) {
-    if (element.type === src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTIVITY || element.type === src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.CONNECTION) {
-      const waypoints = element.waypoints;
-      waypoints.forEach(point => {
-        point.x -= xLeft;
-        point.y -= yUp;
-        if (point.original) {
-          point.original.x = point.x;
-          point.original.y = point.y;
-        }
-      });
-    } else {
-      element.x -= xLeft;
-      element.y -= yUp;
-    }
-  }
-  findFirstElement(elements, isFirst, xLeft, yUp) {
-    elements.forEach(element => {
-      let elXLeft;
-      let elYUp;
-      if (element.type !== src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTIVITY && element.type !== src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.CONNECTION) {
-        if (isFirst) {
-          xLeft = element.x;
-          yUp = element.y;
-          isFirst = false;
-        }
-        elXLeft = element.x;
-        elYUp = element.y;
-        if (elXLeft < xLeft) {
-          xLeft = elXLeft;
-        }
-        if (elYUp < yUp) {
-          yUp = elYUp;
-        }
-      }
-    });
   }
   // Early versions of Egon allowed Whitespaces in Icon names which are now not supported anymore.
   // To find the right icon in the dictionary, they need to be replaced.
