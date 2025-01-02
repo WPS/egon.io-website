@@ -202,8 +202,6 @@ DomainStoryModeler.prototype.addCustomElements = function (customElements) {
 DomainStoryModeler.prototype.getCustomElements = function () {
   return this._customElements;
 };
-// override standard function to prevent default elements on canvas
-DomainStoryModeler.prototype.createDiagram = function (done) {};
 function isConnection(element) {
   return element.type === _domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_4__.ElementTypes.ACTIVITY || element.type === _domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_4__.ElementTypes.CONNECTION;
 }
@@ -9806,7 +9804,7 @@ class InitializerService {
     this.commandStackService = commandStackService;
     this.titleService = titleService;
   }
-  propagateDomainStoryModelerClassesToServices(commandStack, elementRegistry, canvas, selection, modeler) {
+  propagateDomainStoryModelerClassesToServices(commandStack, elementRegistry) {
     this.commandStackService.setCommandStack(commandStack);
     this.elementRegistryService.setElementRegistry(elementRegistry);
   }
@@ -10047,20 +10045,17 @@ class ModelerService {
       }]
     });
     if (this.modeler.get) {
-      this.canvas = this.modeler.get('canvas');
       this.elementRegistry = this.modeler.get('elementRegistry');
       this.eventBus = this.modeler.get('eventBus');
       this.commandStack = this.modeler.get('commandStack');
-      this.selection = this.modeler.get('selection');
     }
     this.initializerService.initializeDomainStoryModelerEventHandlers(this.commandStack, this.eventBus);
-    this.initializerService.propagateDomainStoryModelerClassesToServices(this.commandStack, this.elementRegistry, this.canvas, this.selection, this.modeler);
+    this.initializerService.propagateDomainStoryModelerClassesToServices(this.commandStack, this.elementRegistry);
     const exportArtifacts = this.debounce(this.saveSVG, 500);
     if (this.modeler.get) {
       this.modeler.on('commandStack.changed', exportArtifacts);
     }
     this.initializerService.initiateEventBusListeners(this.eventBus, this.commandStack);
-    this.modeler.createDiagram();
     // expose bpmnjs to window for debugging purposes
     (0,min_dash__WEBPACK_IMPORTED_MODULE_10__.assign)(window, {
       bpmnjs: this.modeler
