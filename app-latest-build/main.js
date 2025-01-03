@@ -2115,10 +2115,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   initializeLabelEditingProvider: () => (/* binding */ initializeLabelEditingProvider),
 /* harmony export */   toggleStashUse: () => (/* binding */ toggleStashUse)
 /* harmony export */ });
-/* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! min-dash */ 81410);
+/* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! min-dash */ 81410);
 /* harmony import */ var _dsLabelUtil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dsLabelUtil */ 5513);
 /* harmony import */ var src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/domain/entities/elementTypes */ 73190);
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../util */ 44741);
+/* harmony import */ var src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/utils/sanitizer */ 43515);
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../util */ 44741);
+
 
 
 
@@ -2157,7 +2159,7 @@ function DSLabelEditingProvider(eventBus, canvas, directEditing, modeling, resiz
   // listen to dblclick on non-root elements
   eventBus.on("element.dblclick", function (event) {
     activateDirectEdit(event.element, true);
-    if ((0,_util__WEBPACK_IMPORTED_MODULE_2__.is)(event.element, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.ACTIVITY)) {
+    if ((0,_util__WEBPACK_IMPORTED_MODULE_3__.is)(event.element, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.ACTIVITY)) {
       // if we edit an activity, we do not want the standard editing box
       numberStash = event.element.businessObject.number;
       stashUse = true;
@@ -2191,7 +2193,7 @@ function DSLabelEditingProvider(eventBus, canvas, directEditing, modeling, resiz
     if (!canExecute) {
       return;
     }
-    if (!(0,_util__WEBPACK_IMPORTED_MODULE_2__.is)(element, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.ACTIVITY)) {
+    if (!(0,_util__WEBPACK_IMPORTED_MODULE_3__.is)(element, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.ACTIVITY)) {
       activateDirectEdit(element);
     }
     let editingBox = document.getElementsByClassName("djs-direct-editing-content");
@@ -2233,15 +2235,15 @@ DSLabelEditingProvider.prototype.activate = function (element) {
   };
   // bounds
   let bounds = this.getEditingBBox(element);
-  (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)(context, bounds);
+  (0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)(context, bounds);
   let options = {};
-  if ((0,_util__WEBPACK_IMPORTED_MODULE_2__.is)(element, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.TEXTANNOTATION)) {
-    (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)(options, {
+  if ((0,_util__WEBPACK_IMPORTED_MODULE_3__.is)(element, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.TEXTANNOTATION)) {
+    (0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)(options, {
       resizable: true,
       autoResize: true
     });
   }
-  (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)(context, {
+  (0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)(context, {
     options: options
   });
   return context;
@@ -2275,15 +2277,15 @@ DSLabelEditingProvider.prototype.getEditingBBox = function (element) {
     fontWeight: this._textRenderer.getDefaultStyle().fontWeight
   };
   // adjust for groups
-  if ((0,_util__WEBPACK_IMPORTED_MODULE_2__.is)(element, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.GROUP)) {
-    (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)(bounds, {
+  if ((0,_util__WEBPACK_IMPORTED_MODULE_3__.is)(element, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.GROUP)) {
+    (0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)(bounds, {
       minWidth: bbox.width / 2.5 > 125 ? bbox.width / 2.5 : 125,
       maxWidth: bbox.width,
       minHeight: 30 * zoom,
       x: bbox.x,
       y: bbox.y
     });
-    (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)(style, {
+    (0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)(style, {
       fontSize: defaultFontSize + "px",
       lineHeight: defaultLineHeight,
       paddingTop: 7 * zoom + "px",
@@ -2296,13 +2298,13 @@ DSLabelEditingProvider.prototype.getEditingBBox = function (element) {
   if (
   // we can't use util's is() function here because the type contains the name of the icon
   /^domainStory:actor\w*/.test(element.type) || /^domainStory:workObject\w*/.test(element.type)) {
-    (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)(bounds, {
+    (0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)(bounds, {
       width: bbox.width,
       minHeight: 30,
       y: bbox.y + bbox.height - 20,
       x: bbox.x
     });
-    (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)(style, {
+    (0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)(style, {
       fontSize: defaultFontSize + "px",
       lineHeight: defaultLineHeight,
       paddingTop: 7 * zoom + "px",
@@ -2312,14 +2314,14 @@ DSLabelEditingProvider.prototype.getEditingBBox = function (element) {
     });
   }
   // text annotations
-  if ((0,_util__WEBPACK_IMPORTED_MODULE_2__.is)(element, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.TEXTANNOTATION)) {
-    (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)(bounds, {
+  if ((0,_util__WEBPACK_IMPORTED_MODULE_3__.is)(element, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.TEXTANNOTATION)) {
+    (0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)(bounds, {
       width: bbox.width,
       height: bbox.height,
       minWidth: 30 * zoom,
       minHeight: 10 * zoom
     });
-    (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)(style, {
+    (0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)(style, {
       textAlign: "left",
       paddingTop: 7 * zoom + "px",
       paddingBottom: 7 * zoom + "px",
@@ -2336,7 +2338,7 @@ DSLabelEditingProvider.prototype.getEditingBBox = function (element) {
 };
 DSLabelEditingProvider.prototype.update = function (element, newLabel, activeContextText, bounds) {
   let newBounds, bbox;
-  if ((0,_util__WEBPACK_IMPORTED_MODULE_2__.is)(element, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.TEXTANNOTATION)) {
+  if ((0,_util__WEBPACK_IMPORTED_MODULE_3__.is)(element, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.TEXTANNOTATION)) {
     bbox = this._canvas.getAbsoluteBBox(element);
     newBounds = {
       x: element.x,
@@ -2345,7 +2347,7 @@ DSLabelEditingProvider.prototype.update = function (element, newLabel, activeCon
       height: element.height / bbox.height * bounds.height
     };
   }
-  this._modeling.updateLabel(element, newLabel, newBounds);
+  this._modeling.updateLabel(element, (0,src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_2__.sanitizeTextForSVGExport)(newLabel), newBounds);
 };
 
 /***/ }),
@@ -3388,13 +3390,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ headlineAndDescriptionUpdateHandler)
 /* harmony export */ });
+/* harmony import */ var src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/utils/sanitizer */ 43515);
+
 function headlineAndDescriptionUpdateHandler(commandStack, titleService) {
   commandStack.registerHandler("story.updateHeadlineAndDescription", handlerFunction);
   function handlerFunction() {
     this.execute = function (ctx) {
       ctx.oldTitle = titleService.getTitle();
       ctx.oldDescription = titleService.getDescription();
-      titleService.updateTitleAndDescription(ctx.newTitle, ctx.newDescription, false);
+      titleService.updateTitleAndDescription((0,src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_0__.sanitizeTextForSVGExport)(ctx.newTitle), (0,src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_0__.sanitizeTextForSVGExport)(ctx.newDescription), false);
     };
     this.revert = function (ctx) {
       titleService.updateTitleAndDescription(ctx.oldTitle, ctx.oldDescription, false);
@@ -6379,9 +6383,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var src_app_tools_export_services_exportUtil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/tools/export/services/exportUtil */ 97563);
 /* harmony import */ var _domain_export_exportConstants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../domain/export/exportConstants */ 41646);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 96623);
-/* harmony import */ var _modeler_services_modeler_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../modeler/services/modeler.service */ 40439);
-/* harmony import */ var _replay_services_story_creator_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../replay/services/story-creator.service */ 97720);
+/* harmony import */ var src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/utils/sanitizer */ 43515);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 96623);
+/* harmony import */ var _modeler_services_modeler_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../modeler/services/modeler.service */ 40439);
+/* harmony import */ var _replay_services_story_creator_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../replay/services/story-creator.service */ 97720);
+
 
 
 
@@ -6521,16 +6527,16 @@ class SvgService {
     };
   }
   appendDST(data, dst) {
-    data += '\n<!-- <DST>\n' + JSON.stringify(dst, null, 2) + '\n </DST> -->';
+    data += '\n<!-- <DST>\n' + (0,src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_2__.sanitizeTextForSVGExport)(JSON.stringify(dst, null, 2)) + '\n </DST> -->';
     return data;
   }
   static {
     this.ɵfac = function SvgService_Factory(__ngFactoryType__) {
-      return new (__ngFactoryType__ || SvgService)(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_modeler_services_modeler_service__WEBPACK_IMPORTED_MODULE_2__.ModelerService), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_replay_services_story_creator_service__WEBPACK_IMPORTED_MODULE_3__.StoryCreatorService));
+      return new (__ngFactoryType__ || SvgService)(_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵinject"](_modeler_services_modeler_service__WEBPACK_IMPORTED_MODULE_3__.ModelerService), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵinject"](_replay_services_story_creator_service__WEBPACK_IMPORTED_MODULE_4__.StoryCreatorService));
     };
   }
   static {
-    this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineInjectable"]({
+    this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineInjectable"]({
       token: SvgService,
       factory: SvgService.ɵfac,
       providedIn: 'root'
@@ -11224,10 +11230,15 @@ class Point {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   sanitizeForDesktop: () => (/* binding */ sanitizeForDesktop),
-/* harmony export */   sanitizeIconName: () => (/* binding */ sanitizeIconName)
+/* harmony export */   sanitizeIconName: () => (/* binding */ sanitizeIconName),
+/* harmony export */   sanitizeTextForSVGExport: () => (/* binding */ sanitizeTextForSVGExport)
 /* harmony export */ });
 
 
+function sanitizeTextForSVGExport(str) {
+  // @ts-ignore Typescript does not realize that replaceAll exists, no idea why not.
+  return str.replaceAll('--', '––');
+}
 // sanitize user-Input to be Desktop-Filename safe
 function sanitizeForDesktop(str) {
   const map = {
@@ -11242,7 +11253,7 @@ function sanitizeForDesktop(str) {
     '|': ''
   };
   const reg = /[/\\:*?"<>|]/gi;
-  return str ? str.replace(reg, match => map[match]) : '';
+  return str ? sanitizeTextForSVGExport(str.replace(reg, match => map[match])) : '';
 }
 function sanitizeIconName(name) {
   if (!name) {
