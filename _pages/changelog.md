@@ -10,6 +10,7 @@ toc_sticky: true
 
 ## Latest Build
 - `Fix`: Empty description is no longer exported as "undefined" in images.  [See #186](https://github.com/WPS/egon.io/issues/186)
+- `Fix`: Replace double hyphen ("--") with a dash ("—") to a avoid breaking the SVG export. [See #171](https://github.com/WPS/egon.io/issues/171)
 
 ## v2.3.0
 - `Feature`: Added shortcut `ctrl+alt+s` for exporting as `.egn.svg` file [See #159](https://github.com/WPS/egon.io/issues/159)
