@@ -803,14 +803,6 @@ function DomainStoryElementFactory() {
           $type: "Element"
         });
       }
-      (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)(attrs.businessObject, {
-        di: {}
-      });
-      if (!attrs.businessObject.$descriptor) {
-        (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)(attrs.businessObject, {
-          $descriptor: {}
-        });
-      }
       // add width and height if shape
       if ((!/:activity$/.test(type) || !/:connection$/.test(type)) && !(/:group$/.test(type) && attrs.height || attrs.width)) {
         (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)(attrs, self._getCustomElementSize(type));
@@ -3102,9 +3094,6 @@ PaletteProvider.prototype.getPaletteEntries = function () {
       (0,min_dash__WEBPACK_IMPORTED_MODULE_1__.assign)(shape.businessObject, {
         id: shape.id
       });
-      if (options) {
-        shape.businessObject.di.isExpanded = options.isExpanded;
-      }
       create.start(event, shape);
     }
     let shortType = type.replace(/^domainStory:/, "");
