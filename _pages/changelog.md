@@ -9,7 +9,7 @@ toc_sticky: true
 > Have you used an earlier version of *Egon v2* or *latest build*? Please follow these [instructions](https://egon.io/howto#launching-egon) for updating to the newest version.
 
 ## Latest Build
-no changes yet
+- `Fix`: Empty description is no longer exported as "undefined" in images.  [See #186](https://github.com/WPS/egon.io/issues/186)
 
 ## v2.3.0
 - `Feature`: Added shortcut `ctrl+alt+s` for exporting as `.egn.svg` file [See #159](https://github.com/WPS/egon.io/issues/159)
