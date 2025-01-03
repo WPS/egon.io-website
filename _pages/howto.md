@@ -35,11 +35,11 @@ You can [download Egon as `zip`file](https://github.com/WPS/egon.io/releases), u
 Please see the developer's [readme](https://github.com/WPS/egon.io/) on how to build and run Egon on your machine.
 
 
-## Headline
+## Title and Description
 
-Click on the headline to change the title of the Domain Story. Add a description to document assumptions (e.g., what has happened before the story starts) and variations (e.g., optional activities). Use `shift`+`enter` to add line breaks to the description.
+The title of the story will be used as file name when you export it.
 
-Left of the title is an arrow button that lets you hide the description to gain more space for modeling. 
+ Add a description to document assumptions (e.g., what has happened before the story starts) and variations (e.g., optional activities). Use `shift`+`enter` to add line breaks to the description.
 
 ## Palette
 
@@ -84,7 +84,7 @@ If you want to model activities that happen simultaneously, check  the "multiple
 
 ## Renaming Multiple Work Objects or Activities
 
-To rename multiple work objects or activities, click the *label dictionary* button (<i class="material-icons">spellcheck</i>). Actors cannot be renamed in the dictionary because they usually appear only once per Domain Story.
+To rename multiple work objects or activities, click the *dictionary* button (<i class="material-icons">spellcheck</i>). Actors cannot be renamed in the dictionary because they usually appear only once per Domain Story.
 
 ## Exporting Domain Stories
 
@@ -97,8 +97,8 @@ To save your Domain Story on your computer, download it as a file by clicking th
 
 
 > Animated SVG images only work with some applications:
-> - works with web browsers (Firefox, Chrome, Safari)
-> - does **not** work with Miro and Inkscape; the image might be incomplete
+> - works with web browsers (Firefox, Chrome, Safari) and Microsoft Teams
+> - does **not** work with Miro and Inkscape; the image might look incomplete
 
 ## Importing Domain Stories
 
@@ -124,7 +124,7 @@ When you activate auto-save and later open Egon in your browser, it will restore
 
 ## Replay
 
-The replay feature helps you to re-tell a Domain Story sentence by sentence. When you start to replay with the *play* button (<i class="material-icons">play_arrow</i>), all sentences except the first one disappear. Clicking the *next* button (<i class="material-icons">skip_next</i>) shows the next sentence and clicking the *previous* button (<i class="material-icons">skip_previous</i>) shows the previous one. The current sentence is highlighted. The stop replaying, click the *stop* button (<i class="material-icons">stop</i>).
+The replay feature helps you to re-tell a Domain Story sentence by sentence. When you start to replay with the *replay* button (<i class="material-icons">play_arrow</i>), all sentences except the first one disappear. Clicking the *next* button (<i class="material-icons">skip_next</i>) shows the next sentence and clicking the *previous* button (<i class="material-icons">skip_previous</i>) shows the previous one. The current sentence is highlighted. The stop replaying, click the *stop* button (<i class="material-icons">stop</i>).
 
 If a Domain Story contains groups, they appear with the last sentence.
 
@@ -132,7 +132,7 @@ Editing is disabled during replay, but you can zoom (ctrl + mouse wheel up and d
 
 ## Keyboard Shortcuts
 
-Click on the "shortcuts" button (<i class="material-icons">keyboard</i>) to display all available keyboard shortcuts.
+Click on the *shortcuts* button (<i class="material-icons">keyboard</i>) to display all available keyboard shortcuts.
 
 ## Customizing the Icon Set
 
