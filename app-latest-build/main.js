@@ -19,7 +19,10 @@ function createTitleAndDescriptionSVGElement(initDynamicHeightOffset, title, des
   dynamicHeightOffset = initDynamicHeightOffset;
   title = title.replace("&lt;", "").replace("&gt;", "");
   let titleElement = createTitle(title, width);
-  let descriptionElement = createDescription(description, width);
+  let descriptionElement = "";
+  if (description) {
+    descriptionElement = createDescription(description, width);
+  }
   // to display the title and description in the SVG-file, we need to add a container for our text-elements
   let insertText = '<g class="djs-group"><g class="djs-element djs-shape" style = "display:block" transform="translate(' + (min_x - 10) + " " + (min_y - dynamicHeightOffset) + ')"><g class="djs-visual">' + titleElement + descriptionElement + "</g></g></g>";
   return {
@@ -6192,7 +6195,7 @@ class PngService {
     }
     return svg;
   }
-  findMostOuterElements(svg) {
+  findMostOuterElements(svg, includeSpaceForDescription) {
     let xLeft = 0;
     let xRight = 0;
     let yUp = 0;
@@ -6252,7 +6255,10 @@ class PngService {
         yDown = elYDown;
       }
     }
-    yUp -= 75; // we need to adjust yUp to have space for the title and description
+    // we need to adjust yUp to have space for the description if necessary
+    if (includeSpaceForDescription) {
+      yUp -= 75;
+    }
     return {
       xLeft,
       xRight,
@@ -6261,7 +6267,7 @@ class PngService {
     };
   }
   prepareSVG(svg, layerBase, description, title, withTitle) {
-    const box = this.findMostOuterElements(layerBase);
+    const box = this.findMostOuterElements(layerBase, description === undefined);
     let viewBoxIndex = svg.indexOf('width="');
     this.calculateWidthAndHeight(box);
     const {
@@ -6271,7 +6277,7 @@ class PngService {
     if (withTitle) {
       this.height += dynamicHeightOffset;
     }
-    const bounds = this.createBounds(box, dynamicHeightOffset);
+    const bounds = this.createBounds(box, withTitle ? dynamicHeightOffset : 0);
     const dataStart = svg.substring(0, viewBoxIndex);
     viewBoxIndex = svg.indexOf('style="');
     const dataEnd = svg.substring(viewBoxIndex);
