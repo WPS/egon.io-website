@@ -10759,15 +10759,16 @@ class StoryCreatorService {
     return missingSentences;
   }
   getSentenceObjects(tracedActivity) {
-    const initialSource = [];
+    const actorsAndWorkObjects = [];
     const activities = tracedActivity;
-    const targetObjects = [];
     const actorTextAnnotations = [];
     tracedActivity.forEach(parallelSentence => {
       const parallelSentenceTargetObjects = [];
-      initialSource.push(parallelSentence.source);
+      if (!actorsAndWorkObjects.includes(parallelSentence.source)) {
+        actorsAndWorkObjects.push(parallelSentence.source);
+      }
       const firstTarget = parallelSentence.target;
-      targetObjects.push(firstTarget);
+      actorsAndWorkObjects.push(firstTarget);
       parallelSentenceTargetObjects.push(firstTarget);
       // check the outgoing activities for each target
       for (const checkTarget of parallelSentenceTargetObjects) {
@@ -10776,21 +10777,20 @@ class StoryCreatorService {
           checkTarget.outgoing.forEach(activity => {
             activities.push(activity);
             const activityTarget = activity.target;
-            if (activityTarget && !targetObjects.includes(activityTarget)) {
-              targetObjects.push(activityTarget);
+            if (activityTarget && !actorsAndWorkObjects.includes(activityTarget)) {
+              actorsAndWorkObjects.push(activityTarget);
               parallelSentenceTargetObjects.push(activityTarget);
             }
           });
         }
       }
     });
-    initialSource.forEach(actor => this.addTextAnnotationsForActorOrGroup(actor, actorTextAnnotations));
-    targetObjects.forEach(target => {
-      if (target.businessObject.type.includes(_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTOR)) {
-        this.addTextAnnotationsForActorOrGroup(target, actorTextAnnotations);
+    actorsAndWorkObjects.forEach(object => {
+      if (object.businessObject.type.includes(_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTOR)) {
+        this.addTextAnnotationsForActorOrGroup(object, actorTextAnnotations);
       }
     });
-    return initialSource.map(e => e.businessObject).concat(activities.map(a => a.businessObject)).concat(targetObjects.map(t => t.businessObject)).concat(actorTextAnnotations.map(ta => ta.businessObject));
+    return actorsAndWorkObjects.map(e => e.businessObject).concat(activities.map(a => a.businessObject)).concat(actorTextAnnotations.map(ta => ta.businessObject));
   }
   addTextAnnotationsForActorOrGroup(object, objectTextAnnotations) {
     object.outgoing?.forEach(connection => {
