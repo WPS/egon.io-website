@@ -9,9 +9,11 @@ toc_sticky: true
 > Have you used an earlier version of *Egon v2* or *latest build*? Please follow these [instructions](https://egon.io/howto#launching-egon) for updating to the newest version.
 
 ## Latest Build
-- `Fix`: Empty description is no longer exported as "undefined" in images.  [See #186](https://github.com/WPS/egon.io/issues/186)
+- `Feature`: Make users aware of unsaved changes. [See #175](https://github.com/WPS/egon.io/issues/175)
+- `Fix`: Empty description is no longer exported as "undefined" in images. [See #186](https://github.com/WPS/egon.io/issues/186)
 - `Fix`: Replace double hyphen ("--") with a dash ("—") to a avoid breaking the SVG export. [See #171](https://github.com/WPS/egon.io/issues/171)
-- `Fix`: Animated SVG works if the story contains a sequence number multiple times.  [See #194](https://github.com/WPS/egon.io/issues/194)
+- `Fix`: Animated SVG works if the story contains a sequence number multiple times. [See #194](https://github.com/WPS/egon.io/issues/194)
+- `Fix`: Stories without activities can now be exported as SVG. [See #200](https://github.com/WPS/egon.io/issues/200)
 
 ## v2.3.0
 - `Feature`: Added shortcut `ctrl+alt+s` for exporting as `.egn.svg` file [See #159](https://github.com/WPS/egon.io/issues/159)
