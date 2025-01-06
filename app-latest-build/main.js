@@ -803,6 +803,15 @@ function DomainStoryElementFactory() {
           $type: "Element"
         });
       }
+      // even though we don't use these attributes they are needed for the copy/paste functionality of bpmn-js
+      (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)(attrs.businessObject, {
+        di: {}
+      });
+      if (!attrs.businessObject.$descriptor) {
+        (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)(attrs.businessObject, {
+          $descriptor: {}
+        });
+      }
       // add width and height if shape
       if ((!/:activity$/.test(type) || !/:connection$/.test(type)) && !(/:group$/.test(type) && attrs.height || attrs.width)) {
         (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)(attrs, self._getCustomElementSize(type));
@@ -10759,15 +10768,16 @@ class StoryCreatorService {
     return missingSentences;
   }
   getSentenceObjects(tracedActivity) {
-    const initialSource = [];
+    const actorsAndWorkObjects = [];
     const activities = tracedActivity;
-    const targetObjects = [];
     const actorTextAnnotations = [];
     tracedActivity.forEach(parallelSentence => {
       const parallelSentenceTargetObjects = [];
-      initialSource.push(parallelSentence.source);
+      if (!actorsAndWorkObjects.includes(parallelSentence.source)) {
+        actorsAndWorkObjects.push(parallelSentence.source);
+      }
       const firstTarget = parallelSentence.target;
-      targetObjects.push(firstTarget);
+      actorsAndWorkObjects.push(firstTarget);
       parallelSentenceTargetObjects.push(firstTarget);
       // check the outgoing activities for each target
       for (const checkTarget of parallelSentenceTargetObjects) {
@@ -10776,21 +10786,20 @@ class StoryCreatorService {
           checkTarget.outgoing.forEach(activity => {
             activities.push(activity);
             const activityTarget = activity.target;
-            if (activityTarget && !targetObjects.includes(activityTarget)) {
-              targetObjects.push(activityTarget);
+            if (activityTarget && !actorsAndWorkObjects.includes(activityTarget)) {
+              actorsAndWorkObjects.push(activityTarget);
               parallelSentenceTargetObjects.push(activityTarget);
             }
           });
         }
       }
     });
-    initialSource.forEach(actor => this.addTextAnnotationsForActorOrGroup(actor, actorTextAnnotations));
-    targetObjects.forEach(target => {
-      if (target.businessObject.type.includes(_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTOR)) {
-        this.addTextAnnotationsForActorOrGroup(target, actorTextAnnotations);
+    actorsAndWorkObjects.forEach(object => {
+      if (object.businessObject.type.includes(_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTOR)) {
+        this.addTextAnnotationsForActorOrGroup(object, actorTextAnnotations);
       }
     });
-    return initialSource.map(e => e.businessObject).concat(activities.map(a => a.businessObject)).concat(targetObjects.map(t => t.businessObject)).concat(actorTextAnnotations.map(ta => ta.businessObject));
+    return actorsAndWorkObjects.map(e => e.businessObject).concat(activities.map(a => a.businessObject)).concat(actorTextAnnotations.map(ta => ta.businessObject));
   }
   addTextAnnotationsForActorOrGroup(object, objectTextAnnotations) {
     object.outgoing?.forEach(connection => {
