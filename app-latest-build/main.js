@@ -8730,7 +8730,7 @@ class ImportDialogComponent {
       template: function ImportDialogComponent_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "mat-dialog-content")(1, "label", 0)(2, "h2");
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](3, "Import Domain Story:");
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](3, "Import Domain Story");
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]()();
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](4, "mat-form-field", 1)(5, "mat-label");
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](6, "URL");
@@ -11201,7 +11201,7 @@ class UnsavedChangesReminderComponent {
       template: function UnsavedChangesReminderComponent_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "mat-dialog-content")(1, "label")(2, "h2");
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](3, "Attention:");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](3, "Attention");
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]()();
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "p");
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](5, "There are some unsaved changes. Do you want to discard them?");
