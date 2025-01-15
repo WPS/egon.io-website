@@ -9,6 +9,9 @@ toc_sticky: true
 > Have you used an earlier version of *Egon v2* or *latest build*? Please follow these [instructions](https://egon.io/howto#launching-egon) for updating to the newest version.
 
 ## Latest Build
+no changes yet
+
+## v2.4.0
 - `Feature`: Make users aware of unsaved changes. [See #175](https://github.com/WPS/egon.io/issues/175)
 - `Fix`: Empty description is no longer exported as "undefined" in images. [See #186](https://github.com/WPS/egon.io/issues/186)
 - `Fix`: Replace double hyphen ("--") with a dash ("—") to a avoid breaking the SVG export. [See #171](https://github.com/WPS/egon.io/issues/171)
