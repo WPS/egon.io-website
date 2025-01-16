@@ -11,6 +11,10 @@ toc_sticky: true
 ## Latest Build
 no changes yet
 
+upcoming changes after switching from bpmn-js to diagram-js (v3.0.0):
+- touch is no longer supported
+- unused attributes were removed from .egn file format => might require an update based on v2.4.0  to ensure backwards-compatibility of .egn files for users who do not want to switch to v3.0.0
+
 ## v2.4.0
 - `Feature`: Make users aware of unsaved changes. [See #175](https://github.com/WPS/egon.io/issues/175)
 - `Fix`: Empty description is no longer exported as "undefined" in images. [See #186](https://github.com/WPS/egon.io/issues/186)
