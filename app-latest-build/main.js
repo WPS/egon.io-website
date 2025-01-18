@@ -5114,7 +5114,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   GREEN: () => (/* binding */ GREEN),
 /* harmony export */   GREY: () => (/* binding */ GREY),
 /* harmony export */   ICON_SET_CONFIGURATION_KEY: () => (/* binding */ ICON_SET_CONFIGURATION_KEY),
-/* harmony export */   IMPLICIT_ROOT_ID: () => (/* binding */ IMPLICIT_ROOT_ID),
 /* harmony export */   INITIAL_DESCRIPTION: () => (/* binding */ INITIAL_DESCRIPTION),
 /* harmony export */   INITIAL_ICON_SET_NAME: () => (/* binding */ INITIAL_ICON_SET_NAME),
 /* harmony export */   INITIAL_TITLE: () => (/* binding */ INITIAL_TITLE),
@@ -5151,8 +5150,6 @@ const SNACKBAR_DURATION_LONGER = 6000;
 const SNACKBAR_SUCCESS = 'snackbar_success';
 const SNACKBAR_ERROR = 'snackbar_error';
 const SNACKBAR_INFO = 'snackbar_info';
-/** BPMN_RELEVANT_CONSTANTS **/
-const IMPLICIT_ROOT_ID = '__implicitroot';
 /** COLOR PICKER DEFAULT COLORS **/
 const YELLOW = '#FDD835';
 const ORANGE = '#FB8C00';
@@ -7493,7 +7490,7 @@ class SvgService {
   findIndexToInsertData(data) {
     let insertIndex = data.indexOf('</defs>');
     if (insertIndex < 0) {
-      insertIndex = data.indexOf('version="1.1">') + 14; // BPMN 8 exports SVG v. 1.1
+      insertIndex = data.indexOf('version="1.1">') + 14; // diagram-js exports SVG v. 1.1
     } else {
       insertIndex += 7;
     }
@@ -8363,7 +8360,7 @@ class IconSetConfigurationComponent {
       selectors: [["app-icon-set-configuration"]],
       decls: 45,
       vars: 14,
-      consts: [[1, "content"], [1, "header"], [1, "searchbar"], [1, "heading"], ["mat-button", "", "title", "Unassigned Icons", 3, "click"], ["mat-button", "", "title", "Icons used as actors", 3, "click"], ["mat-button", "", "title", "Icons used as work objects", 3, "click"], ["color", "accent", "subscriptSizing", "dynamic", "appearance", "outline", 1, "searchForm", "dense-8"], ["matInput", "", "type", "text", 3, "input"], [1, "buttons"], ["mat-stroked-button", "", "title", "Import icon set", 1, "mr-1", 3, "click"], ["type", "file", "accept", ".domain, .iconset", "id", "importDomain", "name", "file", "onclick", "this.value=null", 2, "display", "none", 3, "change"], ["mat-stroked-button", "", "title", "Upload icon", 1, "mr-1", 3, "click"], ["type", "file", "multiple", "", "accept", ".svg, image/png, image/jpeg, image/gif, image/bpmn", "id", "importIcon", "name", "file", "onclick", "this.value=null", 2, "display", "none", 3, "change"], ["mat-stroked-button", "", "title", "Reset to default icon set", 1, "mr-1", 3, "click"], ["mat-stroked-button", "", "title", "Cancel changes", 1, "mr-1", 3, "click"], ["mat-flat-button", "", "title", "Save changes", "color", "primary", 1, "mr-1", 3, "click"], [1, "iconList", "smallScrollbar"], [3, "iconName"]],
+      consts: [[1, "content"], [1, "header"], [1, "searchbar"], [1, "heading"], ["mat-button", "", "title", "Unassigned Icons", 3, "click"], ["mat-button", "", "title", "Icons used as actors", 3, "click"], ["mat-button", "", "title", "Icons used as work objects", 3, "click"], ["color", "accent", "subscriptSizing", "dynamic", "appearance", "outline", 1, "searchForm", "dense-8"], ["matInput", "", "type", "text", 3, "input"], [1, "buttons"], ["mat-stroked-button", "", "title", "Import icon set", 1, "mr-1", 3, "click"], ["type", "file", "accept", ".domain, .iconset", "id", "importDomain", "name", "file", "onclick", "this.value=null", 2, "display", "none", 3, "change"], ["mat-stroked-button", "", "title", "Upload icon", 1, "mr-1", 3, "click"], ["type", "file", "multiple", "", "accept", ".svg, image/png, image/jpeg, image/gif", "id", "importIcon", "name", "file", "onclick", "this.value=null", 2, "display", "none", 3, "change"], ["mat-stroked-button", "", "title", "Reset to default icon set", 1, "mr-1", 3, "click"], ["mat-stroked-button", "", "title", "Cancel changes", 1, "mr-1", 3, "click"], ["mat-flat-button", "", "title", "Save changes", "color", "primary", 1, "mr-1", 3, "click"], [1, "iconList", "smallScrollbar"], [3, "iconName"]],
       template: function IconSetConfigurationComponent_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementStart"](0, "div", 0)(1, "div")(2, "div", 1)(3, "div", 2)(4, "div", 3);
@@ -11276,11 +11273,7 @@ class ModelerService {
       container: '#canvas',
       keyboard: {
         bind: true
-      },
-      // Disable BPMN-SearchModule and re-enable browser Search
-      additionalModules: [{
-        bpmnSearch: ['value', 'foo']
-      }]
+      }
     });
     if (this.modeler.get) {
       this.elementRegistry = this.modeler.get('elementRegistry');
