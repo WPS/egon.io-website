@@ -1731,12 +1731,12 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, commandStac
   function createMarker(type, fill, stroke) {
     let id = type + "-" + fill + "-" + stroke + "-" + rendererId;
     if (type === "activity") {
-      let sequenceflowEnd = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_10__.create)("path");
-      (0,tiny_svg__WEBPACK_IMPORTED_MODULE_10__.attr)(sequenceflowEnd, {
+      let activityArrow = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_10__.create)("path");
+      (0,tiny_svg__WEBPACK_IMPORTED_MODULE_10__.attr)(activityArrow, {
         d: "M 1 5 L 11 10 L 1 15 Z"
       });
       addMarker(id, {
-        element: sequenceflowEnd,
+        element: activityArrow,
         ref: {
           x: 11,
           y: 10
@@ -13144,7 +13144,7 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 const environment = {
   production: false,
-  version: '2.4.1-dev'
+  version: '3.0.0-dev'
 };
 /*
  * For easier debugging in development mode, you can import the following file
