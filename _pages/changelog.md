@@ -9,11 +9,12 @@ toc_sticky: true
 > Have you used an earlier version of *Egon v2* or *latest build*? Please follow these [instructions](https://egon.io/howto#launching-egon) for updating to the newest version.
 
 ## Latest Build
-no changes yet
 
-upcoming changes after switching from bpmn-js to diagram-js (v3.0.0):
-- touch is no longer supported
-- unused attributes were removed from .egn file format => might require an update based on v2.4.0  to ensure backwards-compatibility of .egn files for users who do not want to switch to v3.0.0
+- Unused attributes were removed from .egn file format. Even though this change is compatible (Egon 2.x can import the new file format, Egon 3.x can import the old file format)
+  
+> Breaking Changes
+- touch input is no longer supported (the developers of the diagramming framework that Egon uses dropped touch support because it was buggy)
+
 
 ## v2.4.0
 - `Feature`: Make users aware of unsaved changes. [See #175](https://github.com/WPS/egon.io/issues/175)
