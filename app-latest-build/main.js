@@ -1170,8 +1170,8 @@ DomainStoryElementFactory.prototype._getCustomElementSize = function (type) {
       height: 30
     },
     [src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.GROUP]: {
-      width: 525,
-      height: 275
+      width: 300,
+      height: 200
     }
   };
   return shapes[type] || shapes.__default;
@@ -2067,11 +2067,11 @@ inherits__WEBPACK_IMPORTED_MODULE_0___default()(DomainStoryRules, diagram_js_lib
 DomainStoryRules.$inject = ["eventBus"];
 DomainStoryRules.prototype.init = function () {
   /**
-   * can a shape be created on target container?
+   * can a shape be created on target?
    */
   function canCreate(shape, target) {
-    // allow creation just on groups
-    return isBackground(target) || isGroup(target);
+    // allow creation on canvas ||  allow groups on everything || allow everything on groups
+    return isBackground(target) || isGroup(shape) || isGroup(target);
   }
   this.addRule("elements.create", function (context) {
     const elements = context.elements,
