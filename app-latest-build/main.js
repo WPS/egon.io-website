@@ -2086,7 +2086,15 @@ DomainStoryRules.prototype.init = function () {
   this.addRule("elements.move", HIGH_PRIORITY, function (context) {
     let target = context.target,
       shapes = context.shapes;
+    // The idea of this code is to make sure that if any of the selected shapes cannot be moved,
+    // then the whole selection cannot be moved. However, it actually only checks
+    // if the shape that is under the mouse cursor is over another shape.
+    // This is probably enough as a full detection over overlapping shapes might make it hard
+    // to move large selections
     return (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.reduce)(shapes, function (result, s) {
+      if (result === false) {
+        return false;
+      }
       return canCreate(s, target);
     }, undefined);
   });
