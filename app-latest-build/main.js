@@ -2168,29 +2168,29 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /**
- * a handler responsible for updating the custom element's businessObject
+ * a handler responsible for updating the element's businessObject
  * once changes on the diagram happen.
  */
 function DomainStoryUpdater(eventBus, egon, connectionDocking) {
   diagram_js_lib_command_CommandInterceptor__WEBPACK_IMPORTED_MODULE_3__["default"].call(this, eventBus);
-  function updateCustomElement(e) {
+  function updateElement(e) {
     let context = e.context,
-      shape = context.shape,
-      businessObject = shape.businessObject;
-    if (!shape || !shape.type.includes(_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.DOMAINSTORY)) {
+      shape = context.shape;
+    if (!shape) {
       return;
     }
+    let businessObject = shape.businessObject;
     let parent = shape.parent;
-    let customElements = egon._customElements;
-    // make sure element is added / removed from egon.customElements
+    let elements = egon._elements;
+    // make sure element is added / removed from egon._elements
     if (!parent) {
-      (0,diagram_js_lib_util_Collections__WEBPACK_IMPORTED_MODULE_4__.remove)(customElements, businessObject);
+      (0,diagram_js_lib_util_Collections__WEBPACK_IMPORTED_MODULE_4__.remove)(elements, businessObject);
     } else {
-      (0,diagram_js_lib_util_Collections__WEBPACK_IMPORTED_MODULE_4__.add)(customElements, businessObject);
+      (0,diagram_js_lib_util_Collections__WEBPACK_IMPORTED_MODULE_4__.add)(elements, businessObject);
     }
-    // save custom element position
+    // save element position
     (0,min_dash__WEBPACK_IMPORTED_MODULE_5__.assign)(businessObject, (0,min_dash__WEBPACK_IMPORTED_MODULE_5__.pick)(shape, ["x", "y"]));
-    // save custom element size if resizable
+    // save element size if resizable
     if (shape.type === _domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.GROUP) {
       (0,min_dash__WEBPACK_IMPORTED_MODULE_5__.assign)(businessObject, (0,min_dash__WEBPACK_IMPORTED_MODULE_5__.pick)(shape, ["height", "width"]));
       // rework the child-parent relations if a group was moved, such that all Objects that are visually in the group are also associated with it
@@ -2205,7 +2205,7 @@ function DomainStoryUpdater(eventBus, egon, connectionDocking) {
       });
     }
   }
-  function updateCustomConnection(e) {
+  function updateConnection(e) {
     let context = e.context,
       connection = context.connection,
       source = connection.source,
@@ -2218,12 +2218,12 @@ function DomainStoryUpdater(eventBus, egon, connectionDocking) {
       source = e.newSource;
     }
     let parent = connection.parent;
-    let customElements = egon._customElements;
-    // make sure element is added / removed from egon.customElements
+    let elements = egon._elements;
+    // make sure element is added / removed from egon._elements
     if (!parent) {
-      (0,diagram_js_lib_util_Collections__WEBPACK_IMPORTED_MODULE_4__.remove)(customElements, businessObject);
+      (0,diagram_js_lib_util_Collections__WEBPACK_IMPORTED_MODULE_4__.remove)(elements, businessObject);
     } else {
-      (0,diagram_js_lib_util_Collections__WEBPACK_IMPORTED_MODULE_4__.add)(customElements, businessObject);
+      (0,diagram_js_lib_util_Collections__WEBPACK_IMPORTED_MODULE_4__.add)(elements, businessObject);
     }
     // update waypoints
     (0,min_dash__WEBPACK_IMPORTED_MODULE_5__.assign)(businessObject, {
@@ -2278,16 +2278,16 @@ function DomainStoryUpdater(eventBus, egon, connectionDocking) {
       context.cropped = true;
     }
   }
-  // cropping must be done before updateCustomElement
+  // cropping must be done before updateElement
   // do not change the order of these .executed calls
   this.executed(["connection.layout", "connection.create"], cropConnection);
   this.reverted(["connection.layout"], function (e) {
     delete e.context.cropped;
   });
-  this.executed(["shape.create", "shape.move", "shape.delete", "shape.resize", "shape.removeGroupWithChildren"], ifDomainStoryElement(updateCustomElement));
-  this.reverted(["shape.create", "shape.move", "shape.delete", "shape.resize", "shape.removeGroupWithChildren"], ifDomainStoryElement(updateCustomElement));
-  this.executed(["connection.create", "connection.reconnect", "connection.updateWaypoints", "connection.delete", "connection.layout", "connection.move"], ifDomainStoryElement(updateCustomConnection));
-  this.reverted(["connection.create", "connection.reconnect", "connection.updateWaypoints", "connection.delete", "connection.layout", "connection.move"], ifDomainStoryElement(updateCustomConnection));
+  this.executed(["shape.create", "shape.move", "shape.delete", "shape.resize", "shape.removeGroupWithChildren"], ifDomainStoryElement(updateElement));
+  this.reverted(["shape.create", "shape.move", "shape.delete", "shape.resize", "shape.removeGroupWithChildren"], ifDomainStoryElement(updateElement));
+  this.executed(["connection.create", "connection.reconnect", "connection.updateWaypoints", "connection.delete", "connection.layout", "connection.move"], ifDomainStoryElement(updateConnection));
+  this.reverted(["connection.create", "connection.reconnect", "connection.updateWaypoints", "connection.delete", "connection.layout", "connection.move"], ifDomainStoryElement(updateConnection));
 }
 // check if element in the context of an event is a domainStory element
 function ifDomainStoryElement(fn) {
@@ -4542,7 +4542,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function DomainStoryModeler(options) {
   _BaseViewer__WEBPACK_IMPORTED_MODULE_0__["default"].call(this, options);
-  this._customElements = [];
+  this._elements = [];
   this._groupElements = [];
 }
 inherits__WEBPACK_IMPORTED_MODULE_1___default()(DomainStoryModeler, _BaseViewer__WEBPACK_IMPORTED_MODULE_0__["default"]);
@@ -4553,93 +4553,71 @@ DomainStoryModeler.prototype._modules = [].concat([_features__WEBPACK_IMPORTED_M
 [diagram_js_lib_features_keyboard__WEBPACK_IMPORTED_MODULE_19__["default"], diagram_js_lib_features_editor_actions__WEBPACK_IMPORTED_MODULE_20__["default"], _features_shortcuts__WEBPACK_IMPORTED_MODULE_7__["default"]],
 // Shortcuts
 [diagram_js_lib_features_snapping__WEBPACK_IMPORTED_MODULE_21__["default"]]);
-/**
- * add a single custom element to the underlying diagram
- *
- * @param {Object} customElement
- */
-DomainStoryModeler.prototype._addCustomShape = function (customElement) {
-  let parentId = customElement.parent;
-  delete customElement.children;
-  delete customElement.parent;
-  this._customElements.push(customElement);
+DomainStoryModeler.prototype._createElementFromBusinessObject = function (bo) {
+  let parentId = bo.parent;
+  delete bo.children;
+  delete bo.parent;
+  this._elements.push(bo);
   let canvas = this.get("canvas"),
     elementFactory = this.get("elementFactory");
-  let customAttrs = (0,min_dash__WEBPACK_IMPORTED_MODULE_22__.assign)({
-    businessObject: customElement
-  }, customElement);
-  let customShape = elementFactory.create("shape", customAttrs);
-  if (isGroup(customElement)) {
-    this._groupElements[customElement.id] = customShape;
+  let attributes = (0,min_dash__WEBPACK_IMPORTED_MODULE_22__.assign)({
+    businessObject: bo
+  }, bo);
+  let shape = elementFactory.create("shape", attributes);
+  if (isOfTypeGroup(bo)) {
+    this._groupElements[bo.id] = shape;
   }
   if (parentId) {
     let parentShape = this._groupElements[parentId];
-    if (isGroup(parentShape)) {
-      return canvas.addShape(customShape, parentShape, parentShape.id);
+    if (isOfTypeGroup(parentShape)) {
+      return canvas.addShape(shape, parentShape, parentShape.id);
     }
   }
-  return canvas.addShape(customShape);
+  return canvas.addShape(shape);
 };
-DomainStoryModeler.prototype._addCustomConnection = function (customElement) {
-  this._customElements.push(customElement);
+DomainStoryModeler.prototype._addConnection = function (element) {
+  this._elements.push(element);
   let canvas = this.get("canvas"),
     elementFactory = this.get("elementFactory"),
     elementRegistry = this.get("elementRegistry");
-  let customAttrs = (0,min_dash__WEBPACK_IMPORTED_MODULE_22__.assign)({
-    businessObject: customElement
-  }, customElement);
-  let connection = elementFactory.create("connection", (0,min_dash__WEBPACK_IMPORTED_MODULE_22__.assign)(customAttrs, {
-    source: elementRegistry.get(customElement.source),
-    target: elementRegistry.get(customElement.target)
-  }), elementRegistry.get(customElement.source).parent);
+  let attributes = (0,min_dash__WEBPACK_IMPORTED_MODULE_22__.assign)({
+    businessObject: element
+  }, element);
+  let connection = elementFactory.create("connection", (0,min_dash__WEBPACK_IMPORTED_MODULE_22__.assign)(attributes, {
+    source: elementRegistry.get(element.source),
+    target: elementRegistry.get(element.target)
+  }), elementRegistry.get(element.source).parent);
   return canvas.addConnection(connection);
 };
-//** We import BusinessObjects, not the whole Canvas Object!!!!!!!!
-DomainStoryModeler.prototype.importCustomElements = function (elements) {
+DomainStoryModeler.prototype.importBusinessObjects = function (businessObjects) {
   this.get("eventBus").fire("diagram.clear", {});
-  this._customElements = [];
+  this._elements = [];
   this._groupElements = [];
-  this.addCustomElements(elements);
-};
-/**
- * add a number of custom elements and connections to the underlying diagram.
- *
- * @param {Array<Object>} customElements
- */
-DomainStoryModeler.prototype.addCustomElements = function (customElements) {
-  if (!(0,min_dash__WEBPACK_IMPORTED_MODULE_22__.isArray)(customElements)) {
+  if (!(0,min_dash__WEBPACK_IMPORTED_MODULE_22__.isArray)(businessObjects)) {
     throw new Error("argument must be an array");
   }
-  let shapes = [],
-    connections = [],
-    groups = [];
-  customElements.forEach(function (customElement) {
-    if (isConnection(customElement)) {
-      connections.push(customElement);
-    } else if (isGroup(customElement)) {
-      groups.push(customElement);
+  let connections = [],
+    groups = [],
+    otherElementTypes = [];
+  businessObjects.forEach(function (bo) {
+    if (isOfTypeConnection(bo)) {
+      connections.push(bo);
+    } else if (isOfTypeGroup(bo)) {
+      groups.push(bo);
     } else {
-      shapes.push(customElement);
+      otherElementTypes.push(bo);
     }
   });
-  // add groups before shapes and shapes before connections so that connections
+  // add groups before shapes and other element types before connections so that connections
   // can already rely on the shapes being part of the diagram
-  groups.forEach(this._addCustomShape, this);
-  shapes.forEach(this._addCustomShape, this);
-  connections.forEach(this._addCustomConnection, this);
+  groups.forEach(this._createElementFromBusinessObject, this);
+  otherElementTypes.forEach(this._createElementFromBusinessObject, this);
+  connections.forEach(this._addConnection, this);
 };
-/**
- * get custom elements with their current status.
- *
- * @return {Array<Object>} custom elements on the diagram
- */
-DomainStoryModeler.prototype.getCustomElements = function () {
-  return this._customElements;
-};
-function isConnection(element) {
+function isOfTypeConnection(element) {
   return element.type === _domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_5__.ElementTypes.ACTIVITY || element.type === _domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_5__.ElementTypes.CONNECTION;
 }
-function isGroup(element) {
+function isOfTypeGroup(element) {
   return element && element.type === _domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_5__.ElementTypes.GROUP;
 }
 
@@ -11281,7 +11259,7 @@ class ModelerService {
     this.postInit();
     (0,src_app_tools_modeler_diagram_js_features_numbering_numbering__WEBPACK_IMPORTED_MODULE_2__.updateMultipleNumberRegistry)(currentStory.filter(bo => bo.type === 'domainStory:activity').map(bo => bo).filter(bo => bo.number !== null));
     if (currentStory && this.modeler.get) {
-      this.modeler.importCustomElements(currentStory);
+      this.modeler.importBusinessObjects(currentStory);
     }
   }
   /** Interactions with the Modeler **/
@@ -11363,7 +11341,7 @@ class RendererService {
     this.dirtyFlagService = dirtyFlagService;
   }
   renderStory(domainStory) {
-    this.modelerService.getModeler().importCustomElements(domainStory);
+    this.modelerService.getModeler().importBusinessObjects(domainStory);
   }
   reset() {
     this.renderStory([]);
