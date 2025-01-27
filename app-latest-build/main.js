@@ -1914,10 +1914,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const HIGH_PRIORITY = 1500;
 const MIN_SIZE = 125;
-function isDomainStory(element) {
-  return element && /^domainStory:/.test(element.type);
-}
-function isDomainStoryGroup(element) {
+function isGroup(element) {
   return element && /^domainStory:group/.test(element.type);
 }
 function isActor(element) {
@@ -1955,12 +1952,11 @@ function canStartConnection(element) {
  * can source and target be connected?
  */
 function canConnect(source, target) {
-  // never connect to background
-  if (isBackground(target)) {
+  // never connect to background; since the direction of the activity can get reversed during dragging, we also have to check if the source
+  if (isBackground(target) || isBackground(source)) {
     return false;
   }
-  // only judge about two custom elements
-  if (isDomainStoryGroup(target) || !isDomainStory(source) || !isDomainStory(target)) {
+  if (isGroup(target)) {
     return false;
   }
   // do not allow a connection from one element to itself
@@ -2049,28 +2045,6 @@ function canResize(shape, newBounds) {
   }
   return false;
 }
-function canAttach(elements, target, source) {
-  if (!Array.isArray(elements)) {
-    elements = [elements];
-  }
-  // disallow appending as boundary event
-  if (source) {
-    return false;
-  }
-  // only (re-)attach one element at a time
-  if (elements.length !== 1) {
-    return false;
-  }
-  // allow default move operation
-  if (!target) {
-    return true;
-  }
-  // only allow drop on DomainStory Elements
-  if (!isDomainStory(target)) {
-    return false;
-  }
-  return "attach";
-}
 function canConnectToAnnotation(source, target, connection) {
   // do not allow an activity connect to an annotation
   if (isActivity(connection) && isAnnotation(target)) {
@@ -2093,45 +2067,26 @@ inherits__WEBPACK_IMPORTED_MODULE_0___default()(DomainStoryRules, diagram_js_lib
 DomainStoryRules.$inject = ["eventBus"];
 DomainStoryRules.prototype.init = function () {
   /**
-   * can shape be created on target container?
+   * can a shape be created on target container?
    */
   function canCreate(shape, target) {
-    // only judge about custom elements
-    if (!isDomainStory(shape)) {
-      return;
-    }
     // allow creation just on groups
-    return !isDomainStory(target) || isDomainStoryGroup(target);
+    return isBackground(target) || isGroup(target);
   }
   this.addRule("elements.create", function (context) {
     const elements = context.elements,
-      position = context.position,
       target = context.target;
     return (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.every)(elements, function (element) {
       if (isConnection(element)) {
         return canConnect(element.source, element.target, element);
       }
-      if (element.host) {
-        return canAttach(element, element.host, null, position);
-      }
-      return canCreate(element, target, null, position);
+      return canCreate(element, target);
     });
   });
   this.addRule("elements.move", HIGH_PRIORITY, function (context) {
     let target = context.target,
       shapes = context.shapes;
-    let type;
-    // do not allow mixed movements of custom / diagram-js shapes
-    // if any shape cannot be moved, the group cannot be moved, too
-    // reject, if we have at least one
-    // custom element that cannot be moved
     return (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.reduce)(shapes, function (result, s) {
-      if (type === undefined) {
-        type = isDomainStory(s);
-      }
-      if (type !== isDomainStory(s) || result === false) {
-        return false;
-      }
       return canCreate(s, target);
     }, undefined);
   });
@@ -2149,12 +2104,10 @@ DomainStoryRules.prototype.init = function () {
     let connection = context.connection,
       source = context.hover || context.source,
       target = context.target;
-    // --------------------------------------------------------------
     let result = canConnectToAnnotation(source, target, connection);
     if (!result) {
       return;
     }
-    // --------------------------------------------------------------
     return canConnect(source, target, connection);
   });
   this.addRule("shape.resize", function (context) {
@@ -2177,8 +2130,6 @@ DomainStoryRules.prototype.init = function () {
   });
 };
 DomainStoryRules.prototype.canConnect = canConnect;
-DomainStoryRules.prototype.canAttach = canAttach;
-DomainStoryRules.prototype.isDomainStory = isDomainStory;
 DomainStoryRules.prototype.canResize = canResize;
 
 /***/ }),
