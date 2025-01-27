@@ -104,14 +104,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tiny_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! tiny-svg */ 7491);
 /* harmony import */ var diagram_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! diagram-js */ 3274);
 /* harmony import */ var inherits_browser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! inherits-browser */ 2890);
-/* harmony import */ var _features_util_PoweredByUtil__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./features/util/PoweredByUtil */ 1112);
 
-/**
- * The code in the <project-logo></project-logo> area
- * must not be changed.
- *
- * @see http://bpmn.io/license for more information.
- */
 
 
 
@@ -120,9 +113,6 @@ __webpack_require__.r(__webpack_exports__);
 function BaseViewer(options) {
   options = (0,min_dash__WEBPACK_IMPORTED_MODULE_1__.assign)({}, DEFAULT_OPTIONS, options);
   this._container = this._createContainer(options);
-  /* <project-logo> */
-  addProjectLogo(this._container);
-  /* </project-logo> */
   this._init(this._container, options);
 }
 (0,inherits_browser__WEBPACK_IMPORTED_MODULE_2__["default"])(BaseViewer, diagram_js__WEBPACK_IMPORTED_MODULE_3__["default"]);
@@ -240,10 +230,6 @@ BaseViewer.prototype._createContainer = function (options) {
 };
 BaseViewer.prototype._modules = [];
 // helpers ///////////////
-function addWarningsToError(err, warningsAry) {
-  err.warnings = warningsAry;
-  return err;
-}
 const DEFAULT_OPTIONS = {
   width: "100%",
   height: "100%",
@@ -255,34 +241,6 @@ const DEFAULT_OPTIONS = {
 function ensureUnit(val) {
   return val + ((0,min_dash__WEBPACK_IMPORTED_MODULE_1__.isNumber)(val) ? "px" : "");
 }
-
-
-/**
- * Adds the project logo to the diagram container as
- * required by the bpmn.io license.
- *
- * @see http://bpmn.io/license
- *
- * @param {Element} container
- */
-function addProjectLogo(container) {
-  const img = _features_util_PoweredByUtil__WEBPACK_IMPORTED_MODULE_6__.BPMNIO_IMG;
-  const linkMarkup = '<a href="http://bpmn.io" ' + 'target="_blank" ' + 'class="bjs-powered-by" ' + 'title="Powered by bpmn.io" ' + ">" + img + "</a>";
-  const linkElement = (0,min_dom__WEBPACK_IMPORTED_MODULE_4__.domify)(linkMarkup);
-  (0,min_dom__WEBPACK_IMPORTED_MODULE_4__.assignStyle)((0,min_dom__WEBPACK_IMPORTED_MODULE_4__.query)("svg", linkElement), _features_util_PoweredByUtil__WEBPACK_IMPORTED_MODULE_6__.LOGO_STYLES);
-  (0,min_dom__WEBPACK_IMPORTED_MODULE_4__.assignStyle)(linkElement, _features_util_PoweredByUtil__WEBPACK_IMPORTED_MODULE_6__.LINK_STYLES, {
-    position: "absolute",
-    bottom: "15px",
-    right: "15px",
-    zIndex: "100"
-  });
-  container.appendChild(linkElement);
-  min_dom__WEBPACK_IMPORTED_MODULE_4__.event.bind(linkElement, "click", function (event) {
-    (0,_features_util_PoweredByUtil__WEBPACK_IMPORTED_MODULE_6__.open)();
-    event.preventDefault();
-  });
-}
-/* </project-logo> */
 
 /***/ }),
 
@@ -1331,9 +1289,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, commandStac
       })
     };
   }
-  // render functions
-  // render label associated with actors and workobjects
-  function renderEmbeddedLabel(parentGfx, element, align, padding) {
+  function renderActorAndWorkObjectLabel(parentGfx, element, align, padding) {
     let businessObject = element.businessObject;
     return renderLabel(parentGfx, businessObject.name, {
       box: element,
@@ -1344,8 +1300,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, commandStac
       }
     }, element.type);
   }
-  // render label associated with activities
-  function renderExternalLabel(parentGfx, element) {
+  function renderActivityLabel(parentGfx, element) {
     let semantic = element.businessObject;
     let waypoints = element.waypoints;
     let lines = (0,src_app_tools_modeler_diagram_js_features_labeling_position__WEBPACK_IMPORTED_MODULE_4__.countLines)(semantic.name);
@@ -1482,7 +1437,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, commandStac
       fill: "none",
       stroke: element.businessObject.pickedColor
     }, element.attrs));
-    renderEmbeddedLabel(parentGfx, element, "left-top", 8);
+    renderActorAndWorkObjectLabel(parentGfx, element, "left-top", 8);
     return rect;
   };
   function applyColorToCustomSvgIcon(pickedColor, iconSvg) {
@@ -1531,7 +1486,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, commandStac
     let actor = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_10__.create)(iconSRC);
     (0,tiny_svg__WEBPACK_IMPORTED_MODULE_10__.attr)(actor, svgDynamicSizeAttributes);
     (0,tiny_svg__WEBPACK_IMPORTED_MODULE_10__.append)(parent, actor);
-    renderEmbeddedLabel(parent, element, "center", -5);
+    renderActorAndWorkObjectLabel(parent, element, "center", -5);
     return actor;
   };
   this.drawWorkObject = function (parent, element) {
@@ -1547,7 +1502,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, commandStac
     workObject = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_10__.create)(iconSRC);
     (0,tiny_svg__WEBPACK_IMPORTED_MODULE_10__.attr)(workObject, svgDynamicSizeAttributes);
     (0,tiny_svg__WEBPACK_IMPORTED_MODULE_10__.append)(parent, workObject);
-    renderEmbeddedLabel(parent, element, "center", -5);
+    renderActorAndWorkObjectLabel(parent, element, "center", -5);
     return workObject;
   };
   function useColorForActivity(element) {
@@ -1568,7 +1523,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, commandStac
     if (element) {
       let attrs = useColorForActivity(element);
       let x = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_10__.append)(p, (0,diagram_js_lib_util_RenderUtil__WEBPACK_IMPORTED_MODULE_11__.createLine)(element.waypoints, attrs));
-      renderExternalLabel(p, element);
+      renderActivityLabel(p, element);
       renderExternalNumber(p, element);
       // just adjusting the start- and endpoint of the connection-element moves only the drawn connection,
       // not the interactive line. This can be fixed by manually overriding the points of the interactive polyline
@@ -2533,7 +2488,7 @@ function DSLabelEditingProvider(eventBus, canvas, directEditing, modeling, resiz
   directEditing.registerProvider(this);
   // listen to dblclick on non-root elements
   eventBus.on("element.dblclick", function (event) {
-    activateDirectEdit(event.element, true);
+    activateDirectEdit(event.element);
     if ((0,_util_util__WEBPACK_IMPORTED_MODULE_3__.is)(event.element, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.ACTIVITY)) {
       // if we edit an activity, we do not want the standard editing box
       numberStash = event.element.businessObject.number;
@@ -2560,11 +2515,7 @@ function DSLabelEditingProvider(eventBus, canvas, directEditing, modeling, resiz
   });
   eventBus.on("create.end", 500, function (event) {
     let element = event.shape,
-      canExecute = event.context.canExecute,
-      isTouch = event.isTouch;
-    if (isTouch) {
-      return;
-    }
+      canExecute = event.context.canExecute;
     if (!canExecute) {
       return;
     }
@@ -2577,10 +2528,8 @@ function DSLabelEditingProvider(eventBus, canvas, directEditing, modeling, resiz
   eventBus.on("autoPlace.end", 500, function (event) {
     activateDirectEdit(event.shape);
   });
-  function activateDirectEdit(element, force) {
-    if (force || element.businessObject.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.DOMAINSTORY)) {
-      directEditing.activate(element);
-    }
+  function activateDirectEdit(element) {
+    directEditing.activate(element);
   }
   function createAutocomplete(element) {
     let editingBox = document.getElementsByClassName("djs-direct-editing-content");
@@ -4099,87 +4048,6 @@ UpdateLabelHandler.$inject = ["modeling", "textRenderer", "commandStack"];
 
 /***/ }),
 
-/***/ 1112:
-/*!*************************************************************************!*\
-  !*** ./src/app/tools/modeler/diagram-js/features/util/PoweredByUtil.js ***!
-  \*************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   BPMNIO_IMG: () => (/* binding */ BPMNIO_IMG),
-/* harmony export */   LINK_STYLES: () => (/* binding */ LINK_STYLES),
-/* harmony export */   LOGO_STYLES: () => (/* binding */ LOGO_STYLES),
-/* harmony export */   open: () => (/* binding */ open)
-/* harmony export */ });
-/* harmony import */ var min_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! min-dom */ 3599);
-/**
- * This file must not be changed or exchanged.
- *
- * @see http://bpmn.io/license for more information.
- */
-
-// inlined ../../resources/logo.svg
-var BPMNIO_LOGO_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14.02 5.57" width="53" height="21"><path fill="currentColor" d="M1.88.92v.14c0 .41-.13.68-.4.8.33.14.46.44.46.86v.33c0 .61-.33.95-.95.95H0V0h.95c.65 0 .93.3.93.92zM.63.57v1.06h.24c.24 0 .38-.1.38-.43V.98c0-.28-.1-.4-.32-.4zm0 1.63v1.22h.36c.2 0 .32-.1.32-.39v-.35c0-.37-.12-.48-.4-.48H.63zM4.18.99v.52c0 .64-.31.98-.94.98h-.3V4h-.62V0h.92c.63 0 .94.35.94.99zM2.94.57v1.35h.3c.2 0 .3-.09.3-.37v-.6c0-.29-.1-.38-.3-.38h-.3zm2.89 2.27L6.25 0h.88v4h-.6V1.12L6.1 3.99h-.6l-.46-2.82v2.82h-.55V0h.87zM8.14 1.1V4h-.56V0h.79L9 2.4V0h.56v4h-.64zm2.49 2.29v.6h-.6v-.6zM12.12 1c0-.63.33-1 .95-1 .61 0 .95.37.95 1v2.04c0 .64-.34 1-.95 1-.62 0-.95-.37-.95-1zm.62 2.08c0 .28.13.39.33.39s.32-.1.32-.4V.98c0-.29-.12-.4-.32-.4s-.33.11-.33.4z"/><path fill="currentColor" d="M0 4.53h14.02v1.04H0zM11.08 0h.63v.62h-.63zm.63 4V1h-.63v2.98z"/></svg>';
-var BPMNIO_IMG = BPMNIO_LOGO_SVG;
-var LOGO_STYLES = {
-  verticalAlign: "middle"
-};
-var LINK_STYLES = {
-  color: "#404040"
-};
-var LIGHTBOX_STYLES = {
-  zIndex: "1001",
-  position: "fixed",
-  top: "0",
-  left: "0",
-  right: "0",
-  bottom: "0"
-};
-var BACKDROP_STYLES = {
-  width: "100%",
-  height: "100%",
-  background: "rgba(40,40,40,0.2)"
-};
-var NOTICE_STYLES = {
-  position: "absolute",
-  left: "50%",
-  top: "40%",
-  transform: "translate(-50%)",
-  width: "260px",
-  padding: "10px",
-  background: "white",
-  boxShadow: "0 1px 4px rgba(0,0,0,0.3)",
-  fontFamily: "Helvetica, Arial, sans-serif",
-  fontSize: "14px",
-  display: "flex",
-  lineHeight: "1.3"
-};
-var LIGHTBOX_MARKUP = '<div class="bjs-powered-by-lightbox">' + '<div class="backdrop"></div>' + '<div class="notice">' + '<a href="https://bpmn.io" target="_blank" rel="noopener" class="link">' + BPMNIO_IMG + "</a>" + "<span>" + "Web-based tooling for BPMN, DMN and forms " + 'powered by <a href="https://bpmn.io" target="_blank" rel="noopener">bpmn.io</a>.' + "</span>" + "</div>" + "</div>";
-var lightbox;
-function createLightbox() {
-  lightbox = (0,min_dom__WEBPACK_IMPORTED_MODULE_0__.domify)(LIGHTBOX_MARKUP);
-  (0,min_dom__WEBPACK_IMPORTED_MODULE_0__.assignStyle)(lightbox, LIGHTBOX_STYLES);
-  (0,min_dom__WEBPACK_IMPORTED_MODULE_0__.assignStyle)((0,min_dom__WEBPACK_IMPORTED_MODULE_0__.query)("svg", lightbox), LOGO_STYLES);
-  (0,min_dom__WEBPACK_IMPORTED_MODULE_0__.assignStyle)((0,min_dom__WEBPACK_IMPORTED_MODULE_0__.query)(".backdrop", lightbox), BACKDROP_STYLES);
-  (0,min_dom__WEBPACK_IMPORTED_MODULE_0__.assignStyle)((0,min_dom__WEBPACK_IMPORTED_MODULE_0__.query)(".notice", lightbox), NOTICE_STYLES);
-  (0,min_dom__WEBPACK_IMPORTED_MODULE_0__.assignStyle)((0,min_dom__WEBPACK_IMPORTED_MODULE_0__.query)(".link", lightbox), LINK_STYLES, {
-    margin: "15px 20px 15px 10px",
-    alignSelf: "center"
-  });
-}
-function open() {
-  if (!lightbox) {
-    createLightbox();
-    min_dom__WEBPACK_IMPORTED_MODULE_0__.delegate.bind(lightbox, ".backdrop", "click", function (event) {
-      document.body.removeChild(lightbox);
-    });
-  }
-  document.body.appendChild(lightbox);
-}
-
-/***/ }),
-
 /***/ 1081:
 /*!************************************************************************!*\
   !*** ./src/app/tools/modeler/diagram-js/features/util/TextRenderer.js ***!
@@ -4869,7 +4737,7 @@ class AppComponent {
         }
       },
       dependencies: [ngx_color_picker__WEBPACK_IMPORTED_MODULE_15__.ColorPickerDirective, _workbench_presentation_header_header_header_component__WEBPACK_IMPORTED_MODULE_9__.HeaderComponent, _workbench_presentation_settings_settings_component__WEBPACK_IMPORTED_MODULE_10__.SettingsComponent, _tools_import_directive_dragDrop_directive__WEBPACK_IMPORTED_MODULE_11__.DragDirective, _angular_common__WEBPACK_IMPORTED_MODULE_16__.AsyncPipe],
-      styles: [".content[_ngcontent-%COMP%] {\n  height: 100%;\n  overflow: hidden;\n}\n\n\n\n.headerAndCanvas[_ngcontent-%COMP%] {\n  height: 100%;\n  width: 100%;\n  display: grid;\n  grid-template-rows: min-content auto;\n  overflow: hidden;\n}\n\n.headerAndCanvasCollapsed[_ngcontent-%COMP%] {\n  height: 100%;\n  width: 100%;\n  display: grid;\n  grid-template-rows: min-content auto;\n  overflow: hidden;\n}\n\n.settings[_ngcontent-%COMP%] {\n  height: 100%;\n}\n\n.header[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-rows: min-content 155px;\n}\n\n\n\n.logoContainer[_ngcontent-%COMP%] {\n  display: flex;\n  position: absolute;\n  bottom: 0;\n  right: 100px;\n  align-items: flex-end;\n  background-color: #f7f7f8;\n  margin-bottom: 7px;\n  border-width: 1px;\n  border-radius: 2px;\n  border-style: solid;\n  border-color: #b9bcc6;\n}\n.logoContainer[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  margin-left: 7px;\n  margin-right: 7px;\n  margin-top: 7px;\n  margin-bottom: 7px;\n  align-items: center;\n}\n\n.hidden[_ngcontent-%COMP%] {\n  height: 1px;\n  width: 1px;\n}\n\n.mat-button-toggle-label-content[_ngcontent-%COMP%] {\n  font-size: 10pt !important;\n  padding: 0 5px !important;\n  line-height: inherit !important;\n}\n\n .mdc-text-field--filled:not(.mdc-text-field--disabled) {\n  background-color: white;\n}\n\nspan[_ngcontent-%COMP%]   *[_ngcontent-%COMP%] {\n  vertical-align: middle;\n}\n\nspan[_ngcontent-%COMP%] {\n  height: 24px;\n}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL3NyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsWUFBQTtFQUNBLGdCQUFBO0FBQ0Y7O0FBRUEscUJBQUE7QUFFQTtFQUNFLFlBQUE7RUFDQSxXQUFBO0VBQ0EsYUFBQTtFQUNBLG9DQUFBO0VBQ0EsZ0JBQUE7QUFBRjs7QUFHQTtFQUNFLFlBQUE7RUFDQSxXQUFBO0VBQ0EsYUFBQTtFQUNBLG9DQUFBO0VBQ0EsZ0JBQUE7QUFBRjs7QUFHQTtFQUNFLFlBQUE7QUFBRjs7QUFHQTtFQUNFLGFBQUE7RUFDQSxxQ0FBQTtBQUFGOztBQUdBLG1CQUFBO0FBRUE7RUFDRSxhQUFBO0VBQ0Esa0JBQUE7RUFDQSxTQUFBO0VBQ0EsWUFBQTtFQUNBLHFCQUFBO0VBQ0EseUJBQUE7RUFDQSxrQkFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7RUFDQSxtQkFBQTtFQUNBLHFCQUFBO0FBREY7QUFHRTtFQUNFLGdCQUFBO0VBQ0EsaUJBQUE7RUFDQSxlQUFBO0VBQ0Esa0JBQUE7RUFDQSxtQkFBQTtBQURKOztBQUtBO0VBQ0UsV0FBQTtFQUNBLFVBQUE7QUFGRjs7QUFNQTtFQUNFLDBCQUFBO0VBQ0EseUJBQUE7RUFDQSwrQkFBQTtBQUhGOztBQU1BO0VBQ0UsdUJBQUE7QUFIRjs7QUFNQTtFQUNFLHNCQUFBO0FBSEY7O0FBTUE7RUFDRSxZQUFBO0FBSEYiLCJzb3VyY2VzQ29udGVudCI6WyIuY29udGVudCB7XG4gIGhlaWdodDogMTAwJTtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbn1cblxuLyogaGVhZGVyIGFuZCBDYW52YXMqL1xuXG4uaGVhZGVyQW5kQ2FudmFzIHtcbiAgaGVpZ2h0OiAxMDAlO1xuICB3aWR0aDogMTAwJTtcbiAgZGlzcGxheTogZ3JpZDtcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBtaW4tY29udGVudCBhdXRvO1xuICBvdmVyZmxvdzogaGlkZGVuO1xufVxuXG4uaGVhZGVyQW5kQ2FudmFzQ29sbGFwc2VkIHtcbiAgaGVpZ2h0OiAxMDAlO1xuICB3aWR0aDogMTAwJTtcbiAgZGlzcGxheTogZ3JpZDtcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBtaW4tY29udGVudCBhdXRvO1xuICBvdmVyZmxvdzogaGlkZGVuO1xufVxuXG4uc2V0dGluZ3Mge1xuICBoZWlnaHQ6IDEwMCU7XG59XG5cbi5oZWFkZXIge1xuICBkaXNwbGF5OiBncmlkO1xuICBncmlkLXRlbXBsYXRlLXJvd3M6IG1pbi1jb250ZW50IDE1NXB4O1xufVxuXG4vKiBMb2dvIENvbnRhaW5lciAqL1xuXG4ubG9nb0NvbnRhaW5lciB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgYm90dG9tOiAwO1xuICByaWdodDogMTAwcHg7XG4gIGFsaWduLWl0ZW1zOiBmbGV4LWVuZDtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2Y3ZjdmODtcbiAgbWFyZ2luLWJvdHRvbTogN3B4O1xuICBib3JkZXItd2lkdGg6IDFweDtcbiAgYm9yZGVyLXJhZGl1czogMnB4O1xuICBib3JkZXItc3R5bGU6IHNvbGlkO1xuICBib3JkZXItY29sb3I6ICNiOWJjYzY7XG5cbiAgc3BhbiB7XG4gICAgbWFyZ2luLWxlZnQ6IDdweDtcbiAgICBtYXJnaW4tcmlnaHQ6IDdweDtcbiAgICBtYXJnaW4tdG9wOiA3cHg7XG4gICAgbWFyZ2luLWJvdHRvbTogN3B4O1xuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gIH1cbn1cblxuLmhpZGRlbiB7XG4gIGhlaWdodDogMXB4O1xuICB3aWR0aDogMXB4O1xufVxuXG4vLyBNYXRlcmlhbCBEZXNpZ24gT3ZlcnJpZGVzXG4ubWF0LWJ1dHRvbi10b2dnbGUtbGFiZWwtY29udGVudCB7XG4gIGZvbnQtc2l6ZTogMTBwdCAhaW1wb3J0YW50O1xuICBwYWRkaW5nOiAwIDVweCAhaW1wb3J0YW50O1xuICBsaW5lLWhlaWdodDogaW5oZXJpdCAhaW1wb3J0YW50O1xufVxuXG46Om5nLWRlZXAubWRjLXRleHQtZmllbGQtLWZpbGxlZDpub3QoLm1kYy10ZXh0LWZpZWxkLS1kaXNhYmxlZCkge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcbn1cblxuc3BhbiAqIHtcbiAgdmVydGljYWwtYWxpZ246IG1pZGRsZTtcbn1cblxuc3BhbiB7XG4gIGhlaWdodDogMjRweDtcbn1cbiJdLCJzb3VyY2VSb290IjoiIn0= */"]
+      styles: [".content[_ngcontent-%COMP%] {\n  height: 100%;\n  overflow: hidden;\n}\n\n\n\n.headerAndCanvas[_ngcontent-%COMP%] {\n  height: 100%;\n  width: 100%;\n  display: grid;\n  grid-template-rows: min-content auto;\n  overflow: hidden;\n}\n\n.headerAndCanvasCollapsed[_ngcontent-%COMP%] {\n  height: 100%;\n  width: 100%;\n  display: grid;\n  grid-template-rows: min-content auto;\n  overflow: hidden;\n}\n\n.settings[_ngcontent-%COMP%] {\n  height: 100%;\n}\n\n.header[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-rows: min-content 155px;\n}\n\n\n\n.logoContainer[_ngcontent-%COMP%] {\n  display: flex;\n  position: absolute;\n  bottom: 0;\n  right: 4px;\n  align-items: flex-end;\n  background-color: #f7f7f8;\n  margin-bottom: 4px;\n  border-width: 1px;\n  border-radius: 2px;\n  border-style: solid;\n  border-color: #b9bcc6;\n}\n.logoContainer[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  margin-left: 7px;\n  margin-right: 7px;\n  margin-top: 7px;\n  margin-bottom: 7px;\n  align-items: center;\n}\n\n.hidden[_ngcontent-%COMP%] {\n  height: 1px;\n  width: 1px;\n}\n\n.mat-button-toggle-label-content[_ngcontent-%COMP%] {\n  font-size: 10pt !important;\n  padding: 0 5px !important;\n  line-height: inherit !important;\n}\n\n .mdc-text-field--filled:not(.mdc-text-field--disabled) {\n  background-color: white;\n}\n\nspan[_ngcontent-%COMP%]   *[_ngcontent-%COMP%] {\n  vertical-align: middle;\n}\n\nspan[_ngcontent-%COMP%] {\n  height: 24px;\n}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL3NyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsWUFBQTtFQUNBLGdCQUFBO0FBQ0Y7O0FBRUEscUJBQUE7QUFFQTtFQUNFLFlBQUE7RUFDQSxXQUFBO0VBQ0EsYUFBQTtFQUNBLG9DQUFBO0VBQ0EsZ0JBQUE7QUFBRjs7QUFHQTtFQUNFLFlBQUE7RUFDQSxXQUFBO0VBQ0EsYUFBQTtFQUNBLG9DQUFBO0VBQ0EsZ0JBQUE7QUFBRjs7QUFHQTtFQUNFLFlBQUE7QUFBRjs7QUFHQTtFQUNFLGFBQUE7RUFDQSxxQ0FBQTtBQUFGOztBQUdBLG1CQUFBO0FBRUE7RUFDRSxhQUFBO0VBQ0Esa0JBQUE7RUFDQSxTQUFBO0VBQ0EsVUFBQTtFQUNBLHFCQUFBO0VBQ0EseUJBQUE7RUFDQSxrQkFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7RUFDQSxtQkFBQTtFQUNBLHFCQUFBO0FBREY7QUFHRTtFQUNFLGdCQUFBO0VBQ0EsaUJBQUE7RUFDQSxlQUFBO0VBQ0Esa0JBQUE7RUFDQSxtQkFBQTtBQURKOztBQUtBO0VBQ0UsV0FBQTtFQUNBLFVBQUE7QUFGRjs7QUFNQTtFQUNFLDBCQUFBO0VBQ0EseUJBQUE7RUFDQSwrQkFBQTtBQUhGOztBQU1BO0VBQ0UsdUJBQUE7QUFIRjs7QUFNQTtFQUNFLHNCQUFBO0FBSEY7O0FBTUE7RUFDRSxZQUFBO0FBSEYiLCJzb3VyY2VzQ29udGVudCI6WyIuY29udGVudCB7XG4gIGhlaWdodDogMTAwJTtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbn1cblxuLyogaGVhZGVyIGFuZCBDYW52YXMqL1xuXG4uaGVhZGVyQW5kQ2FudmFzIHtcbiAgaGVpZ2h0OiAxMDAlO1xuICB3aWR0aDogMTAwJTtcbiAgZGlzcGxheTogZ3JpZDtcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBtaW4tY29udGVudCBhdXRvO1xuICBvdmVyZmxvdzogaGlkZGVuO1xufVxuXG4uaGVhZGVyQW5kQ2FudmFzQ29sbGFwc2VkIHtcbiAgaGVpZ2h0OiAxMDAlO1xuICB3aWR0aDogMTAwJTtcbiAgZGlzcGxheTogZ3JpZDtcbiAgZ3JpZC10ZW1wbGF0ZS1yb3dzOiBtaW4tY29udGVudCBhdXRvO1xuICBvdmVyZmxvdzogaGlkZGVuO1xufVxuXG4uc2V0dGluZ3Mge1xuICBoZWlnaHQ6IDEwMCU7XG59XG5cbi5oZWFkZXIge1xuICBkaXNwbGF5OiBncmlkO1xuICBncmlkLXRlbXBsYXRlLXJvd3M6IG1pbi1jb250ZW50IDE1NXB4O1xufVxuXG4vKiBMb2dvIENvbnRhaW5lciAqL1xuXG4ubG9nb0NvbnRhaW5lciB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgYm90dG9tOiAwO1xuICByaWdodDogNHB4O1xuICBhbGlnbi1pdGVtczogZmxleC1lbmQ7XG4gIGJhY2tncm91bmQtY29sb3I6ICNmN2Y3Zjg7XG4gIG1hcmdpbi1ib3R0b206IDRweDtcbiAgYm9yZGVyLXdpZHRoOiAxcHg7XG4gIGJvcmRlci1yYWRpdXM6IDJweDtcbiAgYm9yZGVyLXN0eWxlOiBzb2xpZDtcbiAgYm9yZGVyLWNvbG9yOiAjYjliY2M2O1xuXG4gIHNwYW4ge1xuICAgIG1hcmdpbi1sZWZ0OiA3cHg7XG4gICAgbWFyZ2luLXJpZ2h0OiA3cHg7XG4gICAgbWFyZ2luLXRvcDogN3B4O1xuICAgIG1hcmdpbi1ib3R0b206IDdweDtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICB9XG59XG5cbi5oaWRkZW4ge1xuICBoZWlnaHQ6IDFweDtcbiAgd2lkdGg6IDFweDtcbn1cblxuLy8gTWF0ZXJpYWwgRGVzaWduIE92ZXJyaWRlc1xuLm1hdC1idXR0b24tdG9nZ2xlLWxhYmVsLWNvbnRlbnQge1xuICBmb250LXNpemU6IDEwcHQgIWltcG9ydGFudDtcbiAgcGFkZGluZzogMCA1cHggIWltcG9ydGFudDtcbiAgbGluZS1oZWlnaHQ6IGluaGVyaXQgIWltcG9ydGFudDtcbn1cblxuOjpuZy1kZWVwLm1kYy10ZXh0LWZpZWxkLS1maWxsZWQ6bm90KC5tZGMtdGV4dC1maWVsZC0tZGlzYWJsZWQpIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG59XG5cbnNwYW4gKiB7XG4gIHZlcnRpY2FsLWFsaWduOiBtaWRkbGU7XG59XG5cbnNwYW4ge1xuICBoZWlnaHQ6IDI0cHg7XG59XG4iXSwic291cmNlUm9vdCI6IiJ9 */"]
     });
   }
 }
@@ -5203,7 +5071,6 @@ var ElementTypes;
   ElementTypes["WORKOBJECT"] = "domainStory:workObject";
   ElementTypes["GROUP"] = "domainStory:group";
   ElementTypes["TEXTANNOTATION"] = "domainStory:textAnnotation";
-  ElementTypes["DOMAINSTORY"] = "domainStory:";
 })(ElementTypes || (ElementTypes = {}));
 (function (ElementTypes) {
   function getIconId(type) {
