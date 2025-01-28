@@ -9,8 +9,11 @@ toc_sticky: true
 > Have you used an earlier version of *Egon v2* or *latest build*? Please follow these [instructions](https://egon.io/howto#launching-egon) for updating to the newest version.
 
 ## Latest Build
-
-- Unused attributes were removed from .egn file format. Even though this change is compatible (Egon 2.x can import the new file format, Egon 3.x can import the old file format)
+### a.k.a. v3.0.0-beta
+- `Feature`: A collapsible "mini map" makes it easier to find the story on the canvas. [See #195](https://github.com/WPS/egon.io/issues/195)
+- `Feature`: Groups can now be created on top of other elements. Their default size was decreased to avoid unintentionally grouping too many elements. [See #203](https://github.com/WPS/egon.io/issues/203)
+- `Fix`: For some stories created with v1, colors were not imported correctly. [See #201](https://github.com/WPS/egon.io/issues/201)
+- Unused attributes were removed from .egn file format. This change is compatible (Egon 2.x can import the new file format, Egon 3.x can import the old file format). However, users who keep their files in a repository will see structural changes in their files when diffing versions of a file created with v2.
   
 > Breaking Changes
 - touch input is no longer supported (the developers of the diagramming framework that Egon uses dropped touch support because it was buggy)
