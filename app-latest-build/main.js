@@ -2003,9 +2003,6 @@ function canConnectToAnnotation(source, target, connection) {
   // do not allow an annotation connection between an actor or workObject and anything except an annotation
   return !(isConnection(connection) && !isAnnotation(target) && (isActor(source) || isWorkObject(source)));
 }
-/**
- * specific rules for custom elements
- */
 function DomainStoryRules(eventBus) {
   diagram_js_lib_features_rules_RuleProvider__WEBPACK_IMPORTED_MODULE_4__["default"].call(this, eventBus);
 }
@@ -3055,36 +3052,20 @@ function DSModeling(eventBus, elementFactory, commandStack, domainStoryRules) {
 }
 diagram_js_lib_features_modeling_Modeling__WEBPACK_IMPORTED_MODULE_1__["default"].prototype.updateLabel = function (element, newLabel, newBounds) {
   if (element.businessObject ? newLabel !== element.businessObject.name : newLabel !== element.name) {
-    if (/^domainStory:/.test(element.type)) {
-      this._commandStack.execute("element.updateCustomLabel", {
-        element: element,
-        newLabel: newLabel,
-        newBounds: newBounds
-      });
-    } else {
-      this._commandStack.execute("element.updateLabel", {
-        element: element,
-        newLabel: newLabel,
-        newBounds: newBounds
-      });
-    }
+    this._commandStack.execute("element.updateLabel", {
+      element: element,
+      newLabel: newLabel,
+      newBounds: newBounds
+    });
   }
 };
 diagram_js_lib_features_modeling_Modeling__WEBPACK_IMPORTED_MODULE_1__["default"].prototype.updateNumber = function (element, newNumber, newBounds) {
   if (element.businessObject ? newNumber !== element.businessObject.number : newNumber !== element.number) {
-    if (/^domainStory:/.test(element.type)) {
-      this._commandStack.execute("element.updateCustomLabel", {
-        element: element,
-        newNumber: newNumber,
-        newBounds: newBounds
-      });
-    } else {
-      this._commandStack.execute("element.updateLabel", {
-        element: element,
-        newNumber: newNumber,
-        newBounds: newBounds
-      });
-    }
+    this._commandStack.execute("element.updateLabel", {
+      element: element,
+      newNumber: newNumber,
+      newBounds: newBounds
+    });
   }
 };
 diagram_js_lib_features_modeling_Modeling__WEBPACK_IMPORTED_MODULE_1__["default"].prototype.replaceShape = function (oldShape, newShape, hints) {
@@ -3991,7 +3972,7 @@ const NULL_DIMENSIONS = {
  * a handler that updates the text or label of an element.
  */
 function UpdateLabelHandler(modeling, textRenderer, commandStack) {
-  commandStack.registerHandler("element.updateCustomLabel", handlerFunction);
+  commandStack.registerHandler("element.updateLabel", handlerFunction);
   function handlerFunction() {
     this.execute = function (ctx) {
       ctx.oldLabel = (0,_labeling_dsLabelUtil__WEBPACK_IMPORTED_MODULE_0__.getLabel)(ctx.element);
