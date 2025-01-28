@@ -1234,9 +1234,6 @@ __webpack_require__.r(__webpack_exports__);
 let RENDERER_IDS = new ids__WEBPACK_IMPORTED_MODULE_0__["default"]();
 let numbers = [];
 const DEFAULT_COLOR = "#000000";
-/**
- * a renderer that knows how to render custom elements.
- */
 let _iconDictionaryService;
 let _elementRegistryService;
 let _dirtyFlagService;
@@ -2227,23 +2224,10 @@ function DomainStoryUpdater(eventBus, egon, connectionDocking) {
   this.reverted(["connection.layout"], function (e) {
     delete e.context.cropped;
   });
-  this.executed(["shape.create", "shape.move", "shape.delete", "shape.resize", "shape.removeGroupWithChildren"], ifDomainStoryElement(updateElement));
-  this.reverted(["shape.create", "shape.move", "shape.delete", "shape.resize", "shape.removeGroupWithChildren"], ifDomainStoryElement(updateElement));
-  this.executed(["connection.create", "connection.reconnect", "connection.updateWaypoints", "connection.delete", "connection.layout", "connection.move"], ifDomainStoryElement(updateConnection));
-  this.reverted(["connection.create", "connection.reconnect", "connection.updateWaypoints", "connection.delete", "connection.layout", "connection.move"], ifDomainStoryElement(updateConnection));
-}
-// check if element in the context of an event is a domainStory element
-function ifDomainStoryElement(fn) {
-  return event => {
-    const context = event.context;
-    const element = context.shape || context.connection;
-    if (isDomainStory(element)) {
-      fn(event);
-    }
-  };
-}
-function isDomainStory(element) {
-  return element && /domainStory:/.test(element.type);
+  this.executed(["shape.create", "shape.move", "shape.delete", "shape.resize", "shape.removeGroupWithChildren"], updateElement);
+  this.reverted(["shape.create", "shape.move", "shape.delete", "shape.resize", "shape.removeGroupWithChildren"], updateElement);
+  this.executed(["connection.create", "connection.reconnect", "connection.updateWaypoints", "connection.delete", "connection.layout", "connection.move"], updateConnection);
+  this.reverted(["connection.create", "connection.reconnect", "connection.updateWaypoints", "connection.delete", "connection.layout", "connection.move"], updateConnection);
 }
 inherits__WEBPACK_IMPORTED_MODULE_0___default()(DomainStoryUpdater, diagram_js_lib_command_CommandInterceptor__WEBPACK_IMPORTED_MODULE_3__["default"]);
 DomainStoryUpdater.$inject = ["eventBus", "egon", "connectionDocking"];
