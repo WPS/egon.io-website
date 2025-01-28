@@ -1041,83 +1041,74 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const DEFAULT_LABEL_SIZE = {
-  width: 90,
-  height: 20
-};
 function DomainStoryElementFactory() {
   let self = this;
   let domainStoryIdFactory = new _domainStoryIdFactory__WEBPACK_IMPORTED_MODULE_1__["default"]();
   /**
-   * create a diagram-js element with the given type (any of shape, connection, label).
+   * create a diagram-js element
    *
-   * @param  {String} elementType
+   * @param  {String} djsElementType
    * @param  {Object} attrs
    *
    * @return {djs.model.Base}
    */
-  this.create = function (elementType, attrs) {
-    let type = attrs.type;
-    if (elementType === "label") {
-      return self.baseCreate(elementType, (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)({
-        type: "label"
-      }, DEFAULT_LABEL_SIZE, attrs));
+  this.create = function (djsElementType, attrs) {
+    let dstElementType = attrs.type;
+    if (!attrs.businessObject) {
+      attrs.businessObject = {
+        type: dstElementType,
+        name: attrs.name ? attrs.name : ""
+      };
     }
-    // add type to businessObject if custom
-    if (/^domainStory:/.test(type)) {
-      if (!attrs.businessObject) {
-        attrs.businessObject = {
-          type: type,
-          name: attrs.name ? attrs.name : ""
-        };
+    if (attrs.id) {
+      domainStoryIdFactory.registerId(attrs.id);
+    } else {
+      attrs.id = domainStoryIdFactory.getId(djsElementType);
+    }
+    (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)(attrs.businessObject, {
+      id: attrs.id
+    });
+    let id = attrs.id;
+    attrs.businessObject.get = function (key) {
+      if (key === "id") {
+        return id;
       }
-      if (attrs.id) {
-        domainStoryIdFactory.registerId(attrs.id);
-      } else {
-        attrs.id = domainStoryIdFactory.getId(elementType);
-      }
-      (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)(attrs.businessObject, {
-        id: attrs.id
-      });
-      let id = attrs.id;
-      attrs.businessObject.get = function (key) {
-        if (key === "id") {
-          return id;
-        }
-      };
-      attrs.businessObject.set = function (key, value) {
-        if (key === "id") {
-          (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)(attrs.businessObject, {
-            id: value
-          });
-        }
-      };
-      // add width and height if shape
-      if ((!/:activity$/.test(type) || !/:connection$/.test(type)) && !(/:group$/.test(type) && attrs.height || attrs.width)) {
-        (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)(attrs, self._getCustomElementSize(type));
-      }
-      if (!("$instanceOf" in attrs.businessObject)) {
-        // ensure we can use ModelUtil#is for type checks
-        Object.defineProperty(attrs.businessObject, "$instanceOf", {
-          value: function (type) {
-            return this.type === type;
-          }
+    };
+    attrs.businessObject.set = function (key, value) {
+      if (key === "id") {
+        (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)(attrs.businessObject, {
+          id: value
         });
       }
-      return self.baseCreate(elementType, attrs);
+    };
+    // add width and height if shape
+    if (djsElementType === "shape") {
+      let alreadyHasSize = attrs.height || attrs.width; // if a story is imported, groups and annotations already have dimensions; we must not overwrite them with default values
+      if (!alreadyHasSize) {
+        (0,min_dash__WEBPACK_IMPORTED_MODULE_3__.assign)(attrs, self._getShapeSize(dstElementType));
+      }
     }
+    if (!("$instanceOf" in attrs.businessObject)) {
+      // ensure we can use ModelUtil#is for type checks
+      Object.defineProperty(attrs.businessObject, "$instanceOf", {
+        value: function (type) {
+          return this.type === type;
+        }
+      });
+    }
+    return self.baseCreate(djsElementType, attrs);
   };
 }
 inherits__WEBPACK_IMPORTED_MODULE_0___default()(DomainStoryElementFactory, diagram_js_lib_core_ElementFactory__WEBPACK_IMPORTED_MODULE_4__["default"]);
 DomainStoryElementFactory.prototype.baseCreate = diagram_js_lib_core_ElementFactory__WEBPACK_IMPORTED_MODULE_4__["default"].prototype.create;
 /**
- * returns the default size of custom shapes.
+ * returns the default size for shapes.
  * *
- * @param {String} type
+ * @param {String} dstElementType
  *
  * @return {Dimensions} a {width, height} object representing the size of the element
  */
-DomainStoryElementFactory.prototype._getCustomElementSize = function (type) {
+DomainStoryElementFactory.prototype._getShapeSize = function (dstElementType) {
   let shapes = {
     __default: {
       width: 75,
@@ -1132,7 +1123,7 @@ DomainStoryElementFactory.prototype._getCustomElementSize = function (type) {
       height: 200
     }
   };
-  return shapes[type] || shapes.__default;
+  return shapes[dstElementType] || shapes.__default;
 };
 class Dimensions {}
 
