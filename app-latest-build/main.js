@@ -4362,29 +4362,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ DomainStoryModeler)
 /* harmony export */ });
 /* harmony import */ var _BaseViewer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BaseViewer */ 2523);
-/* harmony import */ var diagram_js_lib_features_resize__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! diagram-js/lib/features/resize */ 844);
-/* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! min-dash */ 1410);
+/* harmony import */ var diagram_js_lib_features_resize__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! diagram-js/lib/features/resize */ 844);
+/* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! min-dash */ 1410);
 /* harmony import */ var inherits__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! inherits */ 450);
 /* harmony import */ var inherits__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(inherits__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _features__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./features */ 6348);
 /* harmony import */ var _features_labeling__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./features/labeling */ 7211);
 /* harmony import */ var _features_modeling__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./features/modeling */ 38);
 /* harmony import */ var _domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../domain/entities/elementTypes */ 3190);
-/* harmony import */ var diagram_js_lib_navigation_movecanvas__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! diagram-js/lib/navigation/movecanvas */ 6962);
-/* harmony import */ var diagram_js_lib_navigation_keyboard_move__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! diagram-js/lib/navigation/keyboard-move */ 9612);
-/* harmony import */ var diagram_js_lib_navigation_zoomscroll__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! diagram-js/lib/navigation/zoomscroll */ 8901);
-/* harmony import */ var diagram_js_lib_features_move__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! diagram-js/lib/features/move */ 4569);
-/* harmony import */ var diagram_js_lib_features_bendpoints__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! diagram-js/lib/features/bendpoints */ 1068);
-/* harmony import */ var diagram_js_lib_features_connection_preview__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! diagram-js/lib/features/connection-preview */ 4205);
+/* harmony import */ var diagram_js_lib_navigation_movecanvas__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! diagram-js/lib/navigation/movecanvas */ 6962);
+/* harmony import */ var diagram_js_lib_navigation_keyboard_move__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! diagram-js/lib/navigation/keyboard-move */ 9612);
+/* harmony import */ var diagram_js_lib_navigation_zoomscroll__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! diagram-js/lib/navigation/zoomscroll */ 8901);
+/* harmony import */ var diagram_js_lib_features_move__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! diagram-js/lib/features/move */ 4569);
+/* harmony import */ var diagram_js_lib_features_bendpoints__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! diagram-js/lib/features/bendpoints */ 1068);
+/* harmony import */ var diagram_js_lib_features_connection_preview__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! diagram-js/lib/features/connection-preview */ 4205);
 /* harmony import */ var _features_copyPaste__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./features/copyPaste */ 5223);
-/* harmony import */ var diagram_js_lib_features_space_tool__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! diagram-js/lib/features/space-tool */ 8363);
-/* harmony import */ var diagram_js_lib_features_lasso_tool__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! diagram-js/lib/features/lasso-tool */ 707);
-/* harmony import */ var diagram_js_lib_features_hand_tool__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! diagram-js/lib/features/hand-tool */ 4590);
-/* harmony import */ var diagram_js_lib_features_connect__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! diagram-js/lib/features/connect */ 262);
-/* harmony import */ var diagram_js_lib_features_keyboard__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! diagram-js/lib/features/keyboard */ 6329);
-/* harmony import */ var diagram_js_lib_features_editor_actions__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! diagram-js/lib/features/editor-actions */ 6919);
-/* harmony import */ var diagram_js_lib_features_snapping__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! diagram-js/lib/features/snapping */ 2760);
+/* harmony import */ var diagram_js_lib_features_space_tool__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! diagram-js/lib/features/space-tool */ 8363);
+/* harmony import */ var diagram_js_lib_features_lasso_tool__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! diagram-js/lib/features/lasso-tool */ 707);
+/* harmony import */ var diagram_js_lib_features_hand_tool__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! diagram-js/lib/features/hand-tool */ 4590);
+/* harmony import */ var diagram_js_lib_features_connect__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! diagram-js/lib/features/connect */ 262);
+/* harmony import */ var diagram_js_lib_features_keyboard__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! diagram-js/lib/features/keyboard */ 6329);
+/* harmony import */ var diagram_js_lib_features_editor_actions__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! diagram-js/lib/features/editor-actions */ 6919);
+/* harmony import */ var diagram_js_lib_features_snapping__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! diagram-js/lib/features/snapping */ 2760);
 /* harmony import */ var _features_shortcuts__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./features/shortcuts */ 4004);
+/* harmony import */ var diagram_js_minimap__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! diagram-js-minimap */ 9843);
+
 
 
 
@@ -4414,13 +4416,15 @@ function DomainStoryModeler(options) {
   this._groupElements = [];
 }
 inherits__WEBPACK_IMPORTED_MODULE_1___default()(DomainStoryModeler, _BaseViewer__WEBPACK_IMPORTED_MODULE_0__["default"]);
-DomainStoryModeler.prototype._modules = [].concat([_features__WEBPACK_IMPORTED_MODULE_2__["default"], _features_labeling__WEBPACK_IMPORTED_MODULE_3__["default"], _features_modeling__WEBPACK_IMPORTED_MODULE_4__["default"]], [diagram_js_lib_features_resize__WEBPACK_IMPORTED_MODULE_8__["default"]], [diagram_js_lib_features_space_tool__WEBPACK_IMPORTED_MODULE_9__["default"], diagram_js_lib_features_lasso_tool__WEBPACK_IMPORTED_MODULE_10__["default"], diagram_js_lib_features_hand_tool__WEBPACK_IMPORTED_MODULE_11__["default"]], [diagram_js_lib_navigation_movecanvas__WEBPACK_IMPORTED_MODULE_12__["default"], diagram_js_lib_navigation_keyboard_move__WEBPACK_IMPORTED_MODULE_13__["default"], diagram_js_lib_navigation_zoomscroll__WEBPACK_IMPORTED_MODULE_14__["default"]],
+DomainStoryModeler.prototype._modules = [].concat([_features__WEBPACK_IMPORTED_MODULE_2__["default"], _features_labeling__WEBPACK_IMPORTED_MODULE_3__["default"], _features_modeling__WEBPACK_IMPORTED_MODULE_4__["default"]], [diagram_js_lib_features_resize__WEBPACK_IMPORTED_MODULE_9__["default"]], [diagram_js_lib_features_space_tool__WEBPACK_IMPORTED_MODULE_10__["default"], diagram_js_lib_features_lasso_tool__WEBPACK_IMPORTED_MODULE_11__["default"], diagram_js_lib_features_hand_tool__WEBPACK_IMPORTED_MODULE_12__["default"]], [diagram_js_lib_navigation_movecanvas__WEBPACK_IMPORTED_MODULE_13__["default"], diagram_js_lib_navigation_keyboard_move__WEBPACK_IMPORTED_MODULE_14__["default"], diagram_js_lib_navigation_zoomscroll__WEBPACK_IMPORTED_MODULE_15__["default"]],
 // Navigation on Canvas
-[diagram_js_lib_features_move__WEBPACK_IMPORTED_MODULE_15__["default"], diagram_js_lib_features_bendpoints__WEBPACK_IMPORTED_MODULE_16__["default"], diagram_js_lib_features_connection_preview__WEBPACK_IMPORTED_MODULE_17__["default"], _features_copyPaste__WEBPACK_IMPORTED_MODULE_6__["default"], diagram_js_lib_features_connect__WEBPACK_IMPORTED_MODULE_18__["default"]],
+[diagram_js_lib_features_move__WEBPACK_IMPORTED_MODULE_16__["default"], diagram_js_lib_features_bendpoints__WEBPACK_IMPORTED_MODULE_17__["default"], diagram_js_lib_features_connection_preview__WEBPACK_IMPORTED_MODULE_18__["default"], _features_copyPaste__WEBPACK_IMPORTED_MODULE_6__["default"], diagram_js_lib_features_connect__WEBPACK_IMPORTED_MODULE_19__["default"]],
 // Move/Create/Alter Elements
-[diagram_js_lib_features_keyboard__WEBPACK_IMPORTED_MODULE_19__["default"], diagram_js_lib_features_editor_actions__WEBPACK_IMPORTED_MODULE_20__["default"], _features_shortcuts__WEBPACK_IMPORTED_MODULE_7__["default"]],
+[diagram_js_lib_features_keyboard__WEBPACK_IMPORTED_MODULE_20__["default"], diagram_js_lib_features_editor_actions__WEBPACK_IMPORTED_MODULE_21__["default"], _features_shortcuts__WEBPACK_IMPORTED_MODULE_7__["default"]],
 // Shortcuts
-[diagram_js_lib_features_snapping__WEBPACK_IMPORTED_MODULE_21__["default"]]);
+[diagram_js_lib_features_snapping__WEBPACK_IMPORTED_MODULE_22__["default"]],
+// Alignment
+[diagram_js_minimap__WEBPACK_IMPORTED_MODULE_8__["default"]]);
 DomainStoryModeler.prototype._createElementFromBusinessObject = function (bo) {
   let parentId = bo.parent;
   delete bo.children;
@@ -4428,7 +4432,7 @@ DomainStoryModeler.prototype._createElementFromBusinessObject = function (bo) {
   this._elements.push(bo);
   let canvas = this.get("canvas"),
     elementFactory = this.get("elementFactory");
-  let attributes = (0,min_dash__WEBPACK_IMPORTED_MODULE_22__.assign)({
+  let attributes = (0,min_dash__WEBPACK_IMPORTED_MODULE_23__.assign)({
     businessObject: bo
   }, bo);
   let shape = elementFactory.create("shape", attributes);
@@ -4448,10 +4452,10 @@ DomainStoryModeler.prototype._addConnection = function (element) {
   let canvas = this.get("canvas"),
     elementFactory = this.get("elementFactory"),
     elementRegistry = this.get("elementRegistry");
-  let attributes = (0,min_dash__WEBPACK_IMPORTED_MODULE_22__.assign)({
+  let attributes = (0,min_dash__WEBPACK_IMPORTED_MODULE_23__.assign)({
     businessObject: element
   }, element);
-  let connection = elementFactory.create("connection", (0,min_dash__WEBPACK_IMPORTED_MODULE_22__.assign)(attributes, {
+  let connection = elementFactory.create("connection", (0,min_dash__WEBPACK_IMPORTED_MODULE_23__.assign)(attributes, {
     source: elementRegistry.get(element.source),
     target: elementRegistry.get(element.target)
   }), elementRegistry.get(element.source).parent);
@@ -4461,7 +4465,7 @@ DomainStoryModeler.prototype.importBusinessObjects = function (businessObjects) 
   this.get("eventBus").fire("diagram.clear", {});
   this._elements = [];
   this._groupElements = [];
-  if (!(0,min_dash__WEBPACK_IMPORTED_MODULE_22__.isArray)(businessObjects)) {
+  if (!(0,min_dash__WEBPACK_IMPORTED_MODULE_23__.isArray)(businessObjects)) {
     throw new Error("argument must be an array");
   }
   let connections = [],
