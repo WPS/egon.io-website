@@ -5866,7 +5866,7 @@ class AutosavedDraftsComponent {
     this.initDrafts();
   }
   initDrafts() {
-    this.drafts = this.autosaveService.loadCurrentDrafts();
+    this.drafts = this.autosaveService.getDrafts();
   }
   loadDraft(draft) {
     this.autosaveService.loadDraft(draft);
@@ -6050,20 +6050,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   AutosaveService: () => (/* binding */ AutosaveService)
 /* harmony export */ });
-/* harmony import */ var _domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../domain/entities/elementTypes */ 3190);
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! rxjs */ 3150);
-/* harmony import */ var _domain_entities_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../domain/entities/constants */ 550);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/core */ 6623);
-/* harmony import */ var _autosave_configuration_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./autosave-configuration.service */ 3659);
-/* harmony import */ var _export_services_export_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../export/services/export.service */ 9595);
-/* harmony import */ var _icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../icon-set-config/services/icon-dictionary.service */ 6932);
-/* harmony import */ var _modeler_services_renderer_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../modeler/services/renderer.service */ 3812);
-/* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/material/snack-bar */ 382);
-/* harmony import */ var _domain_services_storage_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../domain/services/storage.service */ 624);
-/* harmony import */ var _title_services_title_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../title/services/title.service */ 1535);
-/* harmony import */ var _icon_set_config_services_icon_set_import_export_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../icon-set-config/services/icon-set-import-export.service */ 3103);
-
-
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs */ 3150);
+/* harmony import */ var _domain_entities_constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../domain/entities/constants */ 550);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/core */ 6623);
+/* harmony import */ var _autosave_configuration_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./autosave-configuration.service */ 3659);
+/* harmony import */ var _export_services_export_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../export/services/export.service */ 9595);
+/* harmony import */ var _modeler_services_renderer_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../modeler/services/renderer.service */ 3812);
+/* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/material/snack-bar */ 382);
+/* harmony import */ var _domain_services_storage_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../domain/services/storage.service */ 624);
+/* harmony import */ var _title_services_title_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../title/services/title.service */ 1535);
+/* harmony import */ var _icon_set_config_services_icon_set_import_export_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../icon-set-config/services/icon-set-import-export.service */ 3103);
 
 
 
@@ -6075,19 +6071,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class AutosaveService {
-  constructor(autosaveConfiguration, exportService, iconDictionaryService, rendererService, snackbar, storageService, titleService, iconSetImportExportService) {
+  constructor(autosaveConfiguration, exportService, rendererService, snackbar, storageService, titleService, iconSetImportExportService) {
     this.autosaveConfiguration = autosaveConfiguration;
     this.exportService = exportService;
-    this.iconDictionaryService = iconDictionaryService;
     this.rendererService = rendererService;
     this.snackbar = snackbar;
     this.storageService = storageService;
     this.titleService = titleService;
     this.iconSetImportExportService = iconSetImportExportService;
-    this.autosavedDraftsChanged$ = new rxjs__WEBPACK_IMPORTED_MODULE_9__.Subject();
+    this.autosavedDraftsChanged$ = new rxjs__WEBPACK_IMPORTED_MODULE_7__.Subject();
     this.autosaveConfiguration.configuration$.subscribe(configuration => this.updateConfiguration(configuration));
   }
-  loadCurrentDrafts() {
+  getDrafts() {
     const drafts = this.readDrafts();
     this.sortDrafts(drafts);
     return drafts;
@@ -6097,13 +6092,10 @@ class AutosaveService {
     const config = this.iconSetImportExportService.createIconSetConfiguration(configFromFile);
     const story = JSON.parse(draft.configAndDST.dst);
     this.titleService.updateTitleAndDescription(draft.title, draft.description, false);
-    const actorIcons = this.iconDictionaryService.getElementsOfType(story, _domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTOR);
-    const workObjectIcons = this.iconDictionaryService.getElementsOfType(story, _domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.WORKOBJECT);
-    this.iconDictionaryService.updateIconRegistries(actorIcons, workObjectIcons, config);
     this.rendererService.importStory(story, config, false);
   }
   removeAllDrafts() {
-    this.storageService.set(_domain_entities_constants__WEBPACK_IMPORTED_MODULE_1__.DRAFTS_KEY, []);
+    this.storageService.set(_domain_entities_constants__WEBPACK_IMPORTED_MODULE_0__.DRAFTS_KEY, []);
     this.autosavedDraftsChanged$.next();
   }
   loadLatestDraft() {
@@ -6127,7 +6119,7 @@ class AutosaveService {
   }
   startTimer(interval, maxDrafts) {
     this.autosaveTimer = setInterval(() => {
-      const savedDrafts = this.loadCurrentDrafts();
+      const savedDrafts = this.getDrafts();
       const newDraft = this.createDraft();
       let isChanged = maxDrafts > 0;
       if (savedDrafts.length > 0) {
@@ -6140,8 +6132,8 @@ class AutosaveService {
         }
         this.writeDrafts(savedDrafts);
         this.snackbar.open('Draft Saved', undefined, {
-          panelClass: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_1__.SNACKBAR_INFO,
-          duration: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_1__.SNACKBAR_DURATION
+          panelClass: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_0__.SNACKBAR_INFO,
+          duration: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_0__.SNACKBAR_DURATION
         });
         this.autosavedDraftsChanged$.next();
       }
@@ -6151,16 +6143,16 @@ class AutosaveService {
     const configAndDST = draft.configAndDST ?? {
       dst: '[]'
     };
-    return draft.title === _domain_entities_constants__WEBPACK_IMPORTED_MODULE_1__.INITIAL_TITLE && draft.description === _domain_entities_constants__WEBPACK_IMPORTED_MODULE_1__.INITIAL_DESCRIPTION && JSON.parse(configAndDST.dst).length === 0;
+    return draft.title === _domain_entities_constants__WEBPACK_IMPORTED_MODULE_0__.INITIAL_TITLE && draft.description === _domain_entities_constants__WEBPACK_IMPORTED_MODULE_0__.INITIAL_DESCRIPTION && JSON.parse(configAndDST.dst).length === 0;
   }
   isSame(a, b) {
     return a.title === b.title && a.description === b.description && JSON.stringify(a.configAndDST) === JSON.stringify(b.configAndDST);
   }
   writeDrafts(drafts) {
-    this.storageService.set(_domain_entities_constants__WEBPACK_IMPORTED_MODULE_1__.DRAFTS_KEY, drafts);
+    this.storageService.set(_domain_entities_constants__WEBPACK_IMPORTED_MODULE_0__.DRAFTS_KEY, drafts);
   }
   readDrafts() {
-    return this.storageService.get(_domain_entities_constants__WEBPACK_IMPORTED_MODULE_1__.DRAFTS_KEY) ?? [];
+    return this.storageService.get(_domain_entities_constants__WEBPACK_IMPORTED_MODULE_0__.DRAFTS_KEY) ?? [];
   }
   createDraft() {
     const dst = JSON.stringify(this.rendererService.getStory(), null, 2);
@@ -6182,11 +6174,11 @@ class AutosaveService {
   }
   static {
     this.ɵfac = function AutosaveService_Factory(__ngFactoryType__) {
-      return new (__ngFactoryType__ || AutosaveService)(_angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_autosave_configuration_service__WEBPACK_IMPORTED_MODULE_2__.AutosaveConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_export_services_export_service__WEBPACK_IMPORTED_MODULE_3__.ExportService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_4__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_modeler_services_renderer_service__WEBPACK_IMPORTED_MODULE_5__.RendererService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_11__.MatSnackBar), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_domain_services_storage_service__WEBPACK_IMPORTED_MODULE_6__.StorageService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_title_services_title_service__WEBPACK_IMPORTED_MODULE_7__.TitleService), _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵinject"](_icon_set_config_services_icon_set_import_export_service__WEBPACK_IMPORTED_MODULE_8__.IconSetImportExportService));
+      return new (__ngFactoryType__ || AutosaveService)(_angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵinject"](_autosave_configuration_service__WEBPACK_IMPORTED_MODULE_1__.AutosaveConfigurationService), _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵinject"](_export_services_export_service__WEBPACK_IMPORTED_MODULE_2__.ExportService), _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵinject"](_modeler_services_renderer_service__WEBPACK_IMPORTED_MODULE_3__.RendererService), _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵinject"](_angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_9__.MatSnackBar), _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵinject"](_domain_services_storage_service__WEBPACK_IMPORTED_MODULE_4__.StorageService), _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵinject"](_title_services_title_service__WEBPACK_IMPORTED_MODULE_5__.TitleService), _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵinject"](_icon_set_config_services_icon_set_import_export_service__WEBPACK_IMPORTED_MODULE_6__.IconSetImportExportService));
     };
   }
   static {
-    this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵdefineInjectable"]({
+    this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵdefineInjectable"]({
       token: AutosaveService,
       factory: AutosaveService.ɵfac,
       providedIn: 'root'
