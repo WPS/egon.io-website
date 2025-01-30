@@ -6075,7 +6075,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class AutosaveService {
-  constructor(autosaveConfiguration, exportService, iconDictionaryService, rendererService, snackbar, storageService, titleService, iconSetConfigurationService) {
+  constructor(autosaveConfiguration, exportService, iconDictionaryService, rendererService, snackbar, storageService, titleService, iconSetImportExportService) {
     this.autosaveConfiguration = autosaveConfiguration;
     this.exportService = exportService;
     this.iconDictionaryService = iconDictionaryService;
@@ -6083,7 +6083,7 @@ class AutosaveService {
     this.snackbar = snackbar;
     this.storageService = storageService;
     this.titleService = titleService;
-    this.iconSetConfigurationService = iconSetConfigurationService;
+    this.iconSetImportExportService = iconSetImportExportService;
     this.autosavedDraftsChanged$ = new rxjs__WEBPACK_IMPORTED_MODULE_9__.Subject();
     this.autosaveConfiguration.configuration$.subscribe(configuration => this.updateConfiguration(configuration));
   }
@@ -6094,7 +6094,7 @@ class AutosaveService {
   }
   loadDraft(draft) {
     const configFromFile = draft.configAndDST.domain;
-    const config = this.iconSetConfigurationService.createIconSetConfiguration(configFromFile);
+    const config = this.iconSetImportExportService.createIconSetConfiguration(configFromFile);
     const story = JSON.parse(draft.configAndDST.dst);
     this.titleService.updateTitleAndDescription(draft.title, draft.description, false);
     const actorIcons = this.iconDictionaryService.getElementsOfType(story, _domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTOR);
@@ -7987,8 +7987,8 @@ function IconSetConfigurationComponent_For_42_Template(rf, ctx) {
   }
 }
 class IconSetConfigurationComponent {
-  constructor(iconSetConfigurationService, iconDictionaryService, iconSetCustomizationService, elementRegistryService) {
-    this.iconSetConfigurationService = iconSetConfigurationService;
+  constructor(iconSetImportExportService, iconDictionaryService, iconSetCustomizationService, elementRegistryService) {
+    this.iconSetImportExportService = iconSetImportExportService;
     this.iconDictionaryService = iconDictionaryService;
     this.iconSetCustomizationService = iconSetCustomizationService;
     this.elementRegistryService = elementRegistryService;
@@ -8058,8 +8058,8 @@ class IconSetConfigurationComponent {
     const reader = new FileReader();
     reader.onloadend = e => {
       const configFromFile = JSON.parse(e.target?.result);
-      const config = this.iconSetConfigurationService.createIconSetConfiguration(configFromFile);
-      this.iconSetConfigurationService.loadConfiguration(config, false);
+      const config = this.iconSetImportExportService.createIconSetConfiguration(configFromFile);
+      this.iconSetImportExportService.loadConfiguration(config, false);
       this.iconSetCustomizationService.importConfiguration(config);
       this.allIcons.next(this.iconDictionaryService.getFullDictionary());
       this.filter.next(this.filter.value);
@@ -8755,8 +8755,8 @@ __webpack_require__.r(__webpack_exports__);
  */
 class IconSetChangedService {}
 class IconSetCustomizationService {
-  constructor(iconSetConfigurationService, iconDictionaryService, iconSetChangedService, elementRegistryService, snackbar) {
-    this.iconSetConfigurationService = iconSetConfigurationService;
+  constructor(iconSetImportExportService, iconDictionaryService, iconSetChangedService, elementRegistryService, snackbar) {
+    this.iconSetImportExportService = iconSetImportExportService;
     this.iconDictionaryService = iconDictionaryService;
     this.elementRegistryService = elementRegistryService;
     this.snackbar = snackbar;
@@ -8764,7 +8764,7 @@ class IconSetCustomizationService {
     this.configurationHasChanged = false;
     this.selectedActors$ = new rxjs__WEBPACK_IMPORTED_MODULE_6__.BehaviorSubject([]);
     this.selectedWorkobjects$ = new rxjs__WEBPACK_IMPORTED_MODULE_6__.BehaviorSubject([]);
-    this.iconSetConfigurationTypes = new rxjs__WEBPACK_IMPORTED_MODULE_6__.BehaviorSubject(this.iconSetConfigurationService.getCurrentConfigurationNamesWithoutPrefix());
+    this.iconSetConfigurationTypes = new rxjs__WEBPACK_IMPORTED_MODULE_6__.BehaviorSubject(this.iconSetImportExportService.getCurrentConfigurationNamesWithoutPrefix());
     this.selectedWorkobjects$.next(this.iconSetConfigurationTypes.value.workObjects);
     this.selectedActors$.next(this.iconSetConfigurationTypes.value.actors);
     iconDictionaryService.getAllIconDictionary().keysArray().forEach(iconName => {
@@ -8773,7 +8773,7 @@ class IconSetCustomizationService {
     iconSetChangedService.iconConfigrationChanged().subscribe(config => {
       this.importConfiguration(config);
     });
-    const storedIconSetConfiguration = this.iconSetConfigurationService.getStoredIconSetConfiguration();
+    const storedIconSetConfiguration = this.iconSetImportExportService.getStoredIconSetConfiguration();
     if (storedIconSetConfiguration) {
       this.importConfiguration(storedIconSetConfiguration, false);
     }
@@ -8829,7 +8829,7 @@ class IconSetCustomizationService {
     return this.iconSetConfigurationTypes.value.workObjects.filter(workObject => workObject === iconName).length > 0;
   }
   changeName(iconSetName) {
-    this.iconSetConfigurationService.setIconSetName(iconSetName);
+    this.iconSetImportExportService.setIconSetName(iconSetName);
     const changedIconSet = this.iconSetConfigurationTypes.value;
     changedIconSet.name = iconSetName;
     this.iconSetConfigurationTypes.next(changedIconSet);
@@ -8921,7 +8921,7 @@ class IconSetCustomizationService {
   }
   /** Revert Icon Set **/
   resetIconSet() {
-    const defaultConfig = this.iconSetConfigurationService.createMinimalConfigurationWithDefaultIcons();
+    const defaultConfig = this.iconSetImportExportService.createMinimalConfigurationWithDefaultIcons();
     this.selectedWorkobjects$.value.forEach(workObjectName => {
       if (!defaultConfig.workObjects.has(workObjectName)) {
         this.deselectWorkobject(workObjectName);
@@ -8940,7 +8940,7 @@ class IconSetCustomizationService {
     this.updateAllIconBehaviourSubjects();
   }
   cancel() {
-    this.iconSetConfigurationTypes.next(this.iconSetConfigurationService.getCurrentConfigurationNamesWithoutPrefix());
+    this.iconSetConfigurationTypes.next(this.iconSetImportExportService.getCurrentConfigurationNamesWithoutPrefix());
     this.updateAllIconBehaviourSubjects();
     this.resetToInitialConfiguration();
   }
@@ -8969,7 +8969,7 @@ class IconSetCustomizationService {
       if (!changedActors.length && !changedWorkobjects.length) {
         this.changedIconSetConfiguration = changedIconSet;
         this.updateIcons(changedIconSet);
-        this.iconSetConfigurationService.setStoredIconSetConfiguration(this.changedIconSetConfiguration);
+        this.iconSetImportExportService.setStoredIconSetConfiguration(this.changedIconSetConfiguration);
         this.snackbar.open(imported ? 'Configuration imported successfully' : 'Configuration saved successfully', undefined, {
           duration: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_0__.SNACKBAR_DURATION,
           panelClass: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_0__.SNACKBAR_SUCCESS
@@ -9599,13 +9599,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class ImportDomainStoryService {
-  constructor(iconDictionaryService, importRepairService, titleService, rendererService, dialogService, iconSetConfigurationService, modelerService, snackbar) {
+  constructor(iconDictionaryService, importRepairService, titleService, rendererService, dialogService, iconSetImportExportService, modelerService, snackbar) {
     this.iconDictionaryService = iconDictionaryService;
     this.importRepairService = importRepairService;
     this.titleService = titleService;
     this.rendererService = rendererService;
     this.dialogService = dialogService;
-    this.iconSetConfigurationService = iconSetConfigurationService;
+    this.iconSetImportExportService = iconSetImportExportService;
     this.modelerService = modelerService;
     this.snackbar = snackbar;
     this.title = _domain_entities_constants__WEBPACK_IMPORTED_MODULE_2__.INITIAL_TITLE;
@@ -9767,18 +9767,18 @@ class ImportDomainStoryService {
       // current implementation
       if (storyAndIconSet.domain) {
         iconSetFromFile = isEgnFormat ? storyAndIconSet.domain : JSON.parse(storyAndIconSet.domain);
-        iconSetConfig = this.iconSetConfigurationService.createIconSetConfiguration(iconSetFromFile);
+        iconSetConfig = this.iconSetImportExportService.createIconSetConfiguration(iconSetFromFile);
         elements = isEgnFormat ? storyAndIconSet.dst : JSON.parse(storyAndIconSet.dst);
       } else {
         // legacy implementation
         if (storyAndIconSet.config) {
           iconSetFromFile = JSON.parse(storyAndIconSet.config);
-          iconSetConfig = this.iconSetConfigurationService.createIconSetConfiguration(iconSetFromFile);
+          iconSetConfig = this.iconSetImportExportService.createIconSetConfiguration(iconSetFromFile);
           elements = JSON.parse(storyAndIconSet.dst);
         } else {
           // even older legacy implementation (prior to configurable icon set):
           elements = JSON.parse(contentAsJson);
-          iconSetConfig = this.iconSetConfigurationService.createMinimalConfigurationWithDefaultIcons();
+          iconSetConfig = this.iconSetImportExportService.createMinimalConfigurationWithDefaultIcons();
         }
       }
       this.importRepairService.removeWhitespacesFromIcons(elements);
@@ -10988,20 +10988,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class ModelerService {
-  constructor(initializerService, elementRegistryService, iconDictionaryService, iconSetConfigurationService, storageService, snackbar) {
+  constructor(initializerService, elementRegistryService, iconDictionaryService, iconSetImportExportService, storageService, snackbar) {
     this.initializerService = initializerService;
     this.elementRegistryService = elementRegistryService;
     this.iconDictionaryService = iconDictionaryService;
-    this.iconSetConfigurationService = iconSetConfigurationService;
+    this.iconSetImportExportService = iconSetImportExportService;
     this.storageService = storageService;
     this.snackbar = snackbar;
   }
   postInit() {
     this.checkCurrentVersion();
-    const storedIconSetConfiguration = this.iconSetConfigurationService.getStoredIconSetConfiguration();
+    const storedIconSetConfiguration = this.iconSetImportExportService.getStoredIconSetConfiguration();
     if (storedIconSetConfiguration) {
       this.iconDictionaryService.setCustomConfiguration(storedIconSetConfiguration);
-      this.iconSetConfigurationService.loadConfiguration(storedIconSetConfiguration);
+      this.iconSetImportExportService.loadConfiguration(storedIconSetConfiguration);
     }
     this.modeler = new src_app_tools_modeler_diagram_js__WEBPACK_IMPORTED_MODULE_1__["default"]({
       container: '#canvas',
@@ -11044,12 +11044,12 @@ class ModelerService {
   restart(iconSetConfiguration, domainStory) {
     const currentStory = domainStory != undefined ? domainStory : this.elementRegistryService.createObjectListForDSTDownload().map(e => e.businessObject);
     if (!iconSetConfiguration) {
-      iconSetConfiguration = this.iconSetConfigurationService.getStoredIconSetConfiguration();
+      iconSetConfiguration = this.iconSetImportExportService.getStoredIconSetConfiguration();
     }
     if (iconSetConfiguration) {
-      this.iconSetConfigurationService.setStoredIconSetConfiguration(iconSetConfiguration);
+      this.iconSetImportExportService.setStoredIconSetConfiguration(iconSetConfiguration);
       this.iconDictionaryService.setCustomConfiguration(iconSetConfiguration);
-      this.iconSetConfigurationService.loadConfiguration(iconSetConfiguration);
+      this.iconSetImportExportService.loadConfiguration(iconSetConfiguration);
     }
     this.elementRegistryService.clear();
     this.modeler?.destroy();
