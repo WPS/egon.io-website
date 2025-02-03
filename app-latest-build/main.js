@@ -8409,7 +8409,7 @@ class IconDictionaryService {
     }
     const allTypes = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
     allTypes.addBuiltInIcons(src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.builtInIcons);
-    allTypes.appendDict(this.getCustomIcons());
+    allTypes.appendDict(src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.customIcons);
     this.initDictionary(namesOfIcons.actors, allTypes, this.selectedActorsDictionary);
     this.initDictionary(namesOfIcons.workObjects, allTypes, this.selectedWorkObjectsDictionary);
   }
@@ -8490,22 +8490,12 @@ class IconDictionaryService {
     }
     collection.delete(name);
   }
+  // TODO: why are Business Objects required to update icon registries?
   updateIconRegistries(actors, workObjects, config) {
-    const elements = [];
-    actors.forEach(a => elements.push(a));
-    workObjects.forEach(w => elements.push(w));
-    const customIcons = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
-    const actorsDict = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
-    const workObjectsDict = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
-    config.actors.keysArray().forEach(key => {
-      actorsDict.set(key, config.actors.get(key));
-    });
-    config.workObjects.keysArray().forEach(key => {
-      workObjectsDict.set(key, config.workObjects.get(key));
-    });
-    this.extractCustomIconsFromDictionary(actorsDict, customIcons);
-    this.extractCustomIconsFromDictionary(workObjectsDict, customIcons);
-    this.addNewIconsToDictionary(customIcons);
+    const newIcons = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
+    this.extractCustomIconsFromDictionary(config.actors, newIcons);
+    this.extractCustomIconsFromDictionary(config.workObjects, newIcons);
+    this.addNewIconsToDictionary(newIcons);
     this.addIconsToTypeDictionary(actors, workObjects);
   }
   extractCustomIconsFromDictionary(elementDictionary, customIcons) {
@@ -8543,17 +8533,8 @@ class IconDictionaryService {
   getFullDictionary() {
     const fullDictionary = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
     fullDictionary.appendDict(src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.builtInIcons);
-    fullDictionary.appendDict(this.getCustomIcons());
+    fullDictionary.appendDict(src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.customIcons);
     return fullDictionary;
-  }
-  getCustomIcons() {
-    const appendedDict = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
-    src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.customIcons.keysArray().forEach(key => {
-      if (!src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.builtInIcons.has(key)) {
-        appendedDict.set(key, src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.customIcons.get(key));
-      }
-    });
-    return appendedDict;
   }
   getIconsAssignedAs(type) {
     if (type === src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTOR) {
@@ -8581,15 +8562,6 @@ class IconDictionaryService {
       return src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.customIcons.get(name);
     }
     return null;
-  }
-  getElementsOfType(elements, type) {
-    const elementOfType = [];
-    elements.forEach(element => {
-      if (element.type.includes(type)) {
-        elementOfType.push(element);
-      }
-    });
-    return elementOfType;
   }
   getActorsDictionary() {
     return this.selectedActorsDictionary;
@@ -9654,8 +9626,8 @@ class ImportDomainStoryService {
       } else {
         contentAsJson = text;
       }
-      let elements;
-      let iconSetConfig;
+      let domainStoryElements;
+      let iconSet;
       let iconSetFromFile;
       let storyAndIconSet = this.extractStoryAndIconSet(contentAsJson);
       if (storyAndIconSet == null) {
@@ -9664,30 +9636,30 @@ class ImportDomainStoryService {
       // current implementation
       if (storyAndIconSet.domain) {
         iconSetFromFile = isEgnFormat ? storyAndIconSet.domain : JSON.parse(storyAndIconSet.domain);
-        iconSetConfig = this.iconSetImportExportService.createIconSetConfiguration(iconSetFromFile);
-        elements = isEgnFormat ? storyAndIconSet.dst : JSON.parse(storyAndIconSet.dst);
+        iconSet = this.iconSetImportExportService.createIconSetConfiguration(iconSetFromFile);
+        domainStoryElements = isEgnFormat ? storyAndIconSet.dst : JSON.parse(storyAndIconSet.dst);
       } else {
         // legacy implementation
         if (storyAndIconSet.config) {
           iconSetFromFile = JSON.parse(storyAndIconSet.config);
-          iconSetConfig = this.iconSetImportExportService.createIconSetConfiguration(iconSetFromFile);
-          elements = JSON.parse(storyAndIconSet.dst);
+          iconSet = this.iconSetImportExportService.createIconSetConfiguration(iconSetFromFile);
+          domainStoryElements = JSON.parse(storyAndIconSet.dst);
         } else {
           // even older legacy implementation (prior to configurable icon set):
-          elements = JSON.parse(contentAsJson);
-          iconSetConfig = this.iconSetImportExportService.createMinimalConfigurationWithDefaultIcons();
+          domainStoryElements = JSON.parse(contentAsJson);
+          iconSet = this.iconSetImportExportService.createMinimalConfigurationWithDefaultIcons();
         }
       }
-      this.importRepairService.removeWhitespacesFromIcons(elements);
-      this.importRepairService.removeUnnecessaryBpmnProperties(elements);
-      let lastElement = elements[elements.length - 1];
+      this.importRepairService.removeWhitespacesFromIcons(domainStoryElements);
+      this.importRepairService.removeUnnecessaryBpmnProperties(domainStoryElements);
+      let lastElement = domainStoryElements[domainStoryElements.length - 1];
       if (!lastElement.id) {
-        lastElement = elements.pop();
+        lastElement = domainStoryElements.pop();
         let importVersionNumber = lastElement;
         // if the last element has the tag 'version',
         // then there exists another tag 'info' for the description
         if (importVersionNumber.version) {
-          lastElement = elements.pop();
+          lastElement = domainStoryElements.pop();
           importVersionNumber = importVersionNumber.version;
         } else {
           importVersionNumber = '?';
@@ -9696,14 +9668,14 @@ class ImportDomainStoryService {
             panelClass: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_2__.SNACKBAR_ERROR
           });
         }
-        elements = this.handleVersionNumber(importVersionNumber, elements);
+        domainStoryElements = this.handleVersionNumber(importVersionNumber, domainStoryElements);
       }
-      if (!this.importRepairService.checkForUnreferencedElementsInActivitiesAndRepair(elements)) {
+      if (!this.importRepairService.checkForUnreferencedElementsInActivitiesAndRepair(domainStoryElements)) {
         this.showBrokenImportDialog();
       }
       this.titleService.updateTitleAndDescription(this.title, lastElement.info, false);
-      this.updateIconRegistries(elements, iconSetConfig);
-      this.rendererService.importStory(elements, iconSetConfig);
+      this.updateIconRegistries(domainStoryElements, iconSet);
+      this.rendererService.importStory(domainStoryElements, iconSet);
     }
   }
   importSuccessful() {
@@ -9744,11 +9716,20 @@ class ImportDomainStoryService {
     xmlText = xmlText.replace('</DST>', '');
     return xmlText;
   }
-  updateIconRegistries(elements, config) {
-    const actorIcons = this.iconDictionaryService.getElementsOfType(elements, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.ACTOR);
-    const workObjectIcons = this.iconDictionaryService.getElementsOfType(elements, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.WORKOBJECT);
-    this.iconDictionaryService.updateIconRegistries(actorIcons, workObjectIcons, config);
-    this.setImportedConfigurationAndEmit(config);
+  updateIconRegistries(domainStoryElements, iconSet) {
+    const actorIcons = this.getElementsOfType(domainStoryElements, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.ACTOR);
+    const workObjectIcons = this.getElementsOfType(domainStoryElements, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.WORKOBJECT);
+    this.iconDictionaryService.updateIconRegistries(actorIcons, workObjectIcons, iconSet);
+    this.setImportedConfigurationAndEmit(iconSet);
+  }
+  getElementsOfType(elements, type) {
+    const elementOfType = [];
+    elements.forEach(element => {
+      if (element.type.includes(type)) {
+        elementOfType.push(element);
+      }
+    });
+    return elementOfType;
   }
   showPreviousV050Dialog(version) {
     const message = `Your domain story was created with Egon version ${version}. The file format has since changed.
