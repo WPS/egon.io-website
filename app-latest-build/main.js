@@ -8399,9 +8399,6 @@ class IconDictionaryService {
     // these dictionaries make up the current icon set:
     this.selectedActorsDictionary = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
     this.selectedWorkObjectsDictionary = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
-    // this holds the selectable icons (without custom icons)
-    this.builtInIconsDictionary = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
-    this.builtInIconsDictionary.addBuiltInIcons(src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.builtInIcons);
   }
   initTypeDictionaries() {
     let namesOfIcons;
@@ -8545,14 +8542,14 @@ class IconDictionaryService {
   /** Getter & Setter **/
   getFullDictionary() {
     const fullDictionary = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
-    fullDictionary.appendDict(this.builtInIconsDictionary);
+    fullDictionary.appendDict(src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.builtInIcons);
     fullDictionary.appendDict(this.getCustomIcons());
     return fullDictionary;
   }
   getCustomIcons() {
     const appendedDict = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
     src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.customIcons.keysArray().forEach(key => {
-      if (!this.builtInIconsDictionary.has(key)) {
+      if (!src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.builtInIcons.has(key)) {
         appendedDict.set(key, src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.customIcons.get(key));
       }
     });
@@ -8578,8 +8575,8 @@ class IconDictionaryService {
     return ICON_CSS_CLASS_PREFIX + (0,_utils_sanitizer__WEBPACK_IMPORTED_MODULE_4__.sanitizeIconName)(name.toLowerCase());
   }
   getIconSource(name) {
-    if (this.builtInIconsDictionary.has(name)) {
-      return this.builtInIconsDictionary.get(name);
+    if (src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.builtInIcons.has(name)) {
+      return src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.builtInIcons.get(name);
     } else if (src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.customIcons.has(name)) {
       return src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.customIcons.get(name);
     }
@@ -8593,9 +8590,6 @@ class IconDictionaryService {
       }
     });
     return elementOfType;
-  }
-  getAllIconDictionary() {
-    return this.builtInIconsDictionary;
   }
   getActorsDictionary() {
     return this.selectedActorsDictionary;
@@ -8633,15 +8627,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   IconSetChangedService: () => (/* binding */ IconSetChangedService),
 /* harmony export */   IconSetCustomizationService: () => (/* binding */ IconSetCustomizationService)
 /* harmony export */ });
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs */ 5536);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs */ 5536);
 /* harmony import */ var _domain_entities_constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../domain/entities/constants */ 550);
 /* harmony import */ var _domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../domain/entities/dictionary */ 843);
 /* harmony import */ var _domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../domain/entities/elementTypes */ 3190);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/core */ 6623);
-/* harmony import */ var _icon_set_import_export_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./icon-set-import-export.service */ 3103);
-/* harmony import */ var _icon_dictionary_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./icon-dictionary.service */ 6932);
-/* harmony import */ var src_app_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/domain/services/element-registry.service */ 5511);
-/* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/material/snack-bar */ 382);
+/* harmony import */ var src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/tools/icon-set-config/domain/allIcons */ 1070);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/core */ 6623);
+/* harmony import */ var _icon_set_import_export_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./icon-set-import-export.service */ 3103);
+/* harmony import */ var _icon_dictionary_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./icon-dictionary.service */ 6932);
+/* harmony import */ var src_app_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/domain/services/element-registry.service */ 5511);
+/* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/material/snack-bar */ 382);
+
 
 
 
@@ -8664,12 +8660,12 @@ class IconSetCustomizationService {
     this.snackbar = snackbar;
     this.allIconListItems = new _domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
     this.configurationHasChanged = false;
-    this.selectedActors$ = new rxjs__WEBPACK_IMPORTED_MODULE_6__.BehaviorSubject([]);
-    this.selectedWorkobjects$ = new rxjs__WEBPACK_IMPORTED_MODULE_6__.BehaviorSubject([]);
-    this.iconSetConfigurationTypes = new rxjs__WEBPACK_IMPORTED_MODULE_6__.BehaviorSubject(this.iconSetImportExportService.getCurrentConfigurationNamesWithoutPrefix());
+    this.selectedActors$ = new rxjs__WEBPACK_IMPORTED_MODULE_7__.BehaviorSubject([]);
+    this.selectedWorkobjects$ = new rxjs__WEBPACK_IMPORTED_MODULE_7__.BehaviorSubject([]);
+    this.iconSetConfigurationTypes = new rxjs__WEBPACK_IMPORTED_MODULE_7__.BehaviorSubject(this.iconSetImportExportService.getCurrentConfigurationNamesWithoutPrefix());
     this.selectedWorkobjects$.next(this.iconSetConfigurationTypes.value.workObjects);
     this.selectedActors$.next(this.iconSetConfigurationTypes.value.actors);
-    iconDictionaryService.getAllIconDictionary().keysArray().forEach(iconName => {
+    src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.builtInIcons.keysArray().forEach(iconName => {
       this.addIconToAllIconList(iconName);
     });
     iconSetChangedService.iconConfigrationChanged().subscribe(config => {
@@ -8928,7 +8924,7 @@ class IconSetCustomizationService {
     this.addIconToAllIconList(iconName);
   }
   addIconToAllIconList(iconName) {
-    this.allIconListItems.add(new rxjs__WEBPACK_IMPORTED_MODULE_6__.BehaviorSubject({
+    this.allIconListItems.add(new rxjs__WEBPACK_IMPORTED_MODULE_7__.BehaviorSubject({
       name: iconName,
       svg: this.getDataUrlForIcon(iconName),
       isActor: this.isIconActor(iconName),
@@ -8980,11 +8976,11 @@ class IconSetCustomizationService {
   }
   static {
     this.ɵfac = function IconSetCustomizationService_Factory(__ngFactoryType__) {
-      return new (__ngFactoryType__ || IconSetCustomizationService)(_angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵinject"](_icon_set_import_export_service__WEBPACK_IMPORTED_MODULE_3__.IconSetImportExportService), _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵinject"](_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_4__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵinject"](IconSetChangedService), _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵinject"](src_app_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_5__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵinject"](_angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_8__.MatSnackBar));
+      return new (__ngFactoryType__ || IconSetCustomizationService)(_angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵinject"](_icon_set_import_export_service__WEBPACK_IMPORTED_MODULE_4__.IconSetImportExportService), _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵinject"](_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_5__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵinject"](IconSetChangedService), _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵinject"](src_app_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_6__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵinject"](_angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_9__.MatSnackBar));
     };
   }
   static {
-    this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵdefineInjectable"]({
+    this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵdefineInjectable"]({
       token: IconSetCustomizationService,
       factory: IconSetCustomizationService.ɵfac,
       providedIn: 'root'
