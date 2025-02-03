@@ -411,7 +411,7 @@ function actorReplaceOptions(name) {
       replaceOption[i] = {
         label: "Change to " + typeName,
         actionName: "replace-with-actor-" + typeName.toLowerCase(),
-        className: iconDictionaryService.getIconForMenu(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTOR, actorType),
+        className: iconDictionaryService.getCSSClassOfIcon(actorType),
         target: {
           type: `${src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTOR}${actorType}`
         }
@@ -431,7 +431,7 @@ function workObjectReplaceOptions(name) {
       replaceOption[i] = {
         label: "Change to " + typeName,
         actionName: "replace-with-actor-" + typeName,
-        className: iconDictionaryService.getIconForMenu(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.WORKOBJECT, workObjectType),
+        className: iconDictionaryService.getCSSClassOfIcon(workObjectType),
         target: {
           type: `${src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.WORKOBJECT}${workObjectType}`
         }
@@ -668,7 +668,7 @@ function DomainStoryContextPadProvider(connect, translate, elementFactory, creat
     let workObjects = iconDictionaryService.getIconsAssignedAs(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.WORKOBJECT);
     workObjects.keysArray().forEach(workObjectType => {
       let name = workObjectType;
-      let icon = iconDictionaryService.getIconForMenu(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.WORKOBJECT, workObjectType);
+      let icon = iconDictionaryService.getCSSClassOfIcon(workObjectType);
       let action = [];
       action["append.workObject" + name] = appendAction(`${src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.WORKOBJECT}${workObjectType}`, icon, name, "workObjects");
       (0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)(actions, action);
@@ -678,7 +678,7 @@ function DomainStoryContextPadProvider(connect, translate, elementFactory, creat
     let actors = iconDictionaryService.getIconsAssignedAs(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.ACTOR);
     actors.keysArray().forEach(actorType => {
       let name = actorType;
-      let icon = iconDictionaryService.getIconForMenu(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.ACTOR, actorType);
+      let icon = iconDictionaryService.getCSSClassOfIcon(actorType);
       let action = [];
       action["append.actor" + name] = appendAction(`${src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.ACTOR}${actorType}`, icon, name, "actors");
       (0,min_dash__WEBPACK_IMPORTED_MODULE_4__.assign)(actions, action);
@@ -3447,7 +3447,7 @@ function initPalette(actions, spaceTool, lassoTool, createAction) {
   return actions;
 }
 function addCanvasObjectTypes(name, createAction, actions, className, elementType) {
-  let icon = iconDictionary.getIconForMenu(elementType, name);
+  let icon = iconDictionary.getCSSClassOfIcon(name);
   let action = [];
   action["domainStory-" + className + name] = createAction(`${elementType}${name}`, className, icon, name);
   (0,min_dash__WEBPACK_IMPORTED_MODULE_1__.assign)(actions, action);
@@ -8376,7 +8376,7 @@ class IconSetDetailsComponent {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   ICON_PREFIX: () => (/* binding */ ICON_PREFIX),
+/* harmony export */   ICON_CSS_CLASS_PREFIX: () => (/* binding */ ICON_CSS_CLASS_PREFIX),
 /* harmony export */   IconDictionaryService: () => (/* binding */ IconDictionaryService)
 /* harmony export */ });
 /* harmony import */ var src_app_domain_entities_namesOfSelectedIcons__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/domain/entities/namesOfSelectedIcons */ 7725);
@@ -8392,7 +8392,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var getIconId = src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.getIconId;
 
-const ICON_PREFIX = 'icon-domain-story-';
+const ICON_CSS_CLASS_PREFIX = 'icon-domain-story-';
 class IconDictionaryService {
   constructor() {
     // The dictionaries holds icons (as SVG) and icon names as key-value pairs:
@@ -8401,7 +8401,6 @@ class IconDictionaryService {
     this.selectedWorkObjectsDictionary = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
     // this holds the selectable icons (without custom icons)
     this.builtInIconsDictionary = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
-    this.iconDictionaryForMenu = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
     this.builtInIconsDictionary.addBuiltInIcons(src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.builtInIcons);
   }
   initTypeDictionaries() {
@@ -8414,17 +8413,14 @@ class IconDictionaryService {
     const allTypes = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
     allTypes.addBuiltInIcons(src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_3__.builtInIcons);
     allTypes.appendDict(this.getCustomIcons());
-    this.initDictionary(namesOfIcons.actors, allTypes, this.selectedActorsDictionary, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTOR);
-    this.initDictionary(namesOfIcons.workObjects, allTypes, this.selectedWorkObjectsDictionary, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.WORKOBJECT);
+    this.initDictionary(namesOfIcons.actors, allTypes, this.selectedActorsDictionary);
+    this.initDictionary(namesOfIcons.workObjects, allTypes, this.selectedWorkObjectsDictionary);
   }
-  initDictionary(selectedIconNames, allIcons, dictionary, elementType) {
+  initDictionary(selectedIconNames, allIcons, dictionary) {
     dictionary.clear();
     for (const key of selectedIconNames) {
       dictionary.add(allIcons.get(key), key);
     }
-    dictionary.keysArray().forEach(name => {
-      this.registerIconForMenu(name, ICON_PREFIX + (0,_utils_sanitizer__WEBPACK_IMPORTED_MODULE_4__.sanitizeIconName)(name.toLowerCase()), elementType);
-    });
   }
   allInTypeDictionary(type, elements) {
     let collection;
@@ -8461,17 +8457,9 @@ class IconDictionaryService {
         const src = allTypes.get(name);
         if (src) {
           this.registerIconForType(dictionaryType, name, src);
-          this.registerIconForMenu(name, (0,_utils_sanitizer__WEBPACK_IMPORTED_MODULE_4__.sanitizeIconName)(ICON_PREFIX + name.toLowerCase()), dictionaryType);
         }
       }
     });
-  }
-  /** Add Icon(s) to Dictionary **/
-  registerIconForMenu(name, src, elementType) {
-    if (name.includes(elementType)) {
-      throw new Error('Should not include elementType');
-    }
-    this.iconDictionaryForMenu.set(`${elementType}${name}`, src);
   }
   addIconsToTypeDictionary(actorIcons, workObjectIcons) {
     if (!this.allInTypeDictionary(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTOR, actorIcons)) {
@@ -8520,18 +8508,6 @@ class IconDictionaryService {
     });
     this.extractCustomIconsFromDictionary(actorsDict, customIcons);
     this.extractCustomIconsFromDictionary(workObjectsDict, customIcons);
-    elements.forEach(element => {
-      const name = (0,_utils_sanitizer__WEBPACK_IMPORTED_MODULE_4__.sanitizeIconName)(element.type.replace(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTOR, '').replace(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.WORKOBJECT, ''));
-      if ((element.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTOR) || element.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.WORKOBJECT)) && !this.getFullDictionary().has(name)) {
-        let elementType;
-        if (element.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTOR)) {
-          elementType = src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTOR;
-        } else {
-          elementType = src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.WORKOBJECT;
-        }
-        this.registerIconForMenu(ICON_PREFIX + name.toLowerCase(), getIconId(element.type), elementType);
-      }
-    });
     this.addNewIconsToDictionary(customIcons);
     this.addIconsToTypeDictionary(actors, workObjects);
   }
@@ -8558,7 +8534,7 @@ class IconDictionaryService {
     const sheetEl = document.getElementById('iconsCss');
     customIcons.keysArray().forEach(key => {
       const src = customIcons.get(key);
-      const iconStyle = '.' + ICON_PREFIX + (0,_utils_sanitizer__WEBPACK_IMPORTED_MODULE_4__.sanitizeIconName)(key.toLowerCase()) + '::before{ content: url("data:image/svg+xml;utf8,' + this.wrapSRCInSVG(src) + '"); margin: 3px;}';
+      const iconStyle = '.' + ICON_CSS_CLASS_PREFIX + (0,_utils_sanitizer__WEBPACK_IMPORTED_MODULE_4__.sanitizeIconName)(key.toLowerCase()) + '::before{ content: url("data:image/svg+xml;utf8,' + this.wrapSRCInSVG(src) + '"); margin: 3px;}';
       // @ts-ignore
       sheetEl?.sheet?.insertRule(iconStyle, sheetEl.sheet.cssRules.length);
     });
@@ -8598,8 +8574,8 @@ class IconDictionaryService {
     }
     return null;
   }
-  getIconForMenu(elementType, name) {
-    return this.iconDictionaryForMenu.get(`${elementType}${name}`);
+  getCSSClassOfIcon(name) {
+    return ICON_CSS_CLASS_PREFIX + (0,_utils_sanitizer__WEBPACK_IMPORTED_MODULE_4__.sanitizeIconName)(name.toLowerCase());
   }
   getIconSource(name) {
     if (this.builtInIconsDictionary.has(name)) {
