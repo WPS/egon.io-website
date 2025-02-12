@@ -16,7 +16,7 @@ toc_sticky: true
 - Unused attributes were removed from .egn file format. This change is compatible (Egon 2.x can import the new file format, Egon 3.x can import the old file format). However, users who keep their files in a repository will see structural changes in their files when diffing versions of a file created with v2.
   
 > Breaking Changes
-- touch input is no longer supported (the developers of the diagramming framework that Egon uses dropped touch support because it was buggy)
+- Touch input is no longer supported. Reason: Egon is based on a diagramming framework which dropped touch support because it was buggy.
 
 
 ## v2.4.0
