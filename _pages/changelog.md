@@ -13,6 +13,8 @@ toc_sticky: true
 - `Feature`: A collapsible "mini map" makes it easier to find the story on the canvas. [See #195](https://github.com/WPS/egon.io/issues/195)
 - `Feature`: Stories are centered on import so that the full diagram is visible. [See #211](https://github.com/WPS/egon.io/issues/211)
 - `Feature`: Groups can now be created on top of other elements. Their default size was decreased to avoid unintentionally grouping too many elements. [See #203](https://github.com/WPS/egon.io/issues/203)
+- `Feature`: Labels of work objects, actors, and annotations can now be edited while replaying a story. [See #217](https://github.com/WPS/egon.io/issues/217)
+- `Fix`: Palette is disabled during while replaying a story. [See #216](https://github.com/WPS/egon.io/issues/216)
 - `Fix`: For some stories created with v1, colors were not imported correctly. [See #201](https://github.com/WPS/egon.io/issues/201)
 - Unused attributes were removed from `.egn` file format. This change is compatible: Egon 2.x can import the new file format, Egon 3.x can import the old file format. However, users who keep their files in a repository will see structural changes in their files when diffing `.egn` exported with v2 with the same `.egn` exported from v3.
   
