@@ -10721,7 +10721,7 @@ class InitializerService {
         }
       }
     });
-    // when in replay, do not allow any interaction on the canvas
+    // while replaying, we do not allow changes (to avoid accidentally modeling on top of hidden model elements)
     eventBus.on(['element.click', 'element.dblclick', 'element.mousedown', 'drag.init', 'canvas.viewbox.changing', 'autoPlace', 'popupMenu.open'], 10000000000, event => {
       if (this.replayService.getReplayOn()) {
         event.stopPropagation();
@@ -10888,6 +10888,9 @@ class ModelerService {
       container: '#canvas',
       keyboard: {
         bind: true
+      },
+      canvas: {
+        autoFocus: true // see https://github.com/bpmn-io/diagram-js/pull/956 (setting autoFocus to 'true' might cause problems with future integrations)
       }
     });
     if (this.modeler.get) {
