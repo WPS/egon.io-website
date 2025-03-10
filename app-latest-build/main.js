@@ -1840,6 +1840,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ DomainStoryRules),
 /* harmony export */   isBackground: () => (/* binding */ isBackground),
+/* harmony export */   isGroup: () => (/* binding */ isGroup),
 /* harmony export */   isLabel: () => (/* binding */ isLabel)
 /* harmony export */ });
 /* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! min-dash */ 1410);
@@ -2094,11 +2095,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var inherits__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inherits */ 450);
 /* harmony import */ var inherits__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(inherits__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! min-dash */ 1410);
-/* harmony import */ var diagram_js_lib_command_CommandInterceptor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! diagram-js/lib/command/CommandInterceptor */ 5353);
-/* harmony import */ var diagram_js_lib_util_Collections__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! diagram-js/lib/util/Collections */ 9233);
+/* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! min-dash */ 1410);
+/* harmony import */ var diagram_js_lib_command_CommandInterceptor__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! diagram-js/lib/command/CommandInterceptor */ 5353);
+/* harmony import */ var diagram_js_lib_util_Collections__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! diagram-js/lib/util/Collections */ 9233);
 /* harmony import */ var _util_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./util/util */ 4029);
-/* harmony import */ var _domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../domain/entities/elementTypes */ 3190);
+/* harmony import */ var _domainStoryRules__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./domainStoryRules */ 3694);
+/* harmony import */ var _domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../domain/entities/elementTypes */ 3190);
+
 
 
 
@@ -2112,7 +2115,7 @@ __webpack_require__.r(__webpack_exports__);
  * once changes on the diagram happen.
  */
 function DomainStoryUpdater(eventBus, egon, connectionDocking) {
-  diagram_js_lib_command_CommandInterceptor__WEBPACK_IMPORTED_MODULE_3__["default"].call(this, eventBus);
+  diagram_js_lib_command_CommandInterceptor__WEBPACK_IMPORTED_MODULE_4__["default"].call(this, eventBus);
   function updateElement(e) {
     let context = e.context,
       shape = context.shape;
@@ -2124,23 +2127,26 @@ function DomainStoryUpdater(eventBus, egon, connectionDocking) {
     let elements = egon._elements;
     // make sure element is added / removed from egon._elements
     if (!parent) {
-      (0,diagram_js_lib_util_Collections__WEBPACK_IMPORTED_MODULE_4__.remove)(elements, businessObject);
+      (0,diagram_js_lib_util_Collections__WEBPACK_IMPORTED_MODULE_5__.remove)(elements, businessObject);
     } else {
-      (0,diagram_js_lib_util_Collections__WEBPACK_IMPORTED_MODULE_4__.add)(elements, businessObject);
+      (0,diagram_js_lib_util_Collections__WEBPACK_IMPORTED_MODULE_5__.add)(elements, businessObject);
     }
     // save element position
-    (0,min_dash__WEBPACK_IMPORTED_MODULE_5__.assign)(businessObject, (0,min_dash__WEBPACK_IMPORTED_MODULE_5__.pick)(shape, ["x", "y"]));
-    // save element size if resizable
-    if (shape.type === _domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.GROUP) {
-      (0,min_dash__WEBPACK_IMPORTED_MODULE_5__.assign)(businessObject, (0,min_dash__WEBPACK_IMPORTED_MODULE_5__.pick)(shape, ["height", "width"]));
+    (0,min_dash__WEBPACK_IMPORTED_MODULE_6__.assign)(businessObject, (0,min_dash__WEBPACK_IMPORTED_MODULE_6__.pick)(shape, ["x", "y"]));
+    if (shape.type === _domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_3__.ElementTypes.GROUP) {
+      // save element size if resizable
+      (0,min_dash__WEBPACK_IMPORTED_MODULE_6__.assign)(businessObject, (0,min_dash__WEBPACK_IMPORTED_MODULE_6__.pick)(shape, ["height", "width"]));
       // rework the child-parent relations if a group was moved, such that all Objects that are visually in the group are also associated with it
-      // since we do not have access to the standard-canvas object here, we cannot use the function correctGroupChildren() from DSLabelUtil
-      if (parent != null) {
+      if ((0,_domainStoryRules__WEBPACK_IMPORTED_MODULE_2__.isBackground)(parent) || (0,_domainStoryRules__WEBPACK_IMPORTED_MODULE_2__.isGroup)(parent)) {
         (0,_util_util__WEBPACK_IMPORTED_MODULE_1__.reworkGroupElements)(parent, shape);
+      } else if (parent != null) {
+        // the group is created on top of a shape or connection which makes it their child; we need to invert the child-parent relationship
+        shape.parent = parent.parent;
+        (0,_util_util__WEBPACK_IMPORTED_MODULE_1__.reworkGroupElements)(parent.parent, shape);
       }
     }
-    if (shape && shape.parent && "type" in shape.parent && shape.parent.type === _domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.GROUP) {
-      (0,min_dash__WEBPACK_IMPORTED_MODULE_5__.assign)(businessObject, {
+    if (shape && shape.parent && "type" in shape.parent && shape.parent.type === _domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_3__.ElementTypes.GROUP) {
+      (0,min_dash__WEBPACK_IMPORTED_MODULE_6__.assign)(businessObject, {
         parent: shape.parent.id
       });
     }
@@ -2161,17 +2167,17 @@ function DomainStoryUpdater(eventBus, egon, connectionDocking) {
     let elements = egon._elements;
     // make sure element is added / removed from egon._elements
     if (!parent) {
-      (0,diagram_js_lib_util_Collections__WEBPACK_IMPORTED_MODULE_4__.remove)(elements, businessObject);
+      (0,diagram_js_lib_util_Collections__WEBPACK_IMPORTED_MODULE_5__.remove)(elements, businessObject);
     } else {
-      (0,diagram_js_lib_util_Collections__WEBPACK_IMPORTED_MODULE_4__.add)(elements, businessObject);
+      (0,diagram_js_lib_util_Collections__WEBPACK_IMPORTED_MODULE_5__.add)(elements, businessObject);
     }
     // update waypoints
-    (0,min_dash__WEBPACK_IMPORTED_MODULE_5__.assign)(businessObject, {
+    (0,min_dash__WEBPACK_IMPORTED_MODULE_6__.assign)(businessObject, {
       waypoints: copyWaypoints(connection)
     });
     if (source) {
       if (!businessObject.source) {
-        (0,min_dash__WEBPACK_IMPORTED_MODULE_5__.assign)(businessObject, {
+        (0,min_dash__WEBPACK_IMPORTED_MODULE_6__.assign)(businessObject, {
           source: source.id
         });
       } else {
@@ -2180,7 +2186,7 @@ function DomainStoryUpdater(eventBus, egon, connectionDocking) {
     }
     if (target) {
       if (!businessObject.target) {
-        (0,min_dash__WEBPACK_IMPORTED_MODULE_5__.assign)(businessObject, {
+        (0,min_dash__WEBPACK_IMPORTED_MODULE_6__.assign)(businessObject, {
           target: target.id
         });
       } else {
@@ -2229,7 +2235,7 @@ function DomainStoryUpdater(eventBus, egon, connectionDocking) {
   this.executed(["connection.create", "connection.reconnect", "connection.updateWaypoints", "connection.delete", "connection.layout", "connection.move"], updateConnection);
   this.reverted(["connection.create", "connection.reconnect", "connection.updateWaypoints", "connection.delete", "connection.layout", "connection.move"], updateConnection);
 }
-inherits__WEBPACK_IMPORTED_MODULE_0___default()(DomainStoryUpdater, diagram_js_lib_command_CommandInterceptor__WEBPACK_IMPORTED_MODULE_3__["default"]);
+inherits__WEBPACK_IMPORTED_MODULE_0___default()(DomainStoryUpdater, diagram_js_lib_command_CommandInterceptor__WEBPACK_IMPORTED_MODULE_4__["default"]);
 DomainStoryUpdater.$inject = ["eventBus", "egon", "connectionDocking"];
 
 /***/ }),
@@ -4160,6 +4166,9 @@ function reworkGroupElements(parent, shape) {
     if (innerShape.id !== shape.id) {
       if (innerShape.x >= shape.x && innerShape.x <= shape.x + shape.width) {
         if (innerShape.y >= shape.y && innerShape.y <= shape.y + shape.height) {
+          if (innerShape.children.includes(shape)) {
+            innerShape.children.remove(shape);
+          }
           innerShape.parent = shape;
           if (!shape.children.includes(innerShape)) {
             shape.children.push(innerShape);
