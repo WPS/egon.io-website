@@ -6628,7 +6628,7 @@ class ExportService {
       const svgElements = container[0].getElementsByTagName('svg');
       const outerSVGElement = svgElements[0];
       const viewport = outerSVGElement.getElementsByClassName('viewport')[0];
-      const layerBase = viewport.getElementsByClassName('layer-base')[0];
+      const layerBase = viewport.getElementsByClassName('layer-root-1')[0];
       const image = document.createElement('img');
       // removes unwanted black dots in image
       let svg = this.pngService.extractSVG(viewport, outerSVGElement);
@@ -7038,7 +7038,7 @@ class PngService {
     }
     const bounds = this.createBounds(box, withTitle ? dynamicHeightOffset : 0);
     const dataStart = svg.substring(0, viewBoxIndex);
-    viewBoxIndex = svg.indexOf('style="');
+    viewBoxIndex = svg.indexOf('tabindex="');
     const dataEnd = svg.substring(viewBoxIndex);
     dataEnd.substring(viewBoxIndex);
     svg = dataStart + bounds + dataEnd;
