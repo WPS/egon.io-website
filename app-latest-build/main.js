@@ -6628,7 +6628,7 @@ class ExportService {
       const svgElements = container[0].getElementsByTagName('svg');
       const outerSVGElement = svgElements[0];
       const viewport = outerSVGElement.getElementsByClassName('viewport')[0];
-      const layerBase = viewport.getElementsByClassName('layer-root-1')[0];
+      const layerBase = viewport.querySelector('[class^="layer-root-"]');
       const image = document.createElement('img');
       // removes unwanted black dots in image
       let svg = this.pngService.extractSVG(viewport, outerSVGElement);
