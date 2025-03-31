@@ -9,7 +9,10 @@ toc_sticky: true
 > Have you used an earlier version of *Egon v2* or *latest build*? Please follow these [instructions](https://egon.io/howto#launching-egon) for updating to the newest version.
 
 ## Latest Build
-### a.k.a. v3.0.0-beta
+No changes yet.
+
+
+## v3.0.0
 - `Feature`: A collapsible "mini map" makes it easier to find the story on the canvas. [See #195](https://github.com/WPS/egon.io/issues/195)
 - `Feature`: Stories are centered on import so that the full diagram is visible. [See #211](https://github.com/WPS/egon.io/issues/211)
 - `Feature`: Groups can now be created on top of other elements. Their default size was decreased to avoid unintentionally grouping too many elements. [See #203](https://github.com/WPS/egon.io/issues/203)

@@ -36,7 +36,13 @@ Only recommended for testing new features.
 
 ## Legacy Version:
 
+[<i class="fas fa-play"></i> Use V2 online](app-v2){: .btn .btn--primary .btn--x-large}
+[<i class="fas fa-book"></i> User guide (v2)](/howto_v2){: .btn .btn--info .btn--x-large}
+
+
 [<i class="fas fa-play"></i> Use V1 online](app-v1){: .btn .btn--primary .btn--x-large}
 [<i class="fas fa-book"></i> User guide (v1)](/howto_v1){: .btn .btn--info .btn--x-large}
+
+
 
 {: .center}
