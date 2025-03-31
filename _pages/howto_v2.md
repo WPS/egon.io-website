@@ -1,6 +1,6 @@
 ---
-permalink: /howto
-title: "How to Use"
+permalink: /howto_v2
+title: "How to Use (v2)"
 layout: single
 toc: true
 toc_sticky: true
@@ -155,4 +155,4 @@ If you want a consistent look, consider using the same icon set that we use for 
 
 ## Touch Support
 
-Egon does **not** support touch devices. Previous versions (v2.0 and v1.x) did work on touch devices to some extent because they were built on top of a modeling framework with basic touch support. However, this framework has completely dropped its support for touch devices in recent versions.
+We do **not** actively support touch devices. Egon.io v2.0 (and v1.x) does work on touch devices so some extent because it is built on top of a modeling framework with basic touch support. However, this framework has completely dropped its support for touch devices in recent versions. 
