@@ -3623,7 +3623,7 @@ AdditionalKeyboardBindings.prototype.registerBindings = function (keyboard, edit
 
 /***/ }),
 
-/***/ 4004:
+/***/ 1623:
 /*!**********************************************************************!*\
   !*** ./src/app/tools/modeler/diagram-js/features/shortcuts/index.js ***!
   \**********************************************************************/
@@ -4348,7 +4348,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var diagram_js_lib_features_keyboard__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! diagram-js/lib/features/keyboard */ 6329);
 /* harmony import */ var diagram_js_lib_features_editor_actions__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! diagram-js/lib/features/editor-actions */ 6919);
 /* harmony import */ var diagram_js_lib_features_snapping__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! diagram-js/lib/features/snapping */ 2760);
-/* harmony import */ var _features_shortcuts__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./features/shortcuts */ 4004);
+/* harmony import */ var _features_shortcuts__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./features/shortcuts */ 1623);
 /* harmony import */ var diagram_js_minimap__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! diagram-js-minimap */ 9843);
 
 
