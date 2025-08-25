@@ -42,7 +42,7 @@ jobs:
         env:
           JEKYLL_ENV: production
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3 # This will automatically upload an artifact from the '/_site' directory
+        uses: actions/upload-pages-artifact@v4 # This will automatically upload an artifact from the '/_site' directory
 
   # Deployment job
   deploy:
