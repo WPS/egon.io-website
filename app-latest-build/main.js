@@ -11054,16 +11054,20 @@ class ModelerService {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   CONNECTION_PATH_DOM_SELECTOR: () => (/* binding */ CONNECTION_PATH_DOM_SELECTOR),
+/* harmony export */   HIGHLIGHT_LABEL_FONT_WEIGHT: () => (/* binding */ HIGHLIGHT_LABEL_FONT_WEIGHT),
 /* harmony export */   HIGHLIGHT_NUMBER_BACKGROUND_COLOR: () => (/* binding */ HIGHLIGHT_NUMBER_BACKGROUND_COLOR),
 /* harmony export */   HIGHLIGHT_NUMBER_COLOR: () => (/* binding */ HIGHLIGHT_NUMBER_COLOR),
 /* harmony export */   HIGHLIGHT_STROKE_WIDTH: () => (/* binding */ HIGHLIGHT_STROKE_WIDTH),
+/* harmony export */   LABEL_FONT_WEIGHT: () => (/* binding */ LABEL_FONT_WEIGHT),
 /* harmony export */   NUMBER_BACKGROUND_COLOR: () => (/* binding */ NUMBER_BACKGROUND_COLOR),
 /* harmony export */   NUMBER_COLOR: () => (/* binding */ NUMBER_COLOR),
 /* harmony export */   STROKE_WIDTH: () => (/* binding */ STROKE_WIDTH)
 /* harmony export */ });
+const LABEL_FONT_WEIGHT = 'normal';
 const NUMBER_BACKGROUND_COLOR = 'white';
 const NUMBER_COLOR = 'black';
 const STROKE_WIDTH = '1.5';
+const HIGHLIGHT_LABEL_FONT_WEIGHT = 'bold';
 const HIGHLIGHT_NUMBER_BACKGROUND_COLOR = '#a4d7e1';
 const HIGHLIGHT_NUMBER_COLOR = 'black';
 const HIGHLIGHT_STROKE_WIDTH = '4';
@@ -11131,6 +11135,9 @@ class DomManipulationService {
       numberTextDom: numberText
     };
   }
+  getLabelDomForActivity(activity) {
+    return activity.parentElement?.getElementsByClassName('djs-label')[0] ?? '';
+  }
   removeHighlights() {
     const allActivities = this.elementRegistryService.getAllActivities();
     const allConnections = this.elementRegistryService.getAllConnections();
@@ -11140,6 +11147,10 @@ class DomManipulationService {
         const activityDomObject = querySelector.getElementsByTagName(_domain_replayConstants__WEBPACK_IMPORTED_MODULE_1__.CONNECTION_PATH_DOM_SELECTOR)[0];
         activityDomObject.style.stroke = activity.businessObject.pickedColor || 'black';
         activityDomObject.style.strokeWidth = _domain_replayConstants__WEBPACK_IMPORTED_MODULE_1__.STROKE_WIDTH;
+        const activityLabelDom = this.getLabelDomForActivity(activityDomObject);
+        if (activityLabelDom) {
+          activityLabelDom.style.fontWeight = _domain_replayConstants__WEBPACK_IMPORTED_MODULE_1__.LABEL_FONT_WEIGHT;
+        }
         const {
           numberBackgroundDom,
           numberTextDom
@@ -11163,6 +11174,10 @@ class DomManipulationService {
       if (querySelector) {
         const activityDomObject = querySelector.getElementsByTagName(_domain_replayConstants__WEBPACK_IMPORTED_MODULE_1__.CONNECTION_PATH_DOM_SELECTOR)[0];
         activityDomObject.style.strokeWidth = _domain_replayConstants__WEBPACK_IMPORTED_MODULE_1__.HIGHLIGHT_STROKE_WIDTH;
+        const activityLabelDom = this.getLabelDomForActivity(activityDomObject);
+        if (activityLabelDom) {
+          activityLabelDom.style.fontWeight = _domain_replayConstants__WEBPACK_IMPORTED_MODULE_1__.HIGHLIGHT_LABEL_FONT_WEIGHT;
+        }
         const {
           numberBackgroundDom,
           numberTextDom
