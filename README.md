@@ -5,15 +5,29 @@ Website for Egon.io–The Domain Story Modeler
 
 ### Setup environment
 
-Install Docker Desktop:
+Install Rancher Desktop on Windows:
 
-```fish
-brew install --cask docker
+```pwsh
+\$ winget install -e --id suse.RancherDesktop
 ```
 
-### Day-to-day Development
+Install Rancher Desktop on macOS:
 
-To run a server locally:
+```fish
+\$ brew install --cask rancher
+```
+
+### Day-to-day Development with DevContainers
+
+Open the project as a devcontainer. To run the server:
+
+```fish
+\$ bundle exec jekyll serve
+```
+
+### Day-to-day Development without DevContainers
+
+To run a server locally in Docker:
 
 ```fish
 docker compose up
