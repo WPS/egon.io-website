@@ -6368,6 +6368,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var diagram_js_lib_features_snapping__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! diagram-js/lib/features/snapping */ 22760);
 /* harmony import */ var _features_shortcuts__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./features/shortcuts */ 51623);
 /* harmony import */ var diagram_js_minimap__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! diagram-js-minimap */ 39843);
+/* harmony import */ var _bpmn_io_align_to_origin__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @bpmn-io/align-to-origin */ 25437);
+
 
 
 
@@ -6406,6 +6408,8 @@ DomainStoryModeler.prototype._modules = [].concat([_features__WEBPACK_IMPORTED_M
 // Shortcuts
 [diagram_js_lib_features_snapping__WEBPACK_IMPORTED_MODULE_21__["default"]],
 // Alignment
+[_bpmn_io_align_to_origin__WEBPACK_IMPORTED_MODULE_24__["default"]],
+// places diagram in the lower right quadrant (+x/+y) of the canvas
 [diagram_js_minimap__WEBPACK_IMPORTED_MODULE_23__["default"]]);
 DomainStoryModeler.prototype._createElementFromBusinessObject = function (bo) {
   let parentId = bo.parent;
@@ -6469,9 +6473,11 @@ DomainStoryModeler.prototype.importBusinessObjects = function (businessObjects) 
   connections.forEach(this._addConnection, this);
 };
 /**
- * Scrolls canvas and adjusts zoom so that the whole story is visible
+ * Changes element coordinates so that coordinate 0/0 is in the top left corner (avoids problems with HTML export)
+ * Then scrolls canvas and adjusts zoom so that the whole story is visible.
  */
 DomainStoryModeler.prototype.fitStoryToScreen = function () {
+  this.get("alignToOrigin").align();
   this.get("canvas")._fitViewport({
     x: 0,
     y: 0
