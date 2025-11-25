@@ -6473,8 +6473,9 @@ DomainStoryModeler.prototype.importBusinessObjects = function (businessObjects) 
   connections.forEach(this._addConnection, this);
 };
 /**
- * Changes element coordinates so that coordinate 0/0 is in the top left corner (avoids problems with HTML export)
- * Then scrolls canvas and adjusts zoom so that the whole story is visible.
+ * Make sure that the whole story is in the visible quadrant of the canvas.
+ * To achieve this, the element coordinates are manipulated so that coordinate 0/0 is in the top left corner (avoids problems with HTML export)
+ * Then, the canvas is scrolled and zoom level adjusted so that the whole story is visible.
  */
 DomainStoryModeler.prototype.fitStoryToScreen = function () {
   this.get("alignToOrigin").align();
@@ -10531,6 +10532,7 @@ class HtmlPresentationService {
   downloadHTMLPresentation(filename, modeler) {
     var _this = this;
     return (0,_home_runner_work_egon_io_egon_io_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      modeler.fitStoryToScreen(); // fixes problem with HTML export when story is not in the visible area of the canvas
       const svgData = [];
       // export all sentences of domain story
       _this.replayService.startReplay();
