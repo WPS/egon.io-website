@@ -1774,23 +1774,13 @@ function DomainStoryContextPadProvider(connect, translate, elementFactory, creat
     }
   });
   this.getContextPadEntries = function (element) {
-    _selectedElement = element;
-    let pickedColor = _selectedElement.businessObject.pickedColor;
-    if ((0,_utils_colorConverter__WEBPACK_IMPORTED_MODULE_3__.isHexWithAlpha)(pickedColor)) {
-      pickedColor = (0,_utils_colorConverter__WEBPACK_IMPORTED_MODULE_3__.hexToRGBA)(pickedColor);
-    }
-    document.dispatchEvent(new CustomEvent("defaultColor", {
-      detail: {
-        color: pickedColor ?? "#000000"
-      }
-    }));
     let actions = {};
     startConnect = function (event, element, autoActivate) {
       connect.start(event, element, autoActivate);
     };
     if (element.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.WORKOBJECT)) {
       addDelete(actions, element);
-      addColorChange(actions);
+      addColorChange(actions, element);
       addConnectWithActivity(actions, startConnect);
       addTextAnnotation(actions);
       addActors(appendAction, actions);
@@ -1798,7 +1788,7 @@ function DomainStoryContextPadProvider(connect, translate, elementFactory, creat
       addChangeWorkObjectTypeMenu(actions);
     } else if (element.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTOR)) {
       addDelete(actions, element);
-      addColorChange(actions);
+      addColorChange(actions, element);
       addConnectWithActivity(actions, startConnect);
       addTextAnnotation(actions);
       addWorkObjects(appendAction, actions);
@@ -1806,22 +1796,36 @@ function DomainStoryContextPadProvider(connect, translate, elementFactory, creat
     } else if (element.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.GROUP)) {
       addTextAnnotation(actions);
       addDeleteGroupWithoutChildren(actions, element);
-      addColorChange(actions);
+      addColorChange(actions, element);
     } else if (element.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTIVITY)) {
       addChangeDirection(actions);
-      addColorChange(actions);
+      addColorChange(actions, element);
       addDelete(actions, element);
     } else if (element.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.TEXTANNOTATION)) {
       addDelete(actions, element);
-      addColorChange(actions);
+      addColorChange(actions, element);
     } else if (element.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.CONNECTION)) {
       addDelete(actions, element);
     }
+    notifyColorPickerOfCurrentElementColor();
     return actions;
+    /* When the color picker is opened, the current element color should be selected. */
+    function notifyColorPickerOfCurrentElementColor() {
+      let currentColor = _selectedElement.businessObject.pickedColor;
+      if ((0,_utils_colorConverter__WEBPACK_IMPORTED_MODULE_3__.isHexWithAlpha)(currentColor)) {
+        currentColor = (0,_utils_colorConverter__WEBPACK_IMPORTED_MODULE_3__.hexToRGBA)(currentColor);
+      }
+      document.dispatchEvent(new CustomEvent("defaultColor", {
+        detail: {
+          color: currentColor ?? "#000000"
+        }
+      }));
+    }
   };
   this.getMultiElementContextPadEntries = function (elements) {
     let actions = {};
     addDelete(actions, elements);
+    addColorChange(actions, elements);
     return actions;
   };
   function addDelete(actions, element) {
@@ -1911,7 +1915,8 @@ function DomainStoryContextPadProvider(connect, translate, elementFactory, creat
       }
     });
   }
-  function addColorChange(actions) {
+  function addColorChange(actions, elements) {
+    _selectedElement = elements;
     (0,min_dash__WEBPACK_IMPORTED_MODULE_0__.assign)(actions, {
       colorChange: {
         group: "edit",
@@ -2040,21 +2045,27 @@ function DomainStoryContextPadProvider(connect, translate, elementFactory, creat
       }
     };
   }
-  function getSelectedBusinessObject(event) {
-    const oldColor = _selectedElement.businessObject.pickedColor;
-    let newColor = event.detail.color;
+  /* builds a payload describing a color change */
+  function getColorChangeDescription(element, newColor) {
+    const oldColor = element.businessObject.pickedColor;
     if ((0,_utils_colorConverter__WEBPACK_IMPORTED_MODULE_3__.isHexWithAlpha)(oldColor)) {
       newColor = (0,_utils_colorConverter__WEBPACK_IMPORTED_MODULE_3__.rgbaToHex)(newColor);
     }
     return {
-      businessObject: _selectedElement.businessObject,
+      businessObject: element.businessObject,
       newColor: newColor,
-      element: _selectedElement
+      element: element
     };
   }
-  function executeCommandStack(event) {
-    const selectedBusinessObject = getSelectedBusinessObject(event);
-    commandStack.execute("element.colorChange", selectedBusinessObject);
+  function executeCommandStack(colorChangedEvent) {
+    const commandName = "element.colorChange";
+    let newColor = colorChangedEvent.detail.color;
+    if ((0,min_dash__WEBPACK_IMPORTED_MODULE_0__.isArray)(_selectedElement)) {
+      _selectedElement.forEach(el => commandStack.execute(commandName, getColorChangeDescription(el, newColor)));
+    } else {
+      const colorChangeDescription = getColorChangeDescription(_selectedElement, newColor);
+      commandStack.execute(commandName, colorChangeDescription);
+    }
     dirtyFlagService.makeDirty();
   }
 }
