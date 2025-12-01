@@ -2674,7 +2674,6 @@ class IconSetConfigurationComponent {
     this.selectedWorkobjects = new rxjs__WEBPACK_IMPORTED_MODULE_0__.BehaviorSubject([]);
     this.allIconNames = new rxjs__WEBPACK_IMPORTED_MODULE_0__.BehaviorSubject([]);
     this.allFilteredIconNames = new rxjs__WEBPACK_IMPORTED_MODULE_0__.BehaviorSubject([]);
-    this.iconSetConfigurationTypes = this.iconSetCustomizationService.getIconSetConfiguration().value;
     this.allIcons = new rxjs__WEBPACK_IMPORTED_MODULE_0__.BehaviorSubject(this.iconDictionaryService.getFullDictionary());
     this.allIcons.subscribe(allIcons => {
       this.allIconNames.next(allIcons.keysArray().sort(this.sortByName));
