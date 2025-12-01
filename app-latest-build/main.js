@@ -1105,14 +1105,6 @@ class IconDictionaryService {
     }
     return new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
   }
-  getTypeIconSRC(type, name) {
-    if (type === src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTOR) {
-      return this.selectedActorsDictionary.get(name);
-    } else if (type === src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.WORKOBJECT) {
-      return this.selectedWorkObjectsDictionary.get(name);
-    }
-    return null;
-  }
   getCSSClassOfIcon(name) {
     return ICON_CSS_CLASS_PREFIX + (0,_utils_sanitizer__WEBPACK_IMPORTED_MODULE_4__.sanitizeIconName)(name.toLowerCase());
   }
@@ -9636,7 +9628,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, commandStac
       width: element.width,
       height: element.height
     };
-    let iconSRC = _iconDictionaryService.getTypeIconSRC(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_11__.ElementTypes.ACTOR, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_11__.ElementTypes.getIconId(element.type));
+    let iconSRC = _iconDictionaryService.getIconSource(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_11__.ElementTypes.getIconId(element.type));
     iconSRC = getIconSvg(iconSRC, element);
     let actor = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_4__.create)(iconSRC);
     (0,tiny_svg__WEBPACK_IMPORTED_MODULE_4__.attr)(actor, svgDynamicSizeAttributes);
@@ -9652,7 +9644,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, commandStac
         y: element.height / 2 - 25
       },
       workObject;
-    let iconSRC = _iconDictionaryService.getTypeIconSRC(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_11__.ElementTypes.WORKOBJECT, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_11__.ElementTypes.getIconId(element.type));
+    let iconSRC = _iconDictionaryService.getIconSource(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_11__.ElementTypes.getIconId(element.type));
     iconSRC = getIconSvg(iconSRC, element);
     workObject = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_4__.create)(iconSRC);
     (0,tiny_svg__WEBPACK_IMPORTED_MODULE_4__.attr)(workObject, svgDynamicSizeAttributes);
