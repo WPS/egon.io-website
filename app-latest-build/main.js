@@ -937,14 +937,14 @@ UpdateLabelHandler.$inject = ["modeling", "textRenderer", "commandStack"];
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   ICON_CSS_CLASS_PREFIX: () => (/* binding */ ICON_CSS_CLASS_PREFIX),
-/* harmony export */   IconDictionaryService: () => (/* binding */ IconDictionaryService),
-/* harmony export */   NAMES_OF_DEFAULT_ICONS: () => (/* binding */ NAMES_OF_DEFAULT_ICONS)
+/* harmony export */   IconDictionaryService: () => (/* binding */ IconDictionaryService)
 /* harmony export */ });
 /* harmony import */ var src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/domain/entities/dictionary */ 20843);
 /* harmony import */ var src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/domain/entities/elementTypes */ 73190);
 /* harmony import */ var src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/tools/icon-set-config/domain/allIcons */ 61070);
 /* harmony import */ var _utils_sanitizer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils/sanitizer */ 43515);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 48144);
+/* harmony import */ var src_app_domain_entities_constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/domain/entities/constants */ 40550);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 48144);
 var _staticBlock;
 
 
@@ -952,25 +952,32 @@ var _staticBlock;
 
 var getIconId = src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.getIconId;
 
+
 const ICON_CSS_CLASS_PREFIX = 'icon-domain-story-';
-const NAMES_OF_DEFAULT_ICONS = {
-  actors: ['Person', 'Group', 'System'],
-  workObjects: ['Document', 'Folder', 'Call', 'Email', 'Conversation', 'Info']
-};
 class IconDictionaryService {
   constructor() {
     // The dictionaries holds icons (as SVG) and icon names as key-value pairs:
     // these dictionaries make up the current icon set:
     this.selectedActorsDictionary = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__.Dictionary();
     this.selectedWorkObjectsDictionary = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__.Dictionary();
+    // default icon sets:
+    this.NAMES_OF_DEFAULT_ICONS = {
+      actors: ['Person', 'Group', 'System'],
+      workObjects: ['Document', 'Folder', 'Call', 'Email', 'Conversation', 'Info']
+    };
+    this.defaultActorsDictionary = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__.Dictionary();
+    this.defaultWorkObjectsDictionary = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__.Dictionary();
+    this.initDictionary(this.NAMES_OF_DEFAULT_ICONS.actors, src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_2__.builtInIcons, this.defaultActorsDictionary);
+    this.initDictionary(this.NAMES_OF_DEFAULT_ICONS.workObjects, src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_2__.builtInIcons, this.defaultWorkObjectsDictionary);
+    this.defaultIconSet = {
+      name: src_app_domain_entities_constants__WEBPACK_IMPORTED_MODULE_4__.INITIAL_ICON_SET_NAME,
+      actors: this.defaultActorsDictionary,
+      workObjects: this.defaultWorkObjectsDictionary
+    };
   }
   initTypeDictionaries() {
     if (this.selectedActorsDictionary.isEmpty() && this.selectedWorkObjectsDictionary.isEmpty()) {
-      const allTypes = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__.Dictionary();
-      allTypes.addBuiltInIcons(src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_2__.builtInIcons);
-      allTypes.appendDict(src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_2__.customIcons);
-      this.initDictionary(NAMES_OF_DEFAULT_ICONS.actors, allTypes, this.selectedActorsDictionary);
-      this.initDictionary(NAMES_OF_DEFAULT_ICONS.workObjects, allTypes, this.selectedWorkObjectsDictionary);
+      this.setIconSet(this.defaultIconSet);
     }
   }
   initDictionary(selectedIconNames, allIcons, dictionary) {
@@ -998,7 +1005,6 @@ class IconDictionaryService {
     }
     return allIn;
   }
-  /** Load Icons from Configuration **/
   addIconsFromIconSetConfiguration(dictionaryType, iconTypes) {
     let collection;
     if (dictionaryType === src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.ACTOR) {
@@ -1125,9 +1131,12 @@ class IconDictionaryService {
     this.selectedActorsDictionary = iconSet.actors;
     this.selectedWorkObjectsDictionary = iconSet.workObjects;
   }
+  getDefaultIconSet() {
+    return this.defaultIconSet;
+  }
   static #_ = _staticBlock = () => (this.ɵfac = function IconDictionaryService_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || IconDictionaryService)();
-  }, this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineInjectable"]({
+  }, this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineInjectable"]({
     token: IconDictionaryService,
     factory: IconDictionaryService.ɵfac,
     providedIn: 'root'
@@ -5764,25 +5773,57 @@ class IconSetCustomizationService {
     this.selectedWorkobjects$.next(this.iconSetConfigurationTypes.value.workObjects);
     this.configurationHasChanged = true;
   }
-  /** Revert Icon Set **/
   resetIconSet() {
-    const defaultConfig = this.iconSetImportExportService.createMinimalConfigurationWithDefaultIcons();
+    const currentIconSet = this.createMinimalIconSet();
     this.selectedWorkobjects$.value.forEach(workObjectName => {
-      if (!defaultConfig.workObjects.has(workObjectName)) {
+      if (!currentIconSet.workObjects.has(workObjectName)) {
         this.deselectWorkobject(workObjectName);
       }
     });
     this.selectedActors$.value.forEach(actorName => {
-      if (!defaultConfig.actors.has(actorName)) {
+      if (!currentIconSet.actors.has(actorName)) {
         this.deselectActor(actorName);
       }
     });
     this.iconSetConfigurationTypes.next({
-      name: defaultConfig.name,
-      actors: defaultConfig.actors.keysArray(),
-      workObjects: defaultConfig.workObjects.keysArray()
+      name: currentIconSet.name,
+      actors: currentIconSet.actors.keysArray(),
+      workObjects: currentIconSet.workObjects.keysArray()
     });
     this.updateAllIconBehaviourSubjects();
+  }
+  /* creates an icon set that contains the default icons
+     AND all other icons that are actually used on the canvas. */
+  createMinimalIconSet() {
+    const usedIconSet = this.createIconSetFromCanvas();
+    let defaultIconSet = this.iconDictionaryService.getDefaultIconSet();
+    defaultIconSet.actors.keysArray().forEach(iconName => {
+      usedIconSet.actors.add(this.iconDictionaryService.getIconSource(iconName), iconName);
+    });
+    defaultIconSet.workObjects.keysArray().forEach(iconName => {
+      usedIconSet.workObjects.add(this.iconDictionaryService.getIconSource(iconName), iconName);
+    });
+    return usedIconSet;
+  }
+  /* finds out which icons are actually used on the canvas */
+  createIconSetFromCanvas() {
+    const config = {
+      name: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_1__.INITIAL_ICON_SET_NAME,
+      actors: new _domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_2__.Dictionary(),
+      workObjects: new _domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_2__.Dictionary()
+    };
+    let allCanvasObjects = this.elementRegistryService.getAllCanvasObjects();
+    allCanvasObjects.map(e => e.businessObject).forEach(element => {
+      const type = element.type.replace(_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_3__.ElementTypes.ACTOR, '').replace(_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_3__.ElementTypes.WORKOBJECT, '');
+      if (element.type.includes(_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_3__.ElementTypes.ACTOR)) {
+        let src = this.iconDictionaryService.getIconSource(type) || '';
+        config.actors.add(src, type);
+      } else if (element.type.includes(_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_3__.ElementTypes.WORKOBJECT)) {
+        let src = this.iconDictionaryService.getIconSource(type) || '';
+        config.workObjects.add(src, type);
+      }
+    });
+    return config;
   }
   cancel() {
     this.iconSetConfigurationTypes.next(this.iconSetImportExportService.getCurrentConfigurationNamesWithoutPrefix());
@@ -5793,7 +5834,6 @@ class IconSetCustomizationService {
     this.updateActorSubject();
     this.updateWorkObjectSubject();
   }
-  /** Persist Icon Set **/
   saveIconSet(usedIcons, imported = false) {
     const changedActors = [];
     const changedWorkobjects = [];
@@ -11071,16 +11111,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   IconSetImportExportService: () => (/* binding */ IconSetImportExportService)
 /* harmony export */ });
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ 95536);
-/* harmony import */ var src_app_tools_icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/tools/icon-set-config/services/icon-dictionary.service */ 6932);
-/* harmony import */ var src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/domain/entities/dictionary */ 20843);
-/* harmony import */ var src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/domain/entities/elementTypes */ 73190);
-/* harmony import */ var _domain_entities_constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../domain/entities/constants */ 40550);
-/* harmony import */ var _utils_sanitizer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../utils/sanitizer */ 43515);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/core */ 48144);
+/* harmony import */ var src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/domain/entities/dictionary */ 20843);
+/* harmony import */ var src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/domain/entities/elementTypes */ 73190);
+/* harmony import */ var _domain_entities_constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../domain/entities/constants */ 40550);
+/* harmony import */ var _utils_sanitizer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../utils/sanitizer */ 43515);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 48144);
+/* harmony import */ var src_app_tools_icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/tools/icon-set-config/services/icon-dictionary.service */ 6932);
 /* harmony import */ var src_app_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/domain/services/element-registry.service */ 85511);
 /* harmony import */ var _domain_services_storage_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../domain/services/storage.service */ 50624);
 var _staticBlock;
-
 
 
 
@@ -11095,11 +11134,11 @@ class IconSetImportExportService {
     this.iconDictionaryService = iconDictionaryService;
     this.elementRegistryService = elementRegistryService;
     this.storageService = storageService;
-    this.iconSetNameSubject = new rxjs__WEBPACK_IMPORTED_MODULE_0__.BehaviorSubject(_domain_entities_constants__WEBPACK_IMPORTED_MODULE_4__.INITIAL_ICON_SET_NAME);
+    this.iconSetNameSubject = new rxjs__WEBPACK_IMPORTED_MODULE_0__.BehaviorSubject(_domain_entities_constants__WEBPACK_IMPORTED_MODULE_3__.INITIAL_ICON_SET_NAME);
     this.iconSetName$ = this.iconSetNameSubject.asObservable();
   }
   setIconSetName(name) {
-    this.iconSetNameSubject.next(name); // ? name : INITIAL_ICON_SET_NAME);
+    this.iconSetNameSubject.next(name);
   }
   exportConfiguration() {
     const iconSetConfiguration = this.getCurrentConfigurationForExport();
@@ -11117,8 +11156,8 @@ class IconSetImportExportService {
     document.body.removeChild(element);
   }
   loadConfiguration(customConfig, updateIconSetName = true) {
-    let actorDict = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_2__.Dictionary();
-    let workObjectDict = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_2__.Dictionary();
+    let actorDict = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
+    let workObjectDict = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
     if (customConfig.actors.keysArray()) {
       actorDict = customConfig.actors;
       workObjectDict = customConfig.workObjects;
@@ -11129,8 +11168,8 @@ class IconSetImportExportService {
     const actorKeys = actorDict.keysArray();
     const workObjectKeys = workObjectDict.keysArray();
     this.iconDictionaryService.updateIconRegistries([], [], customConfig);
-    this.iconDictionaryService.addIconsFromIconSetConfiguration(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_3__.ElementTypes.ACTOR, actorKeys.map(a => src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_3__.ElementTypes.ACTOR + a));
-    this.iconDictionaryService.addIconsFromIconSetConfiguration(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_3__.ElementTypes.WORKOBJECT, workObjectKeys.map(w => src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_3__.ElementTypes.WORKOBJECT + w));
+    this.iconDictionaryService.addIconsFromIconSetConfiguration(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTOR, actorKeys.map(a => src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTOR + a));
+    this.iconDictionaryService.addIconsFromIconSetConfiguration(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.WORKOBJECT, workObjectKeys.map(w => src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.WORKOBJECT + w));
     if (updateIconSetName) {
       const configurationName = customConfig.name;
       this.setIconSetName(configurationName);
@@ -11166,32 +11205,22 @@ class IconSetImportExportService {
   }
   getCurrentConfigurationNamesWithoutPrefix() {
     return {
-      name: this.iconSetNameSubject.value || _domain_entities_constants__WEBPACK_IMPORTED_MODULE_4__.INITIAL_ICON_SET_NAME,
-      actors: this.iconDictionaryService.getActorsDictionary().keysArray().map(a => a.replace(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_3__.ElementTypes.ACTOR, '')),
-      workObjects: this.iconDictionaryService.getWorkObjectsDictionary().keysArray().map(w => w.replace(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_3__.ElementTypes.WORKOBJECT, ''))
+      name: this.iconSetNameSubject.value || _domain_entities_constants__WEBPACK_IMPORTED_MODULE_3__.INITIAL_ICON_SET_NAME,
+      actors: this.iconDictionaryService.getActorsDictionary().keysArray().map(a => a.replace(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTOR, '')),
+      workObjects: this.iconDictionaryService.getWorkObjectsDictionary().keysArray().map(w => w.replace(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.WORKOBJECT, ''))
     };
-  }
-  createMinimalConfigurationWithDefaultIcons() {
-    const minimalConfig = this.createConfigFromCanvas();
-    src_app_tools_icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_1__.NAMES_OF_DEFAULT_ICONS.actors.forEach(iconName => {
-      minimalConfig.actors.add(this.iconDictionaryService.getIconSource(iconName), iconName);
-    });
-    src_app_tools_icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_1__.NAMES_OF_DEFAULT_ICONS.workObjects.forEach(iconName => {
-      minimalConfig.workObjects.add(this.iconDictionaryService.getIconSource(iconName), iconName);
-    });
-    return minimalConfig;
   }
   createConfigFromDictionaries(actorsDict, workObjectsDict) {
     const actorNames = actorsDict.keysArray();
     const workobjectNames = workObjectsDict.keysArray();
-    const newActors = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_2__.Dictionary();
-    const newWorkobjects = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_2__.Dictionary();
+    const newActors = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
+    const newWorkobjects = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
     // Fill Configuration from Canvas-Objects
     actorNames.forEach(actor => {
-      newActors.add(actorsDict.get(actor), actor.replace(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_3__.ElementTypes.ACTOR, ''));
+      newActors.add(actorsDict.get(actor), actor.replace(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTOR, ''));
     });
     workobjectNames.forEach(workObject => {
-      newWorkobjects.add(workObjectsDict.get(workObject), workObject.replace(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_3__.ElementTypes.WORKOBJECT, ''));
+      newWorkobjects.add(workObjectsDict.get(workObject), workObject.replace(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.WORKOBJECT, ''));
     });
     return {
       name: this.iconSetNameSubject.value,
@@ -11203,24 +11232,24 @@ class IconSetImportExportService {
     if (fileConfiguration === undefined) {
       return {
         name: '',
-        actors: new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_2__.Dictionary(),
-        workObjects: new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_2__.Dictionary()
+        actors: new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary(),
+        workObjects: new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary()
       };
     }
-    const actorsDict = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_2__.Dictionary();
-    const workObjectsDict = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_2__.Dictionary();
+    const actorsDict = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
+    const workObjectsDict = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
     Object.keys(fileConfiguration.actors).forEach(key => {
       let icon = fileConfiguration.actors[key];
       if (icon) {
         // make sure the actor has an icon
-        actorsDict.add(icon, (0,_utils_sanitizer__WEBPACK_IMPORTED_MODULE_5__.sanitizeIconName)(key));
+        actorsDict.add(icon, (0,_utils_sanitizer__WEBPACK_IMPORTED_MODULE_4__.sanitizeIconName)(key));
       }
     });
     Object.keys(fileConfiguration.workObjects).forEach(key => {
       let icon = fileConfiguration.workObjects[key];
       if (icon) {
         // make sure the work object has an icon
-        workObjectsDict.add(icon, (0,_utils_sanitizer__WEBPACK_IMPORTED_MODULE_5__.sanitizeIconName)(key));
+        workObjectsDict.add(icon, (0,_utils_sanitizer__WEBPACK_IMPORTED_MODULE_4__.sanitizeIconName)(key));
       }
     });
     return {
@@ -11230,7 +11259,7 @@ class IconSetImportExportService {
     };
   }
   getStoredIconSetConfiguration() {
-    const iconSetString = this.storageService.get(_domain_entities_constants__WEBPACK_IMPORTED_MODULE_4__.ICON_SET_CONFIGURATION_KEY);
+    const iconSetString = this.storageService.get(_domain_entities_constants__WEBPACK_IMPORTED_MODULE_3__.ICON_SET_CONFIGURATION_KEY);
     if (!iconSetString) {
       return;
     } else {
@@ -11255,33 +11284,14 @@ class IconSetImportExportService {
       actors: actors,
       workObjects: workObjects
     };
-    this.storageService.set(_domain_entities_constants__WEBPACK_IMPORTED_MODULE_4__.ICON_SET_CONFIGURATION_KEY, JSON.stringify(configForStorage, null, 2));
-  }
-  createConfigFromCanvas() {
-    const config = {
-      name: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_4__.INITIAL_ICON_SET_NAME,
-      actors: new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_2__.Dictionary(),
-      workObjects: new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_2__.Dictionary()
-    };
-    let allCanvasObjects = this.elementRegistryService.getAllCanvasObjects();
-    allCanvasObjects.map(e => e.businessObject).forEach(element => {
-      const type = element.type.replace(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_3__.ElementTypes.ACTOR, '').replace(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_3__.ElementTypes.WORKOBJECT, '');
-      if (element.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_3__.ElementTypes.ACTOR)) {
-        let src = this.iconDictionaryService.getIconSource(type) || '';
-        config.actors.add(src, type);
-      } else if (element.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_3__.ElementTypes.WORKOBJECT)) {
-        let src = this.iconDictionaryService.getIconSource(type) || '';
-        config.workObjects.add(src, type);
-      }
-    });
-    return config;
+    this.storageService.set(_domain_entities_constants__WEBPACK_IMPORTED_MODULE_3__.ICON_SET_CONFIGURATION_KEY, JSON.stringify(configForStorage, null, 2));
   }
   checkValidityOfConfiguration(iconSetConfiguration) {
     return iconSetConfiguration.actors.keysArray().length > 1 && iconSetConfiguration.workObjects.keysArray().length > 1 && !iconSetConfiguration.actors.all().some(e => typeof e.value !== 'string') && !iconSetConfiguration.workObjects.all().some(e => typeof e.value !== 'string');
   }
   static #_ = _staticBlock = () => (this.ɵfac = function IconSetImportExportService_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || IconSetImportExportService)(_angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵinject"](src_app_tools_icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_1__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵinject"](src_app_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_7__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵinject"](_domain_services_storage_service__WEBPACK_IMPORTED_MODULE_8__.StorageService));
-  }, this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdefineInjectable"]({
+    return new (__ngFactoryType__ || IconSetImportExportService)(_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵinject"](src_app_tools_icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_6__.IconDictionaryService), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵinject"](src_app_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_7__.ElementRegistryService), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵinject"](_domain_services_storage_service__WEBPACK_IMPORTED_MODULE_8__.StorageService));
+  }, this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineInjectable"]({
     token: IconSetImportExportService,
     factory: IconSetImportExportService.ɵfac,
     providedIn: 'root'
@@ -11511,7 +11521,7 @@ class ImportDomainStoryService {
         } else {
           // even older legacy implementation (prior to configurable icon set):
           domainStoryElements = JSON.parse(contentAsJson);
-          iconSet = this.iconSetImportExportService.createMinimalConfigurationWithDefaultIcons();
+          iconSet = this.iconDictionaryService.getDefaultIconSet();
         }
       }
       this.importRepairService.removeWhitespacesFromIcons(domainStoryElements);
