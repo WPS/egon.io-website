@@ -1061,7 +1061,7 @@ class IconDictionaryService {
     const newIcons = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_0__.Dictionary();
     this.extractCustomIconsFromDictionary(config.actors, newIcons);
     this.extractCustomIconsFromDictionary(config.workObjects, newIcons);
-    this.addNewIconsToDictionary(newIcons);
+    this.addCustomIcons(newIcons);
     this.addIconsToTypeDictionary(actors, workObjects);
   }
   extractCustomIconsFromDictionary(elementDictionary, customIcons) {
@@ -1072,25 +1072,21 @@ class IconDictionaryService {
       }
     });
   }
-  /** Add new Icon(s) **/
-  addNewIconsToDictionary(customIcons) {
+  addCustomIcon(iconSrc, name) {
+    src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_2__.customIcons.set(name, iconSrc);
+    this.addIconsToCss(iconSrc, name);
+  }
+  addCustomIcons(customIcons) {
     customIcons.keysArray().forEach(key => {
       const custom = customIcons.get(key);
-      this.addToCustomIconsDictionary(custom, key);
+      this.addCustomIcon(custom, key);
     });
-    this.addIconsToCss(customIcons);
   }
-  addToCustomIconsDictionary(input, name) {
-    src_app_tools_icon_set_config_domain_allIcons__WEBPACK_IMPORTED_MODULE_2__.customIcons.set(name, input);
-  }
-  addIconsToCss(customIcons) {
+  addIconsToCss(iconSrc, iconName) {
     const sheetEl = document.getElementById('iconsCss');
-    customIcons.keysArray().forEach(key => {
-      const src = customIcons.get(key);
-      const iconStyle = '.' + ICON_CSS_CLASS_PREFIX + (0,_utils_sanitizer__WEBPACK_IMPORTED_MODULE_3__.sanitizeIconName)(key.toLowerCase()) + '::before{ content: url("data:image/svg+xml;utf8,' + this.wrapSRCInSVG(src) + '"); margin: 3px;}';
-      // @ts-ignore
-      sheetEl?.sheet?.insertRule(iconStyle, sheetEl.sheet.cssRules.length);
-    });
+    const iconStyle = '.' + ICON_CSS_CLASS_PREFIX + (0,_utils_sanitizer__WEBPACK_IMPORTED_MODULE_3__.sanitizeIconName)(iconName.toLowerCase()) + '::before{ content: url("data:image/svg+xml;utf8,' + this.wrapSRCInSVG(iconSrc) + '"); margin: 3px;}';
+    // @ts-ignore
+    sheetEl?.sheet?.insertRule(iconStyle, sheetEl.sheet.cssRules.length);
   }
   wrapSRCInSVG(src) {
     return "<svg viewBox='0 0 22 22' width='22' height='22' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><image width='22' height='22' xlink:href='" + src + "'/></svg>";
@@ -2717,7 +2713,7 @@ class IconSetConfigurationComponent {
       reader.onloadend = e => {
         if (e.target) {
           const src = e.target.result;
-          this.iconDictionaryService.addToCustomIconsDictionary(src, iconName);
+          this.iconDictionaryService.addCustomIcon(src, iconName);
           this.allIcons.next(this.iconDictionaryService.getFullDictionary());
           this.filter.next(this.filter.value);
           this.iconSetCustomizationService.addNewIcon(iconName);
@@ -5903,11 +5899,8 @@ class IconSetCustomizationService {
       workObjects
     };
   }
-  /** Update Icons **/
   addNewIcon(iconName) {
-    const iconDict = new _domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_2__.Dictionary();
-    iconDict.add(this.getDataUrlForIcon(iconName), iconName);
-    this.iconDictionaryService.addIconsToCss(iconDict);
+    this.iconDictionaryService.addCustomIcon(this.getDataUrlForIcon(iconName), iconName);
     this.addIconToAllIconList(iconName);
   }
   addIconToAllIconList(iconName) {
