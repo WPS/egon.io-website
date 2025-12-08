@@ -2690,7 +2690,7 @@ class IconSetConfigurationComponent {
     reader.onloadend = e => {
       const configFromFile = JSON.parse(e.target?.result);
       const config = this.iconSetImportExportService.createIconSetConfiguration(configFromFile);
-      this.iconSetImportExportService.loadConfiguration(config, false);
+      this.iconSetImportExportService.loadIconSet(config, false);
       this.iconSetCustomizationService.importConfiguration(config);
       this.allIcons.next(this.iconDictionaryService.getFullDictionary());
       this.filter.next(this.filter.value);
@@ -4628,10 +4628,9 @@ class ModelerService {
   }
   postInit() {
     this.checkCurrentVersion();
-    const storedIconSetConfiguration = this.iconSetImportExportService.getStoredIconSetConfiguration();
-    if (storedIconSetConfiguration) {
-      this.iconDictionaryService.setIconSet(storedIconSetConfiguration);
-      this.iconSetImportExportService.loadConfiguration(storedIconSetConfiguration);
+    const lastUsedIconSet = this.iconSetImportExportService.getStoredIconSetConfiguration();
+    if (lastUsedIconSet) {
+      this.iconSetImportExportService.loadIconSet(lastUsedIconSet);
     }
     this.modeler = new src_app_tools_modeler_diagram_js__WEBPACK_IMPORTED_MODULE_2__["default"]({
       container: '#canvas',
@@ -4682,7 +4681,7 @@ class ModelerService {
     if (iconSetConfiguration) {
       this.iconSetImportExportService.setStoredIconSetConfiguration(iconSetConfiguration);
       this.iconDictionaryService.setIconSet(iconSetConfiguration);
-      this.iconSetImportExportService.loadConfiguration(iconSetConfiguration);
+      this.iconSetImportExportService.loadIconSet(iconSetConfiguration);
     }
     this.elementRegistryService.clear();
     this.modeler?.destroy();
@@ -5855,7 +5854,7 @@ class IconSetCustomizationService {
     this.configurationHasChanged = false;
     this.selectedActors$ = new rxjs__WEBPACK_IMPORTED_MODULE_0__.BehaviorSubject([]);
     this.selectedWorkobjects$ = new rxjs__WEBPACK_IMPORTED_MODULE_0__.BehaviorSubject([]);
-    this.iconSetConfigurationTypes = new rxjs__WEBPACK_IMPORTED_MODULE_0__.BehaviorSubject(this.iconSetImportExportService.getCurrentConfigurationNamesWithoutPrefix());
+    this.iconSetConfigurationTypes = new rxjs__WEBPACK_IMPORTED_MODULE_0__.BehaviorSubject(this.getCurrentConfigurationNamesWithoutPrefix());
     this.selectedWorkobjects$.next(this.iconSetConfigurationTypes.value.workObjects);
     this.selectedActors$.next(this.iconSetConfigurationTypes.value.actors);
     src_app_tools_icon_set_config_domain_builtInIcons__WEBPACK_IMPORTED_MODULE_4__.builtInIcons.keysArray().forEach(iconName => {
@@ -5907,9 +5906,6 @@ class IconSetCustomizationService {
     }
   }
   /** Getter & Setter **/
-  getIconSetConfiguration() {
-    return this.iconSetConfigurationTypes;
-  }
   getIconForName(iconName) {
     return this.allIconListItems.get(iconName);
   }
@@ -6063,9 +6059,16 @@ class IconSetCustomizationService {
     return config;
   }
   cancel() {
-    this.iconSetConfigurationTypes.next(this.iconSetImportExportService.getCurrentConfigurationNamesWithoutPrefix());
+    this.iconSetConfigurationTypes.next(this.getCurrentConfigurationNamesWithoutPrefix());
     this.updateAllIconBehaviourSubjects();
     this.resetToInitialConfiguration();
+  }
+  getCurrentConfigurationNamesWithoutPrefix() {
+    return {
+      name: this.iconSetImportExportService.getIconSetName() || _domain_entities_constants__WEBPACK_IMPORTED_MODULE_1__.INITIAL_ICON_SET_NAME,
+      actors: this.iconDictionaryService.getActorsDictionary().keysArray().map(a => a.replace(_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_3__.ElementTypes.ACTOR, '')),
+      workObjects: this.iconDictionaryService.getWorkObjectsDictionary().keysArray().map(w => w.replace(_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_3__.ElementTypes.WORKOBJECT, ''))
+    };
   }
   resetToInitialConfiguration() {
     this.updateActorSubject();
@@ -11082,6 +11085,9 @@ class IconSetImportExportService {
   setIconSetName(name) {
     this.iconSetNameSubject.next(name);
   }
+  getIconSetName() {
+    return this.iconSetNameSubject.getValue();
+  }
   exportConfiguration() {
     const iconSetConfiguration = this.getCurrentConfigurationForExport();
     if (!iconSetConfiguration) {
@@ -11097,20 +11103,10 @@ class IconSetImportExportService {
     element.click();
     document.body.removeChild(element);
   }
-  loadConfiguration(customConfig, updateIconSetName = true) {
-    let actorDict = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
-    let workObjectDict = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
-    if (customConfig.actors.keysArray()) {
-      actorDict = customConfig.actors;
-      workObjectDict = customConfig.workObjects;
-    } else {
-      actorDict.addEach(customConfig.actors);
-      workObjectDict.addEach(customConfig.workObjects);
-    }
-    this.iconDictionaryService.updateIconRegistries(customConfig);
+  loadIconSet(iconSet, updateIconSetName = true) {
+    this.iconDictionaryService.updateIconRegistries(iconSet);
     if (updateIconSetName) {
-      const configurationName = customConfig.name;
-      this.setIconSetName(configurationName);
+      this.setIconSetName(iconSet.name);
     }
   }
   getCurrentConfiguration() {
@@ -11140,13 +11136,6 @@ class IconSetImportExportService {
       };
     }
     return;
-  }
-  getCurrentConfigurationNamesWithoutPrefix() {
-    return {
-      name: this.iconSetNameSubject.value || _domain_entities_constants__WEBPACK_IMPORTED_MODULE_3__.INITIAL_ICON_SET_NAME,
-      actors: this.iconDictionaryService.getActorsDictionary().keysArray().map(a => a.replace(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTOR, '')),
-      workObjects: this.iconDictionaryService.getWorkObjectsDictionary().keysArray().map(w => w.replace(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.WORKOBJECT, ''))
-    };
   }
   createConfigFromDictionaries(actorsDict, workObjectsDict) {
     const actorNames = actorsDict.keysArray();
