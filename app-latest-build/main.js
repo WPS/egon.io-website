@@ -5860,7 +5860,7 @@ class IconSetCustomizationService {
     src_app_tools_icon_set_config_domain_builtInIcons__WEBPACK_IMPORTED_MODULE_4__.builtInIcons.keysArray().forEach(iconName => {
       this.addIconToAllIconList(iconName);
     });
-    iconSetChangedService.iconConfigrationChanged().subscribe(config => {
+    iconSetChangedService.iconConfigurationChanged().subscribe(config => {
       this.importConfiguration(config);
     });
     const storedIconSetConfiguration = this.iconSetImportExportService.getStoredIconSetConfiguration();
@@ -11287,14 +11287,21 @@ class ImportDomainStoryService {
     this.titleSubscription.unsubscribe();
     this.descriptionSubscription.unsubscribe();
   }
-  iconConfigrationChanged() {
+  iconConfigurationChanged() {
     return this.importedConfigurationEmitter.asObservable();
   }
   performImport() {
-    // @ts-ignore
-    const file = document.getElementById('import').files[0];
-    this.import(file, file.name);
-    this.modelerService.commandStackChanged();
+    const inputElement = document.getElementById('import');
+    if (inputElement && inputElement instanceof HTMLInputElement && inputElement.files && inputElement.files.length > 0) {
+      const file = inputElement.files[0];
+      this.import(file, file.name);
+      this.modelerService.commandStackChanged();
+    } else {
+      this.snackbar.open('No file selected or invalid input element.', undefined, {
+        duration: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_2__.SNACKBAR_DURATION_LONG,
+        panelClass: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_2__.SNACKBAR_ERROR
+      });
+    }
   }
   performDropImport(file) {
     if (this.isSupportedFileEnding(file.name)) {
@@ -11441,12 +11448,13 @@ class ImportDomainStoryService {
       let lastElement = domainStoryElements[domainStoryElements.length - 1];
       if (!lastElement.id) {
         lastElement = domainStoryElements.pop();
-        let importVersionNumber = lastElement;
+        let versionInfo = lastElement;
         // if the last element has the tag 'version',
         // then there exists another tag 'info' for the description
-        if (importVersionNumber.version) {
+        let importVersionNumber;
+        if (versionInfo.version) {
           lastElement = domainStoryElements.pop();
-          importVersionNumber = importVersionNumber.version;
+          importVersionNumber = versionInfo.version;
         } else {
           importVersionNumber = '?';
           this.snackbar.open(`The version number is unreadable.`, undefined, {
