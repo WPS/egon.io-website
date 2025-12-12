@@ -9,7 +9,9 @@ toc_sticky: true
 > Have you used an earlier version of *Egon v2* or *latest build*? Please follow these [instructions](https://egon.io/howto#launching-egon) for updating to the newest version.
 
 ## Latest Build
-No changes yet.
+- `Feature`: Change color of all selected model elements. [See #152](https://github.com/WPS/egon.io/issues/152)
+- `Fix`: List of saved drafts is scrollable. [See #225](https://github.com/WPS/egon.io/issues/225)
+- `Fix`: HTML export works when story was created outside of the visible part of the canvas. [See #205](https://github.com/WPS/egon.io/issues/205)
 
 
 ## v3.0.0
