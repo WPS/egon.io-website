@@ -14,7 +14,7 @@ There is no login or registration required to use Egon. Egon runs completely in 
 
 ## Launching Egon
 
->  **Updating to the latest version:** If you have used an earlier `v2.x.x` versions or the latest build (`v2.x.x.-dev`), you need to clear your local browser storage and then reload the page in order for Egon to load properly. This will reset your icon configuration to default and delete the automatically saved drafts. Instructions:
+>  **Updating to the latest version:** If you have used an earlier version, Egon will ask you to clear your local browser storage and then reload the page in order for the new version to load properly. This will reset your icon configuration to default and delete the automatically saved drafts. Instructions:
 > - [Firefox](https://support.mozilla.org/en-US/kb/clear-cookies-and-site-data-firefox#w_clear-cookies-for-the-current-website)
 > - Chrome: In the address bar, click the button in the left corner (*show website information*), then *cookies and website date*, *manage website data*, and delete the data for egon.io.
 
@@ -81,6 +81,14 @@ Double click on an actor's or work object's icon to edit the name.
 Activities are depicted as arrows and created via the context menu (see above). Double click on an arrow to edit the activity's name. If you model an activity between an actor and a work object, it will be numbered automatically. By double clicking on the arrow or the number you can manually change the number. All other numbers are adjusted automatically.
 
 If you want to model activities that happen simultaneously, check  the "multiple" checkbox of an activity. This allows you to use the same number multiple times, indicating that these activities happen in parallel. These steps are shown at once in *replay*.
+
+## Navigating in the Canvas
+To move the canvas, you can...:
+- click and drag it
+- use the mouse wheel to move the canvas up and down
+- use shift + mouse wheel to move the canvas horizontally
+
+Ctrl + mouse wheel zooms in and out.
 
 ## Renaming Multiple Work Objects or Activities
 
