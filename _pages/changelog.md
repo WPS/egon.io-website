@@ -6,7 +6,7 @@ toc: true
 toc_sticky: true
 ---
 
-> Have you used an earlier version of *Egon v2* or *latest build*? Please follow these [instructions](https://egon.io/howto#launching-egon) for updating to the newest version.
+> Have you used an earlier version of *Egon* or the *latest build*? Please follow these [instructions](https://egon.io/howto#launching-egon) for updating to the newest version.
 
 ## Latest Build
 no changes yet
