@@ -6162,14 +6162,15 @@ class ExportService {
     const dst = this.getStoryForDownload();
     const configAndDST = this.createConfigAndDST(dst);
     const json = JSON.stringify(configAndDST, null, 2);
-    const filename = (0,src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_2__.sanitizeForDesktop)(this.title() + '_' + this.getCurrentDateString());
+    const filename = this.createFileName();
     this.downloadFile(json, 'data:text/plain;charset=utf-8,', filename, '.egn', true);
   }
   downloadSVG(withTitle, useWhiteBackground, animationSpeed) {
     const story = this.getStoryForDownload();
     const dst = this.createConfigAndDST(story);
     const svgData = this.svgService.createSVGData(this.title(), this.description(), dst, withTitle, useWhiteBackground, animationSpeed);
-    this.downloadFile(svgData, 'data:application/bpmn20-xml;charset=UTF-8,', (0,src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_2__.sanitizeForDesktop)(this.title() + '_' + this.getCurrentDateString()), '.egn.svg', true);
+    const filename = this.createFileName();
+    this.downloadFile(svgData, 'data:application/bpmn20-xml;charset=UTF-8,', filename, '.egn.svg', true);
   }
   downloadPNG(withTitle) {
     const canvas = document.getElementById('canvas');
@@ -6185,9 +6186,9 @@ class ExportService {
       svg = this.pngService.prepareSVG(svg, layerBase, this.description(), this.title(), withTitle);
       image.onload = () => {
         const tempCanvas = document.createElement('canvas');
-        // add a 10px buffer to the right and lower boundary
-        tempCanvas.width = this.pngService.getWidth() + 10;
-        tempCanvas.height = this.pngService.getHeight() + 10;
+        const padding = 10;
+        tempCanvas.width = this.pngService.getWidth() + padding;
+        tempCanvas.height = this.pngService.getHeight() + padding;
         const ctx = tempCanvas.getContext('2d');
         if (ctx) {
           // fill with white background
@@ -6231,7 +6232,7 @@ class ExportService {
     }
   }
   downloadHTMLPresentation(modeler) {
-    const filename = (0,src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_2__.sanitizeForDesktop)(this.title() + '_' + this.getCurrentDateString());
+    const filename = this.createFileName();
     this.htmlPresentationService.downloadHTMLPresentation(filename, modeler).then();
   }
   downloadFile(data, datatype, filename, fileEnding, makeClean) {
@@ -6264,6 +6265,9 @@ class ExportService {
   }
   getCurrentDateString() {
     return (0,_angular_common__WEBPACK_IMPORTED_MODULE_9__.formatDate)(new Date(), 'yyyy-MM-dd', 'en-GB');
+  }
+  createFileName() {
+    return (0,src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_2__.sanitizeForDesktop)(this.title() + '_' + this.getCurrentDateString());
   }
   static #_ = _staticBlock = () => (this.ɵfac = function ExportService_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || ExportService)();
