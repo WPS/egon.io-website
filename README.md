@@ -27,6 +27,12 @@ Open the project as a devcontainer. To run the server:
 
 ### Day-to-day Development without DevContainers
 
+Generate the `.env` file (needed initially and after changing `.ruby-version`):
+
+```fish
+echo RUBY_VERSION=(cat .ruby-version) > .env
+```
+
 To run a server locally in Docker:
 
 ```fish

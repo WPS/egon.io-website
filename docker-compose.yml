@@ -2,7 +2,10 @@ version: "3.9"
 
 services:
   site:
-    build: .
+    build:
+      context: .
+      args:
+        RUBY_VERSION: ${RUBY_VERSION}
     image: wps/egon.io-website:latest
     command: bundle exec jekyll serve --trace --host 0.0.0.0 --watch --incremental
     environment:
