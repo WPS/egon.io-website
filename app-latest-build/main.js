@@ -2814,7 +2814,7 @@ function createAutocompleteForEdit(editingBox, workObjectNames, businessElement,
   }
   function updateFocusOnAutocompleteList() {
     const autocompleteList = document.getElementById("autocomplete-list");
-    const autocompleteListItems = autocompleteList.getElementsByTagName("div");
+    const autocompleteListItems = autocompleteList?.getElementsByTagName("div");
     if (!autocompleteListItems || autocompleteListItems.length < 1) {
       return;
     }
