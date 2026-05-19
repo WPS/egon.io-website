@@ -2498,9 +2498,6 @@ function DSLabelEditingProvider(eventBus, canvas, directEditing, modeling, resiz
   function createAutocomplete(element) {
     const editingBox = document.getElementsByClassName("djs-direct-editing-content");
     focusElement(editingBox.item(0));
-    if (element.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTOR)) {
-      return;
-    }
     (0,_dsLabelUtil__WEBPACK_IMPORTED_MODULE_1__.createAutocompleteForEdit)(editingBox[0], dictionaryService.getUniqueWorkObjectNames(), element, eventBus);
   }
 }
@@ -2766,27 +2763,34 @@ function createAutocompleteForEdit(editingBox, workObjectNames, businessElement,
         const autocompleteItem = document.createElement("div");
         autocompleteItem.innerHTML = name;
         autocompleteItem.innerHTML += "<input type='hidden' value='" + name + "'>";
+        autocompleteItem.addEventListener("click", function (e) {
+          e.preventDefault();
+          currentFocus = workObjectNamesFilteredBySearchterm.indexOf(name);
+          updateFocusOnAutocompleteList();
+          // Keydown Events do not properly work on autoCompleteItem -> set the focus on the editigBox so the keyboard controls still work
+          editingBox.focus();
+        });
+        // TODO dbClick should trigger the selection of the autocomplete-item
         autocompleteList.appendChild(autocompleteItem);
         workObjectNamesFilteredBySearchterm.push(name);
       }
     }
   }
-  editingBox.onkeydown = function (e) {
+  editingBox.onkeydown = function onKeyDownListener(e) {
     if (!businessElement || businessElement.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTOR)) {
       return;
     }
-    let autocompleteList = document.getElementById("autocomplete-list");
     if (e.keyCode === 40) {
       // KEYDOWN
       e.preventDefault();
       currentFocus++;
-      updateFocusOnAutocompleteList(autocompleteList);
+      updateFocusOnAutocompleteList();
     } else if (e.keyCode === 38) {
       // KEYUP
       e.preventDefault();
       currentFocus--;
-      updateFocusOnAutocompleteList(autocompleteList);
-    } else if (e.keyCode === 13) {
+      updateFocusOnAutocompleteList();
+    } else if (e.key === "Enter") {
       // ENTER
       e.preventDefault();
       if (currentFocus > -1) {
@@ -2800,13 +2804,16 @@ function createAutocompleteForEdit(editingBox, workObjectNames, businessElement,
       }
     }
   };
-  function clearOldAutocompleteList() {
+  function clearOldAutocompleteList(target) {
     const oldAutocompleteList = document.getElementById("autocomplete-list");
-    if (oldAutocompleteList) {
-      oldAutocompleteList.parentNode.removeChild(oldAutocompleteList);
+    if (oldAutocompleteList && !(target?.classList.contains("djs-direct-editing-content") || target?.parentElement.id === "autocomplete-list")) {
+      oldAutocompleteList.remove();
+      return true;
     }
+    return false;
   }
-  function updateFocusOnAutocompleteList(autocompleteList) {
+  function updateFocusOnAutocompleteList() {
+    const autocompleteList = document.getElementById("autocomplete-list");
     const autocompleteListItems = autocompleteList.getElementsByTagName("div");
     if (!autocompleteListItems || autocompleteListItems.length < 1) {
       return;
@@ -2823,10 +2830,11 @@ function createAutocompleteForEdit(editingBox, workObjectNames, businessElement,
     autocompleteListItems[currentFocus].classList.add("autocomplete-active");
   }
   document.addEventListener("click", function (e) {
-    clearOldAutocompleteList();
-    // remove obsolete listener
-    // it is always added when opening the editingBox with the associated businessObject as Context
-    editingBox.removeEventListener("input", inputFunction);
+    if (clearOldAutocompleteList(e.target)) {
+      // remove event listener
+      // it is always added when opening the editingBox with the associated businessObject as Context
+      editingBox.removeEventListener("input", inputFunction);
+    }
   });
 }
 
