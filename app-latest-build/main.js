@@ -2737,20 +2737,20 @@ function approximateArialSize11TextWidthInPixel(text) {
 }
 function createAutocompleteForEdit(editingBox, workObjectNames, businessElement, eventBus) {
   clearOldAutocompleteList();
-  if (!businessElement || businessElement.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTOR)) {
+  if (!businessElement || !businessElement.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.WORKOBJECT)) {
     return;
   }
   let currentFocus, workObjectNamesFilteredBySearchterm;
   editingBox.addEventListener("input", inputFunction);
   function inputFunction() {
-    if (!workObjectNames || workObjectNames.length === 0 || !businessElement || businessElement.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTOR)) {
+    if (!workObjectNames || workObjectNames.length === 0 || !businessElement || !businessElement.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.WORKOBJECT)) {
       return;
     }
     // the direct editing field of actors and workobjects is a recycled html-element and has old values that need to be overridden
     if (businessElement.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.WORKOBJECT)) {
       this.value = this.innerHTML;
     }
-    let searchterm = this.value.toUpperCase();
+    let searchterm = this.value?.toUpperCase() | "";
     currentFocus = -1;
     clearOldAutocompleteList();
     const autocompleteList = document.createElement("DIV");
@@ -2777,7 +2777,7 @@ function createAutocompleteForEdit(editingBox, workObjectNames, businessElement,
     }
   }
   editingBox.onkeydown = function onKeyDownListener(e) {
-    if (!businessElement || businessElement.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTOR)) {
+    if (!businessElement || !businessElement.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.WORKOBJECT)) {
       return;
     }
     if (e.keyCode === 40) {
@@ -2790,7 +2790,7 @@ function createAutocompleteForEdit(editingBox, workObjectNames, businessElement,
       e.preventDefault();
       currentFocus--;
       updateFocusOnAutocompleteList();
-    } else if (e.key === "Enter") {
+    } else if (e.key === "Enter" && !e.shiftKey) {
       // ENTER
       e.preventDefault();
       if (currentFocus > -1) {
