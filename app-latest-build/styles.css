@@ -3594,6 +3594,11 @@ body {
   --mat-button-toggle-height: 24px;
   --mat-checkbox-touch-target-display: none;
   --mat-checkbox-state-layer-size: 28px;
+}
+.dense-8 .mat-mdc-chip.mat-mdc-standard-chip {
+  --mat-chip-container-height: 24px;
+}
+.dense-8 {
   --mat-expansion-header-collapsed-state-height: 36px;
   --mat-expansion-header-expanded-state-height: 48px;
   --mat-fab-small-touch-target-display: none;
@@ -3604,11 +3609,33 @@ body {
   --mat-form-field-filled-with-label-container-padding-top: 6px;
   --mat-form-field-filled-with-label-container-padding-bottom: 6px;
   --mat-icon-button-touch-target-display: none;
+}
+.dense-8 .mat-mdc-icon-button.mat-mdc-button-base {
+  --mdc-icon-button-state-layer-size: 28px;
+  --mat-icon-button-state-layer-size: 28px;
+  width: var(--mat-icon-button-state-layer-size);
+  height: var(--mat-icon-button-state-layer-size);
+  padding: 2px;
+}
+.dense-8 {
   --mat-list-list-item-leading-icon-start-space: 16px;
   --mat-list-list-item-leading-icon-end-space: 32px;
   --mat-list-list-item-one-line-container-height: 24px;
   --mat-list-list-item-two-line-container-height: 48px;
   --mat-list-list-item-three-line-container-height: 56px;
+}
+.dense-8 .mdc-list-item__start,
+.dense-8 .mdc-list-item__end {
+  --mat-radio-state-layer-size: 28px;
+  --mat-radio-touch-target-display: none;
+}
+.dense-8 .mat-mdc-list-item.mdc-list-item--with-leading-avatar.mdc-list-item--with-one-line, .dense-8 .mat-mdc-list-item.mdc-list-item--with-leading-checkbox.mdc-list-item--with-one-line, .dense-8 .mat-mdc-list-item.mdc-list-item--with-leading-icon.mdc-list-item--with-one-line {
+  height: 40px;
+}
+.dense-8 .mat-mdc-list-item.mdc-list-item--with-leading-avatar.mdc-list-item--with-two-lines, .dense-8 .mat-mdc-list-item.mdc-list-item--with-leading-checkbox.mdc-list-item--with-two-lines, .dense-8 .mat-mdc-list-item.mdc-list-item--with-leading-icon.mdc-list-item--with-two-lines {
+  height: 56px;
+}
+.dense-8 {
   --mat-paginator-container-size: 40px;
   --mat-paginator-form-field-container-height: 36px;
   --mat-paginator-form-field-container-vertical-padding: 6px;
@@ -3622,33 +3649,14 @@ body {
   --mat-table-header-container-height: 40px;
   --mat-table-footer-container-height: 36px;
   --mat-table-row-item-container-height: 36px;
-  --mat-toolbar-standard-height: 52px;
-  --mat-toolbar-mobile-height: 44px;
-  --mat-tree-node-min-height: 28px;
-}
-.dense-8 .mat-mdc-chip.mat-mdc-standard-chip {
-  --mat-chip-container-height: 24px;
-}
-.dense-8 .mat-mdc-icon-button.mat-mdc-button-base {
-  --mdc-icon-button-state-layer-size: 28px;
-  --mat-icon-button-state-layer-size: 28px;
-  width: var(--mat-icon-button-state-layer-size);
-  height: var(--mat-icon-button-state-layer-size);
-  padding: 2px;
-}
-.dense-8 .mdc-list-item__start,
-.dense-8 .mdc-list-item__end {
-  --mat-radio-state-layer-size: 28px;
-  --mat-radio-touch-target-display: none;
-}
-.dense-8 .mat-mdc-list-item.mdc-list-item--with-leading-avatar.mdc-list-item--with-one-line, .dense-8 .mat-mdc-list-item.mdc-list-item--with-leading-checkbox.mdc-list-item--with-one-line, .dense-8 .mat-mdc-list-item.mdc-list-item--with-leading-icon.mdc-list-item--with-one-line {
-  height: 40px;
-}
-.dense-8 .mat-mdc-list-item.mdc-list-item--with-leading-avatar.mdc-list-item--with-two-lines, .dense-8 .mat-mdc-list-item.mdc-list-item--with-leading-checkbox.mdc-list-item--with-two-lines, .dense-8 .mat-mdc-list-item.mdc-list-item--with-leading-icon.mdc-list-item--with-two-lines {
-  height: 56px;
 }
 .dense-8 .mat-mdc-tab-header {
   --mat-tab-container-height: 32px;
+}
+.dense-8 {
+  --mat-toolbar-standard-height: 52px;
+  --mat-toolbar-mobile-height: 44px;
+  --mat-tree-node-min-height: 28px;
 }
 
 app-root {
