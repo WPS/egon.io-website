@@ -5729,6 +5729,8 @@ class AutosaveService {
   constructor() {
     this.autosavedDraftsChanged$ = new rxjs__WEBPACK_IMPORTED_MODULE_6__.Subject();
     this.maxDrafts = 0;
+    this.importConfigChanged = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
+    this.importConfigChanged$ = this.importConfigChanged.asObservable();
     this.autosaveConfiguration = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.inject)(_autosave_configuration_service__WEBPACK_IMPORTED_MODULE_3__.AutosaveConfigurationService);
     this.exportService = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.inject)(_export_services_export_service__WEBPACK_IMPORTED_MODULE_2__.ExportService);
     this.modelerService = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.inject)(_modeler_services_modeler_service__WEBPACK_IMPORTED_MODULE_1__.ModelerService);
@@ -5749,12 +5751,14 @@ class AutosaveService {
     this.sortDrafts(drafts);
     return drafts;
   }
-  loadDraft(draft) {
+  // if we fitToScreen while the AUtosave-Dialoge is open, the canvas is not on screen and the Zoom breaks
+  loadDraft(draft, fitToScreen = false) {
     const configFromFile = draft.configAndDST.domain;
     const config = this.iconSetImportExportService.createIconSetConfiguration(configFromFile);
     const story = JSON.parse(draft.configAndDST.dst);
     this.titleService.updateTitleAndDescription(draft.title, draft.description, false);
-    this.modelerService.importStory(story, config);
+    this.importConfigChanged.emit(config);
+    this.modelerService.importStory(story, config, fitToScreen);
   }
   removeAllDrafts() {
     this.storageService.set(_domain_entities_constants__WEBPACK_IMPORTED_MODULE_7__.DRAFTS_KEY, []);
@@ -5765,7 +5769,7 @@ class AutosaveService {
     if (drafts.length === 0) {
       return;
     }
-    this.loadDraft(drafts[0]);
+    this.loadDraft(drafts[0], true);
   }
   updateConfiguration(configuration) {
     this.stopTimer();
@@ -8153,6 +8157,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _icon_set_import_export_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./icon-set-import-export.service */ 93103);
 /* harmony import */ var _icon_dictionary_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./icon-dictionary.service */ 6932);
 /* harmony import */ var src_app_tools_icon_set_config_domain_builtInIcons__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/tools/icon-set-config/domain/builtInIcons */ 31938);
+/* harmony import */ var src_app_tools_autosave_services_autosave_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/tools/autosave/services/autosave.service */ 41707);
+
 
 
 
@@ -8178,7 +8184,12 @@ class IconSetCustomizationService {
     this.iconSetImportExportService = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.inject)(_icon_set_import_export_service__WEBPACK_IMPORTED_MODULE_7__.IconSetImportExportService);
     this.iconDictionaryService = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.inject)(_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_8__.IconDictionaryService);
     this.elementRegistryService = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.inject)(src_app_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_3__.ElementRegistryService);
+    this.autosaveService = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.inject)(src_app_tools_autosave_services_autosave_service__WEBPACK_IMPORTED_MODULE_10__.AutosaveService);
     this.snackbar = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.inject)(_angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_1__.MatSnackBar);
+    this.autosaveService.importConfigChanged$.subscribe(config => {
+      this.importConfiguration(config, false);
+      this.updateAllIconBehaviourSubjects();
+    });
     this.iconSetConfigurationTypes = new rxjs__WEBPACK_IMPORTED_MODULE_2__.BehaviorSubject(this.getCurrentConfigurationNamesWithoutPrefix());
     this.selectedWorkobjects$.next(this.iconSetConfigurationTypes.value.workObjects);
     this.selectedActors$.next(this.iconSetConfigurationTypes.value.actors);
@@ -10476,9 +10487,11 @@ class ModelerService {
     this.renderStory([]);
     this.dirtyFlagService.makeClean();
   }
-  importStory(domainStory, config) {
+  importStory(domainStory, config, fitToScreen = true) {
     this.restart(config, domainStory);
-    this.fitStoryToScreen();
+    if (fitToScreen) {
+      this.fitStoryToScreen();
+    }
     this.elementRegistryService.correctInitialize();
     this.commandStackChanged();
     this.startDebounce();
