@@ -6145,6 +6145,144 @@ class ExportDialogComponent {
 
 /***/ },
 
+/***/ 11592
+/*!**********************************************************************************************************************!*\
+  !*** ./src/app/tools/export/presentation/external-link-generator-dialog/external-link-generator-dialog.component.ts ***!
+  \**********************************************************************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ExternalLinkGeneratorDialogComponent: () => (/* binding */ ExternalLinkGeneratorDialogComponent)
+/* harmony export */ });
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common */ 55279);
+/* harmony import */ var _angular_material_input__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material/input */ 29836);
+/* harmony import */ var _angular_material_input__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/input */ 21662);
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material/dialog */ 72768);
+/* harmony import */ var rxjs_internal_BehaviorSubject__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/internal/BehaviorSubject */ 95536);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 11525);
+
+
+
+
+
+class ExternalLinkGeneratorDialogComponent {
+  constructor() {
+    this.baseUrl = '';
+    this.generatedLink = new rxjs_internal_BehaviorSubject__WEBPACK_IMPORTED_MODULE_4__.BehaviorSubject('');
+    this.generatedLinkShortend = new rxjs_internal_BehaviorSubject__WEBPACK_IMPORTED_MODULE_4__.BehaviorSubject('');
+    this.targetUrl = '';
+    this.startReplay = false;
+    this.generatedLink$ = this.generatedLinkShortend.asObservable();
+  }
+  ngAfterViewInit() {
+    this.baseUrl = window.location.origin + window.location.pathname;
+  }
+  updateUrl($event) {
+    const target = $event.target;
+    this.targetUrl = target.value;
+    this.generateUrl();
+  }
+  updateReplayMode($event) {
+    const target = $event.target;
+    this.startReplay = target.checked;
+    this.generateUrl();
+  }
+  generateUrl() {
+    if (this.targetUrl.length > 0) {
+      let generatedUrl = '';
+      if (this.startReplay) {
+        generatedUrl += '&replayStart=true';
+      }
+      generatedUrl += this.baseUrl + '?storyUrl=' + encodeURI('' + this.targetUrl);
+      this.generatedLink.next(generatedUrl);
+      this.generatedLinkShortend.next(this.shortenLink(generatedUrl));
+    } else {
+      this.generatedLink.next('');
+    }
+  }
+  copyLink() {
+    navigator.clipboard.writeText(this.generatedLink.value);
+  }
+  shortenLink(generatedUrl) {
+    if (generatedUrl.length > 150) {
+      return generatedUrl.substring(0, 150) + '...';
+    }
+    return generatedUrl;
+  }
+  static {
+    this.ɵfac = function ExternalLinkGeneratorDialogComponent_Factory(__ngFactoryType__) {
+      return new (__ngFactoryType__ || ExternalLinkGeneratorDialogComponent)();
+    };
+  }
+  static {
+    this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineComponent"]({
+      type: ExternalLinkGeneratorDialogComponent,
+      selectors: [["app-external-link-generator-dialogue"]],
+      decls: 27,
+      vars: 5,
+      consts: [["color", "accent", 1, "form-width"], ["matInput", "", "type", "url", "id", "urlInput", "subscriptSizing", "dynamic", 1, "dense-8", 3, "input", "value"], ["type", "checkbox", "id", "replayMode", 3, "change", "checked"], [1, "link-label", 3, "click"], [1, "material-icons-outlined", "materialIconButton"]],
+      template: function ExternalLinkGeneratorDialogComponent_Template(rf, ctx) {
+        if (rf & 1) {
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "mat-dialog-content")(1, "h1");
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](2, "Generate External Link");
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](3, "p");
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](4, " Generate a link to this Egon.io Website that loads a DomainStory from an external URL on Startup. ");
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](5, "br");
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](6, " Optionally you can specify whether the Modeler should start in Replay-Mode or the normal Editing-Mode ");
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](7, "p");
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](8, " This does NOT generate a Link to the current state of the Modeler, but to to an already exported and hosted Story (i.e. on GitHub etc.). ");
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](9, "mat-form-field", 0)(10, "mat-label");
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](11, "URL");
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](12, "input", 1);
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("input", function ExternalLinkGeneratorDialogComponent_Template_input_input_12_listener($event) {
+            return ctx.updateUrl($event);
+          });
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]()();
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](13, "br");
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](14, "label")(15, "input", 2);
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("change", function ExternalLinkGeneratorDialogComponent_Template_input_change_15_listener($event) {
+            return ctx.updateReplayMode($event);
+          });
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](16, " Start Replay ");
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](17, "br")(18, "br");
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](19, "label");
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](20, " Generated Link ");
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](21, "br");
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](22, "label", 3);
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function ExternalLinkGeneratorDialogComponent_Template_label_click_22_listener() {
+            return ctx.copyLink();
+          });
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](23);
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipe"](24, "async");
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](25, "span", 4);
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](26, " content_copy ");
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]()()();
+        }
+        if (rf & 2) {
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](12);
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("value", ctx.targetUrl);
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](3);
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("checked", ctx.startReplay);
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](8);
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipeBind1"](24, 3, ctx.generatedLink$), " ");
+        }
+      },
+      dependencies: [_angular_material_input__WEBPACK_IMPORTED_MODULE_2__.MatFormField, _angular_material_input__WEBPACK_IMPORTED_MODULE_1__.MatInput, _angular_material_input__WEBPACK_IMPORTED_MODULE_2__.MatLabel, _angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__.MatDialogContent, _angular_common__WEBPACK_IMPORTED_MODULE_0__.AsyncPipe],
+      styles: [".link-label[_ngcontent-%COMP%]:hover {\n  color: #67bdcd;\n}\n\n.form-width[_ngcontent-%COMP%] {\n  width: 100%;\n}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL3NyYy9hcHAvdG9vbHMvZXhwb3J0L3ByZXNlbnRhdGlvbi9leHRlcm5hbC1saW5rLWdlbmVyYXRvci1kaWFsb2cvZXh0ZXJuYWwtbGluay1nZW5lcmF0b3ItZGlhbG9nLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsY0FBQTtBQUNGOztBQUVBO0VBQ0UsV0FBQTtBQUNGIiwic291cmNlc0NvbnRlbnQiOlsiLmxpbmstbGFiZWw6aG92ZXIge1xuICBjb2xvcjogIzY3YmRjZDtcbn1cblxuLmZvcm0td2lkdGgge1xuICB3aWR0aDogMTAwJTtcbn1cbiJdLCJzb3VyY2VSb290IjoiIn0= */"]
+    });
+  }
+}
+
+/***/ },
+
 /***/ 39595
 /*!*********************************************************!*\
   !*** ./src/app/tools/export/services/export.service.ts ***!
@@ -6175,6 +6313,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _domain_services_dialog_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../../../domain/services/dialog.service */ 12855);
 /* harmony import */ var _angular_core_rxjs_interop__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @angular/core/rxjs-interop */ 48065);
 /* harmony import */ var src_app_utils_downloadFile__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! src/app/utils/downloadFile */ 25312);
+/* harmony import */ var src_app_tools_export_presentation_external_link_generator_dialog_external_link_generator_dialog_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! src/app/tools/export/presentation/external-link-generator-dialog/external-link-generator-dialog.component */ 11592);
+
 
 
 
@@ -6282,6 +6422,9 @@ class ExportService {
         panelClass: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_14__.SNACKBAR_INFO
       });
     }
+  }
+  openExternalLinkGenerationDialog() {
+    this.dialogService.openDialog(src_app_tools_export_presentation_external_link_generator_dialog_external_link_generator_dialog_component__WEBPACK_IMPORTED_MODULE_20__.ExternalLinkGeneratorDialogComponent, {});
   }
   downloadHTMLPresentation() {
     const filename = this.createFileName();
@@ -10884,10 +11027,8 @@ class ReplayService {
     this.domManipulationService.showSentence(this.story[this.currentSentence.value - 1], this.currentSentence.value > 1 ? this.story[this.currentSentence.value - 2] : undefined);
   }
   startReplay(checkSequenceNumbers = false) {
-    console.log('1');
     const story = this.storyCreatorService.traceActivitiesAndCreateStory();
     this.clearUserInteractionsOnCanvas();
-    console.log('2');
     if (checkSequenceNumbers) {
       const missingSentences = this.storyCreatorService.getMissingSentences(story);
       if (missingSentences.length > 0) {
@@ -10899,13 +11040,9 @@ class ReplayService {
         return;
       }
     }
-    console.log('3');
     this.initializeReplay(story);
-    console.log('4');
     if (this.story.length > 0) {
-      console.log('5');
       this.setReplayState(true);
-      console.log('6');
       this.domManipulationService.showSentence(this.story[this.currentSentence.getValue() - 1]);
     } else {
       this.snackbar.open('You need a Domain Story for replay.', undefined, {
@@ -11703,49 +11840,61 @@ function HeaderButtonsComponent_Conditional_0_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomListener"]("click", function HeaderButtonsComponent_Conditional_0_Template_button_click_22_listener() {
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r1);
       const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]();
-      return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵresetView"](ctx_r1.openLabelDictionary.emit());
+      return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵresetView"](ctx_r1.openExternalLinkGenerationDialog.emit());
     });
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](23, "span", 2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](24, " spellcheck ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](24, " link ");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](25, "div", 3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](26, "Dictionary");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](26, "Link");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementEnd"]()();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](27, "button", 9);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomListener"]("click", function HeaderButtonsComponent_Conditional_0_Template_button_click_27_listener() {
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r1);
       const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]();
-      return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵresetView"](ctx_r1.newStory.emit());
+      return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵresetView"](ctx_r1.openLabelDictionary.emit());
     });
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](28, "span", 2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](29, " note_add ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](29, " spellcheck ");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](30, "div", 3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](31, "New story");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](31, "Dictionary");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementEnd"]()();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](32, "button", 10);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomListener"]("click", function HeaderButtonsComponent_Conditional_0_Template_button_click_32_listener() {
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r1);
       const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]();
-      return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵresetView"](ctx_r1.openSettings.emit());
+      return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵresetView"](ctx_r1.newStory.emit());
     });
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](33, "span", 2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](34, " settings ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](34, " note_add ");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](35, "div", 3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](36, "Settings");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](36, "New story");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementEnd"]()();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](37, "button", 11);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomListener"]("click", function HeaderButtonsComponent_Conditional_0_Template_button_click_37_listener() {
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r1);
       const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]();
-      return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵresetView"](ctx_r1.showKeyboardShortCuts.emit());
+      return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵresetView"](ctx_r1.openSettings.emit());
     });
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](38, "span", 2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](39, " keyboard ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](39, " settings ");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](40, "div", 3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](41, "Shortcuts");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](41, "Settings");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementEnd"]()();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](42, "button", 12);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomListener"]("click", function HeaderButtonsComponent_Conditional_0_Template_button_click_42_listener() {
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r1);
+      const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]();
+      return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵresetView"](ctx_r1.showKeyboardShortCuts.emit());
+    });
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](43, "span", 2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](44, " keyboard ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](45, "div", 3);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](46, "Shortcuts");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementEnd"]()()();
   }
   if (rf & 2) {
@@ -11756,7 +11905,7 @@ function HeaderButtonsComponent_Conditional_0_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](16);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵclassProp"]("disabled", !ctx_r1.hasDomainStory && !ctx_r1.hasTitle)("dirty", ctx_r1.isDirty);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomProperty"]("disabled", !ctx_r1.hasDomainStory && !ctx_r1.hasTitle);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](5);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](10);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵclassProp"]("disabled", !ctx_r1.hasDomainStory);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomProperty"]("disabled", !ctx_r1.hasDomainStory);
   }
@@ -11764,7 +11913,7 @@ function HeaderButtonsComponent_Conditional_0_Template(rf, ctx) {
 function HeaderButtonsComponent_Conditional_1_Template(rf, ctx) {
   if (rf & 1) {
     const _r3 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](0, "div", 0)(1, "button", 12);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](0, "div", 0)(1, "button", 13);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomListener"]("click", function HeaderButtonsComponent_Conditional_1_Template_button_click_1_listener() {
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r3);
       const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]();
@@ -11776,7 +11925,7 @@ function HeaderButtonsComponent_Conditional_1_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](4, "div", 3);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](5, "Prev.");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementEnd"]()();
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](6, "button", 13);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](6, "button", 14);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomListener"]("click", function HeaderButtonsComponent_Conditional_1_Template_button_click_6_listener() {
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r3);
       const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]();
@@ -11788,7 +11937,7 @@ function HeaderButtonsComponent_Conditional_1_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](9, "div", 3);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](10, "Next");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementEnd"]()();
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](11, "button", 14);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](11, "button", 15);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomListener"]("click", function HeaderButtonsComponent_Conditional_1_Template_button_click_11_listener() {
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r3);
       const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]();
@@ -11800,7 +11949,7 @@ function HeaderButtonsComponent_Conditional_1_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](14, "div", 3);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](15, "Stop");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementEnd"]()();
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](16, "div", 15);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](16, "div", 16);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](17);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipe"](18, "async");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementEnd"]()();
@@ -11829,6 +11978,7 @@ class HeaderButtonsComponent {
     this.showKeyboardShortCuts = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
     this.openLabelDictionary = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
     this.openDownloadDialog = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
+    this.openExternalLinkGenerationDialog = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
     this.openImportFromUrlDialog = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
     this.sentenceDescription$ = (0,rxjs__WEBPACK_IMPORTED_MODULE_1__.combineLatest)([this.replayService.currentSentence$, this.replayService.maxSentenceNumber$]).pipe((0,rxjs__WEBPACK_IMPORTED_MODULE_2__.map)(([sentence, count]) => `${sentence}/${count}`));
   }
@@ -11859,14 +12009,15 @@ class HeaderButtonsComponent {
         showKeyboardShortCuts: "showKeyboardShortCuts",
         openLabelDictionary: "openLabelDictionary",
         openDownloadDialog: "openDownloadDialog",
+        openExternalLinkGenerationDialog: "openExternalLinkGenerationDialog",
         openImportFromUrlDialog: "openImportFromUrlDialog"
       },
       decls: 2,
       vars: 2,
-      consts: [[1, "replaying"], ["type", "button", "id", "buttonStartReplay", "title", "Start replay", 1, "headerButton", 3, "click", "disabled"], [1, "material-icons-outlined", "materialIconButton"], [1, "button-label"], ["type", "button", "id", "buttonImport", "title", "Import story from file", "onclick", "document.getElementById('import').click()", 1, "headerButton"], ["type", "button", "id", "buttonUrlImport", "title", "Import story from URL", 1, "headerButton", 3, "click"], ["type", "file", "accept", ".dst, .egn, .svg", "id", "import", "onclick", "this.value = null", 2, "display", "none", 3, "change"], ["type", "button", "id", "export", "title", "Export story as .egn, .svg or .png file", 1, "headerButton", 3, "click", "disabled"], ["type", "button", "title", "Change multiple labels at once", 1, "headerButton", 3, "click", "disabled"], ["type", "button", "title", "Create a new domain story", 1, "headerButton", 3, "click"], ["type", "button", "title", "Change Icons and Settings", 1, "headerButton", 3, "click"], ["type", "button", "title", "Show keyboard shortcuts", 1, "headerButton", 3, "click"], ["type", "button", "title", "Previous sentence", 1, "headerButton", 3, "click"], ["type", "button", "title", "Next sentence", 1, "headerButton", 3, "click"], ["type", "button", "title", "Stop replay", 1, "headerButton", 3, "click"], [1, "sentences"]],
+      consts: [[1, "replaying"], ["type", "button", "id", "buttonStartReplay", "title", "Start replay", 1, "headerButton", 3, "click", "disabled"], [1, "material-icons-outlined", "materialIconButton"], [1, "button-label"], ["type", "button", "id", "buttonImport", "title", "Import story from file", "onclick", "document.getElementById('import').click()", 1, "headerButton"], ["type", "button", "id", "buttonUrlImport", "title", "Import story from URL", 1, "headerButton", 3, "click"], ["type", "file", "accept", ".dst, .egn, .svg", "id", "import", "onclick", "this.value = null", 2, "display", "none", 3, "change"], ["type", "button", "id", "export", "title", "Export story as .egn, .svg or .png file", 1, "headerButton", 3, "click", "disabled"], ["type", "button", "title", "Generate Link to a hosted DomainStory", 1, "headerButton", 3, "click"], ["type", "button", "title", "Change multiple labels at once", 1, "headerButton", 3, "click", "disabled"], ["type", "button", "title", "Create a new domain story", 1, "headerButton", 3, "click"], ["type", "button", "title", "Change Icons and Settings", 1, "headerButton", 3, "click"], ["type", "button", "title", "Show keyboard shortcuts", 1, "headerButton", 3, "click"], ["type", "button", "title", "Previous sentence", 1, "headerButton", 3, "click"], ["type", "button", "title", "Next sentence", 1, "headerButton", 3, "click"], ["type", "button", "title", "Stop replay", 1, "headerButton", 3, "click"], [1, "sentences"]],
       template: function HeaderButtonsComponent_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵconditionalCreate"](0, HeaderButtonsComponent_Conditional_0_Template, 42, 11, "div");
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵconditionalCreate"](0, HeaderButtonsComponent_Conditional_0_Template, 47, 11, "div");
           _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵconditionalCreate"](1, HeaderButtonsComponent_Conditional_1_Template, 19, 3, "div", 0);
         }
         if (rf & 2) {
@@ -12039,6 +12190,9 @@ class HeaderComponent {
   openDownloadDialog() {
     this.exportService.openDownloadDialog();
   }
+  openExternalLinkGenerationDialog() {
+    this.exportService.openExternalLinkGenerationDialog();
+  }
   openImportFromUrlDialog() {
     this.importService.openImportFromUrlDialog(this.dirtyFlagService.dirty);
   }
@@ -12062,7 +12216,7 @@ class HeaderComponent {
       selectors: [["app-header"]],
       decls: 21,
       vars: 21,
-      consts: [["color", "primary"], [1, "firstRow"], [1, "mr-10", "titel-scrollbar"], ["title", "Edit title and description", 1, "headline", 3, "click"], ["type", "button", "title", "Edit title and description", 1, "headerButton", 3, "click"], [1, "material-icons-outlined", "materialIconButton"], [1, "button-label"], ["type", "button", "title", "Hide description", 1, "headerButton"], ["type", "button", "title", "Show description", 1, "headerButton"], [1, "titleSpacer"], [1, "nowrap", 3, "import", "openSettings", "startReplay", "stopReplay", "nextSentence", "previousSentence", "newStory", "showKeyboardShortCuts", "openLabelDictionary", "openDownloadDialog", "openImportFromUrlDialog", "hasDomainStory", "hasTitle", "isDirty", "isReplayable", "isReplaying"], [1, "smallScrollbar", "description"], ["type", "button", "title", "Hide description", 1, "headerButton", 3, "click"], ["type", "button", "title", "Show description", 1, "headerButton", 3, "click"], [1, "descriptionText"]],
+      consts: [["color", "primary"], [1, "firstRow"], [1, "mr-10", "titel-scrollbar"], ["title", "Edit title and description", 1, "headline", 3, "click"], ["type", "button", "title", "Edit title and description", 1, "headerButton", 3, "click"], [1, "material-icons-outlined", "materialIconButton"], [1, "button-label"], ["type", "button", "title", "Hide description", 1, "headerButton"], ["type", "button", "title", "Show description", 1, "headerButton"], [1, "titleSpacer"], [1, "nowrap", 3, "import", "openSettings", "startReplay", "stopReplay", "nextSentence", "previousSentence", "newStory", "showKeyboardShortCuts", "openLabelDictionary", "openDownloadDialog", "openExternalLinkGenerationDialog", "openImportFromUrlDialog", "hasDomainStory", "hasTitle", "isDirty", "isReplayable", "isReplaying"], [1, "smallScrollbar", "description"], ["type", "button", "title", "Hide description", 1, "headerButton", 3, "click"], ["type", "button", "title", "Show description", 1, "headerButton", 3, "click"], [1, "descriptionText"]],
       template: function HeaderComponent_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_14__["ɵɵelementStart"](0, "mat-toolbar", 0)(1, "mat-toolbar-row", 1)(2, "div", 2)(3, "span", 3);
@@ -12110,6 +12264,8 @@ class HeaderComponent {
             return ctx.openLabelDictionary();
           })("openDownloadDialog", function HeaderComponent_Template_app_header_buttons_openDownloadDialog_16_listener() {
             return ctx.openDownloadDialog();
+          })("openExternalLinkGenerationDialog", function HeaderComponent_Template_app_header_buttons_openExternalLinkGenerationDialog_16_listener() {
+            return ctx.openExternalLinkGenerationDialog();
           })("openImportFromUrlDialog", function HeaderComponent_Template_app_header_buttons_openImportFromUrlDialog_16_listener() {
             return ctx.openImportFromUrlDialog();
           });
