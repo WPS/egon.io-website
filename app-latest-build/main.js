@@ -9,11 +9,13 @@
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ViewBoxCoordinateRegExp: () => (/* binding */ ViewBoxCoordinateRegExp),
 /* harmony export */   createTitleAndDescriptionSVGElement: () => (/* binding */ createTitleAndDescriptionSVGElement)
 /* harmony export */ });
 /* harmony import */ var _domain_export_exportConstants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../domain/export/exportConstants */ 41646);
 
 let dynamicHeightOffset = 0;
+const ViewBoxCoordinateRegExp = /width="([^"]+)"\s+height="([^"]+)"\s+viewBox="([^"]+)"/;
 // Has to be js File so we can access te correct non-standard HTML-Properties without excessive usage of ts-ignore
 function createTitleAndDescriptionSVGElement(initDynamicHeightOffset, title, description, min_x, min_y, width) {
   dynamicHeightOffset = initDynamicHeightOffset;
@@ -6148,6 +6150,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/material/snack-bar */ 40382);
 /* harmony import */ var _domain_services_dialog_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../../../domain/services/dialog.service */ 12855);
 /* harmony import */ var _angular_core_rxjs_interop__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @angular/core/rxjs-interop */ 48065);
+/* harmony import */ var src_app_utils_downloadFile__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! src/app/utils/downloadFile */ 25312);
+
 
 
 
@@ -6197,32 +6201,26 @@ class ExportService {
     const configAndDST = this.createConfigAndDST(dst);
     const json = JSON.stringify(configAndDST, null, 2);
     const filename = this.createFileName();
-    this.downloadFile(json, 'data:text/plain;charset=utf-8,', filename, '.egn', true);
+    (0,src_app_utils_downloadFile__WEBPACK_IMPORTED_MODULE_19__.downloadFile)(json, 'data:text/plain;charset=utf-8,', filename, '.egn');
+    this.dirtyFlagService.makeClean();
   }
   downloadSVG(withTitle, useWhiteBackground, animationSpeed) {
     const story = this.getStoryForDownload();
     const dst = this.createConfigAndDST(story);
     const svgData = this.svgService.createSVGData(this.title(), this.description(), dst, withTitle, useWhiteBackground, animationSpeed);
     const filename = this.createFileName();
-    this.downloadFile(svgData, 'data:application/bpmn20-xml;charset=UTF-8,', filename, '.egn.svg', true);
+    (0,src_app_utils_downloadFile__WEBPACK_IMPORTED_MODULE_19__.downloadFile)(svgData, 'data:application/bpmn20-xml;charset=UTF-8,', filename, '.egn.svg');
+    this.dirtyFlagService.makeClean();
   }
   downloadPNG(withTitle) {
     const canvas = document.getElementById('canvas');
     if (canvas) {
-      const container = canvas.getElementsByClassName('djs-container');
-      const svgElements = container[0].getElementsByTagName('svg');
-      const outerSVGElement = svgElements[0];
-      const viewport = outerSVGElement.getElementsByClassName('viewport')[0];
-      const layerBase = viewport.querySelector('[class^="layer-root-"]');
-      const image = document.createElement('img');
-      // removes unwanted black dots in image
-      let svg = this.pngService.extractSVG(viewport, outerSVGElement);
-      svg = this.pngService.prepareSVG(svg, layerBase, this.description(), this.title(), withTitle);
+      let {
+        svg,
+        image
+      } = this.pngService.createSvgAndImage(canvas, this.description(), this.title(), withTitle);
       image.onload = () => {
-        const tempCanvas = document.createElement('canvas');
-        const padding = 10;
-        tempCanvas.width = this.pngService.getWidth() + padding;
-        tempCanvas.height = this.pngService.getHeight() + padding;
+        const tempCanvas = this.pngService.createTempCanvas();
         const ctx = tempCanvas.getContext('2d');
         if (ctx) {
           // fill with white background
@@ -6232,12 +6230,8 @@ class ExportService {
           ctx.drawImage(image, 0, 0);
         }
         const png64 = tempCanvas.toDataURL('image/png');
-        const ele = document.createElement('a');
-        ele.setAttribute('download', (0,src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_2__.sanitizeForDesktop)(this.title()) + '_' + this.getCurrentDateString() + '.png');
-        ele.setAttribute('href', png64);
-        document.body.appendChild(ele);
-        ele.click();
-        document.body.removeChild(ele);
+        const filename = this.createFileName();
+        (0,src_app_utils_downloadFile__WEBPACK_IMPORTED_MODULE_19__.downloadFile)(png64, '', filename, '.png', false);
         // image source has to be removed to circumvent browser caching
         image.src = '';
       };
@@ -6252,7 +6246,7 @@ class ExportService {
       const SVGDownloadOption = new _domain_dialog_exportDialogData__WEBPACK_IMPORTED_MODULE_11__.ExportOption('SVG', 'Download an SVG-Image with the Domain-Story embedded. Can be used to save and share your Domain-Story.', (withTitle, useWhiteBackground, animationSpeed) => this.downloadSVG(withTitle, useWhiteBackground, animationSpeed));
       const EGNDownloadOption = new _domain_dialog_exportDialogData__WEBPACK_IMPORTED_MODULE_11__.ExportOption('EGN', 'Download an EGN-File with the Domain-Story. Can be used to save and share your Domain-Story.', () => this.downloadDST());
       const PNGDownloadOption = new _domain_dialog_exportDialogData__WEBPACK_IMPORTED_MODULE_11__.ExportOption('PNG', 'Download a PNG-Image of the Domain-Story. This does not include the Domain-Story!', withTitle => this.downloadPNG(withTitle));
-      const HTMLDownloadOption = new _domain_dialog_exportDialogData__WEBPACK_IMPORTED_MODULE_11__.ExportOption('HTML-Presentation', 'Download an HTML-Presentation. This does not include the Domain-Story!', () => this.downloadHTMLPresentation(this.modelerService.getModeler()));
+      const HTMLDownloadOption = new _domain_dialog_exportDialogData__WEBPACK_IMPORTED_MODULE_11__.ExportOption('HTML-Presentation', 'Download an HTML-Presentation. This does not include the Domain-Story!', () => this.downloadHTMLPresentation());
       const config = new _angular_material_dialog__WEBPACK_IMPORTED_MODULE_12__.MatDialogConfig();
       config.disableClose = false;
       config.autoFocus = true;
@@ -6265,24 +6259,12 @@ class ExportService {
       });
     }
   }
-  downloadHTMLPresentation(modeler) {
+  downloadHTMLPresentation() {
     const filename = this.createFileName();
-    this.htmlPresentationService.downloadHTMLPresentation(filename, modeler).then();
-  }
-  downloadFile(data, datatype, filename, fileEnding, makeClean) {
-    const element = document.createElement('a');
-    element.setAttribute('href', datatype + encodeURIComponent(data));
-    element.setAttribute('download', filename + fileEnding);
-    element.style.display = 'none';
-    document.body.appendChild(element);
-    element.click();
-    if (makeClean) {
-      this.dirtyFlagService.makeClean();
-    }
-    document.body.removeChild(element);
+    this.htmlPresentationService.downloadHTMLPresentation(filename).then();
   }
   getStoryForDownload() {
-    let story = this.modelerService.getStory().sort((objA, objB) => {
+    const story = this.modelerService.getStory().sort((objA, objB) => {
       if (objA.id !== undefined && objB.id !== undefined) {
         return objA.id.localeCompare(objB.id);
       } else {
@@ -6336,11 +6318,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var dot__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! dot */ 13280);
 /* harmony import */ var dot__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(dot__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _title_services_title_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../title/services/title.service */ 41535);
+/* harmony import */ var src_app_tools_export_services_exportUtil__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/tools/export/services/exportUtil */ 97563);
+/* harmony import */ var src_app_tools_modeler_services_modeler_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/tools/modeler/services/modeler.service */ 40439);
+/* harmony import */ var src_app_utils_downloadFile__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/utils/downloadFile */ 25312);
 
 
 
 
 // @ts-ignore
+
+
+
 
 
 
@@ -6351,10 +6339,10 @@ class HtmlPresentationService {
   constructor() {
     this.replayService = (0,_angular_core__WEBPACK_IMPORTED_MODULE_1__.inject)(_replay_services_replay_service__WEBPACK_IMPORTED_MODULE_3__.ReplayService);
     this.titleService = (0,_angular_core__WEBPACK_IMPORTED_MODULE_1__.inject)(_title_services_title_service__WEBPACK_IMPORTED_MODULE_5__.TitleService);
+    this.modeler = (0,_angular_core__WEBPACK_IMPORTED_MODULE_1__.inject)(src_app_tools_modeler_services_modeler_service__WEBPACK_IMPORTED_MODULE_7__.ModelerService);
   }
   static viewBoxCoordinates(svg) {
-    const ViewBoxCoordinate = /width="([^"]+)"\s+height="([^"]+)"\s+viewBox="([^"]+)"/;
-    const match = svg.match(ViewBoxCoordinate);
+    const match = svg.match(src_app_tools_export_services_exportUtil__WEBPACK_IMPORTED_MODULE_6__.ViewBoxCoordinateRegExp);
     return match[3];
   }
   /*
@@ -6362,15 +6350,15 @@ class HtmlPresentationService {
   SVG handling starts here
   ----------------------------
   */
-  downloadHTMLPresentation(filename, modeler) {
+  downloadHTMLPresentation(filename) {
     var _this = this;
     return (0,_home_runner_work_egon_io_egon_io_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
-      modeler.fitStoryToScreen(); // fixes problem with HTML export when story is not in the visible area of the canvas
+      _this.modeler.fitStoryToScreen(); // fixes problem with HTML export when story is not in the visible area of the canvas
       const svgData = [];
       // export all sentences of domain story
       _this.replayService.startReplay();
       try {
-        const result = yield modeler.saveSVG({});
+        const result = yield _this.modeler.getModeler().saveSVG({});
         _this.fixActivityMarkersForEachSentence(result, _this.replayService.getCurrentSentenceNumber());
         svgData.push({
           content: HtmlPresentationService.createSVGData(result.svg),
@@ -6382,7 +6370,7 @@ class HtmlPresentationService {
       while (_this.replayService.getCurrentSentenceNumber() < _this.replayService.getMaxSentenceNumber()) {
         _this.replayService.nextSentence();
         try {
-          const result = yield modeler.saveSVG({});
+          const result = yield _this.modeler.getModeler().saveSVG({});
           _this.fixActivityMarkersForEachSentence(result, _this.replayService.getCurrentSentenceNumber());
           svgData.push({
             content: HtmlPresentationService.createSVGData(result.svg),
@@ -6404,13 +6392,7 @@ class HtmlPresentationService {
         multiplexSecret: _this.multiplexSecret,
         multiplexId: _this.multiplexId
       };
-      const element = document.createElement('a');
-      element.setAttribute('href', 'data:text/html;charset=UTF-8,' + _this.fixMalformedHtmlScript(dots, revealjsData));
-      element.setAttribute('download', (0,_utils_sanitizer__WEBPACK_IMPORTED_MODULE_2__.sanitizeForDesktop)(filename) + '.html');
-      element.style.display = 'none';
-      document.body.appendChild(element);
-      element.click();
-      element.remove();
+      (0,src_app_utils_downloadFile__WEBPACK_IMPORTED_MODULE_8__.downloadFile)(_this.fixMalformedHtmlScript(dots, revealjsData), 'data:text/html;charset=UTF-8,', (0,_utils_sanitizer__WEBPACK_IMPORTED_MODULE_2__.sanitizeForDesktop)(filename), '.html', false);
     })();
   }
   fixMalformedHtmlScript(dots, revealjsData) {
@@ -6722,6 +6704,26 @@ class PngService {
   getHeight() {
     return this.height;
   }
+  createTempCanvas() {
+    const tempCanvas = document.createElement('canvas');
+    const padding = 10;
+    tempCanvas.width = this.getWidth() + padding;
+    tempCanvas.height = this.getHeight() + padding;
+    return tempCanvas;
+  }
+  createSvgAndImage(canvas, description, title, withTitle) {
+    const container = canvas.getElementsByClassName('djs-container');
+    const svgElements = container[0].getElementsByTagName('svg');
+    const outerSVGElement = svgElements[0];
+    const viewport = outerSVGElement.getElementsByClassName('viewport')[0];
+    const layerBase = viewport.querySelector('[class^="layer-root-"]');
+    return {
+      svg: this.prepareSVG(this.extractSVG(viewport, outerSVGElement),
+      // removes unwanted black dots in image
+      layerBase, description, title, withTitle),
+      image: document.createElement('img')
+    };
+  }
   static {
     this.ɵfac = function PngService_Factory(__ngFactoryType__) {
       return new (__ngFactoryType__ || PngService)();
@@ -6878,8 +6880,7 @@ class SvgService {
     return `width="${width}" height="${height}" viewBox="${min_x} ${min_y} ${viewBoxWidth} ${viewBoxHeight}`;
   }
   viewBoxCoordinates(svg) {
-    const ViewBoxCoordinate = /width="([^"]+)"\s+height="([^"]+)"\s+viewBox="([^"]+)"/;
-    const match = svg.match(ViewBoxCoordinate);
+    const match = svg.match(src_app_tools_export_services_exportUtil__WEBPACK_IMPORTED_MODULE_1__.ViewBoxCoordinateRegExp);
     if (match) {
       return {
         width: +match[1],
@@ -8559,6 +8560,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _domain_entities_constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../domain/entities/constants */ 40550);
 /* harmony import */ var _domain_services_storage_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../domain/services/storage.service */ 50624);
 /* harmony import */ var _utils_sanitizer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../utils/sanitizer */ 43515);
+/* harmony import */ var src_app_utils_downloadFile__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/utils/downloadFile */ 25312);
+
 
 
 
@@ -8589,13 +8592,7 @@ class IconSetImportExportService {
     }
     const configJSONString = JSON.stringify(iconSetConfiguration, null, 2);
     const filename = this.iconSetNameSubject.value;
-    const element = document.createElement('a');
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(configJSONString));
-    element.setAttribute('download', filename + '.iconset');
-    element.style.display = 'none';
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
+    (0,src_app_utils_downloadFile__WEBPACK_IMPORTED_MODULE_8__.downloadFile)(configJSONString, 'data:text/plain;charset=utf-8,', filename, '.iconset');
   }
   loadIconSet(iconSet, updateIconSetName = true) {
     this.iconDictionaryService.updateIconRegistries(iconSet);
@@ -11330,6 +11327,29 @@ const hexToRGBA = hex => {
   const [r, g, b, a] = hexArr.map(convertHexUnitTo256);
   return `rgba(${r},${g},${b},${getAlphafloat(a)})`;
 };
+
+/***/ },
+
+/***/ 25312
+/*!***************************************!*\
+  !*** ./src/app/utils/downloadFile.ts ***!
+  \***************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   downloadFile: () => (/* binding */ downloadFile)
+/* harmony export */ });
+function downloadFile(data, datatype, filename, fileEnding, encodeUri = true) {
+  const element = document.createElement('a');
+  const dataToAdd = encodeUri ? encodeURIComponent(data) : data;
+  element.setAttribute('href', datatype + dataToAdd);
+  element.setAttribute('download', filename + fileEnding);
+  element.style.display = 'none';
+  document.body.appendChild(element);
+  element.click();
+  element.remove();
+}
 
 /***/ },
 
