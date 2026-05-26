@@ -9221,6 +9221,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _unsavedChangesReminder_presentation_unsavedChangesReminder_dialog_unsaved_changes_reminder_unsaved_changes_reminder_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../unsavedChangesReminder/presentation/unsavedChangesReminder-dialog/unsaved-changes-reminder/unsaved-changes-reminder.component */ 92642);
 /* harmony import */ var _angular_core_rxjs_interop__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/core/rxjs-interop */ 48065);
 /* harmony import */ var src_app_tools_import_presentation_external_resources_warning_dialog_external_resources_warning_dialog_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! src/app/tools/import/presentation/external-resources-warning-dialog/external-resources-warning-dialog.component */ 93125);
+/* harmony import */ var rxjs_internal_Subject__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! rxjs/internal/Subject */ 63150);
+
 
 
 
@@ -9248,8 +9250,8 @@ class ImportDomainStoryService {
     this.title = (0,_angular_core_rxjs_interop__WEBPACK_IMPORTED_MODULE_12__.toSignal)(this.titleService.title$, {
       initialValue: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_6__.INITIAL_TITLE
     });
-    this.importedConfigurationEmitter = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
-    this.automatedImportSuccessFullEmitter = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
+    this.importedConfigurationEmitter = new rxjs_internal_Subject__WEBPACK_IMPORTED_MODULE_14__.Subject();
+    this.automatedImportSuccessFullEmitter = new rxjs_internal_Subject__WEBPACK_IMPORTED_MODULE_14__.Subject();
   }
   automatedImportSuccessFull() {
     return this.automatedImportSuccessFullEmitter.asObservable();
@@ -9262,7 +9264,6 @@ class ImportDomainStoryService {
     if (inputElement && inputElement instanceof HTMLInputElement && inputElement.files && inputElement.files.length > 0) {
       const file = inputElement.files[0];
       this.import(file, file.name);
-      this.modelerService.commandStackChanged();
     } else {
       this.snackbar.open('No file selected or invalid input element.', undefined, {
         duration: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_6__.SNACKBAR_DURATION_LONG,
@@ -9279,7 +9280,6 @@ class ImportDomainStoryService {
         panelClass: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_6__.SNACKBAR_ERROR
       });
     }
-    this.modelerService.commandStackChanged();
   }
   importNotDirtyFromUrl(fileUrl, isDirty) {
     if (isDirty) {
@@ -9289,7 +9289,7 @@ class ImportDomainStoryService {
     }
   }
   importFromUrl(fileUrl, emitSuccess = false) {
-    if (!fileUrl.startsWith('http')) {
+    if (!fileUrl.startsWith('http://') && !fileUrl.startsWith('https://')) {
       this.snackbar.open('Url not valid', undefined, {
         duration: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_6__.SNACKBAR_DURATION_LONG,
         panelClass: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_6__.SNACKBAR_ERROR
@@ -9298,10 +9298,13 @@ class ImportDomainStoryService {
     }
     fileUrl = this.convertToDownloadableUrl(fileUrl);
     fetch(fileUrl).then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error ${response.status}`);
+      }
       return response.blob();
     }).then(blob => {
       const string = fileUrl.split('/');
-      const filename = string[string.length - 1].replace(/%20/g, ' ').replace(/(\.egn\.svg).*/, '$1');
+      const filename = string[string.length - 1].replace(/%20/g, ' ').replace(/(\.egn\.svg|\.dst\.svg).*/, '$1');
       if (!filename) {
         throw new Error('Unable to extract filename from URL');
       }
@@ -9313,11 +9316,12 @@ class ImportDomainStoryService {
           panelClass: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_6__.SNACKBAR_ERROR
         });
       }
-      this.modelerService.commandStackChanged();
-    }).catch(() => this.snackbar.open('Request blocked by server (CORS error)', undefined, {
-      duration: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_6__.SNACKBAR_DURATION_LONG,
-      panelClass: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_6__.SNACKBAR_ERROR
-    }));
+    }).catch(() => {
+      this.snackbar.open('Request blocked by server (CORS error) or Network error', undefined, {
+        duration: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_6__.SNACKBAR_DURATION_LONGER,
+        panelClass: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_6__.SNACKBAR_ERROR
+      });
+    });
   }
   convertToDownloadableUrl(fileUrl) {
     // Convert GitHub URLs to raw content
@@ -9333,13 +9337,8 @@ class ImportDomainStoryService {
     return fileUrl;
   }
   isSupportedFileEnding(filename) {
-    let isSupported = false;
-    const dstSvgPattern = /.*(.dst)(\s*\(\d+\)){0,1}\.svg/;
-    const egnSvgPattern = /.*(.egn)(\s*\(\d+\)){0,1}\.svg/;
-    if (filename != null) {
-      isSupported = filename.endsWith('.dst') || filename.endsWith('.egn') || filename.match(dstSvgPattern) != null || filename.match(egnSvgPattern) != null;
-    }
-    return isSupported;
+    const supportedSvgPattern = /.*\.(dst|egn)(\s*\(\d+\))?\.svg$/;
+    return !!filename && (filename.endsWith('.dst') || filename.endsWith('.egn') || supportedSvgPattern.test(filename));
   }
   openImportFromUrlDialog(isDirty) {
     const config = new _angular_material_dialog__WEBPACK_IMPORTED_MODULE_5__.MatDialogConfig();
@@ -9365,10 +9364,7 @@ class ImportDomainStoryService {
   import(input, filename, emitSuccess = false) {
     const egnSvgPattern = /.*(.egn)(\s*\(\d+\)){0,1}\.svg/;
     const isSVG = filename.endsWith('.svg');
-    let isEGN = filename.endsWith('.egn');
-    if (isSVG) {
-      isEGN = filename.match(egnSvgPattern) != null;
-    }
+    const isEGN = isSVG ? filename.match(egnSvgPattern) != null : filename.endsWith('.egn');
     try {
       const fileReader = new FileReader();
       const titleText = this.restoreTitleFromFileName(filename, isSVG);
@@ -9376,16 +9372,23 @@ class ImportDomainStoryService {
       this.titleService.updateTitleAndDescription(titleText, null, false);
       fileReader.onloadend = e => {
         if (e?.target) {
-          this.fileReaderFunction(e.target.result, isSVG, isEGN);
+          try {
+            this.processFileContent(e.target.result, isSVG, isEGN);
+            this.importSuccessful(emitSuccess);
+            this.modelerService.commandStackChanged();
+          } catch (error) {
+            this.importFailed();
+          }
+        } else {
+          this.importFailed();
         }
       };
       fileReader.readAsText(input);
-      this.importSuccessful(emitSuccess);
     } catch (error) {
       this.importFailed();
     }
   }
-  fileReaderFunction(text, isSvgFile, isEgnFormat) {
+  processFileContent(text, isSvgFile, isEgnFormat) {
     let contentAsJson;
     if (typeof text === 'string') {
       if (isSvgFile) {
@@ -9393,51 +9396,11 @@ class ImportDomainStoryService {
       } else {
         contentAsJson = text;
       }
-      let domainStoryElements;
-      let iconSet;
-      let iconSetFromFile;
-      let storyAndIconSet = this.extractStoryAndIconSet(contentAsJson);
-      if (storyAndIconSet == null) {
-        return;
-      }
-      // current implementation
-      if (storyAndIconSet.domain) {
-        iconSetFromFile = isEgnFormat ? storyAndIconSet.domain : JSON.parse(storyAndIconSet.domain);
-        iconSet = this.iconSetImportExportService.createIconSetConfiguration(iconSetFromFile);
-        domainStoryElements = isEgnFormat ? storyAndIconSet.dst : JSON.parse(storyAndIconSet.dst);
-      } else {
-        // legacy implementation
-        if (storyAndIconSet.config) {
-          iconSetFromFile = JSON.parse(storyAndIconSet.config);
-          iconSet = this.iconSetImportExportService.createIconSetConfiguration(iconSetFromFile);
-          domainStoryElements = JSON.parse(storyAndIconSet.dst);
-        } else {
-          // even older legacy implementation (prior to configurable icon set):
-          domainStoryElements = JSON.parse(contentAsJson);
-          iconSet = this.iconDictionaryService.getDefaultIconSet();
-        }
-      }
-      this.importRepairService.removeWhitespacesFromIcons(domainStoryElements);
-      this.importRepairService.removeUnnecessaryBpmnProperties(domainStoryElements);
-      let lastElement = domainStoryElements[domainStoryElements.length - 1];
-      if (!lastElement.id) {
-        lastElement = domainStoryElements.pop();
-        let versionInfo = lastElement;
-        // if the last element has the tag 'version',
-        // then there exists another tag 'info' for the description
-        let importVersionNumber;
-        if (versionInfo.version) {
-          lastElement = domainStoryElements.pop();
-          importVersionNumber = versionInfo.version;
-        } else {
-          importVersionNumber = '?';
-          this.snackbar.open(`The version number is unreadable.`, undefined, {
-            duration: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_6__.SNACKBAR_DURATION,
-            panelClass: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_6__.SNACKBAR_ERROR
-          });
-        }
-        domainStoryElements = this.handleVersionNumber(importVersionNumber, domainStoryElements);
-      }
+      const {
+        iconSet,
+        domainStoryElements,
+        lastElement
+      } = this.separateExportFileIntoIconSetAndStoryElements(isEgnFormat, contentAsJson);
       if (!this.importRepairService.checkForUnreferencedElementsInActivitiesAndRepair(domainStoryElements)) {
         this.showBrokenImportDialog();
       }
@@ -9445,6 +9408,78 @@ class ImportDomainStoryService {
       this.updateIconRegistries(iconSet);
       this.modelerService.importStory(domainStoryElements, iconSet);
     }
+  }
+  separateExportFileIntoIconSetAndStoryElements(isEgnFormat, contentAsJson) {
+    let storyAndIconSet = null;
+    try {
+      storyAndIconSet = JSON.parse(contentAsJson);
+    } catch (e) {
+      this.showBrokenImportDialog();
+    }
+    if (storyAndIconSet == null) {
+      throw new Error('Invalid import file');
+    }
+    const extractedStoryAndConfiguration = storyAndIconSet.domain ? this.extractStoryAndConfigurationFromCurrentFileFormat(isEgnFormat, storyAndIconSet) : this.extractStoryAndConfigurationFromLegacyFileFormat(storyAndIconSet, contentAsJson);
+    const iconSet = extractedStoryAndConfiguration.iconSet;
+    const domainStoryElements = extractedStoryAndConfiguration.domainStoryElements;
+    this.importRepairService.removeWhitespacesFromIcons(domainStoryElements);
+    this.importRepairService.removeUnnecessaryBpmnProperties(domainStoryElements);
+    const categorizedElements = this.categorizeStoryElements(domainStoryElements);
+    return {
+      iconSet,
+      domainStoryElements: categorizedElements.domainStoryElements,
+      lastElement: categorizedElements.lastElement
+    };
+  }
+  extractStoryAndConfigurationFromCurrentFileFormat(isEgnFormat, storyAndIconSet) {
+    const iconSetFromFile = isEgnFormat ? storyAndIconSet.domain : JSON.parse(storyAndIconSet.domain);
+    return {
+      iconSet: this.iconSetImportExportService.createIconSetConfiguration(iconSetFromFile),
+      domainStoryElements: isEgnFormat ? storyAndIconSet.dst : JSON.parse(storyAndIconSet.dst)
+    };
+  }
+  extractStoryAndConfigurationFromLegacyFileFormat(storyAndIconSet, contentAsJson) {
+    // legacy implementation
+    let iconSet;
+    let domainStoryElements;
+    if (storyAndIconSet.config) {
+      const iconSetFromFile = JSON.parse(storyAndIconSet.config);
+      iconSet = this.iconSetImportExportService.createIconSetConfiguration(iconSetFromFile);
+      domainStoryElements = JSON.parse(storyAndIconSet.dst);
+    } else {
+      // even older legacy implementation (prior to configurable icon set):
+      iconSet = this.iconDictionaryService.getDefaultIconSet();
+      domainStoryElements = JSON.parse(contentAsJson);
+    }
+    return {
+      iconSet,
+      domainStoryElements
+    };
+  }
+  categorizeStoryElements(domainStoryElements) {
+    let lastElement = domainStoryElements[domainStoryElements.length - 1];
+    if (!lastElement.id) {
+      lastElement = domainStoryElements.pop();
+      let versionInfo = lastElement;
+      // if the last element has the tag 'version',
+      // then there exists another tag 'info' for the description
+      let importVersionNumber;
+      if (versionInfo.version) {
+        lastElement = domainStoryElements.pop();
+        importVersionNumber = versionInfo.version;
+      } else {
+        importVersionNumber = '?';
+        this.snackbar.open(`The version number is unreadable.`, undefined, {
+          duration: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_6__.SNACKBAR_DURATION,
+          panelClass: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_6__.SNACKBAR_ERROR
+        });
+      }
+      domainStoryElements = this.handleVersionNumber(importVersionNumber, domainStoryElements);
+    }
+    return {
+      domainStoryElements,
+      lastElement
+    };
   }
   importSuccessful(emitSuccessExternally) {
     this.snackbar.open('Import successful', undefined, {
@@ -9469,15 +9504,6 @@ class ImportDomainStoryService {
     }
     return elements;
   }
-  extractStoryAndIconSet(dstText) {
-    let dstAndConfig = null;
-    try {
-      dstAndConfig = JSON.parse(dstText);
-    } catch (e) {
-      this.showBrokenImportDialog();
-    }
-    return dstAndConfig;
-  }
   extractJsonFromSvgComment(xmlText) {
     xmlText = xmlText.substring(xmlText.indexOf('<DST>'));
     while (xmlText.includes('<!--') || xmlText.includes('-->')) {
@@ -9489,7 +9515,7 @@ class ImportDomainStoryService {
   }
   updateIconRegistries(iconSet) {
     this.iconDictionaryService.updateIconRegistries(iconSet);
-    this.importedConfigurationEmitter.emit(iconSet);
+    this.importedConfigurationEmitter.next(iconSet);
   }
   showPreviousV050Dialog(version) {
     const message = `Your domain story was created with Egon version ${version}. The file format has since changed.
@@ -9508,8 +9534,8 @@ class ImportDomainStoryService {
   }
   restoreTitleFromFileName(filename, isSVG) {
     let title;
-    const domainStoryRegex = /_\d+-\d+-\d+( ?_?-?\(\d+\))?(-?\d)?(.dst|.egn)/;
-    const svgRegex = /_\d+-\d+-\d+( ?_?-?\(\d+\))?(-?\d)?(.dst|.egn).svg/;
+    const domainStoryRegex = /_\d+-\d+-\d+( ?_?-?\(\d+\))?(-?\d)?(\.dst|\.egn)/;
+    const svgRegex = /_\d+-\d+-\d+( ?_?-?\(\d+\))?(-?\d)?(\.dst|\.egn)\.svg/;
     const egnSuffix = '.egn';
     const dstSuffix = '.dst';
     const svgSuffix = '.svg';
