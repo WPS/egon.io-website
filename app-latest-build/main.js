@@ -8988,7 +8988,7 @@ class ExternalResourcesWarningDialogComponent {
     this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineComponent"]({
       type: ExternalResourcesWarningDialogComponent,
       selectors: [["app-external-resources-warning-dialog"]],
-      decls: 19,
+      decls: 17,
       vars: 0,
       consts: [["type", "button", "mat-flat-button", "", 3, "click"], ["type", "button", "mat-flat-button", "", "color", "primary", 3, "click"]],
       template: function ExternalResourcesWarningDialogComponent_Template(rf, ctx) {
@@ -9000,27 +9000,24 @@ class ExternalResourcesWarningDialogComponent {
           _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](5, "You are about to load a domain story from an external source.");
           _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
           _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](6, "p");
-          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](7, "This will overwrite any data from previous sessions.");
+          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](7, "Are you sure that you trust the provider?");
           _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
           _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](8, "p");
-          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](9, "Are you sure that you trust the provider?");
-          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
-          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](10, "p");
-          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](11, "This action cannot be undone. Do you want to continue?");
+          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](9, "This action cannot be undone. Do you want to continue?");
           _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]()();
-          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](12, "mat-dialog-actions");
-          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelement"](13, "br");
-          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](14, "div")(15, "button", 0);
-          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵlistener"]("click", function ExternalResourcesWarningDialogComponent_Template_button_click_15_listener() {
+          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](10, "mat-dialog-actions");
+          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelement"](11, "br");
+          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](12, "div")(13, "button", 0);
+          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵlistener"]("click", function ExternalResourcesWarningDialogComponent_Template_button_click_13_listener() {
             return ctx.close();
           });
-          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](16, "Cancel");
+          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](14, "Cancel");
           _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
-          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](17, "button", 1);
-          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵlistener"]("click", function ExternalResourcesWarningDialogComponent_Template_button_click_17_listener() {
+          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](15, "button", 1);
+          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵlistener"]("click", function ExternalResourcesWarningDialogComponent_Template_button_click_15_listener() {
             return ctx.doImport();
           });
-          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](18, " Import ");
+          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](16, " Import ");
           _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]()()();
         }
       },
