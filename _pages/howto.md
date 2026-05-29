@@ -41,7 +41,9 @@ The title of the story will be used as file name when you export it.
 
  Add a description to document assumptions (e.g., what has happened before the story starts) and variations (e.g., optional activities). Use `shift`+`enter` to add line breaks to the description.
 
-## Palette
+## Modeling
+
+### Palette
 
 ![The palette for a cinema domain](/assets/images/screenshots/palette.png){:height="100px" width="100px" .align-right}
 
@@ -57,7 +59,7 @@ To add an actor, work object, or group to the canvas, click on it and then click
 
 Annotations and activities can only be created from the context menu (see next section).
 
-## Context Menu
+### Context Menu
 
 ![The context menu for an actor cashier](/assets/images/screenshots/context-menu.png){:height="300px" width="300px" .align-right}
 
@@ -72,17 +74,17 @@ If you have added an actor or work object to the canvas, or if you click on an e
   - *Annotation*: Add comments to actors and work objects.
 - Bottom section: If you add an icon from this palette to the canvas, an arrow will be created automatically, connecting the selected actor/work object with the newly created one.
 
-## Naming Actors and Work Objects
+### Naming Actors and Work Objects
 
 Double click on an actor's or work object's icon to edit the name. 
 
-## Naming and Numbering of Activities
+### Naming and Numbering of Activities
 
 Activities are depicted as arrows and created via the context menu (see above). Double click on an arrow to edit the activity's name. If you model an activity between an actor and a work object, it will be numbered automatically. By double clicking on the arrow or the number you can manually change the number. All other numbers are adjusted automatically.
 
 If you want to model activities that happen simultaneously, check  the "multiple" checkbox of an activity. This allows you to use the same number multiple times, indicating that these activities happen in parallel. These steps are shown at once in *replay*.
 
-## Navigating in the Canvas
+### Navigating in the Canvas
 To move the canvas, you can...:
 - click and drag it
 - use the mouse wheel to move the canvas up and down
@@ -90,47 +92,9 @@ To move the canvas, you can...:
 
 Ctrl + mouse wheel zooms in and out.
 
-## Renaming Multiple Work Objects or Activities
+## Useful Tools
 
-To rename multiple work objects or activities, click the *dictionary* button (<i class="material-icons">spellcheck</i>). Actors cannot be renamed in the dictionary because they usually appear only once per Domain Story.
-
-## Exporting Domain Stories
-
-To save your Domain Story on your computer, download it as a file by clicking the *export* button (<i class="material-icons">file_download</i>). The following file formats are available:
-
-- `.egn`: A text file that contains the "source code" of your Domain Story. It can later be imported by you or other Egon users. Egon uses the JSON format and produces files that are properly formatted. This makes it easy to keep track of changes when the files are kept in a source code repository like *git*.
-- `.svg`: A scalable image. Great for adding your Domain Story in collaborative whiteboards like Miro. This image also contains an embedded `.egn` file.
-- `.png`: An image, e.g. for embedding in documents.
-- `.html`: A presentation that lets people replay the story in their browser without the need of using Egon.
-
-
-> Animated SVG images only work with some applications:
-> - works with web browsers (Firefox, Chrome, Safari) and Microsoft Teams
-> - does **not** work with Miro and Inkscape; the image might look incomplete
-
-## Importing Domain Stories
-
-To load a previously created Domain Story, you can...
-- import an `.egn` or `.egn.svg` file by clicking the *import from file* button (<i class="material-icons">file_upload</i>) and selecting the file
-- drag an `.egn` or `.egn.svg` file from your local file system and drop it onto the canvas
-
-- import from a public URL by clicking the *import from URL* button (<i class="material-icons">cloud_upload</i>) and pasting the URL
-
-> Importing from URL has limitations: 
-> - the link must contain the file name and file ending
-> - the server you want to download from must send the `Access-Control-Allow-Origin` response header (if not, import will fail with a CORS error)
-> - the link must point to the "raw" file (for GitHub and Dropbox, Egon will try to automatically convert any link to a raw download link)
-> - **works** with GitHub, BitBucket, Dropbox
-> - does **not** work with Googl Drive, OneDrive
-> - Nextcloud: Ask your server administrator to turn on `Access-Control-Allow-Origin`
-
-## Auto-Save and Creating new Domain Stories
-
-Since saving Domain Stories by exporting them as files is a bit cumbersome, you can turn on the *auto-save* feature in the general settings. Egon runs completely in your browser and this is also where your current Domain Story is stored: In your browser's local storage. You can choose the saving interval (in seconds) between saving drafts and how many drafts are kept in storage. Drafts can be restored, overwriting the current state of your Domain Story.
-
-When you activate auto-save and later open Egon in your browser, it will restore the Domain Story that you last worked on. To create a new Domain Story, click the *New* button (<i class="material-icons">note_add </i>).
-
-## Replay
+### Replay
 
 The replay feature helps you to re-tell a Domain Story sentence by sentence. When you start to replay with the *replay* button (<i class="material-icons">play_arrow</i>), all sentences except the first one disappear. Clicking the *next* button (<i class="material-icons">skip_next</i>) shows the next sentence and clicking the *previous* button (<i class="material-icons">skip_previous</i>) shows the previous one. The current sentence is highlighted. The stop replaying, click the *stop* button (<i class="material-icons">stop</i>).
 
@@ -138,11 +102,7 @@ If a Domain Story contains groups, they appear with the last sentence.
 
 Editing is disabled during replay, but you can zoom (ctrl + mouse wheel up and down), scroll up/down (mouse wheel up and down), and scroll left/right (shift + mouse wheel up and down). You can also move the modeling canvas by keeping the space bar pressed and move the mouse around.
 
-## Keyboard Shortcuts
-
-Click on the *shortcuts* button (<i class="material-icons">keyboard</i>) to display all available keyboard shortcuts.
-
-## Customizing the Icon Set
+### Customizing the Icon Set
 
 To adapt the icon set to your domain, click on the *settings* button (<i class="material-icons">settings</i>) to open the icon customization:
 
@@ -160,6 +120,56 @@ In addition to the built-in icons, you can upload your own icons and then select
 Other image formats are allowed as well, but only SVG can be colored and it can be zoomed without getting pixelated. Square images look better in the pallet and the context pad. 
 
 If you want a consistent look, consider using the same icon set that we use for the predefined icons—[Google's Material icons](https://fonts.google.com/icons?icon.set=Material+Icons).
+
+### Renaming Multiple Work Objects or Activities
+
+To rename multiple work objects or activities, click the *dictionary* button (<i class="material-icons">spellcheck</i>). Actors cannot be renamed in the dictionary because they usually appear only once per Domain Story.
+
+### Keyboard Shortcuts
+
+Click on the *shortcuts* button (<i class="material-icons">keyboard</i>) to display all available keyboard shortcuts.
+
+## Save, Export, Import, and Share
+
+### Exporting Domain Stories
+
+To save your Domain Story on your computer, download it as a file by clicking the *export* button (<i class="material-icons">file_download</i>). The following file formats are available:
+
+- `.egn`: A text file that contains the "source code" of your Domain Story. It can later be imported by you or other Egon users. Egon uses the JSON format and produces files that are properly formatted. This makes it easy to keep track of changes when the files are kept in a source code repository like *git*.
+- `.svg`: A scalable image. Great for adding your Domain Story in collaborative whiteboards like Miro. This image also contains an embedded `.egn` file.
+- `.png`: An image, e.g. for embedding in documents.
+- `.html`: A presentation that lets people replay the story in their browser without the need of using Egon.
+
+
+> Animated SVG images only work with some applications:
+> - works with web browsers (Firefox, Chrome, Safari) and Microsoft Teams
+> - does **not** work with Miro and Inkscape; the image might look incomplete
+
+### Importing Domain Stories
+
+To load a previously created Domain Story, you can...
+- import an `.egn` or `.egn.svg` file by clicking the *import from file* button (<i class="material-icons">file_upload</i>) and selecting the file
+- drag an `.egn` or `.egn.svg` file from your local file system and drop it onto the canvas
+
+- import from a public URL by clicking the *import from URL* button (<i class="material-icons">cloud_upload</i>) and pasting the URL
+
+> Importing from URL has limitations: 
+> - the link must contain the file name and file ending
+> - the server you want to download from must send the `Access-Control-Allow-Origin` response header (if not, import will fail with a CORS error)
+> - the link must point to the "raw" file (for GitHub and Dropbox, Egon will try to automatically convert any link to a raw download link)
+> - **works** with GitHub, BitBucket, Dropbox
+> - does **not** work with Googl Drive, OneDrive
+> - Nextcloud: Ask your server administrator to turn on `Access-Control-Allow-Origin`
+
+### Sharing Domain Stories
+TODO for v3.2.0
+
+
+### Auto-Save and Creating new Domain Stories
+
+Since saving Domain Stories by exporting them as files is a bit cumbersome, you can turn on the *auto-save* feature in the general settings. Egon runs completely in your browser and this is also where your current Domain Story is stored: In your browser's local storage. You can choose the saving interval (in seconds) between saving drafts and how many drafts are kept in storage. Drafts can be restored, overwriting the current state of your Domain Story.
+
+When you activate auto-save and later open Egon in your browser, it will restore the Domain Story that you last worked on. To create a new Domain Story, click the *New* button (<i class="material-icons">note_add </i>).
 
 ## Touch Support
 
