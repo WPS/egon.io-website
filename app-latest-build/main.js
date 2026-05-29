@@ -9712,6 +9712,18 @@ function LabelDictionaryComponent_For_6_Template(rf, ctx) {
       const workObjectEntry_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r1).$implicit;
       const ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵnextContext"]();
       return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵresetView"](ctx_r2.updateWorkObjectEntry($event, workObjectEntry_r2));
+    })("keydown.enter", function LabelDictionaryComponent_For_6_Template_input_keydown_enter_2_listener($event) {
+      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r1);
+      const ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵnextContext"]();
+      return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵresetView"](ctx_r2.preventDefault($event));
+    })("keyup.enter", function LabelDictionaryComponent_For_6_Template_input_keyup_enter_2_listener($event) {
+      const workObjectEntry_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r1).$implicit;
+      const ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵnextContext"]();
+      return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵresetView"](ctx_r2.saveDirectFromWorkObject($event, workObjectEntry_r2));
+    })("keyup.escape", function LabelDictionaryComponent_For_6_Template_input_keyup_escape_2_listener() {
+      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r1);
+      const ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵnextContext"]();
+      return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵresetView"](ctx_r2.close());
     });
     _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵelementEnd"]()()();
   }
@@ -9733,10 +9745,10 @@ function LabelDictionaryComponent_For_13_Template(rf, ctx) {
       _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r4);
       const ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵnextContext"]();
       return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵresetView"](ctx_r2.preventDefault($event));
-    })("keyup.enter", function LabelDictionaryComponent_For_13_Template_textarea_keyup_enter_2_listener() {
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r4);
+    })("keyup.enter", function LabelDictionaryComponent_For_13_Template_textarea_keyup_enter_2_listener($event) {
+      const activityEntry_r5 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r4).$implicit;
       const ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵnextContext"]();
-      return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵresetView"](ctx_r2.save());
+      return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵresetView"](ctx_r2.saveDirectFromActivity($event, activityEntry_r5));
     })("keyup.escape", function LabelDictionaryComponent_For_13_Template_textarea_keyup_escape_2_listener() {
       _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r4);
       const ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵnextContext"]();
@@ -9795,6 +9807,16 @@ class LabelDictionaryComponent {
     this.workObjectEntriesSubject.next(this.workObjectEntries);
     this.activityEntriesSubject.next(this.activityEntries);
   }
+  // The keydown in the input / textarea field is handled before the (change) event, thus we need to trigger the update manually
+  saveDirectFromActivity($event, activityEntry) {
+    this.updateActivityEntry($event, activityEntry);
+    this.save();
+  }
+  // The keydown in the input / textarea field is handled before the (change) event, thus we need to trigger the update manually
+  saveDirectFromWorkObject($event, workObjectEntry) {
+    this.updateWorkObjectEntry($event, workObjectEntry);
+    this.save();
+  }
   updateActivityEntry($event, activityEntry) {
     const target = $event.target;
     let entries = this.activityEntriesSubject.value;
@@ -9827,7 +9849,7 @@ class LabelDictionaryComponent {
       },
       decls: 20,
       vars: 4,
-      consts: [[1, "list-content"], [1, "listTitle"], [1, "sticky-bottom"], ["type", "button", "mat-flat-button", "", 3, "click"], ["type", "button", "mat-flat-button", "", "color", "primary", 3, "click"], ["color", "accent", 1, "inputText", "dense-8"], ["matInput", "", 1, "inputText", 3, "change", "value"], ["matInput", "", "cdkTextareaAutosize", "", "cdkAutosizeMinRows", "1", "cdkAutosizeMaxRows", "3", 1, "inputText", "activity", 3, "change", "keydown.enter", "keyup.enter", "keyup.escape", "value"]],
+      consts: [[1, "list-content"], [1, "listTitle"], [1, "sticky-bottom"], ["type", "button", "mat-flat-button", "", 3, "click"], ["type", "button", "mat-flat-button", "", "color", "primary", 3, "click"], ["color", "accent", 1, "inputText", "dense-8"], ["matInput", "", 1, "inputText", 3, "change", "keydown.enter", "keyup.enter", "keyup.escape", "value"], ["matInput", "", "cdkTextareaAutosize", "", "cdkAutosizeMinRows", "1", "cdkAutosizeMaxRows", "3", 1, "inputText", "activity", 3, "change", "keydown.enter", "keyup.enter", "keyup.escape", "value"]],
       template: function LabelDictionaryComponent_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵelementStart"](0, "div", 0)(1, "div")(2, "h3", 1);
@@ -12546,7 +12568,7 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 const environment = {
   production: false,
-  version: '3.1.1-dev'
+  version: '3.2.0-dev'
 };
 /*
  * For easier debugging in development mode, you can import the following file
