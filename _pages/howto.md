@@ -162,8 +162,16 @@ To load a previously created Domain Story, you can...
 > - Nextcloud: Ask your server administrator to turn on `Access-Control-Allow-Origin`
 
 ### Sharing Domain Stories
-TODO for v3.2.0
+You can share domain stories by manually creating a link that contains a file URL:
 
+`<host>`*\?storyUrl=*`<url>`*&startReplay=true*
+
+This URL consists of:
+- `<host>`: URL of an Egon instance, for example `https://egon.io/app/`.
+- `<url>`: Mandatory parameter that provides the URL of a `.egn`or `.egn.svg` file. If you use a 
+- *&startReplay=true*: Optional parameter that automatically starts replay.
+
+> This feature is an extension of the URL import (see above). Hence, the same limitations apply.
 
 ### Auto-Save and Creating new Domain Stories
 
