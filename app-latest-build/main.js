@@ -8791,7 +8791,7 @@ class IconSetNotificationService {
     this.snackbar = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.inject)(_angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_2__.MatSnackBar);
   }
   openConfigurationImportOrSavedSnackbar(imported) {
-    this.snackbar.open(imported ? 'Configuration imported successfully' : 'Configuration saved successfully & Autosave created', undefined, {
+    this.snackbar.open(imported ? 'Configuration imported successfully' : 'Configuration saved successfully', undefined, {
       duration: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_1__.SNACKBAR_DURATION,
       panelClass: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_1__.SNACKBAR_SUCCESS
     });
@@ -8988,7 +8988,7 @@ class ExternalResourcesWarningDialogComponent {
     this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineComponent"]({
       type: ExternalResourcesWarningDialogComponent,
       selectors: [["app-external-resources-warning-dialog"]],
-      decls: 17,
+      decls: 15,
       vars: 0,
       consts: [["type", "button", "mat-flat-button", "", 3, "click"], ["type", "button", "mat-flat-button", "", "color", "primary", 3, "click"]],
       template: function ExternalResourcesWarningDialogComponent_Template(rf, ctx) {
@@ -9000,24 +9000,21 @@ class ExternalResourcesWarningDialogComponent {
           _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](5, "You are about to load a domain story from an external source.");
           _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
           _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](6, "p");
-          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](7, "Are you sure that you trust the provider?");
-          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
-          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](8, "p");
-          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](9, "This action cannot be undone. Do you want to continue?");
+          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](7, "Do you want to continue?");
           _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]()();
-          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](10, "mat-dialog-actions");
-          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelement"](11, "br");
-          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](12, "div")(13, "button", 0);
-          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵlistener"]("click", function ExternalResourcesWarningDialogComponent_Template_button_click_13_listener() {
+          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](8, "mat-dialog-actions");
+          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelement"](9, "br");
+          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](10, "div")(11, "button", 0);
+          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵlistener"]("click", function ExternalResourcesWarningDialogComponent_Template_button_click_11_listener() {
             return ctx.close();
           });
-          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](14, "Cancel");
+          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](12, "Cancel");
           _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
-          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](15, "button", 1);
-          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵlistener"]("click", function ExternalResourcesWarningDialogComponent_Template_button_click_15_listener() {
+          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](13, "button", 1);
+          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵlistener"]("click", function ExternalResourcesWarningDialogComponent_Template_button_click_13_listener() {
             return ctx.doImport();
           });
-          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](16, " Import ");
+          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](14, " Import ");
           _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]()()();
         }
       },
