@@ -2752,7 +2752,7 @@ function createAutocompleteForEdit(editingBox, workObjectNames, businessElement,
     if (businessElement.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.WORKOBJECT)) {
       this.value = this.innerHTML;
     }
-    let searchterm = this.value?.toUpperCase() | "";
+    let searchterm = this.value?.toUpperCase() ? this.value.toUpperCase() : "";
     currentFocus = -1;
     clearOldAutocompleteList();
     const autocompleteList = document.createElement("DIV");
