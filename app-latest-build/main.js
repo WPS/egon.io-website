@@ -8141,9 +8141,8 @@ class IconDictionaryService {
   }
   extractCustomIconsFromDictionary(elementDictionary, customIcons) {
     elementDictionary.keysArray().forEach(name => {
-      const sanitizedName = (0,_utils_sanitizer__WEBPACK_IMPORTED_MODULE_4__.sanitizeIconName)(name);
-      if (!this.getFullDictionary().has(sanitizedName)) {
-        customIcons.set(sanitizedName, elementDictionary.get(name));
+      if (!this.getFullDictionary().has(name)) {
+        customIcons.set(name, elementDictionary.get(name));
       }
     });
   }
@@ -11853,8 +11852,7 @@ function sanitizeIconName(name) {
     '|': '',
     '(': '',
     ')': '',
-    ' ': '-',
-    '.': '_'
+    ' ': '-'
   };
   const reg = /[/\\:*?"<>|() ]/gi;
   return nameWithoutFileEnding.trim().replace(reg, match => map[match]);
