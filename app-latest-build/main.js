@@ -11853,7 +11853,8 @@ function sanitizeIconName(name) {
     '|': '',
     '(': '',
     ')': '',
-    ' ': '-'
+    ' ': '-',
+    '.': '_'
   };
   const reg = /[/\\:*?"<>|() ]/gi;
   return nameWithoutFileEnding.trim().replace(reg, match => map[match]);
@@ -12562,7 +12563,7 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 const environment = {
   production: false,
-  version: '4.0.0-dev'
+  version: '3.2.1-dev'
 };
 /*
  * For easier debugging in development mode, you can import the following file
