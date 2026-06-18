@@ -8021,7 +8021,6 @@ class IconCssService {
       return;
     }
     const iconStyle = '.' + src_app_tools_icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_0__.ICON_CSS_CLASS_PREFIX + (0,src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_1__.sanitizeForCss)(iconName) + '::before{ content: url("data:image/svg+xml;utf8,' + this.wrapSRCInSVG(iconSrc) + '"); margin: 3px;}';
-    console.log(iconStyle);
     // @ts-ignore
     sheetEl?.sheet?.insertRule(iconStyle, sheetEl.sheet.cssRules.length);
   }
