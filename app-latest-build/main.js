@@ -8008,8 +8008,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   IconCssService: () => (/* binding */ IconCssService)
 /* harmony export */ });
-/* harmony import */ var src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/utils/sanitizer */ 43515);
-/* harmony import */ var src_app_tools_icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/tools/icon-set-config/services/icon-dictionary.service */ 6932);
+/* harmony import */ var src_app_tools_icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/tools/icon-set-config/services/icon-dictionary.service */ 6932);
+/* harmony import */ var src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/utils/sanitizer */ 43515);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 38424);
 
 
@@ -8020,7 +8020,8 @@ class IconCssService {
     if (!sheetEl) {
       return;
     }
-    const iconStyle = '.' + src_app_tools_icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_1__.ICON_CSS_CLASS_PREFIX + (0,src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_0__.sanitizeIconName)(iconName.toLowerCase()) + '::before{ content: url("data:image/svg+xml;utf8,' + this.wrapSRCInSVG(iconSrc) + '"); margin: 3px;}';
+    const iconStyle = '.' + src_app_tools_icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_0__.ICON_CSS_CLASS_PREFIX + (0,src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_1__.sanitizeForCss)(iconName) + '::before{ content: url("data:image/svg+xml;utf8,' + this.wrapSRCInSVG(iconSrc) + '"); margin: 3px;}';
+    console.log(iconStyle);
     // @ts-ignore
     sheetEl?.sheet?.insertRule(iconStyle, sheetEl.sheet.cssRules.length);
   }
@@ -8172,7 +8173,7 @@ class IconDictionaryService {
     return new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
   }
   getCSSClassOfIcon(name) {
-    return ICON_CSS_CLASS_PREFIX + (0,_utils_sanitizer__WEBPACK_IMPORTED_MODULE_4__.sanitizeIconName)(name.toLowerCase());
+    return ICON_CSS_CLASS_PREFIX + (0,_utils_sanitizer__WEBPACK_IMPORTED_MODULE_4__.sanitizeForCss)(name);
   }
   getIconSource(name) {
     if (src_app_tools_icon_set_config_domain_builtInIcons__WEBPACK_IMPORTED_MODULE_3__.builtInIcons.has(name)) {
@@ -11810,6 +11811,7 @@ class Point {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   sanitizeForCss: () => (/* binding */ sanitizeForCss),
 /* harmony export */   sanitizeForDesktop: () => (/* binding */ sanitizeForDesktop),
 /* harmony export */   sanitizeIconName: () => (/* binding */ sanitizeIconName),
 /* harmony export */   sanitizeTextForSVGExport: () => (/* binding */ sanitizeTextForSVGExport)
@@ -11834,6 +11836,14 @@ function sanitizeForDesktop(str) {
   };
   const reg = /[/\\:*?"<>|]/gi;
   return str ? sanitizeTextForSVGExport(str.replace(reg, match => map[match])) : '';
+}
+// CSS-Classes with semantic characters cannot be addressed properly
+function sanitizeForCss(name) {
+  return name
+  // Replace any character that isn't a letter, digit, hyphen, or underscore
+  .replace(/[^a-zA-Z0-9_-]/g, '_')
+  // Avoid a class name starting with a digit or a "-<digit>" sequence
+  .replace(/^(-?\d)/, '_$1').toLowerCase();
 }
 function sanitizeIconName(name) {
   if (!name) {
