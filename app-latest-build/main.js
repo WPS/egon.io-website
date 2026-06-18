@@ -2752,7 +2752,7 @@ function createAutocompleteForEdit(editingBox, workObjectNames, businessElement,
     if (businessElement.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.WORKOBJECT)) {
       this.value = this.innerHTML;
     }
-    let searchterm = this.value?.toUpperCase() | "";
+    let searchterm = this.value?.toUpperCase() ? this.value.toUpperCase() : "";
     currentFocus = -1;
     clearOldAutocompleteList();
     const autocompleteList = document.createElement("DIV");
@@ -8008,8 +8008,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   IconCssService: () => (/* binding */ IconCssService)
 /* harmony export */ });
-/* harmony import */ var src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/utils/sanitizer */ 43515);
-/* harmony import */ var src_app_tools_icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/tools/icon-set-config/services/icon-dictionary.service */ 6932);
+/* harmony import */ var src_app_tools_icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/tools/icon-set-config/services/icon-dictionary.service */ 6932);
+/* harmony import */ var src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/utils/sanitizer */ 43515);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 38424);
 
 
@@ -8020,7 +8020,7 @@ class IconCssService {
     if (!sheetEl) {
       return;
     }
-    const iconStyle = '.' + src_app_tools_icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_1__.ICON_CSS_CLASS_PREFIX + (0,src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_0__.sanitizeIconName)(iconName.toLowerCase()) + '::before{ content: url("data:image/svg+xml;utf8,' + this.wrapSRCInSVG(iconSrc) + '"); margin: 3px;}';
+    const iconStyle = '.' + src_app_tools_icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_0__.ICON_CSS_CLASS_PREFIX + (0,src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_1__.sanitizeForCss)(iconName) + '::before{ content: url("data:image/svg+xml;utf8,' + this.wrapSRCInSVG(iconSrc) + '"); margin: 3px;}';
     // @ts-ignore
     sheetEl?.sheet?.insertRule(iconStyle, sheetEl.sheet.cssRules.length);
   }
@@ -8083,21 +8083,21 @@ class IconDictionaryService {
       actors: ['Person', 'Group', 'System'],
       workObjects: ['Document', 'Folder', 'Call', 'Email', 'Conversation', 'Info']
     };
-    this.defaultActorsDictionary = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
-    this.defaultWorkObjectsDictionary = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
-    this.defaultIconSet = (() => {
-      this.initDictionary(this.NAMES_OF_DEFAULT_ICONS.actors, src_app_tools_icon_set_config_domain_builtInIcons__WEBPACK_IMPORTED_MODULE_3__.builtInIcons, this.defaultActorsDictionary);
-      this.initDictionary(this.NAMES_OF_DEFAULT_ICONS.workObjects, src_app_tools_icon_set_config_domain_builtInIcons__WEBPACK_IMPORTED_MODULE_3__.builtInIcons, this.defaultWorkObjectsDictionary);
-      return {
-        name: src_app_domain_entities_constants__WEBPACK_IMPORTED_MODULE_5__.INITIAL_ICON_SET_NAME,
-        actors: this.defaultActorsDictionary,
-        workObjects: this.defaultWorkObjectsDictionary
-      };
-    })();
+  }
+  createDefaultIconSet() {
+    const defaultActorsDictionary = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
+    const defaultWorkObjectsDictionary = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
+    this.initDictionary(this.NAMES_OF_DEFAULT_ICONS.actors, src_app_tools_icon_set_config_domain_builtInIcons__WEBPACK_IMPORTED_MODULE_3__.builtInIcons, defaultActorsDictionary);
+    this.initDictionary(this.NAMES_OF_DEFAULT_ICONS.workObjects, src_app_tools_icon_set_config_domain_builtInIcons__WEBPACK_IMPORTED_MODULE_3__.builtInIcons, defaultWorkObjectsDictionary);
+    return {
+      name: src_app_domain_entities_constants__WEBPACK_IMPORTED_MODULE_5__.INITIAL_ICON_SET_NAME,
+      actors: defaultActorsDictionary,
+      workObjects: defaultWorkObjectsDictionary
+    };
   }
   initTypeDictionaries() {
     if (this.selectedActorsDictionary.isEmpty() && this.selectedWorkObjectsDictionary.isEmpty()) {
-      this.setIconSet(this.defaultIconSet);
+      this.setIconSet(this.createDefaultIconSet());
     }
   }
   initDictionary(selectedIconNames, allIcons, dictionary) {
@@ -8141,9 +8141,8 @@ class IconDictionaryService {
   }
   extractCustomIconsFromDictionary(elementDictionary, customIcons) {
     elementDictionary.keysArray().forEach(name => {
-      const sanitizedName = (0,_utils_sanitizer__WEBPACK_IMPORTED_MODULE_4__.sanitizeIconName)(name);
-      if (!this.getFullDictionary().has(sanitizedName)) {
-        customIcons.set(sanitizedName, elementDictionary.get(name));
+      if (!this.getFullDictionary().has(name)) {
+        customIcons.set(name, elementDictionary.get(name));
       }
     });
   }
@@ -8173,7 +8172,7 @@ class IconDictionaryService {
     return new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
   }
   getCSSClassOfIcon(name) {
-    return ICON_CSS_CLASS_PREFIX + (0,_utils_sanitizer__WEBPACK_IMPORTED_MODULE_4__.sanitizeIconName)(name.toLowerCase());
+    return ICON_CSS_CLASS_PREFIX + (0,_utils_sanitizer__WEBPACK_IMPORTED_MODULE_4__.sanitizeForCss)(name);
   }
   getIconSource(name) {
     if (src_app_tools_icon_set_config_domain_builtInIcons__WEBPACK_IMPORTED_MODULE_3__.builtInIcons.has(name)) {
@@ -8188,7 +8187,7 @@ class IconDictionaryService {
     this.selectedWorkObjectsDictionary = iconSet.workObjects;
   }
   getDefaultIconSet() {
-    return this.defaultIconSet;
+    return this.createDefaultIconSet();
   }
   static {
     this.ɵfac = function IconDictionaryService_Factory(__ngFactoryType__) {
@@ -11811,6 +11810,7 @@ class Point {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   sanitizeForCss: () => (/* binding */ sanitizeForCss),
 /* harmony export */   sanitizeForDesktop: () => (/* binding */ sanitizeForDesktop),
 /* harmony export */   sanitizeIconName: () => (/* binding */ sanitizeIconName),
 /* harmony export */   sanitizeTextForSVGExport: () => (/* binding */ sanitizeTextForSVGExport)
@@ -11835,6 +11835,14 @@ function sanitizeForDesktop(str) {
   };
   const reg = /[/\\:*?"<>|]/gi;
   return str ? sanitizeTextForSVGExport(str.replace(reg, match => map[match])) : '';
+}
+// CSS-Classes with semantic characters cannot be addressed properly
+function sanitizeForCss(name) {
+  return name
+  // Replace any character that isn't a letter, digit, hyphen, or underscore
+  .replace(/[^a-zA-Z0-9_-]/g, '_')
+  // Avoid a class name starting with a digit or a "-<digit>" sequence
+  .replace(/^(-?\d)/, '_$1').toLowerCase();
 }
 function sanitizeIconName(name) {
   if (!name) {
@@ -12562,7 +12570,7 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 const environment = {
   production: false,
-  version: '4.0.0-dev'
+  version: '3.2.1-dev'
 };
 /*
  * For easier debugging in development mode, you can import the following file
