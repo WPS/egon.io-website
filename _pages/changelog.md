@@ -11,12 +11,18 @@ toc_sticky: true
 ## Latest Build
 no changes yet
 
+## v3.2.1
+- `Fix`: Autocomplete works correctly again.
+- `Fix`: Fix inconsistent state in icon customization when using custom icons.
+- `Fix`: Better handle custom icons with '.' in file name [See #264](https://github.com/WPS/egon.io/issues/264)
+
 ## v3.2.0
 - `Feature`: Load and replay story via URL parameters [See #260](https://github.com/WPS/egon.io/issues/260)
 - `Feature`: Line breaks in annotations [See #209](https://github.com/WPS/egon.io/issues/209)
 - `Fix`: Saving icon configuration triggers Autosave [See #251](https://github.com/WPS/egon.io/issues/251)
 - `Fix`: Fixed odd formatting of exported PNG that occurred with Firefox in some cases [See #250](https://github.com/WPS/egon.io/issues/250)
 - `Fix`: Closing dictionary dialog with 'enter' saves changes [See #262](https://github.com/WPS/egon.io/issues/262)
+- `Fix`: Palette now collapses when replay is started, giving more space to the domain story.
 
 ## v3.1.0
 - `Feature`: Change color of all selected model elements. [See #152](https://github.com/WPS/egon.io/issues/152)
