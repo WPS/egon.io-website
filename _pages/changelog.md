@@ -22,7 +22,7 @@ no changes yet
 - `Fix`: Saving icon configuration triggers Autosave [See #251](https://github.com/WPS/egon.io/issues/251)
 - `Fix`: Fixed odd formatting of exported PNG that occurred with Firefox in some cases [See #250](https://github.com/WPS/egon.io/issues/250)
 - `Fix`: Closing dictionary dialog with 'enter' saves changes [See #262](https://github.com/WPS/egon.io/issues/262)
-- `Fix`: Palette now collapses when replay is started, giving more space to the domain story.
+- `Fix`: Palette now collapses when replay is started, giving more space to the domain story. [See #259](https://github.com/WPS/egon.io/issues/259)
 
 ## v3.1.0
 - `Feature`: Change color of all selected model elements. [See #152](https://github.com/WPS/egon.io/issues/152)
