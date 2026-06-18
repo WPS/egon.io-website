@@ -8083,21 +8083,21 @@ class IconDictionaryService {
       actors: ['Person', 'Group', 'System'],
       workObjects: ['Document', 'Folder', 'Call', 'Email', 'Conversation', 'Info']
     };
-    this.defaultActorsDictionary = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
-    this.defaultWorkObjectsDictionary = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
-    this.defaultIconSet = (() => {
-      this.initDictionary(this.NAMES_OF_DEFAULT_ICONS.actors, src_app_tools_icon_set_config_domain_builtInIcons__WEBPACK_IMPORTED_MODULE_3__.builtInIcons, this.defaultActorsDictionary);
-      this.initDictionary(this.NAMES_OF_DEFAULT_ICONS.workObjects, src_app_tools_icon_set_config_domain_builtInIcons__WEBPACK_IMPORTED_MODULE_3__.builtInIcons, this.defaultWorkObjectsDictionary);
-      return {
-        name: src_app_domain_entities_constants__WEBPACK_IMPORTED_MODULE_5__.INITIAL_ICON_SET_NAME,
-        actors: this.defaultActorsDictionary,
-        workObjects: this.defaultWorkObjectsDictionary
-      };
-    })();
+  }
+  createDefaultIconSet() {
+    const defaultActorsDictionary = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
+    const defaultWorkObjectsDictionary = new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
+    this.initDictionary(this.NAMES_OF_DEFAULT_ICONS.actors, src_app_tools_icon_set_config_domain_builtInIcons__WEBPACK_IMPORTED_MODULE_3__.builtInIcons, defaultActorsDictionary);
+    this.initDictionary(this.NAMES_OF_DEFAULT_ICONS.workObjects, src_app_tools_icon_set_config_domain_builtInIcons__WEBPACK_IMPORTED_MODULE_3__.builtInIcons, defaultWorkObjectsDictionary);
+    return {
+      name: src_app_domain_entities_constants__WEBPACK_IMPORTED_MODULE_5__.INITIAL_ICON_SET_NAME,
+      actors: defaultActorsDictionary,
+      workObjects: defaultWorkObjectsDictionary
+    };
   }
   initTypeDictionaries() {
     if (this.selectedActorsDictionary.isEmpty() && this.selectedWorkObjectsDictionary.isEmpty()) {
-      this.setIconSet(this.defaultIconSet);
+      this.setIconSet(this.createDefaultIconSet());
     }
   }
   initDictionary(selectedIconNames, allIcons, dictionary) {
@@ -8187,7 +8187,7 @@ class IconDictionaryService {
     this.selectedWorkObjectsDictionary = iconSet.workObjects;
   }
   getDefaultIconSet() {
-    return this.defaultIconSet;
+    return this.createDefaultIconSet();
   }
   static {
     this.ɵfac = function IconDictionaryService_Factory(__ngFactoryType__) {
