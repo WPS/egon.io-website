@@ -9,7 +9,15 @@ toc_sticky: true
 > Have you used an earlier version of *Egon* or the *latest build*? Please follow these [instructions](https://egon.io/howto#launching-egon) for updating to the newest version.
 
 ## Latest Build
-no changes yet
+
+> Breaking Changes
+> - Domain Stories created with *latest build* (v4.0.0-dev) cannot be imported into previous versions of Egon.
+> - The structure of `.egn` and `.egn.svg` files will change further during development. Hence, Domain Stories created with *latest build* will likely be incompatible with the v4.0.0.
+
+- `Feature`: To simplify file handling, ‘title’ and ‘file name’ are now separate attributes [See 236](https://github.com/WPS/egon.io/issues/236)
+- `Fix`: When uploading a `.egn.svg` file to a digital whiteboard, the embedded `.egn` passes sanitation and is no longer removed from the file  [See 263](https://github.com/WPS/egon.io/issues/263)
+
+
 
 ## v3.2.1
 - `Fix`: Autocomplete works correctly again.
