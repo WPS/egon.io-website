@@ -628,7 +628,7 @@ function DomainStoryContextPadProvider(connect, translate, elementFactory, creat
         title: translate("Change type"),
         action: {
           click: function (event, element) {
-            let position = (0,min_dash__WEBPACK_IMPORTED_MODULE_0__.assign)(getReplaceMenuPosition(element), {
+            let position = (0,min_dash__WEBPACK_IMPORTED_MODULE_0__.assign)(getReplaceMenuPosition(), {
               cursor: {
                 x: event.x,
                 y: event.y
@@ -701,7 +701,7 @@ function DomainStoryContextPadProvider(connect, translate, elementFactory, creat
         title: translate("Change type"),
         action: {
           click: function (event, element) {
-            let position = (0,min_dash__WEBPACK_IMPORTED_MODULE_0__.assign)(getReplaceMenuPosition(element), {
+            let position = (0,min_dash__WEBPACK_IMPORTED_MODULE_0__.assign)(getReplaceMenuPosition(), {
               cursor: {
                 x: event.x,
                 y: event.y
@@ -729,10 +729,10 @@ function DomainStoryContextPadProvider(connect, translate, elementFactory, creat
     };
     commandStack.execute("activity.directionChange", context);
   }
-  function getReplaceMenuPosition(element) {
+  function getReplaceMenuPosition() {
     let Y_OFFSET = 5;
     let diagramContainer = canvas.getContainer(),
-      pad = contextPad.getPad(element).html;
+      pad = document.getElementsByClassName("djs-context-pad open")[0];
     let diagramRect = diagramContainer.getBoundingClientRect(),
       padRect = pad.getBoundingClientRect();
     let top = padRect.top - diagramRect.top;
@@ -12726,7 +12726,7 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 const environment = {
   production: false,
-  version: '3.2.1-dev'
+  version: '4.0.0-dev'
 };
 /*
  * For easier debugging in development mode, you can import the following file
