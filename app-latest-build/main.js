@@ -4727,9 +4727,6 @@ class Dictionary {
   all() {
     return this.entries;
   }
-  size() {
-    return this.entries.length;
-  }
   isEmpty() {
     return this.entries.length <= 0;
   }
@@ -4749,18 +4746,6 @@ class Dictionary {
   keysArray() {
     return this.entries.map(entry => entry.key);
   }
-  addEach(object) {
-    Object.keys(object).forEach(key => {
-      this.set(key, object[key]);
-    });
-  }
-  addBuiltInIcons(builtInIcons) {
-    builtInIcons.entries.forEach(entry => {
-      if (!this.has(entry.key)) {
-        this.entries.push(entry);
-      }
-    });
-  }
   appendDict(dict) {
     dict.entries.forEach(entry => this.putEntry(entry));
   }
@@ -4771,6 +4756,13 @@ class Dictionary {
     this.entries = this.entries.filter(entry => entry.key !== key);
   }
   get(key) {
+    const found = this.entries.filter(entry => entry.key === key);
+    if (found.length < 1) {
+      throw new Error(`Key ${key} not found in dictionary`);
+    }
+    return found[0].value;
+  }
+  find(key) {
     const found = this.entries.filter(entry => entry.key === key);
     return found[0] ? found[0].value : null;
   }
@@ -5136,8 +5128,8 @@ class ElementRegistryService {
       }
     }
   }
-  setElementRegistry(registry) {
-    this.registry = registry._elements;
+  setElementRegistry(elementRegistry) {
+    this.registry = elementRegistry._elements;
   }
   clear() {
     this.registry = null;
@@ -5173,24 +5165,20 @@ class ElementRegistryService {
       objectList.push(group);
     });
   }
+  getObjectsOfType(type) {
+    return this.getAllCanvasObjects().filter(o => o.type.includes(type));
+  }
   getAllActivities() {
-    const activities = [];
-    this.getAllCanvasObjects().forEach(element => {
-      if (element.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTIVITY)) {
-        activities.push(element);
-      }
-    });
-    return activities;
+    return this.getObjectsOfType(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTIVITY);
   }
   getAllConnections() {
-    const connections = [];
-    this.getAllCanvasObjects().forEach(element => {
-      const type = element.type;
-      if (type === src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.CONNECTION) {
-        connections.push(element);
-      }
-    });
-    return connections;
+    return this.getObjectsOfType(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.CONNECTION);
+  }
+  getAllActors() {
+    return this.getObjectsOfType(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTOR);
+  }
+  getAllWorkObjects() {
+    return this.getObjectsOfType(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.WORKOBJECT);
   }
   getAllCanvasObjects() {
     const allObjects = [];
@@ -5233,7 +5221,7 @@ class ElementRegistryService {
   }
   checkChildForGroup(groupObjects, allObjects) {
     const registryElementNames = Object.keys(this.registry);
-    for (let name of registryElementNames) {
+    for (const name of registryElementNames) {
       const entry = this.registry[name].element;
       if (entry.businessObject) {
         const type = entry.type;
@@ -5270,12 +5258,6 @@ class ElementRegistryService {
       actors: actors.map(a => a.type.replace(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTOR, '')),
       workObjects: workObjects.map(w => w.type.replace(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.WORKOBJECT, ''))
     };
-  }
-  getAllActors() {
-    return this.getAllCanvasObjects().filter(co => co.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.ACTOR));
-  }
-  getAllWorkObjects() {
-    return this.getAllCanvasObjects().filter(co => co.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.WORKOBJECT));
   }
   static {
     this.ɵfac = function ElementRegistryService_Factory(__ngFactoryType__) {
@@ -5787,7 +5769,6 @@ class AutosaveService {
     const iconSet = this.iconSetImportExportService.createIconSetConfiguration(this.getIconSetFromAutosave(draft));
     const businessObjects = this.getBusinessObjectsFromDraft(draft);
     this.titleService.updateTitleAndDescriptionAndScope(draft.title, draft.description, draft.scope, false);
-    console.log('loadDraft');
     this.importConfigChangedSignal.set(iconSet);
     this.modelerService.importStory(businessObjects, iconSet, fitToScreen);
   }
@@ -7848,9 +7829,6 @@ class SelectableIconComponent {
       this.isWorkObject = value.isWorkObject;
       this.isNone = !(value.isActor || value.isWorkObject);
     });
-    this.isActor = this.icon.value.isActor;
-    this.isWorkObject = this.icon.value.isWorkObject;
-    this.isNone = !(this.icon.value.isActor || this.icon.value.isWorkObject);
   }
   ngAfterViewChecked() {
     this.createIcon();
@@ -8126,23 +8104,13 @@ class IconDictionaryService {
     if (name.includes(type)) {
       throw new Error('Name should not include type!');
     }
-    this.getDictionaryForType(type).set(name, src);
+    this.getIconsAssignedAs(type).set(name, src);
   }
   unregisterIconForType(type, name) {
     if (name.includes(type)) {
       throw new Error('Name should not include type!');
     }
-    this.getDictionaryForType(type).delete(name);
-  }
-  getDictionaryForType(type) {
-    switch (type) {
-      case src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTOR:
-        return this.selectedActorsDictionary;
-      case src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.WORKOBJECT:
-        return this.selectedWorkObjectsDictionary;
-      default:
-        return new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
-    }
+    this.getIconsAssignedAs(type).delete(name);
   }
   // When an icon set or a domain story (which includes its icon set) are imported,
   // we need to...:
@@ -8180,12 +8148,14 @@ class IconDictionaryService {
     return fullDictionary;
   }
   getIconsAssignedAs(type) {
-    if (type === src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTOR) {
-      return this.selectedActorsDictionary;
-    } else if (type === src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.WORKOBJECT) {
-      return this.selectedWorkObjectsDictionary;
+    switch (type) {
+      case src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTOR:
+        return this.selectedActorsDictionary;
+      case src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.WORKOBJECT:
+        return this.selectedWorkObjectsDictionary;
+      default:
+        throw new Error(`Unsupported icon type: ${type}`);
     }
-    return new src_app_domain_entities_dictionary__WEBPACK_IMPORTED_MODULE_1__.Dictionary();
   }
   getCSSClassOfIcon(name) {
     return ICON_CSS_CLASS_PREFIX + (0,_utils_sanitizer__WEBPACK_IMPORTED_MODULE_4__.sanitizeForCss)(name);
@@ -8196,7 +8166,7 @@ class IconDictionaryService {
     } else if (this.customIcons.has(name)) {
       return this.customIcons.get(name);
     }
-    return null;
+    return '';
   }
   setIconSet(iconSet) {
     this.selectedActorsDictionary = iconSet.actors;
@@ -8267,7 +8237,7 @@ class IconSetCustomizationService {
     this.configurationHasChanged = false;
     this.iconSetImportExportService = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.inject)(_icon_set_import_export_service__WEBPACK_IMPORTED_MODULE_7__.IconSetImportExportService);
     this.iconDictionaryService = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.inject)(_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_8__.IconDictionaryService);
-    this.iconSetNotificationServiceService = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.inject)(src_app_tools_icon_set_config_services_icon_set_notification_service__WEBPACK_IMPORTED_MODULE_11__.IconSetNotificationService);
+    this.iconSetNotificationService = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.inject)(src_app_tools_icon_set_config_services_icon_set_notification_service__WEBPACK_IMPORTED_MODULE_11__.IconSetNotificationService);
     this.iconSetChangedService = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.inject)(IconSetChangedService);
     this.elementRegistryService = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.inject)(src_app_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_3__.ElementRegistryService);
     this.autosaveService = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.inject)(src_app_tools_autosave_services_autosave_service__WEBPACK_IMPORTED_MODULE_10__.AutosaveService);
@@ -8358,9 +8328,10 @@ class IconSetCustomizationService {
   }
   changeName(iconSetName) {
     this.iconSetImportExportService.setIconSetName(iconSetName);
-    const changedIconSet = this.iconSetConfigurationTypesSignal();
-    changedIconSet.name = iconSetName;
-    this.iconSetConfigurationTypesSignal.set(changedIconSet);
+    this.iconSetConfigurationTypesSignal.update(current => ({
+      ...current,
+      name: iconSetName
+    }));
   }
   /** Selected Icons **/
   setAsUnassigned(iconName) {
@@ -8385,7 +8356,6 @@ class IconSetCustomizationService {
         workObjects: currentIconSetSelection.workObjects,
         name: currentIconSetSelection.name
       });
-      console.log('selectActor');
       this.updateActorSignal();
     }
   }
@@ -8401,7 +8371,7 @@ class IconSetCustomizationService {
     }
   }
   deselectActor(actor) {
-    if (this.iconSetConfigurationTypesSignal) {
+    if (this.iconSetConfigurationTypesSignal()) {
       this.iconSetConfigurationTypesSignal.set({
         name: this.iconSetConfigurationTypesSignal().name,
         actors: this.iconSetConfigurationTypesSignal().actors.filter(a => a !== actor),
@@ -8409,11 +8379,10 @@ class IconSetCustomizationService {
       });
     }
     this.iconDictionaryService.unregisterIconForType(_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_6__.ElementTypes.ACTOR, actor);
-    console.log('deselectActor', actor);
     this.updateActorSignal();
   }
   deselectWorkObject(workObject) {
-    if (this.iconSetConfigurationTypesSignal) {
+    if (this.iconSetConfigurationTypesSignal()) {
       this.iconSetConfigurationTypesSignal.set({
         name: this.iconSetConfigurationTypesSignal().name,
         actors: this.iconSetConfigurationTypesSignal().actors,
@@ -8424,21 +8393,20 @@ class IconSetCustomizationService {
     this.updateWorkObjectSignal();
   }
   setSelectedWorkObject(sortedList) {
-    const value = this.iconSetConfigurationTypesSignal();
-    value.workObjects = sortedList;
-    this.iconSetConfigurationTypesSignal.set(value);
+    this.iconSetConfigurationTypesSignal.update(current => ({
+      ...current,
+      workObjects: sortedList
+    }));
     this.updateWorkObjectSignal();
   }
   setSelectedActors(sortedList) {
-    const value = this.iconSetConfigurationTypesSignal();
-    value.actors = sortedList;
-    this.iconSetConfigurationTypesSignal.set(value);
-    console.log('setSelectedActors');
+    this.iconSetConfigurationTypesSignal.update(current => ({
+      ...current,
+      actors: sortedList
+    }));
     this.updateActorSignal();
   }
   updateActorSignal() {
-    console.log('updateActorSignal');
-    console.log(this.iconSetConfigurationTypesSignal().actors);
     this.selectedActorsSignal.set(this.iconSetConfigurationTypesSignal().actors);
     this.configurationHasChanged = true;
   }
@@ -8522,10 +8490,10 @@ class IconSetCustomizationService {
       changedActors = changedObjects.changedActors;
       changedWorkObjects = changedObjects.changedWorkObjects;
     } else {
-      this.iconSetNotificationServiceService.openNoImportOrNoSaveSnackbar(imported);
+      this.iconSetNotificationService.openNoImportOrNoSaveSnackbar(imported);
     }
     if (changedActors.length || changedWorkObjects.length) {
-      this.iconSetNotificationServiceService.openAlreadyUsedIconsSnackbar(changedActors, changedWorkObjects);
+      this.iconSetNotificationService.openAlreadyUsedIconsSnackbar(changedActors, changedWorkObjects);
     }
     this.iconSetImportExportService.notifyIconSetSaved();
   }
@@ -8537,7 +8505,7 @@ class IconSetCustomizationService {
       this.changedIconSetConfiguration = changedIconSet;
       this.overrideSelectedIcons(changedIconSet);
       this.iconSetImportExportService.setStoredIconSetConfiguration(this.changedIconSetConfiguration);
-      this.iconSetNotificationServiceService.openConfigurationImportOrSavedSnackbar(imported);
+      this.iconSetNotificationService.openConfigurationImportOrSavedSnackbar(imported);
     }
     return {
       changedActors,
@@ -8707,7 +8675,7 @@ class IconSetImportExportService {
     const actors = this.iconDictionaryService.getIconsAssignedAs(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_3__.ElementTypes.ACTOR);
     const workObjects = this.iconDictionaryService.getIconsAssignedAs(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_3__.ElementTypes.WORKOBJECT);
     let iconSetConfiguration;
-    if (actors.size() > 0 && workObjects.size() > 0) {
+    if (actors.length > 0 && workObjects.length > 0) {
       iconSetConfiguration = this.createConfigFromDictionaries(actors, workObjects);
     }
     return iconSetConfiguration;
@@ -10397,6 +10365,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_domain_services_dialog_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/domain/services/dialog.service */ 12855);
 /* harmony import */ var src_app_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/domain/services/element-registry.service */ 85511);
 /* harmony import */ var src_app_utils_mathExtensions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/utils/mathExtensions */ 67858);
+/* harmony import */ var src_app_domain_services_command_stack_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/domain/services/command-stack.service */ 96445);
+
 
 
 
@@ -10412,10 +10382,10 @@ class ActivityClickHandlerService {
   constructor() {
     this.dialogService = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.inject)(src_app_domain_services_dialog_service__WEBPACK_IMPORTED_MODULE_7__.DialogService);
     this.elementRegistryService = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.inject)(src_app_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_8__.ElementRegistryService);
+    this.commandStackService = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.inject)(src_app_domain_services_command_stack_service__WEBPACK_IMPORTED_MODULE_10__.CommandStackService);
   }
-  setModelerContext(eventBus, commandStack) {
+  setModelerContext(eventBus) {
     this.eventBus = eventBus;
-    this.commandStack = commandStack;
   }
   /** Overrides for Canvas Functions **/
   activityDoubleClick(activity) {
@@ -10460,7 +10430,7 @@ class ActivityClickHandlerService {
         element
       };
     }
-    this.commandStack.execute('activity.changed', options);
+    this.commandStackService.execute('activity.changed', options);
     if (element.businessObject.multipleNumberAllowed !== false) {
       if ((0,src_app_tools_modeler_diagram_js_features_numbering_numbering__WEBPACK_IMPORTED_MODULE_5__.getMultipleNumberRegistry)()[activityNumber] === false) {
         (0,src_app_tools_modeler_diagram_js_features_numbering_numbering__WEBPACK_IMPORTED_MODULE_5__.updateExistingNumbersAtEditing)(activitiesFromActors, activityNumber, this.eventBus);
@@ -10684,7 +10654,7 @@ class InitializerService {
     this.commandStackService.setCommandStack(commandStack);
     this.elementRegistryService.setElementRegistry(elementRegistry);
     this.replayService.setModelerContext(contextPad, palette, selection);
-    this.activityClickHandlerService.setModelerContext(eventBus, commandStack);
+    this.activityClickHandlerService.setModelerContext(eventBus);
     this.copyPasteService.setModelerContext(eventBus);
   }
   initializeDomainStoryModelerEventHandlers(commandStack, eventBus) {
@@ -10775,8 +10745,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../../environments/environment */ 45312);
 /* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/material/snack-bar */ 40382);
 /* harmony import */ var src_app_domain_services_dirty_flag_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! src/app/domain/services/dirty-flag.service */ 94658);
-/* harmony import */ var _angular_core_rxjs_interop__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/core/rxjs-interop */ 48065);
-
 
 
 
@@ -10847,7 +10815,7 @@ class ModelerService {
       this.snackbar.open("Egon was updated. Clear your browser's local storage.", 'More information', {
         duration: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_10__.SNACKBAR_DURATION_LONGER,
         panelClass: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_10__.SNACKBAR_INFO
-      }).onAction().pipe((0,_angular_core_rxjs_interop__WEBPACK_IMPORTED_MODULE_14__.takeUntilDestroyed)()).subscribe(() => {
+      }).onAction().subscribe(() => {
         window.open('https://egon.io/howto#launching-egon');
       });
     }
@@ -11205,8 +11173,7 @@ class ReplayService {
     }
   }
   clearUserInteractionsOnCanvas() {
-    const selectedElements = this.selection._selectedElements;
-    selectedElements.forEach(element => this.selection.deselect(element));
+    this.selection._selectedElements.forEach(element => this.selection.deselect(element));
     this.contextPad.close();
     this.palette.close();
   }
@@ -11268,7 +11235,7 @@ class StoryCreatorService {
     const tracedActivityMapKeys = [];
     activities.forEach(activity => {
       const activityNumber = Number(activity.businessObject.number); // Sometimes the activityNumber is a string for some reason
-      const tracedItem = tracedActivityMap.get(`${activityNumber}`) ?? [];
+      const tracedItem = tracedActivityMap.find(`${activityNumber}`) ?? [];
       if (!tracedActivityMapKeys.includes(activityNumber)) {
         tracedActivityMapKeys.push(activityNumber);
       }
@@ -11284,7 +11251,7 @@ class StoryCreatorService {
     return story;
   }
   createSentence(tracedActivityMap, tracedActivityMapKey, story, storyIndex) {
-    let tracedActivity = tracedActivityMap.get(`${tracedActivityMapKey}`) ?? [];
+    const tracedActivity = tracedActivityMap.get(`${tracedActivityMapKey}`) ?? [];
     const sentenceObjects = this.getSentenceObjects(tracedActivity);
     const highlightedElements = sentenceObjects.map(t => t.id);
     if (storyIndex > 0) {
