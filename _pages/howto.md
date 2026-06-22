@@ -158,7 +158,7 @@ To load a previously created Domain Story, you can...
 > - the server you want to download from must send the `Access-Control-Allow-Origin` response header (if not, import will fail with a CORS error)
 > - the link must point to the "raw" file (for GitHub and Dropbox, Egon will try to automatically convert any link to a raw download link)
 > - **works** with GitHub, BitBucket, Dropbox
-> - does **not** work with Googl Drive, OneDrive
+> - does **not** work with Google Drive, OneDrive
 > - Nextcloud: Ask your server administrator to turn on `Access-Control-Allow-Origin`
 
 ### Sharing Domain Stories
