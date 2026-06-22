@@ -1229,6 +1229,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/domain/entities/elementTypes */ 73190);
 /* harmony import */ var _utils_mathExtensions__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../../utils/mathExtensions */ 67858);
 /* harmony import */ var _util_util__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./util/util */ 84029);
+/* harmony import */ var _replay_services_dom_manipulation_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../../replay/services/dom-manipulation.service */ 95802);
+
 
 
 
@@ -1365,7 +1367,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, commandStac
     number = String(number);
     let text = textRenderer.createText(number || "", options);
     let height = 0;
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_4__.classes)(text).add("djs-labelNumber");
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_4__.classes)(text).add(_replay_services_dom_manipulation_service__WEBPACK_IMPORTED_MODULE_14__.LABEL_NUMBER_CSS_CLASS);
     setCoordinates(type, text, options, height, parentGfx);
     // !IMPORTANT!
     // When converting svg-files via Inkscape or Photoshop the svg-circle is converted to a black dot that obscures the number.
@@ -5101,10 +5103,6 @@ class ElementRegistryService {
   }
   clear() {
     this.registry = null;
-  }
-  // the minimap clones the svg, resulting in duplicate elements ich we search directly on the canvas
-  getHtmlActivityLabelNumbers() {
-    return this.registry.__implicitroot_1.secondaryGfx.getElementsByClassName('djs-labelNumber');
   }
   createObjectListForDSTDownload() {
     if (this.registry) {
@@ -10346,6 +10344,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/domain/services/element-registry.service */ 85511);
 /* harmony import */ var src_app_utils_mathExtensions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/utils/mathExtensions */ 67858);
 /* harmony import */ var src_app_domain_services_command_stack_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/domain/services/command-stack.service */ 96445);
+/* harmony import */ var src_app_tools_replay_services_dom_manipulation_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/tools/replay/services/dom-manipulation.service */ 95802);
+
 
 
 
@@ -10363,6 +10363,7 @@ class ActivityClickHandlerService {
     this.dialogService = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.inject)(src_app_domain_services_dialog_service__WEBPACK_IMPORTED_MODULE_7__.DialogService);
     this.elementRegistryService = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.inject)(src_app_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_8__.ElementRegistryService);
     this.commandStackService = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.inject)(src_app_domain_services_command_stack_service__WEBPACK_IMPORTED_MODULE_10__.CommandStackService);
+    this.domManipulationService = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.inject)(src_app_tools_replay_services_dom_manipulation_service__WEBPACK_IMPORTED_MODULE_11__.DomManipulationService);
   }
   setModelerContext(eventBus) {
     this.eventBus = eventBus;
@@ -10420,40 +10421,22 @@ class ActivityClickHandlerService {
     }
   }
   activityNumberDoubleClick(event) {
-    const renderedNumberRegistry = this.elementRegistryService.getHtmlActivityLabelNumbers();
-    // length: always numerically greater than the highest index in the array
-    // renderedNumberRegistry is a sparsely populated array
-    if (renderedNumberRegistry.length > 1) {
-      const allActivities = this.elementRegistryService.getActivitiesFromActors();
-      const htmlCanvas = document.getElementById('canvas');
-      if (allActivities.length > 0 && htmlCanvas) {
-        const {
-          transformX,
-          transformY,
-          zoomX,
-          zoomY,
-          width,
-          height
-        } = this.getGeometricValuesFromViewport(htmlCanvas);
-        const clickX = event.originalEvent.offsetX;
-        const clickY = event.originalEvent.offsetY;
-        for (let i = 1; i < renderedNumberRegistry.length; i++) {
-          const currentNum = renderedNumberRegistry[i];
-          if (!currentNum) {
-            continue;
-          }
-          const {
-            tNumber,
-            elementX,
-            elementY
-          } = this.getCurrentNumberPositionAndValue(currentNum, zoomX, transformX, zoomY, transformY);
-          allActivities.forEach(activity => {
-            const activityNumber = activity.businessObject.number;
-            if (activityNumber === tNumber && (0,src_app_utils_mathExtensions__WEBPACK_IMPORTED_MODULE_9__.positionsMatch)(width, height, elementX, elementY, clickX, clickY) && currentNum.parentElement.parentElement.dataset.elementId === activity.id) {
-              this.activityDoubleClick(activity);
-            }
-          });
+    const renderedNumberRegistry = this.domManipulationService.getRenderedNumbers();
+    const allActivities = this.elementRegistryService.getActivitiesFromActors();
+    if (renderedNumberRegistry.length > 0 && allActivities.length > 0) {
+      const geometry = this.getGeometricValuesFromViewport();
+      let activity;
+      for (let i = 0; i < renderedNumberRegistry.length; i++) {
+        const currentNum = renderedNumberRegistry[i];
+        const elementId = currentNum.parentElement.parentElement.dataset.elementId;
+        const elementMetadata = this.getCurrentNumberPositionAndValue(currentNum, geometry.zoomX, geometry.transformX, geometry.zoomY, geometry.transformY);
+        const searchedActivity = allActivities.find(activity => activity.businessObject.number === elementMetadata.tNumber && elementId === activity.id && (0,src_app_utils_mathExtensions__WEBPACK_IMPORTED_MODULE_9__.positionsMatch)(geometry.width, geometry.height, elementMetadata.elementX, elementMetadata.elementY, event.originalEvent.offsetX, event.originalEvent.offsetY));
+        if (searchedActivity) {
+          activity = searchedActivity;
         }
+      }
+      if (activity) {
+        this.activityDoubleClick(activity);
       }
     }
   }
@@ -10470,7 +10453,9 @@ class ActivityClickHandlerService {
       elementY
     };
   }
-  getGeometricValuesFromViewport(htmlCanvas) {
+  getGeometricValuesFromViewport() {
+    const htmlCanvas = document.getElementById('canvas');
+    if (!htmlCanvas) throw new Error();
     const viewport = this.getViewport(htmlCanvas);
     const transform = viewport.getAttribute('transform');
     let transformX = 0;
@@ -10927,7 +10912,8 @@ const CONNECTION_PATH_DOM_SELECTOR = 'path';
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   DomManipulationService: () => (/* binding */ DomManipulationService)
+/* harmony export */   DomManipulationService: () => (/* binding */ DomManipulationService),
+/* harmony export */   LABEL_NUMBER_CSS_CLASS: () => (/* binding */ LABEL_NUMBER_CSS_CLASS)
 /* harmony export */ });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 38424);
 /* harmony import */ var src_app_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/domain/services/element-registry.service */ 85511);
@@ -10938,6 +10924,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+const LABEL_NUMBER_CSS_CLASS = 'djs-labelNumber';
 /**
  * Manipulates the DOM during replay to only show the elements of the current Sentence
  */
@@ -10972,8 +10959,18 @@ class DomManipulationService {
       }
     });
   }
+  getRenderedNumbers() {
+    const elementsByClassName = document.getElementsByClassName(LABEL_NUMBER_CSS_CLASS);
+    const renderedNumberRegistry = [];
+    for (let i = 0; i < elementsByClassName.length; i++) {
+      if (!elementsByClassName[i].closest('.djs-minimap')) {
+        renderedNumberRegistry.push(elementsByClassName[i]);
+      }
+    }
+    return renderedNumberRegistry;
+  }
   getNumberDomForActivity(activity) {
-    const numberText = activity.parentElement?.getElementsByClassName('djs-labelNumber')[0] ?? '';
+    const numberText = activity.parentElement?.getElementsByClassName(LABEL_NUMBER_CSS_CLASS)[0] ?? '';
     const circle = numberText?.previousSibling ?? '';
     return {
       numberBackgroundDom: circle,
