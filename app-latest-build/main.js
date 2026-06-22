@@ -1278,7 +1278,6 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, commandStac
       box.x += 3;
     }
     let newRenderedNumber = renderNumber(parentGfx, semantic.number, numberStyle(box), element.type);
-    (0,src_app_tools_modeler_diagram_js_features_numbering_numbering__WEBPACK_IMPORTED_MODULE_8__.addNumberToRegistry)(newRenderedNumber, semantic.number);
   }
   // style functions
   function numberStyle(box) {
@@ -1789,7 +1788,6 @@ DomainStoryRenderer.prototype.drawShape = function (p, element) {
   }
   let type = element.type;
   element.businessObject.type = type;
-  _elementRegistryService.correctInitialize();
   _dirtyFlagService.makeDirty();
   if (type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_11__.ElementTypes.ACTOR)) {
     return this.drawActor(p, element);
@@ -3121,12 +3119,10 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   addNumberToRegistry: () => (/* binding */ addNumberToRegistry),
 /* harmony export */   generateAutomaticNumber: () => (/* binding */ generateAutomaticNumber),
-/* harmony export */   getMultipleNumberRegistry: () => (/* binding */ getMultipleNumberRegistry),
-/* harmony export */   getNumberRegistry: () => (/* binding */ getNumberRegistry),
 /* harmony export */   getNumbersAndIDs: () => (/* binding */ getNumbersAndIDs),
 /* harmony export */   initializeNumbering: () => (/* binding */ initializeNumbering),
+/* harmony export */   isNumberMultiple: () => (/* binding */ isNumberMultiple),
 /* harmony export */   numberBoxDefinitions: () => (/* binding */ numberBoxDefinitions),
 /* harmony export */   setNumberIsMultiple: () => (/* binding */ setNumberIsMultiple),
 /* harmony export */   updateExistingNumbersAtEditing: () => (/* binding */ updateExistingNumbersAtEditing),
@@ -3137,8 +3133,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// TODO with the current approach occurring multipleNumbers override each Other, a proper handling of multiple numbers is needed for the registry
-let numberRegistry = [];
 let multipleNumberRegistry = [false];
 let canvasElementRegistry;
 function initializeNumbering(canvasElementRegistryService) {
@@ -3282,20 +3276,11 @@ function getNumbersAndIDs() {
   }
   return iDWithNumber;
 }
-function addNumberToRegistry(renderedNumber, number) {
-  numberRegistry[number] = renderedNumber;
-}
 function setNumberIsMultiple(number, multi) {
   multipleNumberRegistry[number] = multi;
 }
-/**
- * @returns copy of registry
- */
-function getNumberRegistry() {
-  return numberRegistry.slice(0);
-}
-function getMultipleNumberRegistry() {
-  return multipleNumberRegistry.slice(0);
+function isNumberMultiple(number) {
+  return multipleNumberRegistry[number];
 }
 function setNumberOfActivity(elementArray, wantedNumber, eventBus) {
   if (elementArray) {
@@ -5111,27 +5096,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class ElementRegistryService {
-  constructor() {
-    this.fullyInitialized = false;
-  }
-  /**
-   * Initially the registry has only the root-Element.
-   * Once the canvas has bees initialized, we adjust the reference to point to the elements on the canvas for convenience
-   */
-  correctInitialize() {
-    if (!this.fullyInitialized) {
-      if (this.registry.__implicitroot) {
-        this.registry = this.registry.__implicitroot.element.children;
-        this.fullyInitialized = true;
-      }
-    }
-  }
   setElementRegistry(elementRegistry) {
     this.registry = elementRegistry._elements;
   }
   clear() {
     this.registry = null;
-    this.fullyInitialized = false;
+  }
+  // the minimap clones the svg, resulting in duplicate elements ich we search directly on the canvas
+  getHtmlActivityLabelNumbers() {
+    return this.registry.__implicitroot_1.secondaryGfx.getElementsByClassName('djs-labelNumber');
   }
   createObjectListForDSTDownload() {
     if (this.registry) {
@@ -10403,7 +10376,7 @@ class ActivityClickHandlerService {
     config.disableClose = false;
     config.autoFocus = true;
     if (activity.businessObject.number && source && source.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_3__.ElementTypes.ACTOR)) {
-      config.data = new src_app_tools_modeler_domain_activityDialogData__WEBPACK_IMPORTED_MODULE_4__.ActivityDialogData(activity, (0,src_app_tools_modeler_diagram_js_features_numbering_numbering__WEBPACK_IMPORTED_MODULE_5__.getMultipleNumberRegistry)()[activity.businessObject.number], true, data => this.saveActivityInputLabel(data));
+      config.data = new src_app_tools_modeler_domain_activityDialogData__WEBPACK_IMPORTED_MODULE_4__.ActivityDialogData(activity, (0,src_app_tools_modeler_diagram_js_features_numbering_numbering__WEBPACK_IMPORTED_MODULE_5__.isNumberMultiple)(activity.businessObject.number), true, data => this.saveActivityInputLabel(data));
     } else if (source && source.type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_3__.ElementTypes.WORKOBJECT)) {
       config.data = new src_app_tools_modeler_domain_activityDialogData__WEBPACK_IMPORTED_MODULE_4__.ActivityDialogData(activity, false, false, activityData => this.saveActivityInputLabel(activityData));
     }
@@ -10439,7 +10412,7 @@ class ActivityClickHandlerService {
     }
     this.commandStackService.execute('activity.changed', options);
     if (element.businessObject.multipleNumberAllowed !== false) {
-      if ((0,src_app_tools_modeler_diagram_js_features_numbering_numbering__WEBPACK_IMPORTED_MODULE_5__.getMultipleNumberRegistry)()[activityNumber] === false) {
+      if (!(0,src_app_tools_modeler_diagram_js_features_numbering_numbering__WEBPACK_IMPORTED_MODULE_5__.isNumberMultiple)(activityNumber)) {
         (0,src_app_tools_modeler_diagram_js_features_numbering_numbering__WEBPACK_IMPORTED_MODULE_5__.updateExistingNumbersAtEditing)(activitiesFromActors, activityNumber, this.eventBus);
       }
     } else if (element.businessObject.multipleNumberAllowed === false) {
@@ -10447,7 +10420,7 @@ class ActivityClickHandlerService {
     }
   }
   activityNumberDoubleClick(event) {
-    const renderedNumberRegistry = (0,src_app_tools_modeler_diagram_js_features_numbering_numbering__WEBPACK_IMPORTED_MODULE_5__.getNumberRegistry)();
+    const renderedNumberRegistry = this.elementRegistryService.getHtmlActivityLabelNumbers();
     // length: always numerically greater than the highest index in the array
     // renderedNumberRegistry is a sparsely populated array
     if (renderedNumberRegistry.length > 1) {
@@ -10476,7 +10449,7 @@ class ActivityClickHandlerService {
           } = this.getCurrentNumberPositionAndValue(currentNum, zoomX, transformX, zoomY, transformY);
           allActivities.forEach(activity => {
             const activityNumber = activity.businessObject.number;
-            if (activityNumber === tNumber && (0,src_app_utils_mathExtensions__WEBPACK_IMPORTED_MODULE_9__.positionsMatch)(width, height, elementX, elementY, clickX, clickY)) {
+            if (activityNumber === tNumber && (0,src_app_utils_mathExtensions__WEBPACK_IMPORTED_MODULE_9__.positionsMatch)(width, height, elementX, elementY, clickX, clickY) && currentNum.parentElement.parentElement.dataset.elementId === activity.id) {
               this.activityDoubleClick(activity);
             }
           });
@@ -10890,7 +10863,6 @@ class ModelerService {
     if (fitToScreen) {
       this.fitStoryToScreen();
     }
-    this.elementRegistryService.correctInitialize();
     this.commandStackChanged();
     this.startDebounce();
     this.dirtyFlagService.makeClean();
