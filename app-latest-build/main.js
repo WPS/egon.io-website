@@ -3219,10 +3219,8 @@ function generateAutomaticNumber(elementActivity, commandStack) {
   });
   for (let i = 0; i < usedNumbers.length; i++) {
     if (!usedNumbers.includes(i)) {
-      if (!usedNumbers.includes(i)) {
-        wantedNumber = i;
-        i = usedNumbers.length;
-      }
+      wantedNumber = i;
+      i = usedNumbers.length;
     }
   }
   if (wantedNumber === -1) {
@@ -6262,12 +6260,14 @@ class ExportService {
     this.fileNameSignal.set(filename);
     const canvas = document.getElementById('canvas');
     if (canvas) {
-      let {
+      const {
         svg,
-        image
+        image,
+        width,
+        height
       } = this.pngService.createSvgAndImage(canvas, this.titleService.description(), this.titleService.title(), withTitle);
       image.onload = () => {
-        const tempCanvas = this.pngService.createTempCanvas();
+        const tempCanvas = this.pngService.createTempCanvas(width, height);
         const ctx = tempCanvas.getContext('2d');
         if (ctx) {
           // fill with white background
@@ -6282,8 +6282,8 @@ class ExportService {
         image.src = '';
       };
       image.onchange = image.onload;
-      image.width = this.pngService.getWidth();
-      image.height = this.pngService.getHeight();
+      image.width = width;
+      image.height = height;
       image.src = 'data:image/svg+xml,' + svg;
     }
   }
@@ -6532,10 +6532,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class PngService {
-  constructor() {
-    this.width = 0;
-    this.height = 0;
-  }
   browserSpecs() {
     const ua = navigator.userAgent;
     let tem;
@@ -6583,9 +6579,7 @@ class PngService {
       // versionNumber of implementation unknown
     }
     if (fix) {
-      while (svg.includes('#')) {
-        svg = svg.replace('#', '%23');
-      }
+      svg = svg.replaceAll('#', '%23');
     }
     return svg;
   }
@@ -6663,15 +6657,18 @@ class PngService {
   prepareSVG(svg, layerBase, description, title, withTitle) {
     const box = this.findMostOuterElements(layerBase, description === undefined);
     let viewBoxIndex = svg.indexOf('width="');
-    this.calculateWidthAndHeight(box);
+    let {
+      width,
+      height
+    } = this.calculateWidthAndHeight(box);
     const {
       insertText,
       dynamicHeightOffset
-    } = (0,src_app_tools_export_services_exportUtil__WEBPACK_IMPORTED_MODULE_0__.createTitleAndDescriptionSVGElement)(0, title, description, box.xLeft + 10, box.yUp + 20, this.width);
+    } = (0,src_app_tools_export_services_exportUtil__WEBPACK_IMPORTED_MODULE_0__.createTitleAndDescriptionSVGElement)(0, title, description, box.xLeft + 10, box.yUp + 20, width);
     if (withTitle) {
-      this.height += dynamicHeightOffset;
+      height += dynamicHeightOffset;
     }
-    const bounds = this.createBounds(box, withTitle ? dynamicHeightOffset : 0);
+    const bounds = this.createBounds(box, withTitle ? dynamicHeightOffset : 0, width, height);
     const dataStart = svg.substring(0, viewBoxIndex);
     viewBoxIndex = svg.indexOf('tabindex="');
     const dataEnd = svg.substring(viewBoxIndex);
@@ -6681,45 +6678,54 @@ class PngService {
       svg = [svg.slice(0, insertIndex), insertText, svg.slice(insertIndex)].join('');
     }
     svg = this.URIHashtagFix(svg);
-    return svg;
+    return {
+      svg,
+      width,
+      height
+    };
   }
-  createBounds(box, extraHeight) {
-    return 'width="' + this.width + '" height="' + this.height + '" viewBox=" ' + box.xLeft + ' ' + (box.yUp - extraHeight) + ' ' + this.width + ' ' + this.height + '" ';
+  createBounds(box, extraHeight, width, height) {
+    return 'width="' + width + '" height="' + height + '" viewBox=" ' + box.xLeft + ' ' + (box.yUp - extraHeight) + ' ' + width + ' ' + height + '" ';
   }
   /**
    * Calculate the Width and Height of the Bounding Box for the PNG so no Parts are cut off
    */
   calculateWidthAndHeight(box) {
+    let width = 0;
+    let height = 0;
     if (box.xLeft < 0) {
       if (box.xRight < 0) {
-        this.width = Math.abs(box.xLeft - box.xRight);
+        width = Math.abs(box.xLeft - box.xRight);
       } else {
-        this.width = Math.abs(box.xLeft) + box.xRight;
+        width = Math.abs(box.xLeft) + box.xRight;
       }
     } else {
-      this.width = box.xRight - box.xLeft;
+      width = box.xRight - box.xLeft;
     }
     if (box.yUp < 0) {
       if (box.yDown < 0) {
-        this.height = Math.abs(box.yUp - box.yDown);
+        height = Math.abs(box.yUp - box.yDown);
       } else {
-        this.height = Math.abs(box.yUp) + box.yDown;
+        height = Math.abs(box.yUp) + box.yDown;
       }
     } else {
-      this.height = box.yDown - box.yUp;
+      height = box.yDown - box.yUp;
     }
     // if the domain-Story is smaller than 300px in width or height, increase its dimensions
-    if (this.height < 300) {
-      this.height += 300;
+    if (height < 300) {
+      height += 300;
       box.yUp -= 150;
       box.yDown += 150;
     }
-    if (this.width < 300) {
-      this.width += 300;
+    if (width < 300) {
+      width += 300;
       box.xLeft -= 150;
       box.xRight += 150;
     }
-    return [this.height, this.width];
+    return {
+      width,
+      height
+    };
   }
   extractSVG(viewport, outerSVGElement) {
     const layerResizers = viewport.getElementsByClassName('layer-resizers');
@@ -6749,17 +6755,11 @@ class PngService {
     }
     return svg;
   }
-  getWidth() {
-    return this.width;
-  }
-  getHeight() {
-    return this.height;
-  }
-  createTempCanvas() {
+  createTempCanvas(width, height) {
     const tempCanvas = document.createElement('canvas');
     const padding = 10;
-    tempCanvas.width = this.getWidth() + padding;
-    tempCanvas.height = this.getHeight() + padding;
+    tempCanvas.width = width + padding;
+    tempCanvas.height = height + padding;
     return tempCanvas;
   }
   createSvgAndImage(canvas, description, title, withTitle) {
@@ -6768,10 +6768,17 @@ class PngService {
     const outerSVGElement = svgElements[0];
     const viewport = outerSVGElement.getElementsByClassName('viewport')[0];
     const layerBase = viewport.querySelector('[class^="layer-root-"]');
+    const {
+      svg,
+      width,
+      height
+    } = this.prepareSVG(this.extractSVG(viewport, outerSVGElement),
+    // removes unwanted black dots in image
+    layerBase, description, title, withTitle);
     return {
-      svg: this.prepareSVG(this.extractSVG(viewport, outerSVGElement),
-      // removes unwanted black dots in image
-      layerBase, description, title, withTitle),
+      svg,
+      width,
+      height,
       image: document.createElement('img')
     };
   }
