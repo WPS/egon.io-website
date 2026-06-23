@@ -865,7 +865,7 @@ function EgonCopyPaste(eventBus, propertyCopy) {
       return array;
     }, []));
   }
-  eventBus.on(EVENT_COPY_PASE_PASTE_ELEMENTS, function () {
+  eventBus.on(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_2__.EVENT_COPY_PASE_PASTE_ELEMENTS, function () {
     references = {};
   });
   eventBus.on(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_2__.EVENT_COPY_PASE_PASTE_ELEMENT, function (context) {
@@ -1365,7 +1365,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, commandStac
     if (semantic.number < 10) {
       box.x += 3;
     }
-    let newRenderedNumber = renderNumber(parentGfx, semantic.number, numberStyle(box), element.type);
+    renderNumber(parentGfx, semantic.number, numberStyle(box), element.type);
   }
   // style functions
   function numberStyle(box) {
@@ -1453,7 +1453,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, commandStac
     number = String(number);
     let text = textRenderer.createText(number || "", options);
     let height = 0;
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_4__.classes)(text).add(LABEL_NUMBER_CSS_CLASS);
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_4__.classes)(text).add(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_14__.LABEL_NUMBER_CSS_CLASS);
     setCoordinates(type, text, options, height, parentGfx);
     // !IMPORTANT!
     // When converting svg-files via Inkscape or Photoshop the svg-circle is converted to a black dot that obscures the number.
@@ -1853,7 +1853,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, commandStac
     // the old path of the activity will otherwise be displayed in gray
     canvas.addMarker(event.context.connection, "djs-element-hidden");
   });
-  eventBus.on(EVENT_BENDPOINT_MOVE_END, 2000, function (event) {
+  eventBus.on(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_14__.EVENT_BENDPOINT_MOVE_END, 2000, function (event) {
     // the activity will not be displayed if we don't remove the marker we added during bendpoint.move.start
     // high priority is necessary, so we come before something that might stop the execution
     canvas.removeMarker(event.context.connection, "djs-element-hidden");
