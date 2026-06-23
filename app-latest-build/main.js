@@ -464,6 +464,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/domain/entities/elementTypes */ 73190);
 /* harmony import */ var _utils_colorConverter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../utils/colorConverter */ 99683);
 /* harmony import */ var diagram_js_lib_util_Mouse__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! diagram-js/lib/util/Mouse */ 53171);
+/* harmony import */ var _diagramJSConstants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../diagramJSConstants */ 273);
+
 
 
 
@@ -479,10 +481,10 @@ function initializeContextPadProvider(dirtyFlag, iconDictionary) {
 }
 function DomainStoryContextPadProvider(connect, translate, elementFactory, create, canvas, contextPad, popupMenu, replaceMenuProvider, commandStack, eventBus, modeling, rules) {
   contextPad.registerProvider(this);
-  popupMenu.registerProvider("ds-replace", replaceMenuProvider);
+  popupMenu.registerProvider(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_5__.DJS_REPLACE_PROVIDER, replaceMenuProvider);
   let _selectedElement;
   let startConnect;
-  eventBus.on("create.end", 250, function (event) {
+  eventBus.on(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_5__.EVENT_CREATE_END, 250, function (event) {
     const context = event.context,
       shape = context.shape;
     if (!(0,diagram_js_lib_util_Mouse__WEBPACK_IMPORTED_MODULE_4__.hasPrimaryModifier)(event) || !contextPad.isOpen(shape)) {
@@ -493,7 +495,7 @@ function DomainStoryContextPadProvider(connect, translate, elementFactory, creat
       entries.replace.action.click(event, shape);
     }
   });
-  document.addEventListener("pickedColor", event => {
+  document.addEventListener(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_5__.EVENT_PICKED_COLOR, event => {
     if (_selectedElement) {
       executeCommandStack(event);
     }
@@ -540,7 +542,7 @@ function DomainStoryContextPadProvider(connect, translate, elementFactory, creat
       if ((0,_utils_colorConverter__WEBPACK_IMPORTED_MODULE_3__.isHexWithAlpha)(currentColor)) {
         currentColor = (0,_utils_colorConverter__WEBPACK_IMPORTED_MODULE_3__.hexToRGBA)(currentColor);
       }
-      document.dispatchEvent(new CustomEvent("defaultColor", {
+      document.dispatchEvent(new CustomEvent(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_5__.DEFAULT_COLOR_EVENT, {
         detail: {
           color: currentColor ?? "#000000"
         }
@@ -555,7 +557,7 @@ function DomainStoryContextPadProvider(connect, translate, elementFactory, creat
   };
   function addDelete(actions, element) {
     // delete element entry, only show if allowed by rules
-    const deleteAllowed = rules.allowed("elements.delete", {
+    const deleteAllowed = rules.allowed(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_5__.EVENT_ELEMENTS_DELETE, {
       elements: {
         element
       }
@@ -634,7 +636,7 @@ function DomainStoryContextPadProvider(connect, translate, elementFactory, creat
                 y: event.y
               }
             });
-            popupMenu.open(element, "ds-replace", position);
+            popupMenu.open(element, _diagramJSConstants__WEBPACK_IMPORTED_MODULE_5__.DJS_REPLACE_PROVIDER, position);
           }
         }
       }
@@ -649,7 +651,7 @@ function DomainStoryContextPadProvider(connect, translate, elementFactory, creat
         title: translate("Change color"),
         action: {
           click: function (event, element) {
-            document.dispatchEvent(new CustomEvent("openColorPicker"));
+            document.dispatchEvent(new CustomEvent(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_5__.OPEN_COLOR_PICKER_EVENT));
           }
         }
       }
@@ -707,7 +709,7 @@ function DomainStoryContextPadProvider(connect, translate, elementFactory, creat
                 y: event.y
               }
             });
-            popupMenu.open(element, "ds-replace", position);
+            popupMenu.open(element, _diagramJSConstants__WEBPACK_IMPORTED_MODULE_5__.DJS_REPLACE_PROVIDER, position);
           }
         }
       }
@@ -727,12 +729,12 @@ function DomainStoryContextPadProvider(connect, translate, elementFactory, creat
       newNumber: newNumber,
       element: element
     };
-    commandStack.execute("activity.directionChange", context);
+    commandStack.execute(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_5__.ACTIVITY_DIRECTION_CHANGE_EVENT, context);
   }
   function getReplaceMenuPosition() {
     let Y_OFFSET = 5;
     let diagramContainer = canvas.getContainer(),
-      pad = document.getElementsByClassName("djs-context-pad open")[0];
+      pad = document.getElementsByClassName(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_5__.OPEN_CONTEXT_PAD_CSS_CLASS)[0];
     let diagramRect = diagramContainer.getBoundingClientRect(),
       padRect = pad.getBoundingClientRect();
     let top = padRect.top - diagramRect.top;
@@ -783,13 +785,12 @@ function DomainStoryContextPadProvider(connect, translate, elementFactory, creat
     };
   }
   function executeCommandStack(colorChangedEvent) {
-    const commandName = "element.colorChange";
     let newColor = colorChangedEvent.detail.color;
     if ((0,min_dash__WEBPACK_IMPORTED_MODULE_0__.isArray)(_selectedElement)) {
-      _selectedElement.forEach(el => commandStack.execute(commandName, getColorChangeDescription(el, newColor)));
+      _selectedElement.forEach(el => commandStack.execute(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_5__.ELEMENT_COLOR_CHANGE_EVENT, getColorChangeDescription(el, newColor)));
     } else {
       const colorChangeDescription = getColorChangeDescription(_selectedElement, newColor);
-      commandStack.execute(commandName, colorChangeDescription);
+      commandStack.execute(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_5__.ELEMENT_COLOR_CHANGE_EVENT, colorChangeDescription);
     }
     dirtyFlagService.makeDirty();
   }
@@ -810,6 +811,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _util_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/util */ 84029);
 /* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! min-dash */ 81410);
+/* harmony import */ var _diagramJSConstants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../diagramJSConstants */ 273);
+
 
 
 function copyProperties(source, target, properties) {
@@ -862,10 +865,10 @@ function EgonCopyPaste(eventBus, propertyCopy) {
       return array;
     }, []));
   }
-  eventBus.on("copyPaste.pasteElements", function () {
+  eventBus.on(EVENT_COPY_PASE_PASTE_ELEMENTS, function () {
     references = {};
   });
-  eventBus.on("copyPaste.pasteElement", function (context) {
+  eventBus.on(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_2__.EVENT_COPY_PASE_PASTE_ELEMENT, function (context) {
     const cache = context.cache,
       descriptor = context.descriptor,
       oldBusinessObject = descriptor.oldBusinessObject;
@@ -902,6 +905,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ PropertyCopy)
 /* harmony export */ });
 /* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! min-dash */ 81410);
+/* harmony import */ var _diagramJSConstants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../diagramJSConstants */ 273);
+
 
 const DISALLOWED_PROPERTIES = ["incoming", "outgoing"];
 function PropertyCopy(eventBus) {
@@ -931,7 +936,7 @@ PropertyCopy.prototype.copyElement = function (sourceElement, targetElement, pro
   if (propertyNames && !(0,min_dash__WEBPACK_IMPORTED_MODULE_0__.isArray)(propertyNames)) {
     propertyNames = [propertyNames];
   }
-  const canCopyProperties = this._eventBus.fire("propertyCopy.canCopyProperties", {
+  const canCopyProperties = this._eventBus.fire(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_1__.PROPERTY_COPY_CAN_COPY_PROPERTIES_EVENT, {
     propertyNames: propertyNames,
     sourceElement: sourceElement,
     targetElement: targetElement
@@ -949,7 +954,7 @@ PropertyCopy.prototype.copyElement = function (sourceElement, targetElement, pro
       sourceProperty = sourceElement.get(propertyName);
     }
     const copiedProperty = self.copyProperty(sourceProperty, targetElement, propertyName);
-    const canSetProperty = self._eventBus.fire("propertyCopy.canSetCopiedProperty", {
+    const canSetProperty = self._eventBus.fire(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_1__.PROPERTY_COPY_CAN_SET_COPIED_PROPERTY_EVENT, {
       parent: targetElement,
       property: copiedProperty,
       propertyName: propertyName
@@ -966,7 +971,7 @@ PropertyCopy.prototype.copyElement = function (sourceElement, targetElement, pro
 PropertyCopy.prototype.copyProperty = function (property, parent, propertyName) {
   const self = this;
   // allow others to copy property
-  const copiedProperty = this._eventBus.fire("propertyCopy.canCopyProperty", {
+  const copiedProperty = this._eventBus.fire(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_1__.PROPERTY_COPY_CAN_COPY_PROPERTY_EVENT, {
     parent: parent,
     property: property,
     propertyName: propertyName
@@ -1030,6 +1035,87 @@ __webpack_require__.r(__webpack_exports__);
   egonCopyPaste: ["type", _EgonCopyPaste__WEBPACK_IMPORTED_MODULE_1__["default"]],
   propertyCopy: ["type", _PropertyCopy__WEBPACK_IMPORTED_MODULE_2__["default"]]
 });
+
+/***/ },
+
+/***/ 273
+/*!*************************************************************************!*\
+  !*** ./src/app/tools/modeler/diagram-js/features/diagramJSConstants.js ***!
+  \*************************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ACTIVITY_CHANGED_EVENT: () => (/* binding */ ACTIVITY_CHANGED_EVENT),
+/* harmony export */   ACTIVITY_DIRECTION_CHANGE_EVENT: () => (/* binding */ ACTIVITY_DIRECTION_CHANGE_EVENT),
+/* harmony export */   DEFAULT_COLOR_EVENT: () => (/* binding */ DEFAULT_COLOR_EVENT),
+/* harmony export */   DJS_REPLACE_PROVIDER: () => (/* binding */ DJS_REPLACE_PROVIDER),
+/* harmony export */   ELEMENT_COLOR_CHANGE_EVENT: () => (/* binding */ ELEMENT_COLOR_CHANGE_EVENT),
+/* harmony export */   EVENT_BENDPOINT_MOVE_END: () => (/* binding */ EVENT_BENDPOINT_MOVE_END),
+/* harmony export */   EVENT_BENDPOINT_MOVE_START: () => (/* binding */ EVENT_BENDPOINT_MOVE_START),
+/* harmony export */   EVENT_COMMANDSTACK_CHANGED: () => (/* binding */ EVENT_COMMANDSTACK_CHANGED),
+/* harmony export */   EVENT_CONNECTION_SEGMENT_MOVE_START: () => (/* binding */ EVENT_CONNECTION_SEGMENT_MOVE_START),
+/* harmony export */   EVENT_COPY_PASE_PASTE_ELEMENT: () => (/* binding */ EVENT_COPY_PASE_PASTE_ELEMENT),
+/* harmony export */   EVENT_COPY_PASE_PASTE_ELEMENTS: () => (/* binding */ EVENT_COPY_PASE_PASTE_ELEMENTS),
+/* harmony export */   EVENT_CREATE_END: () => (/* binding */ EVENT_CREATE_END),
+/* harmony export */   EVENT_DIAGRAM_CLEAR: () => (/* binding */ EVENT_DIAGRAM_CLEAR),
+/* harmony export */   EVENT_ELEMENTS_DELETE: () => (/* binding */ EVENT_ELEMENTS_DELETE),
+/* harmony export */   EVENT_ELEMENT_CHANGED: () => (/* binding */ EVENT_ELEMENT_CHANGED),
+/* harmony export */   EVENT_ELEMENT_CLICK: () => (/* binding */ EVENT_ELEMENT_CLICK),
+/* harmony export */   EVENT_ELEMENT_DBLCLICK: () => (/* binding */ EVENT_ELEMENT_DBLCLICK),
+/* harmony export */   EVENT_ELEMENT_HOVER: () => (/* binding */ EVENT_ELEMENT_HOVER),
+/* harmony export */   EVENT_INTERACTION_EVENTS_CREATE_HIT: () => (/* binding */ EVENT_INTERACTION_EVENTS_CREATE_HIT),
+/* harmony export */   EVENT_LASSO_SELECTION_START: () => (/* binding */ EVENT_LASSO_SELECTION_START),
+/* harmony export */   EVENT_PICKED_COLOR: () => (/* binding */ EVENT_PICKED_COLOR),
+/* harmony export */   EVENT_SHAPE_ADDED: () => (/* binding */ EVENT_SHAPE_ADDED),
+/* harmony export */   EVENT_SHAPE_MOVE_START: () => (/* binding */ EVENT_SHAPE_MOVE_START),
+/* harmony export */   EVENT_SHAPE_REMOVE: () => (/* binding */ EVENT_SHAPE_REMOVE),
+/* harmony export */   EVENT_SPACE_TOOL_SELECTION_START: () => (/* binding */ EVENT_SPACE_TOOL_SELECTION_START),
+/* harmony export */   LABEL_CSS_CLASS: () => (/* binding */ LABEL_CSS_CLASS),
+/* harmony export */   LABEL_NUMBER_CSS_CLASS: () => (/* binding */ LABEL_NUMBER_CSS_CLASS),
+/* harmony export */   OPEN_COLOR_PICKER_EVENT: () => (/* binding */ OPEN_COLOR_PICKER_EVENT),
+/* harmony export */   OPEN_CONTEXT_PAD_CSS_CLASS: () => (/* binding */ OPEN_CONTEXT_PAD_CSS_CLASS),
+/* harmony export */   PROPERTY_COPY_CAN_COPY_PROPERTIES_EVENT: () => (/* binding */ PROPERTY_COPY_CAN_COPY_PROPERTIES_EVENT),
+/* harmony export */   PROPERTY_COPY_CAN_COPY_PROPERTY_EVENT: () => (/* binding */ PROPERTY_COPY_CAN_COPY_PROPERTY_EVENT),
+/* harmony export */   PROPERTY_COPY_CAN_SET_COPIED_PROPERTY_EVENT: () => (/* binding */ PROPERTY_COPY_CAN_SET_COPIED_PROPERTY_EVENT),
+/* harmony export */   SHAPE_REMOVE_GROUP_WITHOUT_CHILDREN_EVENT: () => (/* binding */ SHAPE_REMOVE_GROUP_WITHOUT_CHILDREN_EVENT)
+/* harmony export */ });
+const DJS_REPLACE_PROVIDER = "ds-replace";
+// Events
+const EVENT_CREATE_END = "create.end";
+const EVENT_PICKED_COLOR = "pickedColor";
+const EVENT_ELEMENTS_DELETE = "elements.delete";
+const EVENT_COPY_PASE_PASTE_ELEMENT = "copyPaste.pasteElement";
+const EVENT_COPY_PASE_PASTE_ELEMENTS = "copyPaste.pasteElements";
+const EVENT_SHAPE_MOVE_START = "shape.move.start"; // move existing shapes
+const EVENT_SHAPE_ADDED = "shape.added";
+const EVENT_SHAPE_REMOVE = "shape.remove";
+const EVENT_BENDPOINT_MOVE_START = "bendpoint.move.start"; // move and create bendpoints
+const EVENT_BENDPOINT_MOVE_END = '"bendpoint.move.end"'; // move and create bendpoints
+const EVENT_CONNECTION_SEGMENT_MOVE_START = "connectionSegment.move.start"; // move horizontal/vertical segments of connections
+const EVENT_ELEMENT_CLICK = "element.click"; // click on existing element (opens context pad if element is actor or work object)
+const EVENT_ELEMENT_DBLCLICK = "element.dblclick";
+const EVENT_ELEMENT_HOVER = "element.hover"; // show outline around element
+const EVENT_ELEMENT_CHANGED = "element.chagned";
+const EVENT_INTERACTION_EVENTS_CREATE_HIT = "interactionEvents.createHit"; // use palette to create new element
+const EVENT_SPACE_TOOL_SELECTION_START = "spaceTool.selection.start"; // use space tool
+const EVENT_LASSO_SELECTION_START = "lasso.selection.start"; // use lasso tool
+const EVENT_COMMANDSTACK_CHANGED = "commandStack.changed";
+const EVENT_DIAGRAM_CLEAR = "diagram.clear";
+// Custom Events
+const ELEMENT_COLOR_CHANGE_EVENT = "element.colorChange";
+const ACTIVITY_DIRECTION_CHANGE_EVENT = "activity.directionChange";
+const ACTIVITY_CHANGED_EVENT = "activity.changed";
+const OPEN_COLOR_PICKER_EVENT = "openColorPicker";
+const DEFAULT_COLOR_EVENT = "defaultColor";
+const SHAPE_REMOVE_GROUP_WITHOUT_CHILDREN_EVENT = "shape.removeGroupWithoutChildren";
+const PROPERTY_COPY_CAN_COPY_PROPERTY_EVENT = "propertyCopy.canCopyProperty";
+const PROPERTY_COPY_CAN_COPY_PROPERTIES_EVENT = "propertyCopy.canCopyProperties";
+const PROPERTY_COPY_CAN_SET_COPIED_PROPERTY_EVENT = "propertyCopy.canSetCopiedProperty";
+// CSS-Classes
+const OPEN_CONTEXT_PAD_CSS_CLASS = "djs-context-pad open";
+const LABEL_NUMBER_CSS_CLASS = "djs-labelNumber";
+const LABEL_CSS_CLASS = "djs-label";
 
 /***/ },
 
@@ -1229,7 +1315,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/domain/entities/elementTypes */ 73190);
 /* harmony import */ var _utils_mathExtensions__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../../utils/mathExtensions */ 67858);
 /* harmony import */ var _util_util__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./util/util */ 84029);
-/* harmony import */ var _replay_services_dom_manipulation_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../../replay/services/dom-manipulation.service */ 95802);
+/* harmony import */ var _diagramJSConstants__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./diagramJSConstants */ 273);
 
 
 
@@ -1367,7 +1453,7 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, commandStac
     number = String(number);
     let text = textRenderer.createText(number || "", options);
     let height = 0;
-    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_4__.classes)(text).add(_replay_services_dom_manipulation_service__WEBPACK_IMPORTED_MODULE_14__.LABEL_NUMBER_CSS_CLASS);
+    (0,tiny_svg__WEBPACK_IMPORTED_MODULE_4__.classes)(text).add(LABEL_NUMBER_CSS_CLASS);
     setCoordinates(type, text, options, height, parentGfx);
     // !IMPORTANT!
     // When converting svg-files via Inkscape or Photoshop the svg-circle is converted to a black dot that obscures the number.
@@ -1760,14 +1846,14 @@ function DomainStoryRenderer(eventBus, styles, canvas, textRenderer, commandStac
     let rectangle = getRectPath(shape);
     return (0,diagram_js_lib_util_RenderUtil__WEBPACK_IMPORTED_MODULE_3__.componentsToPath)(rectangle);
   };
-  eventBus.on("bendpoint.move.start", 200, function (event) {
+  eventBus.on(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_14__.EVENT_BENDPOINT_MOVE_START, 200, function (event) {
     // the bendpoint which we are dragging will otherwise be displayed with 0.3 opacity
     // through bendpoint-dragging we match the CSS class more specifically, hence our style applies
     (0,tiny_svg__WEBPACK_IMPORTED_MODULE_4__.classes)(event.context.draggerGfx).add("bendpoint-dragging");
     // the old path of the activity will otherwise be displayed in gray
     canvas.addMarker(event.context.connection, "djs-element-hidden");
   });
-  eventBus.on("bendpoint.move.end", 2000, function (event) {
+  eventBus.on(EVENT_BENDPOINT_MOVE_END, 2000, function (event) {
     // the activity will not be displayed if we don't remove the marker we added during bendpoint.move.start
     // high priority is necessary, so we come before something that might stop the execution
     canvas.removeMarker(event.context.connection, "djs-element-hidden");
@@ -2415,6 +2501,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/utils/sanitizer */ 43515);
 /* harmony import */ var _util_util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../util/util */ 84029);
 /* harmony import */ var _domainStoryRules__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../domainStoryRules */ 63694);
+/* harmony import */ var _diagramJSConstants__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../diagramJSConstants */ 273);
+
 
 
 
@@ -2479,7 +2567,7 @@ function DSLabelEditingProvider(eventBus, canvas, directEditing, modeling, resiz
     let element = event.active.element;
     createAutocomplete(element);
   });
-  eventBus.on("create.end", 500, function (event) {
+  eventBus.on(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_6__.EVENT_CREATE_END, 500, function (event) {
     let element = event.shape,
       canExecute = event.context.canExecute;
     if (!canExecute) {
@@ -2797,7 +2885,7 @@ function createAutocompleteForEdit(editingBox, workObjectNames, businessElement,
       e.preventDefault();
       if (currentFocus > -1) {
         businessElement.businessObject.name = workObjectNamesFilteredBySearchterm[currentFocus];
-        eventBus.fire("element.changed", {
+        eventBus.fire(EVENT_ELEMENT_CHANGED, {
           element: businessElement
         });
         // remove obsolete listener
@@ -3132,6 +3220,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   updateMultipleNumberRegistry: () => (/* binding */ updateMultipleNumberRegistry)
 /* harmony export */ });
 /* harmony import */ var src_app_utils_mathExtensions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/utils/mathExtensions */ 67858);
+/* harmony import */ var _diagramJSConstants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../diagramJSConstants */ 273);
+
 
 
 
@@ -3292,7 +3382,7 @@ function setNumberOfActivity(elementArray, wantedNumber, eventBus) {
         if (businessObject) {
           businessObject.number = wantedNumber;
         }
-        eventBus.fire("element.changed", {
+        eventBus.fire(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_1__.EVENT_ELEMENT_CHANGED, {
           element
         });
       }
@@ -3619,6 +3709,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   initializeActivityUpdateHandler: () => (/* binding */ initializeActivityUpdateHandler)
 /* harmony export */ });
 /* harmony import */ var _numbering_numbering__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../numbering/numbering */ 19955);
+/* harmony import */ var _diagramJSConstants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../diagramJSConstants */ 273);
+
 
 
 
@@ -3630,8 +3722,8 @@ function initializeActivityUpdateHandler(canvasElementRegistryService) {
   canvasElementRegistry = canvasElementRegistryService;
 }
 function activityUpdateHandler(commandStack, eventBus) {
-  commandStack.registerHandler("activity.directionChange", activity_directionChange);
-  commandStack.registerHandler("activity.changed", activity_changed);
+  commandStack.registerHandler(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_1__.ACTIVITY_DIRECTION_CHANGE_EVENT, activity_directionChange);
+  commandStack.registerHandler(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_1__.ACTIVITY_CHANGED_EVENT, activity_changed);
   // update the activity from the activity-dialog, either with or without number
   // and change other activities too, to keep the numbers consistent
   function activity_changed(modeling) {
@@ -3651,7 +3743,7 @@ function activityUpdateHandler(commandStack, eventBus) {
       }
       businessObject.name = context.newLabel;
       businessObject.number = context.newNumber;
-      eventBus.fire("element.changed", {
+      eventBus.fire(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_1__.EVENT_ELEMENT_CHANGED, {
         element
       });
     };
@@ -3661,7 +3753,7 @@ function activityUpdateHandler(commandStack, eventBus) {
       semantic.name = context.oldLabel;
       semantic.number = context.oldNumber;
       revertAutomaticNumberGenerationChange(context.oldNumbersWithIDs, eventBus);
-      eventBus.fire("element.changed", {
+      eventBus.fire(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_1__.EVENT_ELEMENT_CHANGED, {
         element
       });
     };
@@ -3693,7 +3785,7 @@ function activityUpdateHandler(commandStack, eventBus) {
       businessObject.name = context.name;
       businessObject.number = context.newNumber;
       element.waypoints = newWaypoints;
-      eventBus.fire("element.changed", {
+      eventBus.fire(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_1__.EVENT_ELEMENT_CHANGED, {
         element
       });
     };
@@ -3708,7 +3800,7 @@ function activityUpdateHandler(commandStack, eventBus) {
       semantic.name = context.name;
       semantic.number = context.oldNumber;
       element.waypoints = context.oldWaypoints;
-      eventBus.fire("element.changed", {
+      eventBus.fire(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_1__.EVENT_ELEMENT_CHANGED, {
         element
       });
     };
@@ -3723,7 +3815,7 @@ function revertAutomaticNumberGenerationChange(iDWithNumber, eventBus) {
         let element = activities[i];
         element.businessObject.number = iDWithNumber[j].number;
         j = -5;
-        eventBus.fire("element.changed", {
+        eventBus.fire(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_1__.EVENT_ELEMENT_CHANGED, {
           element
         });
         iDWithNumber.splice(j, 1);
@@ -3746,13 +3838,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _util_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/util */ 84029);
 /* harmony import */ var _domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../domain/entities/elementTypes */ 73190);
+/* harmony import */ var _diagramJSConstants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../diagramJSConstants */ 273);
+
 
 
 
 
 function elementUpdateHandler(commandStack, eventBus) {
-  commandStack.registerHandler("element.colorChange", element_colorChange);
-  commandStack.registerHandler("shape.removeGroupWithoutChildren", removeGroupWithoutChildren);
+  commandStack.registerHandler(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_2__.ELEMENT_COLOR_CHANGE_EVENT, element_colorChange);
+  commandStack.registerHandler(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_2__.SHAPE_REMOVE_GROUP_WITHOUT_CHILDREN_EVENT, removeGroupWithoutChildren);
   function element_colorChange() {
     this.preExecute = function (context) {
       context.oldColor = context.businessObject.pickedColor;
@@ -3762,12 +3856,12 @@ function elementUpdateHandler(commandStack, eventBus) {
       let element = context.element;
       if (semantic.type.includes(_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.TEXTANNOTATION) && element.incoming[0]) {
         element.incoming[0].businessObject.pickedColor = context.newColor;
-        eventBus.fire("element.changed", {
+        eventBus.fire(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_2__.EVENT_ELEMENT_CHANGED, {
           element: element.incoming[0]
         });
       }
       semantic.pickedColor = context.newColor;
-      eventBus.fire("element.changed", {
+      eventBus.fire(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_2__.EVENT_ELEMENT_CHANGED, {
         element
       });
     };
@@ -3776,12 +3870,12 @@ function elementUpdateHandler(commandStack, eventBus) {
       let element = context.element;
       if (semantic.type.includes(_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_1__.ElementTypes.TEXTANNOTATION) && element.incoming[0]) {
         element.incoming[0].businessObject.pickedColor = context.oldColor;
-        eventBus.fire("element.changed", {
+        eventBus.fire(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_2__.EVENT_ELEMENT_CHANGED, {
           element: element.incoming[0]
         });
       }
       semantic.pickedColor = context.oldColor;
-      eventBus.fire("element.changed", {
+      eventBus.fire(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_2__.EVENT_ELEMENT_CHANGED, {
         element
       });
     };
@@ -3795,17 +3889,17 @@ function elementUpdateHandler(commandStack, eventBus) {
       let element = ctx.element;
       ctx.children.forEach(child => {
         (0,_util_util__WEBPACK_IMPORTED_MODULE_0__.undoGroupRework)(element, child);
-        eventBus.fire("element.changed", {
+        eventBus.fire(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_2__.EVENT_ELEMENT_CHANGED, {
           element: child
         });
       });
-      eventBus.fire("shape.remove", {
+      eventBus.fire(EVENT_SHAPE_REMOVE, {
         element
       });
     };
     this.revert = function (ctx) {
       let element = ctx.element;
-      eventBus.fire("shape.added", {
+      eventBus.fire(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_2__.EVENT_SHAPE_ADDED, {
         element
       });
       ctx.element.children.forEach(child => {
@@ -3856,6 +3950,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ DSMassRenameHandler)
 /* harmony export */ });
+/* harmony import */ var _diagramJSConstants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../diagramJSConstants */ 273);
+
 
 
 function DSMassRenameHandler(commandStack, eventBus) {
@@ -3873,7 +3969,7 @@ function DSMassRenameHandler(commandStack, eventBus) {
       relevantElements.forEach(element => {
         let semantic = element.businessObject;
         semantic.name = context.newValue;
-        eventBus.fire("element.changed", {
+        eventBus.fire(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_0__.EVENT_ELEMENT_CHANGED, {
           element
         });
       });
@@ -3883,7 +3979,7 @@ function DSMassRenameHandler(commandStack, eventBus) {
       relevantElements.forEach(element => {
         let semantic = element.businessObject;
         semantic.name = context.oldLabel;
-        eventBus.fire("element.changed", {
+        eventBus.fire(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_0__.EVENT_ELEMENT_CHANGED, {
           element
         });
       });
@@ -4202,6 +4298,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _features_shortcuts__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./features/shortcuts */ 51623);
 /* harmony import */ var diagram_js_minimap__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! diagram-js-minimap */ 39843);
 /* harmony import */ var _bpmn_io_align_to_origin__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @bpmn-io/align-to-origin */ 25437);
+/* harmony import */ var _features_diagramJSConstants__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./features/diagramJSConstants */ 273);
+
 
 
 
@@ -4281,7 +4379,7 @@ DomainStoryModeler.prototype._addConnection = function (element) {
   return canvas.addConnection(connection);
 };
 DomainStoryModeler.prototype.importBusinessObjects = function (businessObjects) {
-  this.get("eventBus").fire("diagram.clear", {});
+  this.get("eventBus").fire(_features_diagramJSConstants__WEBPACK_IMPORTED_MODULE_25__.EVENT_DIAGRAM_CLEAR, {});
   this._elements = [];
   this._groupElements = [];
   if (!(0,min_dash__WEBPACK_IMPORTED_MODULE_2__.isArray)(businessObjects)) {
@@ -4356,7 +4454,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tools_import_directive_dragDrop_directive__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./tools/import/directive/dragDrop.directive */ 42482);
 /* harmony import */ var src_app_tools_import_services_import_domain_story_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! src/app/tools/import/services/import-domain-story.service */ 93586);
 /* harmony import */ var _angular_core_rxjs_interop__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @angular/core/rxjs-interop */ 48065);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @angular/core */ 11525);
+/* harmony import */ var src_app_tools_modeler_diagram_js_features_diagramJSConstants__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! src/app/tools/modeler/diagram-js/features/diagramJSConstants */ 273);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @angular/core */ 11525);
+
 
 
 
@@ -4378,7 +4478,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function AppComponent_Conditional_2_Template(rf, ctx) {
   if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵelement"](0, "app-settings");
+    _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵelement"](0, "app-settings");
   }
 }
 class AppComponent {
@@ -4454,7 +4554,7 @@ class AppComponent {
         this.color = customEvent.detail.color;
       }
     });
-    document.addEventListener('openColorPicker', () => {
+    document.addEventListener(src_app_tools_modeler_diagram_js_features_diagramJSConstants__WEBPACK_IMPORTED_MODULE_20__.OPEN_COLOR_PICKER_EVENT, () => {
       this.colorPicker.openDialog();
     });
     document.addEventListener('errorColoringOnlySvg', () => {
@@ -4500,23 +4600,23 @@ class AppComponent {
     };
   }
   static {
-    this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵdefineComponent"]({
+    this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵdefineComponent"]({
       type: AppComponent,
       selectors: [["app-root"]],
       viewQuery: function AppComponent_Query(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵviewQuery"](ngx_color_picker__WEBPACK_IMPORTED_MODULE_7__.ColorPickerDirective, 5);
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵviewQuery"](ngx_color_picker__WEBPACK_IMPORTED_MODULE_7__.ColorPickerDirective, 5);
         }
         if (rf & 2) {
           let _t;
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵloadQuery"]()) && (ctx.colorPicker = _t.first);
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵloadQuery"]()) && (ctx.colorPicker = _t.first);
         }
       },
       hostBindings: function AppComponent_HostBindings(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵlistener"]("beforeunload", function AppComponent_beforeunload_HostBindingHandler($event) {
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵlistener"]("beforeunload", function AppComponent_beforeunload_HostBindingHandler($event) {
             return ctx.onWindowClose($event);
-          }, _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵresolveWindow"]);
+          }, _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵresolveWindow"]);
         }
       },
       decls: 26,
@@ -4524,59 +4624,59 @@ class AppComponent {
       consts: [["role", "main", 1, "content"], ["id", "colorPicker", 2, "display", "none", "height", "0", 3, "colorPickerChange", "colorPickerClose", "cpPresetColors", "colorPicker"], ["appDrag", "", "id", "canvas"], ["src", "favicon.ico", "height", "24", "alt", "Egon Logo"], ["href", "https://egon.io", "target", "_blank"], ["href", "https://egon.io/changelog", "target", "_blank"], ["src", "assets/logo/wps-icon.ico", "height", "24", "alt", "WPS Logo"], ["href", "https://www.wps.de/", "target", "_blank"], ["href", "https://www.wps.de/datenschutz/", "target", "_blank"], ["href", "https://www.wps.de/impressum/", "target", "_blank"]],
       template: function AppComponent_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵelementStart"](0, "div", 0)(1, "input", 1);
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵtwoWayListener"]("colorPickerChange", function AppComponent_Template_input_colorPickerChange_1_listener($event) {
-            _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵtwoWayBindingSet"](ctx.color, $event) || (ctx.color = $event);
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵelementStart"](0, "div", 0)(1, "input", 1);
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵtwoWayListener"]("colorPickerChange", function AppComponent_Template_input_colorPickerChange_1_listener($event) {
+            _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵtwoWayBindingSet"](ctx.color, $event) || (ctx.color = $event);
             return $event;
           });
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵlistener"]("colorPickerClose", function AppComponent_Template_input_colorPickerClose_1_listener($event) {
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵlistener"]("colorPickerClose", function AppComponent_Template_input_colorPickerClose_1_listener($event) {
             return ctx.onColorChanged($event);
           });
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵelementEnd"]();
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵconditionalCreate"](2, AppComponent_Conditional_2_Template, 1, 0, "app-settings");
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵelementStart"](3, "div");
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵelement"](4, "app-header")(5, "div", 2);
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵelementEnd"]();
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵelementStart"](6, "div")(7, "span");
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵelement"](8, "img", 3);
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵelementStart"](9, "a", 4);
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵtext"](10, " egon.io");
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵelementEnd"]();
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵelementStart"](11, "span");
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵtext"](12, "version: ");
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵelementEnd"]();
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵelementStart"](13, "a", 5);
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵtext"](14);
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵelementEnd"]();
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵelementStart"](15, "span");
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵtext"](16, "by ");
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵelementEnd"]();
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵelement"](17, "img", 6);
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵelementStart"](18, "a", 7);
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵtext"](19, "WPS");
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵelementEnd"]()();
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵelementStart"](20, "span")(21, "a", 8);
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵtext"](22, "Privacy");
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵelementEnd"]()();
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵelementStart"](23, "span")(24, "a", 9);
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵtext"](25, "Imprint");
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵelementEnd"]()()()();
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵelementEnd"]();
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵconditionalCreate"](2, AppComponent_Conditional_2_Template, 1, 0, "app-settings");
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵelementStart"](3, "div");
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵelement"](4, "app-header")(5, "div", 2);
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵelementEnd"]();
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵelementStart"](6, "div")(7, "span");
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵelement"](8, "img", 3);
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵelementStart"](9, "a", 4);
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵtext"](10, " egon.io");
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵelementEnd"]();
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵelementStart"](11, "span");
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵtext"](12, "version: ");
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵelementEnd"]();
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵelementStart"](13, "a", 5);
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵtext"](14);
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵelementEnd"]();
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵelementStart"](15, "span");
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵtext"](16, "by ");
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵelementEnd"]();
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵelement"](17, "img", 6);
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵelementStart"](18, "a", 7);
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵtext"](19, "WPS");
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵelementEnd"]()();
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵelementStart"](20, "span")(21, "a", 8);
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵtext"](22, "Privacy");
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵelementEnd"]()();
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵelementStart"](23, "span")(24, "a", 9);
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵtext"](25, "Imprint");
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵelementEnd"]()()()();
         }
         if (rf & 2) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵadvance"]();
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵstyleProp"]("background", ctx.color);
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵproperty"]("cpPresetColors", ctx.colorBox);
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵtwoWayProperty"]("colorPicker", ctx.color);
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵadvance"]();
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵconditional"](ctx.showSettings() ? 2 : -1);
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵadvance"]();
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵclassProp"]("headerAndCanvas", !ctx.showSettings() && ctx.showDescription())("headerAndCanvasCollapsed", !ctx.showSettings() && !ctx.showDescription())("hidden", ctx.showSettings());
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵadvance"]();
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵclassProp"]("header", ctx.showDescription())("headerCollapsed", !ctx.showDescription());
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵadvance"](2);
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵclassProp"]("logoContainer", !ctx.showSettings())("hidden", ctx.showSettings());
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵadvance"](8);
-          _angular_core__WEBPACK_IMPORTED_MODULE_20__["ɵɵtextInterpolate"](ctx.version);
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵadvance"]();
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵstyleProp"]("background", ctx.color);
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵproperty"]("cpPresetColors", ctx.colorBox);
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵtwoWayProperty"]("colorPicker", ctx.color);
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵadvance"]();
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵconditional"](ctx.showSettings() ? 2 : -1);
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵadvance"]();
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵclassProp"]("headerAndCanvas", !ctx.showSettings() && ctx.showDescription())("headerAndCanvasCollapsed", !ctx.showSettings() && !ctx.showDescription())("hidden", ctx.showSettings());
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵadvance"]();
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵclassProp"]("header", ctx.showDescription())("headerCollapsed", !ctx.showDescription());
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵadvance"](2);
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵclassProp"]("logoContainer", !ctx.showSettings())("hidden", ctx.showSettings());
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵadvance"](8);
+          _angular_core__WEBPACK_IMPORTED_MODULE_21__["ɵɵtextInterpolate"](ctx.version);
         }
       },
       dependencies: [_workbench_presentation_header_header_header_component__WEBPACK_IMPORTED_MODULE_15__.HeaderComponent, _workbench_presentation_settings_settings_component__WEBPACK_IMPORTED_MODULE_16__.SettingsComponent, _tools_import_directive_dragDrop_directive__WEBPACK_IMPORTED_MODULE_17__.DragDirective, ngx_color_picker__WEBPACK_IMPORTED_MODULE_7__.ColorPickerDirective, _angular_router__WEBPACK_IMPORTED_MODULE_14__.RouterModule],
@@ -5113,6 +5213,16 @@ class ElementRegistryService {
       return objectList;
     }
     return [];
+  }
+  getAllBusinessObjectsFromCanvasNotIn(notIn) {
+    const otherBusinessObjects = [];
+    const allObjects = this.getAllCanvasObjects().concat(this.getAllGroups());
+    allObjects.forEach(element => {
+      if (!notIn.includes(element.businessObject)) {
+        otherBusinessObjects.push(element.businessObject);
+      }
+    });
+    return otherBusinessObjects;
   }
   fillListOfCanvasObjects(allObjectsFromCanvas, objectList, groups) {
     allObjectsFromCanvas.forEach(canvasElement => {
@@ -7986,15 +8096,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+const ICON_CSS_SHEET_ID = 'iconsCss';
 class IconCssService {
   addIconsToCss(iconSrc, iconName) {
-    const sheetEl = document.getElementById('iconsCss');
-    if (!sheetEl) {
+    const iconCssSheet = document.getElementById(ICON_CSS_SHEET_ID);
+    if (!iconCssSheet) {
       return;
     }
     const iconStyle = '.' + src_app_tools_icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_0__.ICON_CSS_CLASS_PREFIX + (0,src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_1__.sanitizeForCss)(iconName) + '::before{ content: url("data:image/svg+xml;utf8,' + this.wrapSRCInSVG(iconSrc) + '"); margin: 3px;}';
     // @ts-ignore
-    sheetEl?.sheet?.insertRule(iconStyle, sheetEl.sheet.cssRules.length);
+    iconCssSheet?.sheet?.insertRule(iconStyle,
+    // @ts-ignore
+    iconCssSheet.sheet.cssRules.length);
   }
   wrapSRCInSVG(src) {
     return "<svg viewBox='0 0 22 22' width='22' height='22' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><image width='22' height='22' xlink:href='" + src + "'/></svg>";
@@ -10514,7 +10627,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   CopyPasteService: () => (/* binding */ CopyPasteService)
 /* harmony export */ });
 /* harmony import */ var src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/domain/entities/elementTypes */ 73190);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 38424);
+/* harmony import */ var src_app_tools_modeler_diagram_js_features_diagramJSConstants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/tools/modeler/diagram-js/features/diagramJSConstants */ 273);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 38424);
+
 
 
 class CopyPasteService {
@@ -10547,7 +10662,7 @@ class CopyPasteService {
         this.pasteHeight.shift();
       }
       element.businessObject.pickedColor = this.pasteColor[parseInt(elementsKey)];
-      this.eventBus.fire('element.changed', {
+      this.eventBus.fire(src_app_tools_modeler_diagram_js_features_diagramJSConstants__WEBPACK_IMPORTED_MODULE_1__.EVENT_ELEMENT_CHANGED, {
         element
       });
     }
@@ -10561,7 +10676,7 @@ class CopyPasteService {
     };
   }
   static {
-    this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjectable"]({
+    this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjectable"]({
       token: CopyPasteService,
       factory: CopyPasteService.ɵfac,
       providedIn: 'root'
@@ -10593,6 +10708,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _replay_services_replay_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../replay/services/replay.service */ 3687);
 /* harmony import */ var src_app_tools_modeler_services_activity_click_handler_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/tools/modeler/services/activity-click-handler.service */ 84338);
 /* harmony import */ var src_app_tools_modeler_services_copy_paste_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/tools/modeler/services/copy-paste.service */ 70976);
+/* harmony import */ var src_app_tools_modeler_diagram_js_features_diagramJSConstants__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/app/tools/modeler/diagram-js/features/diagramJSConstants */ 273);
+
 
 
 
@@ -10629,7 +10746,7 @@ class InitializerService {
     (0,src_app_tools_modeler_diagram_js_features_updateHandler_headlineAndDescriptionUpdateHandler__WEBPACK_IMPORTED_MODULE_8__["default"])(commandStack, this.titleService);
   }
   initiateEventBusListeners(eventBus) {
-    eventBus.on('element.dblclick', event => {
+    eventBus.on(src_app_tools_modeler_diagram_js_features_diagramJSConstants__WEBPACK_IMPORTED_MODULE_12__.EVENT_ELEMENT_DBLCLICK, event => {
       if (!this.replayService.replayOn()) {
         const element = event.element;
         if (element.type === _domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTIVITY) {
@@ -10641,21 +10758,7 @@ class InitializerService {
       }
     });
     // while replaying, we only allow editing labels but no other changes (to avoid accidentally modeling on top of hidden model elements)
-    eventBus.on(['shape.move.start',
-    // move existing shapes
-    'bendpoint.move.start',
-    // move and create bendpoints
-    'connectionSegment.move.start',
-    // move horizontal/vertical segments of connections
-    'element.click',
-    // click on existing element (opens context pad if element is actor or work object)
-    'element.hover',
-    // show outline around element
-    'interactionEvents.createHit',
-    // use palette to create new element
-    'spaceTool.selection.start',
-    // use space tool
-    'lasso.selection.start' // use lasso tool
+    eventBus.on([src_app_tools_modeler_diagram_js_features_diagramJSConstants__WEBPACK_IMPORTED_MODULE_12__.EVENT_SHAPE_MOVE_START, src_app_tools_modeler_diagram_js_features_diagramJSConstants__WEBPACK_IMPORTED_MODULE_12__.EVENT_BENDPOINT_MOVE_START, src_app_tools_modeler_diagram_js_features_diagramJSConstants__WEBPACK_IMPORTED_MODULE_12__.EVENT_CONNECTION_SEGMENT_MOVE_START, src_app_tools_modeler_diagram_js_features_diagramJSConstants__WEBPACK_IMPORTED_MODULE_12__.EVENT_ELEMENT_CLICK, src_app_tools_modeler_diagram_js_features_diagramJSConstants__WEBPACK_IMPORTED_MODULE_12__.EVENT_ELEMENT_HOVER, src_app_tools_modeler_diagram_js_features_diagramJSConstants__WEBPACK_IMPORTED_MODULE_12__.EVENT_INTERACTION_EVENTS_CREATE_HIT, src_app_tools_modeler_diagram_js_features_diagramJSConstants__WEBPACK_IMPORTED_MODULE_12__.EVENT_SPACE_TOOL_SELECTION_START, src_app_tools_modeler_diagram_js_features_diagramJSConstants__WEBPACK_IMPORTED_MODULE_12__.EVENT_LASSO_SELECTION_START
     // TODO:  enable editing of connection labels #217
     ], 10000000000, event => {
       if (this.replayService.replayOn()) {
@@ -10663,10 +10766,10 @@ class InitializerService {
         event.preventDefault();
       }
     });
-    eventBus.on('copyPaste.pasteElement', 10000, event => {
+    eventBus.on(src_app_tools_modeler_diagram_js_features_diagramJSConstants__WEBPACK_IMPORTED_MODULE_12__.EVENT_COPY_PASE_PASTE_ELEMENT, 10000, event => {
       this.copyPasteService.pasteElement(event);
     });
-    eventBus.on('create.end', event => {
+    eventBus.on(src_app_tools_modeler_diagram_js_features_diagramJSConstants__WEBPACK_IMPORTED_MODULE_12__.EVENT_CREATE_END, event => {
       this.copyPasteService.createEnd(event);
     });
   }
@@ -10710,6 +10813,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../../environments/environment */ 45312);
 /* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/material/snack-bar */ 40382);
 /* harmony import */ var src_app_domain_services_dirty_flag_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! src/app/domain/services/dirty-flag.service */ 94658);
+/* harmony import */ var src_app_tools_modeler_diagram_js_features_diagramJSConstants__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! src/app/tools/modeler/diagram-js/features/diagramJSConstants */ 273);
+
 
 
 
@@ -10811,7 +10916,7 @@ class ModelerService {
   }
   commandStackChanged() {
     // to update the title of the svg, we need to tell the command stack, that a value has changed
-    this.eventBus.fire('commandStack.changed', this.debounce(this.saveSVG, 500));
+    this.eventBus.fire(src_app_tools_modeler_diagram_js_features_diagramJSConstants__WEBPACK_IMPORTED_MODULE_14__.EVENT_COMMANDSTACK_CHANGED, this.debounce(this.saveSVG, 500));
   }
   startDebounce() {
     this.debounce(this.saveSVG, 500);
@@ -10883,6 +10988,8 @@ class ModelerService {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   CONNECTION_PATH_DOM_SELECTOR: () => (/* binding */ CONNECTION_PATH_DOM_SELECTOR),
+/* harmony export */   DISPLAY_BLOCK: () => (/* binding */ DISPLAY_BLOCK),
+/* harmony export */   DISPLAY_NONE: () => (/* binding */ DISPLAY_NONE),
 /* harmony export */   HIGHLIGHT_LABEL_FONT_WEIGHT: () => (/* binding */ HIGHLIGHT_LABEL_FONT_WEIGHT),
 /* harmony export */   HIGHLIGHT_NUMBER_BACKGROUND_COLOR: () => (/* binding */ HIGHLIGHT_NUMBER_BACKGROUND_COLOR),
 /* harmony export */   HIGHLIGHT_NUMBER_COLOR: () => (/* binding */ HIGHLIGHT_NUMBER_COLOR),
@@ -10901,6 +11008,8 @@ const HIGHLIGHT_NUMBER_BACKGROUND_COLOR = '#a4d7e1';
 const HIGHLIGHT_NUMBER_COLOR = 'black';
 const HIGHLIGHT_STROKE_WIDTH = '4';
 const CONNECTION_PATH_DOM_SELECTOR = 'path';
+const DISPLAY_BLOCK = 'block';
+const DISPLAY_NONE = 'none';
 
 /***/ },
 
@@ -10912,19 +11021,23 @@ const CONNECTION_PATH_DOM_SELECTOR = 'path';
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   DomManipulationService: () => (/* binding */ DomManipulationService),
-/* harmony export */   LABEL_NUMBER_CSS_CLASS: () => (/* binding */ LABEL_NUMBER_CSS_CLASS)
+/* harmony export */   DomManipulationService: () => (/* binding */ DomManipulationService)
 /* harmony export */ });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 38424);
 /* harmony import */ var src_app_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/domain/services/element-registry.service */ 85511);
 /* harmony import */ var src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/domain/entities/elementTypes */ 73190);
 /* harmony import */ var _domain_replayConstants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../domain/replayConstants */ 97961);
+/* harmony import */ var src_app_tools_modeler_diagram_js_features_diagramJSConstants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/tools/modeler/diagram-js/features/diagramJSConstants */ 273);
 
 
 
 
 
-const LABEL_NUMBER_CSS_CLASS = 'djs-labelNumber';
+
+const MINIMAP_CSS_CLASS = 'djs-minimap';
+const QUERY_SELECTOR_PREFIX = '[data-element-id=';
+const QUERY_SELECTOR_POSTFIX = ']';
+const DEFAULT_COLOR = 'black';
 /**
  * Manipulates the DOM during replay to only show the elements of the current Sentence
  */
@@ -10935,42 +11048,41 @@ class DomManipulationService {
   showAll() {
     this.removeHighlights();
     this.elementRegistryService.getAllCanvasObjects().slice().concat(this.elementRegistryService.getAllGroups().slice()).map(e => e.businessObject).forEach(element => {
-      const domObject = document.querySelector('[data-element-id=' + element.id + ']');
+      const domObject = document.querySelector(QUERY_SELECTOR_PREFIX + element.id + QUERY_SELECTOR_POSTFIX);
       // @ts-ignore
-      domObject.style.display = 'block';
+      domObject.style.display = _domain_replayConstants__WEBPACK_IMPORTED_MODULE_3__.DISPLAY_BLOCK;
     });
   }
   showSentence(replaySentence, previousSentence) {
     this.removeHighlights();
-    const notShown = this.getAllNotShown(replaySentence.objects);
-    notShown.forEach(element => {
-      const domObject = document.querySelector('[data-element-id=' + element.id + ']');
+    this.elementRegistryService.getAllBusinessObjectsFromCanvasNotIn(replaySentence.objects).forEach(element => {
+      const domObject = document.querySelector(QUERY_SELECTOR_PREFIX + element.id + QUERY_SELECTOR_POSTFIX);
       if (domObject) {
         // @ts-ignore
-        domObject.style.display = 'none';
+        domObject.style.display = _domain_replayConstants__WEBPACK_IMPORTED_MODULE_3__.DISPLAY_NONE;
       }
     });
     this.highlightSentence(previousSentence ? replaySentence.objects.filter(o => !previousSentence.objects.includes(o)) : replaySentence.objects);
     replaySentence.objects.forEach(element => {
-      const domObject = document.querySelector('[data-element-id=' + element.id + ']');
+      const domObject = document.querySelector(QUERY_SELECTOR_PREFIX + element.id + QUERY_SELECTOR_POSTFIX);
       if (domObject) {
         // @ts-ignore
-        domObject.style.display = 'block';
+        domObject.style.display = _domain_replayConstants__WEBPACK_IMPORTED_MODULE_3__.DISPLAY_BLOCK;
       }
     });
   }
   getRenderedNumbers() {
-    const elementsByClassName = document.getElementsByClassName(LABEL_NUMBER_CSS_CLASS);
+    const elementsByClassName = document.getElementsByClassName(src_app_tools_modeler_diagram_js_features_diagramJSConstants__WEBPACK_IMPORTED_MODULE_4__.LABEL_NUMBER_CSS_CLASS);
     const renderedNumberRegistry = [];
     for (let i = 0; i < elementsByClassName.length; i++) {
-      if (!elementsByClassName[i].closest('.djs-minimap')) {
+      if (!elementsByClassName[i].closest('.' + MINIMAP_CSS_CLASS)) {
         renderedNumberRegistry.push(elementsByClassName[i]);
       }
     }
     return renderedNumberRegistry;
   }
   getNumberDomForActivity(activity) {
-    const numberText = activity.parentElement?.getElementsByClassName(LABEL_NUMBER_CSS_CLASS)[0] ?? '';
+    const numberText = activity.parentElement?.getElementsByClassName(src_app_tools_modeler_diagram_js_features_diagramJSConstants__WEBPACK_IMPORTED_MODULE_4__.LABEL_NUMBER_CSS_CLASS)[0] ?? '';
     const circle = numberText?.previousSibling ?? '';
     return {
       numberBackgroundDom: circle,
@@ -10978,16 +11090,16 @@ class DomManipulationService {
     };
   }
   getLabelDomForActivity(activity) {
-    return activity.parentElement?.getElementsByClassName('djs-label')[0] ?? '';
+    return activity.parentElement?.getElementsByClassName(src_app_tools_modeler_diagram_js_features_diagramJSConstants__WEBPACK_IMPORTED_MODULE_4__.LABEL_CSS_CLASS)[0] ?? '';
   }
   removeHighlights() {
     const allActivities = this.elementRegistryService.getAllActivities();
     const allConnections = this.elementRegistryService.getAllConnections();
     allActivities.forEach(activity => {
-      const querySelector = document.querySelector('[data-element-id=' + activity.id + ']');
+      const querySelector = document.querySelector(QUERY_SELECTOR_PREFIX + activity.id + QUERY_SELECTOR_POSTFIX);
       if (querySelector) {
         const activityDomObject = querySelector.getElementsByTagName(_domain_replayConstants__WEBPACK_IMPORTED_MODULE_3__.CONNECTION_PATH_DOM_SELECTOR)[0];
-        activityDomObject.style.stroke = activity.businessObject.pickedColor || 'black';
+        activityDomObject.style.stroke = activity.businessObject.pickedColor || DEFAULT_COLOR;
         activityDomObject.style.strokeWidth = _domain_replayConstants__WEBPACK_IMPORTED_MODULE_3__.STROKE_WIDTH;
         const activityLabelDom = this.getLabelDomForActivity(activityDomObject);
         if (activityLabelDom) {
@@ -11004,15 +11116,17 @@ class DomManipulationService {
       }
     });
     allConnections.forEach(connection => {
-      // @ts-ignore
-      const connectionDomObject = document.querySelector('[data-element-id=' + connection.id + ']').getElementsByTagName(_domain_replayConstants__WEBPACK_IMPORTED_MODULE_3__.CONNECTION_PATH_DOM_SELECTOR)[0];
-      connectionDomObject.style.stroke = connection.businessObject.pickedColor || 'black';
-      connectionDomObject.style.strokeWidth = '1.5';
+      const querySelector = document.querySelector(QUERY_SELECTOR_PREFIX + connection.id + QUERY_SELECTOR_POSTFIX);
+      if (querySelector) {
+        const connectionDomObject = querySelector.getElementsByTagName(_domain_replayConstants__WEBPACK_IMPORTED_MODULE_3__.CONNECTION_PATH_DOM_SELECTOR)[0];
+        connectionDomObject.style.stroke = connection.businessObject.pickedColor || DEFAULT_COLOR;
+        connectionDomObject.style.strokeWidth = _domain_replayConstants__WEBPACK_IMPORTED_MODULE_3__.STROKE_WIDTH;
+      }
     });
   }
   highlightSentence(sentenceObjects) {
     sentenceObjects.filter(e => e.type === src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTIVITY).forEach(activity => {
-      const querySelector = document.querySelector('[data-element-id=' + activity.id + ']');
+      const querySelector = document.querySelector(QUERY_SELECTOR_PREFIX + activity.id + QUERY_SELECTOR_POSTFIX);
       if (querySelector) {
         const activityDomObject = querySelector.getElementsByTagName(_domain_replayConstants__WEBPACK_IMPORTED_MODULE_3__.CONNECTION_PATH_DOM_SELECTOR)[0];
         activityDomObject.style.strokeWidth = _domain_replayConstants__WEBPACK_IMPORTED_MODULE_3__.HIGHLIGHT_STROKE_WIDTH;
@@ -11030,16 +11144,6 @@ class DomManipulationService {
         }
       }
     });
-  }
-  getAllNotShown(shownElements) {
-    const notShownElements = [];
-    const allObjects = this.elementRegistryService.getAllCanvasObjects().concat(this.elementRegistryService.getAllGroups());
-    allObjects.forEach(element => {
-      if (!shownElements.includes(element.businessObject)) {
-        notShownElements.push(element.businessObject);
-      }
-    });
-    return notShownElements;
   }
   static {
     this.ɵfac = function DomManipulationService_Factory(__ngFactoryType__) {
