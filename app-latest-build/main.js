@@ -6491,6 +6491,7 @@ class HtmlPresentationService {
       const svgData = [];
       // export all sentences of domain story
       _this.replayService.startReplay();
+      _this.replayService.toggleShowGroups(); // Always show groups
       while (_this.replayService.currentSentence() < _this.replayService.maxSentenceNumber()) {
         try {
           svgData.push(yield _this.getSvgItemsForSentence());
@@ -6960,7 +6961,7 @@ class SvgService {
     return this.appendSourceCode(domainStorySvg, dst);
   }
   createAnimatedSvg(domainStorySvg, animationSpeed = 2) {
-    const story = this.storyCreatorService.traceActivitiesAndCreateStory();
+    const story = this.storyCreatorService.traceActivitiesAndCreateStory().storyWithGroupsInLastSentence;
     const usedElementId = [];
     const storyLength = story.length;
     const visibleTimeInPercent = Math.floor(100 / storyLength);
@@ -11521,7 +11522,8 @@ __webpack_require__.r(__webpack_exports__);
 
 class ReplayService {
   constructor() {
-    this.story = [];
+    this.storyWithoutGroups = [];
+    this.storyWithGroups = [];
     this.currentSentenceSignal = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.signal)(-1, ...(ngDevMode ? [{
       debugName: "currentSentenceSignal"
     }] : /* istanbul ignore next */[]));
@@ -11531,9 +11533,13 @@ class ReplayService {
     this.replayOnSignal = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.signal)(false, ...(ngDevMode ? [{
       debugName: "replayOnSignal"
     }] : /* istanbul ignore next */[]));
+    this.showGroupsSignal = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.signal)(false, ...(ngDevMode ? [{
+      debugName: "showGroupsSignal"
+    }] : /* istanbul ignore next */[]));
     this.currentSentence = this.currentSentenceSignal.asReadonly();
     this.maxSentenceNumber = this.maxSentenceNumberSignal.asReadonly();
     this.replayOn = this.replayOnSignal.asReadonly();
+    this.showGroups = this.showGroupsSignal.asReadonly();
     this.domManipulationService = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.inject)(src_app_tools_replay_services_dom_manipulation_service__WEBPACK_IMPORTED_MODULE_1__.DomManipulationService);
     this.storyCreatorService = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.inject)(_story_creator_service__WEBPACK_IMPORTED_MODULE_2__.StoryCreatorService);
     this.snackbar = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.inject)(_angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_3__.MatSnackBar);
@@ -11542,15 +11548,20 @@ class ReplayService {
     this.replayOnSignal.set(state);
   }
   isReplayable() {
-    return this.storyCreatorService.traceActivitiesAndCreateStory().length > 0;
+    return this.storyCreatorService.traceActivitiesAndCreateStory().storyWithoutGroups.length > 0;
   }
-  initializeReplay(story) {
+  initializeReplay(storyWithoutGroups, storyWithGroups) {
     this.currentSentenceSignal.set(1);
-    this.story = story;
-    this.maxSentenceNumberSignal.set(this.story.length);
+    this.storyWithoutGroups = storyWithoutGroups;
+    this.storyWithGroups = storyWithGroups;
+    this.maxSentenceNumberSignal.set(this.storyWithoutGroups.length);
+  }
+  toggleShowGroups() {
+    this.showGroupsSignal.set(!this.showGroupsSignal());
+    this.showCurrentSentence();
   }
   nextSentence() {
-    if (this.currentSentenceSignal() < this.story.length) {
+    if (this.currentSentenceSignal() < this.storyWithoutGroups.length) {
       this.currentSentenceSignal.set(this.currentSentenceSignal() + 1);
       this.showCurrentSentence();
     }
@@ -11562,13 +11573,17 @@ class ReplayService {
     }
   }
   showCurrentSentence() {
-    this.domManipulationService.showSentence(this.story[this.currentSentenceSignal() - 1], this.currentSentenceSignal() > 1 ? this.story[this.currentSentenceSignal() - 2] : undefined);
+    const story = this.showGroupsSignal() ? this.storyWithGroups : this.storyWithoutGroups;
+    this.domManipulationService.showSentence(story[this.currentSentenceSignal() - 1], this.currentSentenceSignal() > 1 ? story[this.currentSentenceSignal() - 2] : undefined);
   }
   startReplay(checkSequenceNumbers = false) {
-    const story = this.storyCreatorService.traceActivitiesAndCreateStory();
+    const {
+      storyWithoutGroups,
+      storyWithGroups
+    } = this.storyCreatorService.traceActivitiesAndCreateStory();
     this.clearUserInteractionsOnCanvas();
     if (checkSequenceNumbers) {
-      const missingSentences = this.storyCreatorService.getMissingSentences(story);
+      const missingSentences = this.storyCreatorService.getMissingSentences(storyWithoutGroups);
       if (missingSentences.length > 0) {
         const sentence = missingSentences.join(', ');
         this.snackbar.open(missingSentences.length === 1 ? `The Domain Story is not complete. Sentence ${sentence} is missing.` : `The Domain Story is not complete. Sentences ${sentence} are missing.`, undefined, {
@@ -11578,10 +11593,11 @@ class ReplayService {
         return;
       }
     }
-    this.initializeReplay(story);
-    if (this.story.length > 0) {
+    this.initializeReplay(storyWithoutGroups, storyWithGroups);
+    if (this.storyWithoutGroups.length > 0) {
       this.setReplayState(true);
-      this.domManipulationService.showSentence(this.story[this.currentSentenceSignal() - 1]);
+      const story = this.showGroupsSignal() ? this.storyWithGroups : this.storyWithoutGroups;
+      this.domManipulationService.showSentence(story[this.currentSentenceSignal() - 1]);
     } else {
       this.snackbar.open('You need a Domain Story for replay.', undefined, {
         duration: _domain_entities_constants__WEBPACK_IMPORTED_MODULE_4__.SNACKBAR_DURATION_LONG,
@@ -11664,8 +11680,27 @@ class StoryCreatorService {
       this.createSentence(tracedActivityMap, key, story, storyIndex);
       storyIndex++;
     });
-    this.addGroupsToLastSentence(story);
-    return story;
+    return this.createStoryWithGroups(story);
+  }
+  createStoryWithGroups(story) {
+    const groups = this.elementRegistryService.getAllGroups();
+    const annotationsForGroups = [];
+    groups.forEach(group => this.addTextAnnotationsForActorOrGroup(group, annotationsForGroups));
+    const storyWithGroups = JSON.parse(JSON.stringify(story));
+    if (groups.length > 0 && story.length > 0) {
+      storyWithGroups.forEach(sentence => {
+        sentence.objects = sentence.objects.concat(groups.map(g => g.businessObject)).concat(annotationsForGroups.map(a => a.businessObject));
+      });
+    }
+    const storyWithGroupsInLastSentence = JSON.parse(JSON.stringify(storyWithGroups));
+    if (groups.length > 0 && storyWithGroupsInLastSentence.length > 0) {
+      storyWithGroupsInLastSentence[storyWithGroupsInLastSentence.length - 1].objects = storyWithGroupsInLastSentence[storyWithGroupsInLastSentence.length - 1].objects.concat(groups.map(g => g.businessObject)).concat(annotationsForGroups.map(a => a.businessObject));
+    }
+    return {
+      storyWithoutGroups: story,
+      storyWithGroups,
+      storyWithGroupsInLastSentence
+    };
   }
   createSentence(tracedActivityMap, tracedActivityMapKey, story, storyIndex) {
     const tracedActivity = tracedActivityMap.get(`${tracedActivityMapKey}`) ?? [];
@@ -11754,14 +11789,6 @@ class StoryCreatorService {
         objectTextAnnotations.push(connection, connection.target);
       }
     });
-  }
-  addGroupsToLastSentence(story) {
-    const groups = this.elementRegistryService.getAllGroups();
-    const annotationsForGroups = [];
-    groups.forEach(group => this.addTextAnnotationsForActorOrGroup(group, annotationsForGroups));
-    if (groups.length > 0 && story.length > 0) {
-      story[story.length - 1].objects = story[story.length - 1].objects.concat(groups.map(g => g.businessObject)).concat(annotationsForGroups.map(a => a.businessObject));
-    }
   }
   static {
     this.ɵfac = function StoryCreatorService_Factory(__ngFactoryType__) {
@@ -12218,52 +12245,90 @@ function HeaderButtonsComponent_Conditional_0_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomProperty"]("disabled", !ctx_r1.hasDomainStory());
   }
 }
+function HeaderButtonsComponent_Conditional_1_Conditional_1_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r4 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](0, "button", 17);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomListener"]("click", function HeaderButtonsComponent_Conditional_1_Conditional_1_Template_button_click_0_listener() {
+      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r4);
+      const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](2);
+      return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵresetView"](ctx_r1.toggleGroups.emit());
+    });
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](1, "span", 2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](2, " visibility_off ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](3, "div", 3);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](4, "Groups");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementEnd"]()();
+  }
+}
+function HeaderButtonsComponent_Conditional_1_Conditional_2_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r5 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](0, "button", 17);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomListener"]("click", function HeaderButtonsComponent_Conditional_1_Conditional_2_Template_button_click_0_listener() {
+      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r5);
+      const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](2);
+      return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵresetView"](ctx_r1.toggleGroups.emit());
+    });
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](1, "span", 2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](2, " visibility ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](3, "div", 3);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](4, "Groups");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementEnd"]()();
+  }
+}
 function HeaderButtonsComponent_Conditional_1_Template(rf, ctx) {
   if (rf & 1) {
     const _r3 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](0, "div", 0)(1, "button", 12);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomListener"]("click", function HeaderButtonsComponent_Conditional_1_Template_button_click_1_listener() {
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](0, "div", 0);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵconditionalCreate"](1, HeaderButtonsComponent_Conditional_1_Conditional_1_Template, 5, 0, "button", 12)(2, HeaderButtonsComponent_Conditional_1_Conditional_2_Template, 5, 0, "button", 12);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](3, "button", 13);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomListener"]("click", function HeaderButtonsComponent_Conditional_1_Template_button_click_3_listener() {
       _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r3);
       const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]();
       return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵresetView"](ctx_r1.previousSentence.emit());
     });
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](2, "span", 2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](3, " skip_previous ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](4, "span", 2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](5, " skip_previous ");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](4, "div", 3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](5, "Prev.");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](6, "div", 3);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](7, "Prev.");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementEnd"]()();
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](6, "button", 13);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomListener"]("click", function HeaderButtonsComponent_Conditional_1_Template_button_click_6_listener() {
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](8, "button", 14);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomListener"]("click", function HeaderButtonsComponent_Conditional_1_Template_button_click_8_listener() {
       _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r3);
       const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]();
       return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵresetView"](ctx_r1.nextSentence.emit());
     });
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](7, "span", 2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](8, " skip_next ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](9, "span", 2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](10, " skip_next ");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](9, "div", 3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](10, "Next");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](11, "div", 3);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](12, "Next");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementEnd"]()();
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](11, "button", 14);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomListener"]("click", function HeaderButtonsComponent_Conditional_1_Template_button_click_11_listener() {
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](13, "button", 15);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomListener"]("click", function HeaderButtonsComponent_Conditional_1_Template_button_click_13_listener() {
       _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r3);
       const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]();
       return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵresetView"](ctx_r1.stopReplay.emit());
     });
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](12, "span", 2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](13, " stop ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](14, "span", 2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](15, " stop ");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](14, "div", 3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](15, "Stop");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](16, "div", 3);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](17, "Stop");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementEnd"]()();
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](16, "div", 15);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](17);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementStart"](18, "div", 16);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](19);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdomElementEnd"]()();
   }
   if (rf & 2) {
     const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](17);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵconditional"](ctx_r1.showGroups() ? 1 : 2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](18);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate1"]("Sentence: ", ctx_r1.sentenceDescription());
   }
 }
@@ -12282,6 +12347,9 @@ class HeaderButtonsComponent {
     this.isReplaying = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.input)(false, ...(ngDevMode ? [{
       debugName: "isReplaying"
     }] : /* istanbul ignore next */[]));
+    this.showGroups = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.input)(false, ...(ngDevMode ? [{
+      debugName: "showGroups"
+    }] : /* istanbul ignore next */[]));
     this.isDirty = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.input)(false, ...(ngDevMode ? [{
       debugName: "isDirty"
     }] : /* istanbul ignore next */[]));
@@ -12295,6 +12363,7 @@ class HeaderButtonsComponent {
     this.previousSentence = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.output)();
     this.nextSentence = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.output)();
     this.newStory = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.output)();
+    this.toggleGroups = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.output)();
     this.showKeyboardShortCuts = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.output)();
     this.openLabelDictionary = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.output)();
     this.openDownloadDialog = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.output)();
@@ -12313,6 +12382,7 @@ class HeaderButtonsComponent {
         hasDomainStory: [1, "hasDomainStory"],
         hasTitle: [1, "hasTitle"],
         isReplaying: [1, "isReplaying"],
+        showGroups: [1, "showGroups"],
         isDirty: [1, "isDirty"],
         isReplayable: [1, "isReplayable"]
       },
@@ -12324,6 +12394,7 @@ class HeaderButtonsComponent {
         previousSentence: "previousSentence",
         nextSentence: "nextSentence",
         newStory: "newStory",
+        toggleGroups: "toggleGroups",
         showKeyboardShortCuts: "showKeyboardShortCuts",
         openLabelDictionary: "openLabelDictionary",
         openDownloadDialog: "openDownloadDialog",
@@ -12331,10 +12402,10 @@ class HeaderButtonsComponent {
       },
       decls: 2,
       vars: 1,
-      consts: [[1, "replaying"], ["type", "button", "id", "buttonStartReplay", "title", "Start replay", 1, "headerButton", 3, "click", "disabled"], [1, "material-icons-outlined", "materialIconButton"], [1, "button-label"], ["type", "button", "id", "buttonImport", "title", "Import story from file", "onclick", "document.getElementById('import').click()", 1, "headerButton"], ["type", "button", "id", "buttonUrlImport", "title", "Import story from URL", 1, "headerButton", 3, "click"], ["type", "file", "accept", ".dst, .egn, .svg", "id", "import", "onclick", "this.value = null", 2, "display", "none", 3, "change"], ["type", "button", "id", "export", "title", "Export story as .egn, .svg or .png file", 1, "headerButton", 3, "click", "disabled"], ["type", "button", "title", "Change multiple labels at once", 1, "headerButton", 3, "click", "disabled"], ["type", "button", "title", "Create a new domain story", 1, "headerButton", 3, "click"], ["type", "button", "title", "Change Icons and Settings", 1, "headerButton", 3, "click"], ["type", "button", "title", "Show keyboard shortcuts", 1, "headerButton", 3, "click"], ["type", "button", "title", "Previous sentence", 1, "headerButton", 3, "click"], ["type", "button", "title", "Next sentence", 1, "headerButton", 3, "click"], ["type", "button", "title", "Stop replay", 1, "headerButton", 3, "click"], [1, "sentences"]],
+      consts: [[1, "replaying"], ["type", "button", "id", "buttonStartReplay", "title", "Start replay", 1, "headerButton", 3, "click", "disabled"], [1, "material-icons-outlined", "materialIconButton"], [1, "button-label"], ["type", "button", "id", "buttonImport", "title", "Import story from file", "onclick", "document.getElementById('import').click()", 1, "headerButton"], ["type", "button", "id", "buttonUrlImport", "title", "Import story from URL", 1, "headerButton", 3, "click"], ["type", "file", "accept", ".dst, .egn, .svg", "id", "import", "onclick", "this.value = null", 2, "display", "none", 3, "change"], ["type", "button", "id", "export", "title", "Export story as .egn, .svg or .png file", 1, "headerButton", 3, "click", "disabled"], ["type", "button", "title", "Change multiple labels at once", 1, "headerButton", 3, "click", "disabled"], ["type", "button", "title", "Create a new domain story", 1, "headerButton", 3, "click"], ["type", "button", "title", "Change Icons and Settings", 1, "headerButton", 3, "click"], ["type", "button", "title", "Show keyboard shortcuts", 1, "headerButton", 3, "click"], ["type", "button", "title", "Show Groups", 1, "headerButton"], ["type", "button", "title", "Previous sentence", 1, "headerButton", 3, "click"], ["type", "button", "title", "Next sentence", 1, "headerButton", 3, "click"], ["type", "button", "title", "Stop replay", 1, "headerButton", 3, "click"], [1, "sentences"], ["type", "button", "title", "Show Groups", 1, "headerButton", 3, "click"]],
       template: function HeaderButtonsComponent_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵconditionalCreate"](0, HeaderButtonsComponent_Conditional_0_Template, 42, 11, "div")(1, HeaderButtonsComponent_Conditional_1_Template, 18, 1, "div", 0);
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵconditionalCreate"](0, HeaderButtonsComponent_Conditional_0_Template, 42, 11, "div")(1, HeaderButtonsComponent_Conditional_1_Template, 20, 2, "div", 0);
         }
         if (rf & 2) {
           _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵconditional"](!ctx.isReplaying() ? 0 : 1);
@@ -12448,6 +12519,7 @@ class HeaderComponent {
     this.description = this.propertiesService.description;
     this.showDescription = this.propertiesService.showDescription;
     this.isReplayOn = this.replayService.replayOn;
+    this.showGroups = this.replayService.showGroups;
     this.isDirty = this.dirtyFlagService.dirty;
   }
   openHeaderDialog() {
@@ -12486,6 +12558,9 @@ class HeaderComponent {
   previousSentence() {
     this.replayService.previousSentence();
   }
+  toggleGroups() {
+    this.replayService.toggleShowGroups();
+  }
   nextSentence() {
     this.replayService.nextSentence();
   }
@@ -12520,8 +12595,8 @@ class HeaderComponent {
       type: HeaderComponent,
       selectors: [["app-header"]],
       decls: 15,
-      vars: 9,
-      consts: [["color", "primary"], [1, "firstRow"], [1, "mr-10", "title-scrollbar"], ["title", "Edit properties", 1, "headline", 3, "click"], ["type", "button", "title", "Edit properties", 1, "headerButton", 3, "click"], [1, "material-icons-outlined", "materialIconButton"], [1, "button-label"], ["type", "button", "title", "Hide description", 1, "headerButton"], ["type", "button", "title", "Show description", 1, "headerButton"], [1, "titleSpacer"], [1, "nowrap", 3, "import", "openSettings", "startReplay", "stopReplay", "nextSentence", "previousSentence", "newStory", "showKeyboardShortCuts", "openLabelDictionary", "openDownloadDialog", "openImportFromUrlDialog", "hasDomainStory", "hasTitle", "isDirty", "isReplayable", "isReplaying"], [1, "smallScrollbar", "description"], ["type", "button", "title", "Hide description", 1, "headerButton", 3, "click"], ["type", "button", "title", "Show description", 1, "headerButton", 3, "click"], [1, "descriptionText"]],
+      vars: 10,
+      consts: [["color", "primary"], [1, "firstRow"], [1, "mr-10", "title-scrollbar"], ["title", "Edit properties", 1, "headline", 3, "click"], ["type", "button", "title", "Edit properties", 1, "headerButton", 3, "click"], [1, "material-icons-outlined", "materialIconButton"], [1, "button-label"], ["type", "button", "title", "Hide description", 1, "headerButton"], ["type", "button", "title", "Show description", 1, "headerButton"], [1, "titleSpacer"], [1, "nowrap", 3, "import", "openSettings", "startReplay", "stopReplay", "nextSentence", "previousSentence", "toggleGroups", "newStory", "showKeyboardShortCuts", "openLabelDictionary", "openDownloadDialog", "openImportFromUrlDialog", "hasDomainStory", "hasTitle", "isDirty", "isReplayable", "isReplaying", "showGroups"], [1, "smallScrollbar", "description"], ["type", "button", "title", "Hide description", 1, "headerButton", 3, "click"], ["type", "button", "title", "Show description", 1, "headerButton", 3, "click"], [1, "descriptionText"]],
       template: function HeaderComponent_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_13__["ɵɵelementStart"](0, "mat-toolbar", 0)(1, "mat-toolbar-row", 1)(2, "div", 2)(3, "span", 3);
@@ -12556,6 +12631,8 @@ class HeaderComponent {
             return ctx.nextSentence();
           })("previousSentence", function HeaderComponent_Template_app_header_buttons_previousSentence_13_listener() {
             return ctx.previousSentence();
+          })("toggleGroups", function HeaderComponent_Template_app_header_buttons_toggleGroups_13_listener() {
+            return ctx.toggleGroups();
           })("newStory", function HeaderComponent_Template_app_header_buttons_newStory_13_listener() {
             return ctx.createNewDomainStory();
           })("showKeyboardShortCuts", function HeaderComponent_Template_app_header_buttons_showKeyboardShortCuts_13_listener() {
@@ -12578,7 +12655,7 @@ class HeaderComponent {
           _angular_core__WEBPACK_IMPORTED_MODULE_13__["ɵɵadvance"]();
           _angular_core__WEBPACK_IMPORTED_MODULE_13__["ɵɵconditional"](!ctx.showDescription() ? 11 : -1);
           _angular_core__WEBPACK_IMPORTED_MODULE_13__["ɵɵadvance"](2);
-          _angular_core__WEBPACK_IMPORTED_MODULE_13__["ɵɵproperty"]("hasDomainStory", ctx.hasDomainStory)("hasTitle", ctx.hasTitle)("isDirty", ctx.isDirty())("isReplayable", ctx.isReplayable)("isReplaying", ctx.isReplayOn());
+          _angular_core__WEBPACK_IMPORTED_MODULE_13__["ɵɵproperty"]("hasDomainStory", ctx.hasDomainStory)("hasTitle", ctx.hasTitle)("isDirty", ctx.isDirty())("isReplayable", ctx.isReplayable)("isReplaying", ctx.isReplayOn())("showGroups", ctx.showGroups());
           _angular_core__WEBPACK_IMPORTED_MODULE_13__["ɵɵadvance"]();
           _angular_core__WEBPACK_IMPORTED_MODULE_13__["ɵɵconditional"](ctx.showDescription() ? 14 : -1);
         }
