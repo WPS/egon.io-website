@@ -7037,7 +7037,7 @@ class SvgService {
     const indexToAdd = data.length - '</svg>'.length;
     const start = data.substring(0, indexToAdd);
     const end = data.substring(indexToAdd);
-    const hiddenText = "\n<text class='hiddenDomainStory'>\n\n";
+    const hiddenText = "\n<text class='hiddenDomainStory' style='font-size: 0'>\n\n";
     const textClose = '\n\n</text>\n';
     return start + hiddenText + (0,src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_5__.sanitizeTextForSVGExport)('<DST>') + (0,src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_5__.sanitizeTextForSVGExport)(JSON.stringify(dst, null, 2)) + (0,src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_5__.sanitizeTextForSVGExport)('</DST>') + textClose + end;
   }
@@ -12070,7 +12070,11 @@ function sanitizeTextForSVGExport(str) {
   return str.replaceAll('--', '––').replaceAll('<', '%3C').replaceAll('>', '%3E');
 }
 function unsanitizeTextFromSvgExport(str) {
-  return str.replaceAll('––', '--').replaceAll('%3C', '<').replaceAll('%3E', '>');
+  return str.replaceAll('––', '--').replaceAll('&#34;', '"') // External Tools HTML-escape more characters than we do => We need to unescape them
+  .replaceAll('&#39;', "'") // External Tools HTML-escape more characters than we do => We need to unescape them
+  .replaceAll('&#43;', '+') // External Tools HTML-escape more characters than we do => We need to unescape them
+  .replaceAll('&#61;', '=') // External Tools HTML-escape more characters than we do => We need to unescape them
+  .replaceAll('%3C', '<').replaceAll('%3E', '>');
 }
 // sanitize user-Input to be Desktop-Filename safe
 function sanitizeForDesktop(str) {
