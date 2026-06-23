@@ -912,7 +912,7 @@ const DISALLOWED_PROPERTIES = ["incoming", "outgoing"];
 function PropertyCopy(eventBus) {
   this._eventBus = eventBus;
   // copy extension elements last
-  eventBus.on("propertyCopy.canCopyProperties", function (context) {
+  eventBus.on(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_1__.PROPERTY_COPY_CAN_COPY_PROPERTIES_EVENT, function (context) {
     const propertyNames = context.propertyNames;
     if (!propertyNames || !propertyNames.length) {
       return;
@@ -922,7 +922,7 @@ function PropertyCopy(eventBus) {
     });
   });
   // default check whether property can be copied
-  eventBus.on("propertyCopy.canCopyProperty", function (context) {
+  eventBus.on(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_1__.PROPERTY_COPY_CAN_COPY_PROPERTY_EVENT, function (context) {
     const propertyName = context.propertyName;
     if (propertyName && DISALLOWED_PROPERTIES.indexOf(propertyName) !== -1) {
       // disallow copying property
@@ -3935,7 +3935,7 @@ function headlineAndDescriptionUpdateHandler(commandStack, propertiesService) {
       propertiesService.updateTitleAndDescriptionAndScope((0,src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_0__.sanitizeTextForSVGExport)(ctx.newTitle), (0,src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_0__.sanitizeTextForSVGExport)(ctx.newDescription), ctx.newScope, false);
     };
     this.revert = function (ctx) {
-      propertiesService.updateTitleAndDescription(ctx.oldTitle, ctx.oldDescription, ctx.oldScope, false);
+      propertiesService.updateTitleAndDescriptionAndScope(ctx.oldTitle, ctx.oldDescription, ctx.oldScope, false);
     };
   }
 }
@@ -10995,9 +10995,9 @@ __webpack_require__.r(__webpack_exports__);
 
 var PropertiesDialogForm;
 (function (PropertiesDialogForm) {
-  function create(titel, description, granularity, pointInTime, domainPurity) {
+  function create(title, description, granularity, pointInTime, domainPurity) {
     return new _angular_forms__WEBPACK_IMPORTED_MODULE_0__.FormGroup({
-      title: new _angular_forms__WEBPACK_IMPORTED_MODULE_0__.FormControl(titel),
+      title: new _angular_forms__WEBPACK_IMPORTED_MODULE_0__.FormControl(title),
       description: new _angular_forms__WEBPACK_IMPORTED_MODULE_0__.FormControl(description),
       granularity: new _angular_forms__WEBPACK_IMPORTED_MODULE_0__.FormControl(granularity),
       pointInTime: new _angular_forms__WEBPACK_IMPORTED_MODULE_0__.FormControl(pointInTime),
@@ -12521,7 +12521,7 @@ class HeaderComponent {
       selectors: [["app-header"]],
       decls: 15,
       vars: 9,
-      consts: [["color", "primary"], [1, "firstRow"], [1, "mr-10", "titel-scrollbar"], ["title", "Edit properties", 1, "headline", 3, "click"], ["type", "button", "title", "Edit properties", 1, "headerButton", 3, "click"], [1, "material-icons-outlined", "materialIconButton"], [1, "button-label"], ["type", "button", "title", "Hide description", 1, "headerButton"], ["type", "button", "title", "Show description", 1, "headerButton"], [1, "titleSpacer"], [1, "nowrap", 3, "import", "openSettings", "startReplay", "stopReplay", "nextSentence", "previousSentence", "newStory", "showKeyboardShortCuts", "openLabelDictionary", "openDownloadDialog", "openImportFromUrlDialog", "hasDomainStory", "hasTitle", "isDirty", "isReplayable", "isReplaying"], [1, "smallScrollbar", "description"], ["type", "button", "title", "Hide description", 1, "headerButton", 3, "click"], ["type", "button", "title", "Show description", 1, "headerButton", 3, "click"], [1, "descriptionText"]],
+      consts: [["color", "primary"], [1, "firstRow"], [1, "mr-10", "title-scrollbar"], ["title", "Edit properties", 1, "headline", 3, "click"], ["type", "button", "title", "Edit properties", 1, "headerButton", 3, "click"], [1, "material-icons-outlined", "materialIconButton"], [1, "button-label"], ["type", "button", "title", "Hide description", 1, "headerButton"], ["type", "button", "title", "Show description", 1, "headerButton"], [1, "titleSpacer"], [1, "nowrap", 3, "import", "openSettings", "startReplay", "stopReplay", "nextSentence", "previousSentence", "newStory", "showKeyboardShortCuts", "openLabelDictionary", "openDownloadDialog", "openImportFromUrlDialog", "hasDomainStory", "hasTitle", "isDirty", "isReplayable", "isReplaying"], [1, "smallScrollbar", "description"], ["type", "button", "title", "Hide description", 1, "headerButton", 3, "click"], ["type", "button", "title", "Show description", 1, "headerButton", 3, "click"], [1, "descriptionText"]],
       template: function HeaderComponent_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_13__["ɵɵelementStart"](0, "mat-toolbar", 0)(1, "mat-toolbar-row", 1)(2, "div", 2)(3, "span", 3);
@@ -12584,7 +12584,7 @@ class HeaderComponent {
         }
       },
       dependencies: [_angular_material_toolbar__WEBPACK_IMPORTED_MODULE_10__.MatToolbarModule, _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_10__.MatToolbar, _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_10__.MatToolbarRow, _angular_material_card__WEBPACK_IMPORTED_MODULE_11__.MatCardModule, _angular_material_card__WEBPACK_IMPORTED_MODULE_11__.MatCard, _header_buttons_header_buttons_component__WEBPACK_IMPORTED_MODULE_12__.HeaderButtonsComponent],
-      styles: [".firstRow[_ngcontent-%COMP%] {\n  min-height: 4rem;\n}\n\n.description[_ngcontent-%COMP%] {\n  top: 0;\n  max-width: 100vw;\n  overflow-y: scroll;\n  display: grid;\n  background-color: #f7f7f8;\n}\n\n.descriptionText[_ngcontent-%COMP%] {\n  position: relative;\n  font-size: 10pt;\n  overflow-wrap: anywhere;\n  word-wrap: anywhere;\n  white-space: pre-wrap;\n  padding-top: 15px;\n  padding-left: 27px;\n  padding-right: 15px;\n  line-height: 12pt;\n}\n\n.description[_ngcontent-%COMP%]:hover {\n  cursor: default;\n}\n\n.titleSpacer[_ngcontent-%COMP%] {\n  flex: 1 1 auto;\n}\n\n.headline[_ngcontent-%COMP%]    > .editIcon[_ngcontent-%COMP%] {\n  display: none;\n}\n\n.nowrap[_ngcontent-%COMP%] {\n  white-space: nowrap;\n}\n\n.mat-toolbar-row[_ngcontent-%COMP%] {\n  white-space: normal;\n  height: min-content;\n}\n\n.titel-scrollbar[_ngcontent-%COMP%] {\n  margin-left: 12px;\n  max-height: 10rem;\n  overflow: auto;\n  scrollbar-width: none;\n  max-width: 100rem;\n}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL3NyYy9hcHAvd29ya2JlbmNoL3ByZXNlbnRhdGlvbi9oZWFkZXIvaGVhZGVyL2hlYWRlci5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGdCQUFBO0FBQ0Y7O0FBRUE7RUFDRSxNQUFBO0VBQ0EsZ0JBQUE7RUFDQSxrQkFBQTtFQUNBLGFBQUE7RUFDQSx5QkFBQTtBQUNGOztBQUVBO0VBQ0Usa0JBQUE7RUFDQSxlQUFBO0VBQ0EsdUJBQUE7RUFDQSxtQkFBQTtFQUNBLHFCQUFBO0VBQ0EsaUJBQUE7RUFDQSxrQkFBQTtFQUNBLG1CQUFBO0VBQ0EsaUJBQUE7QUFDRjs7QUFFQTtFQUNFLGVBQUE7QUFDRjs7QUFFQTtFQUNFLGNBQUE7QUFDRjs7QUFFQTtFQUNFLGFBQUE7QUFDRjs7QUFFQTtFQUNFLG1CQUFBO0FBQ0Y7O0FBRUE7RUFDRSxtQkFBQTtFQUNBLG1CQUFBO0FBQ0Y7O0FBRUE7RUFDRSxpQkFBQTtFQUNBLGlCQUFBO0VBQ0EsY0FBQTtFQUNBLHFCQUFBO0VBQ0EsaUJBQUE7QUFDRiIsInNvdXJjZXNDb250ZW50IjpbIi5maXJzdFJvdyB7XG4gIG1pbi1oZWlnaHQ6IDRyZW07XG59XG5cbi5kZXNjcmlwdGlvbiB7XG4gIHRvcDogMDtcbiAgbWF4LXdpZHRoOiAxMDB2dztcbiAgb3ZlcmZsb3cteTogc2Nyb2xsO1xuICBkaXNwbGF5OiBncmlkO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZjdmN2Y4O1xufVxuXG4uZGVzY3JpcHRpb25UZXh0IHtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xuICBmb250LXNpemU6IDEwcHQ7XG4gIG92ZXJmbG93LXdyYXA6IGFueXdoZXJlO1xuICB3b3JkLXdyYXA6IGFueXdoZXJlO1xuICB3aGl0ZS1zcGFjZTogcHJlLXdyYXA7XG4gIHBhZGRpbmctdG9wOiAxNXB4O1xuICBwYWRkaW5nLWxlZnQ6IDI3cHg7XG4gIHBhZGRpbmctcmlnaHQ6IDE1cHg7XG4gIGxpbmUtaGVpZ2h0OiAxMnB0O1xufVxuXG4uZGVzY3JpcHRpb246aG92ZXIge1xuICBjdXJzb3I6IGRlZmF1bHQ7XG59XG5cbi50aXRsZVNwYWNlciB7XG4gIGZsZXg6IDEgMSBhdXRvO1xufVxuXG4uaGVhZGxpbmUgPiAuZWRpdEljb24ge1xuICBkaXNwbGF5OiBub25lO1xufVxuXG4ubm93cmFwIHtcbiAgd2hpdGUtc3BhY2U6IG5vd3JhcDtcbn1cblxuLm1hdC10b29sYmFyLXJvdyB7XG4gIHdoaXRlLXNwYWNlOiBub3JtYWw7XG4gIGhlaWdodDogbWluLWNvbnRlbnQ7XG59XG5cbi50aXRlbC1zY3JvbGxiYXIge1xuICBtYXJnaW4tbGVmdDogMTJweDtcbiAgbWF4LWhlaWdodDogMTByZW07XG4gIG92ZXJmbG93OiBhdXRvO1xuICBzY3JvbGxiYXItd2lkdGg6IG5vbmU7XG4gIG1heC13aWR0aDogMTAwcmVtO1xufVxuIl0sInNvdXJjZVJvb3QiOiIifQ== */"]
+      styles: [".firstRow[_ngcontent-%COMP%] {\n  min-height: 4rem;\n}\n\n.description[_ngcontent-%COMP%] {\n  top: 0;\n  max-width: 100vw;\n  overflow-y: scroll;\n  display: grid;\n  background-color: #f7f7f8;\n}\n\n.descriptionText[_ngcontent-%COMP%] {\n  position: relative;\n  font-size: 10pt;\n  overflow-wrap: anywhere;\n  word-wrap: anywhere;\n  white-space: pre-wrap;\n  padding-top: 15px;\n  padding-left: 27px;\n  padding-right: 15px;\n  line-height: 12pt;\n}\n\n.description[_ngcontent-%COMP%]:hover {\n  cursor: default;\n}\n\n.titleSpacer[_ngcontent-%COMP%] {\n  flex: 1 1 auto;\n}\n\n.headline[_ngcontent-%COMP%]    > .editIcon[_ngcontent-%COMP%] {\n  display: none;\n}\n\n.nowrap[_ngcontent-%COMP%] {\n  white-space: nowrap;\n}\n\n.mat-toolbar-row[_ngcontent-%COMP%] {\n  white-space: normal;\n  height: min-content;\n}\n\n.title-scrollbar[_ngcontent-%COMP%] {\n  margin-left: 12px;\n  max-height: 10rem;\n  overflow: auto;\n  scrollbar-width: none;\n  max-width: 100rem;\n}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL3NyYy9hcHAvd29ya2JlbmNoL3ByZXNlbnRhdGlvbi9oZWFkZXIvaGVhZGVyL2hlYWRlci5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGdCQUFBO0FBQ0Y7O0FBRUE7RUFDRSxNQUFBO0VBQ0EsZ0JBQUE7RUFDQSxrQkFBQTtFQUNBLGFBQUE7RUFDQSx5QkFBQTtBQUNGOztBQUVBO0VBQ0Usa0JBQUE7RUFDQSxlQUFBO0VBQ0EsdUJBQUE7RUFDQSxtQkFBQTtFQUNBLHFCQUFBO0VBQ0EsaUJBQUE7RUFDQSxrQkFBQTtFQUNBLG1CQUFBO0VBQ0EsaUJBQUE7QUFDRjs7QUFFQTtFQUNFLGVBQUE7QUFDRjs7QUFFQTtFQUNFLGNBQUE7QUFDRjs7QUFFQTtFQUNFLGFBQUE7QUFDRjs7QUFFQTtFQUNFLG1CQUFBO0FBQ0Y7O0FBRUE7RUFDRSxtQkFBQTtFQUNBLG1CQUFBO0FBQ0Y7O0FBRUE7RUFDRSxpQkFBQTtFQUNBLGlCQUFBO0VBQ0EsY0FBQTtFQUNBLHFCQUFBO0VBQ0EsaUJBQUE7QUFDRiIsInNvdXJjZXNDb250ZW50IjpbIi5maXJzdFJvdyB7XG4gIG1pbi1oZWlnaHQ6IDRyZW07XG59XG5cbi5kZXNjcmlwdGlvbiB7XG4gIHRvcDogMDtcbiAgbWF4LXdpZHRoOiAxMDB2dztcbiAgb3ZlcmZsb3cteTogc2Nyb2xsO1xuICBkaXNwbGF5OiBncmlkO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZjdmN2Y4O1xufVxuXG4uZGVzY3JpcHRpb25UZXh0IHtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xuICBmb250LXNpemU6IDEwcHQ7XG4gIG92ZXJmbG93LXdyYXA6IGFueXdoZXJlO1xuICB3b3JkLXdyYXA6IGFueXdoZXJlO1xuICB3aGl0ZS1zcGFjZTogcHJlLXdyYXA7XG4gIHBhZGRpbmctdG9wOiAxNXB4O1xuICBwYWRkaW5nLWxlZnQ6IDI3cHg7XG4gIHBhZGRpbmctcmlnaHQ6IDE1cHg7XG4gIGxpbmUtaGVpZ2h0OiAxMnB0O1xufVxuXG4uZGVzY3JpcHRpb246aG92ZXIge1xuICBjdXJzb3I6IGRlZmF1bHQ7XG59XG5cbi50aXRsZVNwYWNlciB7XG4gIGZsZXg6IDEgMSBhdXRvO1xufVxuXG4uaGVhZGxpbmUgPiAuZWRpdEljb24ge1xuICBkaXNwbGF5OiBub25lO1xufVxuXG4ubm93cmFwIHtcbiAgd2hpdGUtc3BhY2U6IG5vd3JhcDtcbn1cblxuLm1hdC10b29sYmFyLXJvdyB7XG4gIHdoaXRlLXNwYWNlOiBub3JtYWw7XG4gIGhlaWdodDogbWluLWNvbnRlbnQ7XG59XG5cbi50aXRsZS1zY3JvbGxiYXIge1xuICBtYXJnaW4tbGVmdDogMTJweDtcbiAgbWF4LWhlaWdodDogMTByZW07XG4gIG92ZXJmbG93OiBhdXRvO1xuICBzY3JvbGxiYXItd2lkdGg6IG5vbmU7XG4gIG1heC13aWR0aDogMTAwcmVtO1xufVxuIl0sInNvdXJjZVJvb3QiOiIifQ== */"]
     });
   }
 }
