@@ -2748,6 +2748,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/domain/entities/elementTypes */ 73190);
 /* harmony import */ var _util_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util/util */ 84029);
+/* harmony import */ var _diagramJSConstants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../diagramJSConstants */ 273);
+
 
 
 
@@ -2885,7 +2887,7 @@ function createAutocompleteForEdit(editingBox, workObjectNames, businessElement,
       e.preventDefault();
       if (currentFocus > -1) {
         businessElement.businessObject.name = workObjectNamesFilteredBySearchterm[currentFocus];
-        eventBus.fire(EVENT_ELEMENT_CHANGED, {
+        eventBus.fire(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_2__.EVENT_ELEMENT_CHANGED, {
           element: businessElement
         });
         // remove obsolete listener
@@ -3893,7 +3895,7 @@ function elementUpdateHandler(commandStack, eventBus) {
           element: child
         });
       });
-      eventBus.fire(EVENT_SHAPE_REMOVE, {
+      eventBus.fire(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_2__.EVENT_SHAPE_REMOVE, {
         element
       });
     };
