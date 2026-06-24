@@ -10850,6 +10850,7 @@ __webpack_require__.r(__webpack_exports__);
 
 class ModelerService {
   constructor() {
+    this.DEBOUNCE_TIMEOUT = 500;
     this.initializerService = (0,_angular_core__WEBPACK_IMPORTED_MODULE_1__.inject)(_initializer_service__WEBPACK_IMPORTED_MODULE_4__.InitializerService);
     this.elementRegistryService = (0,_angular_core__WEBPACK_IMPORTED_MODULE_1__.inject)(_domain_services_element_registry_service__WEBPACK_IMPORTED_MODULE_5__.ElementRegistryService);
     this.iconDictionaryService = (0,_angular_core__WEBPACK_IMPORTED_MODULE_1__.inject)(_icon_set_config_services_icon_dictionary_service__WEBPACK_IMPORTED_MODULE_6__.IconDictionaryService);
@@ -10883,7 +10884,7 @@ class ModelerService {
     }
     this.initializerService.initializeDomainStoryModelerEventHandlers(this.commandStack, this.eventBus);
     this.initializerService.propagateDomainStoryModelerClassesToServices(this.commandStack, this.elementRegistry, this.contextPad, this.palette, this.selection, this.eventBus);
-    const exportArtifacts = this.debounce(this.saveSVG, 500);
+    const exportArtifacts = this.saveSvgAfterDelay();
     if (this.modeler.get) {
       this.modeler.on('commandStack.changed', exportArtifacts);
     }
@@ -10892,7 +10893,6 @@ class ModelerService {
     (0,min_dash__WEBPACK_IMPORTED_MODULE_2__.assign)(window, {
       egon: this.modeler
     });
-    this.startDebounce();
   }
   checkCurrentVersion() {
     const version = this.storageService.get(_domain_entities_constants__WEBPACK_IMPORTED_MODULE_10__.VERSION_KEY);
@@ -10934,28 +10934,25 @@ class ModelerService {
   }
   commandStackChanged() {
     // to update the title of the svg, we need to tell the command stack, that a value has changed
-    this.eventBus.fire(src_app_tools_modeler_diagram_js_features_diagramJSConstants__WEBPACK_IMPORTED_MODULE_14__.EVENT_COMMANDSTACK_CHANGED, this.debounce(this.saveSVG, 500));
+    this.eventBus.fire(src_app_tools_modeler_diagram_js_features_diagramJSConstants__WEBPACK_IMPORTED_MODULE_14__.EVENT_COMMANDSTACK_CHANGED, this.saveSvgAfterDelay());
   }
-  startDebounce() {
-    this.debounce(this.saveSVG, 500);
-  }
-  debounce(fn, timeout) {
+  // executes the function after a set timeout. Used because the modeler is event-based => we need to wait for the command stack to finish
+  saveSvgAfterDelay() {
     return () => {
-      let timer = setTimeout(() => {
-        // tslint:disable-next-line:no-unused-expression
-        fn(this.modeler).then(svg => {
-          this.encoded = svg;
-        });
-      }, timeout);
+      this.timer = setTimeout(() => {
+        return this.saveSVG(this.modeler);
+      }, this.DEBOUNCE_TIMEOUT);
     };
   }
   getEncoded() {
     return this.encoded ? this.encoded : '';
   }
   saveSVG(modeler) {
+    var _this = this;
     return (0,_home_runner_work_egon_io_egon_io_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       try {
         const result = yield modeler.saveSVG();
+        _this.encoded = result.svg;
         return result.svg;
       } catch (err) {
         alert('There was an error saving the SVG.\n' + err);
@@ -10972,7 +10969,7 @@ class ModelerService {
       this.fitStoryToScreen();
     }
     this.commandStackChanged();
-    this.startDebounce();
+    this.saveSvgAfterDelay();
     this.dirtyFlagService.makeClean();
   }
   getStory() {
