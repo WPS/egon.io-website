@@ -481,7 +481,7 @@ function initializeContextPadProvider(dirtyFlag, iconDictionary) {
 }
 function DomainStoryContextPadProvider(connect, translate, elementFactory, create, canvas, contextPad, popupMenu, replaceMenuProvider, commandStack, eventBus, modeling, rules) {
   contextPad.registerProvider(this);
-  popupMenu.registerProvider(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_5__.DJS_REPLACE_PROVIDER, replaceMenuProvider);
+  popupMenu.registerProvider(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_5__.DS_REPLACE_PROVIDER, replaceMenuProvider);
   let _selectedElement;
   let startConnect;
   eventBus.on(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_5__.EVENT_CREATE_END, 250, function (event) {
@@ -636,7 +636,7 @@ function DomainStoryContextPadProvider(connect, translate, elementFactory, creat
                 y: event.y
               }
             });
-            popupMenu.open(element, _diagramJSConstants__WEBPACK_IMPORTED_MODULE_5__.DJS_REPLACE_PROVIDER, position);
+            popupMenu.open(element, _diagramJSConstants__WEBPACK_IMPORTED_MODULE_5__.DS_REPLACE_PROVIDER, position);
           }
         }
       }
@@ -709,7 +709,7 @@ function DomainStoryContextPadProvider(connect, translate, elementFactory, creat
                 y: event.y
               }
             });
-            popupMenu.open(element, _diagramJSConstants__WEBPACK_IMPORTED_MODULE_5__.DJS_REPLACE_PROVIDER, position);
+            popupMenu.open(element, _diagramJSConstants__WEBPACK_IMPORTED_MODULE_5__.DS_REPLACE_PROVIDER, position);
           }
         }
       }
@@ -1049,7 +1049,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   ACTIVITY_CHANGED_EVENT: () => (/* binding */ ACTIVITY_CHANGED_EVENT),
 /* harmony export */   ACTIVITY_DIRECTION_CHANGE_EVENT: () => (/* binding */ ACTIVITY_DIRECTION_CHANGE_EVENT),
 /* harmony export */   DEFAULT_COLOR_EVENT: () => (/* binding */ DEFAULT_COLOR_EVENT),
-/* harmony export */   DJS_REPLACE_PROVIDER: () => (/* binding */ DJS_REPLACE_PROVIDER),
+/* harmony export */   DS_REPLACE_PROVIDER: () => (/* binding */ DS_REPLACE_PROVIDER),
 /* harmony export */   ELEMENT_COLOR_CHANGE_EVENT: () => (/* binding */ ELEMENT_COLOR_CHANGE_EVENT),
 /* harmony export */   EVENT_BENDPOINT_MOVE_END: () => (/* binding */ EVENT_BENDPOINT_MOVE_END),
 /* harmony export */   EVENT_BENDPOINT_MOVE_START: () => (/* binding */ EVENT_BENDPOINT_MOVE_START),
@@ -1080,7 +1080,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   PROPERTY_COPY_CAN_SET_COPIED_PROPERTY_EVENT: () => (/* binding */ PROPERTY_COPY_CAN_SET_COPIED_PROPERTY_EVENT),
 /* harmony export */   SHAPE_REMOVE_GROUP_WITHOUT_CHILDREN_EVENT: () => (/* binding */ SHAPE_REMOVE_GROUP_WITHOUT_CHILDREN_EVENT)
 /* harmony export */ });
-const DJS_REPLACE_PROVIDER = "ds-replace";
+const DS_REPLACE_PROVIDER = "ds-replace";
 // Events
 const EVENT_CREATE_END = "create.end";
 const EVENT_PICKED_COLOR = "pickedColor";
@@ -1091,12 +1091,12 @@ const EVENT_SHAPE_MOVE_START = "shape.move.start"; // move existing shapes
 const EVENT_SHAPE_ADDED = "shape.added";
 const EVENT_SHAPE_REMOVE = "shape.remove";
 const EVENT_BENDPOINT_MOVE_START = "bendpoint.move.start"; // move and create bendpoints
-const EVENT_BENDPOINT_MOVE_END = '"bendpoint.move.end"'; // move and create bendpoints
+const EVENT_BENDPOINT_MOVE_END = "bendpoint.move.end"; // move and create bendpoints
 const EVENT_CONNECTION_SEGMENT_MOVE_START = "connectionSegment.move.start"; // move horizontal/vertical segments of connections
 const EVENT_ELEMENT_CLICK = "element.click"; // click on existing element (opens context pad if element is actor or work object)
 const EVENT_ELEMENT_DBLCLICK = "element.dblclick";
 const EVENT_ELEMENT_HOVER = "element.hover"; // show outline around element
-const EVENT_ELEMENT_CHANGED = "element.chagned";
+const EVENT_ELEMENT_CHANGED = "element.changed";
 const EVENT_INTERACTION_EVENTS_CREATE_HIT = "interactionEvents.createHit"; // use palette to create new element
 const EVENT_SPACE_TOOL_SELECTION_START = "spaceTool.selection.start"; // use space tool
 const EVENT_LASSO_SELECTION_START = "lasso.selection.start"; // use lasso tool
@@ -4327,6 +4327,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+// Do not convert to class, this breaks the modeler
 function DomainStoryModeler(options) {
   _BaseViewer__WEBPACK_IMPORTED_MODULE_0__["default"].call(this, options);
   this._elements = [];
@@ -4593,7 +4594,7 @@ class AppComponent {
   }
   onWindowClose(event) {
     if (this.dirtyFlagService.dirty()) {
-      event.returnValue = true;
+      event.preventDefault();
     }
   }
   static {
@@ -5200,6 +5201,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class ElementRegistryService {
+  constructor() {
+    this.registry = null;
+  }
   setElementRegistry(elementRegistry) {
     this.registry = elementRegistry._elements;
   }
@@ -5301,16 +5305,18 @@ class ElementRegistryService {
     });
   }
   checkChildForGroup(groupObjects, allObjects) {
-    const registryElementNames = Object.keys(this.registry);
-    for (const name of registryElementNames) {
-      const entry = this.registry[name].element;
-      if (entry.businessObject) {
-        const type = entry.type;
-        if (type && type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.GROUP)) {
-          // if it is a group, memorize this for later
-          groupObjects.push(entry);
-        } else if (type) {
-          allObjects.push(entry);
+    if (this.registry) {
+      const registryElementNames = Object.keys(this.registry);
+      for (const name of registryElementNames) {
+        const entry = this.registry[name].element;
+        if (entry.businessObject) {
+          const type = entry.type;
+          if (type && type.includes(src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_0__.ElementTypes.GROUP)) {
+            // if it is a group, memorize this for later
+            groupObjects.push(entry);
+          } else if (type) {
+            allObjects.push(entry);
+          }
         }
       }
     }
@@ -7529,9 +7535,12 @@ class IconSetConfigurationComponent {
   }
   filterByNameAndType($event) {
     const filteredByKeyWord = this.allIcons().all().filter(entry => entry.keyWords.some(key => {
+      //@ts-ignore
       return key.toLowerCase().includes($event.target.value.toLowerCase());
     })).map(entry => entry.key);
-    const filteredByNameAndType = this.getFilteredNamesForType(this.filter()).filter(name => name.toLowerCase().includes($event.target.value.toLowerCase()) || filteredByKeyWord.includes(name));
+    const filteredByNameAndType = this.getFilteredNamesForType(this.filter()).filter(name =>
+    //@ts-ignore
+    name.toLowerCase().includes($event.target.value.toLowerCase()) || filteredByKeyWord.includes(name));
     this.allFilteredIconNames.set([...filteredByNameAndType].sort(this.sortByName));
   }
   getFilteredNamesForType(type) {
@@ -10358,9 +10367,15 @@ class ActivityDialogComponent {
     });
   }
   save() {
+    let activityNumber;
+    if (this.form.value.activityNumber !== null) {
+      activityNumber = this.form.value.activityNumber;
+    }
     this.saveFN({
       activity: this.activity,
-      ...this.form.value
+      activityNumber,
+      activityLabel: this.form.value.activityLabel,
+      multipleNumbers: this.form.value.multipleNumbers
     });
     this.dialogRef.close();
   }
@@ -10558,8 +10573,8 @@ class ActivityClickHandlerService {
   }
   getCurrentNumberPositionAndValue(currentNum, zoomX, transformX, zoomY, transformY) {
     const tspan = currentNum.getElementsByTagName('tspan')[0];
-    const tx = tspan.getAttribute('x');
-    const ty = tspan.getAttribute('y');
+    const tx = Number(tspan.getAttribute('x'));
+    const ty = Number(tspan.getAttribute('y'));
     const tNumber = parseInt(tspan.innerHTML, undefined);
     const elementX = Math.floor(tx * zoomX + (transformX - 11 * zoomX));
     const elementY = Math.floor(ty * zoomY + (transformY - 15 * zoomY));
@@ -11100,7 +11115,7 @@ class PropertiesDialogComponent {
     this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵdefineComponent"]({
       type: PropertiesDialogComponent,
       selectors: [["app-properties-dialog"]],
-      decls: 42,
+      decls: 45,
       vars: 19,
       consts: [[3, "formGroup"], ["color", "accent", 1, "dialogWidth"], ["matInput", "", "type", "text", "formControlName", "title"], ["maxlength", "2000", "matInput", "", "formControlName", "description", 1, "descriptionInput", 3, "keydown.enter", "keyup.enter", "keyup.escape"], ["matInput", "", "type", "text", "formControlName", "granularity"], [1, "scopeValues"], [1, "scopeValueButtonToggle"], [1, "subHeader"], ["formControlName", "pointInTime"], [3, "value"], ["formControlName", "domainPurity"], ["type", "button", "mat-flat-button", "", 3, "click"], ["type", "button", "mat-flat-button", "", "color", "primary", 3, "click"]],
       template: function PropertiesDialogComponent_Template(rf, ctx) {
@@ -11124,52 +11139,56 @@ class PropertiesDialogComponent {
           });
           _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementEnd"]()();
           _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelement"](11, "br");
-          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementStart"](12, "mat-form-field", 1)(13, "mat-label");
-          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵtext"](14, "Granularity");
+          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementStart"](12, "mat-label");
+          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵtext"](13, "Scope");
           _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementEnd"]();
-          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelement"](15, "input", 4);
+          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelement"](14, "br");
+          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementStart"](15, "mat-form-field", 1)(16, "mat-label");
+          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵtext"](17, "Granularity");
           _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementEnd"]();
-          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementStart"](16, "div", 5)(17, "div", 6)(18, "mat-label", 7);
-          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵtext"](19, "Point In Time");
+          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelement"](18, "input", 4);
           _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementEnd"]();
-          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementStart"](20, "mat-button-toggle-group", 8)(21, "mat-button-toggle", 9);
-          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵtext"](22, "Not Specified");
+          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementStart"](19, "div", 5)(20, "div", 6)(21, "mat-label", 7);
+          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵtext"](22, "Point In Time");
           _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementEnd"]();
-          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementStart"](23, "mat-button-toggle", 9);
-          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵtext"](24, "As Is");
+          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementStart"](23, "mat-button-toggle-group", 8)(24, "mat-button-toggle", 9);
+          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵtext"](25, "Not Specified");
           _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementEnd"]();
-          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementStart"](25, "mat-button-toggle", 9);
-          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵtext"](26, "To Be");
+          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementStart"](26, "mat-button-toggle", 9);
+          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵtext"](27, "As Is");
+          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementEnd"]();
+          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementStart"](28, "mat-button-toggle", 9);
+          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵtext"](29, "To Be");
           _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementEnd"]()()();
-          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementStart"](27, "div", 6)(28, "mat-label", 7);
-          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵtext"](29, "Domain Purity");
+          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementStart"](30, "div", 6)(31, "mat-label", 7);
+          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵtext"](32, "Domain Purity");
           _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementEnd"]();
-          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementStart"](30, "mat-button-toggle-group", 10)(31, "mat-button-toggle", 9);
-          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵtext"](32, "Not Specified");
+          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementStart"](33, "mat-button-toggle-group", 10)(34, "mat-button-toggle", 9);
+          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵtext"](35, "Not Specified");
           _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementEnd"]();
-          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementStart"](33, "mat-button-toggle", 9);
-          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵtext"](34, "Pure");
+          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementStart"](36, "mat-button-toggle", 9);
+          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵtext"](37, "Pure");
           _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementEnd"]();
-          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementStart"](35, "mat-button-toggle", 9);
-          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵtext"](36, "Digitalized");
+          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementStart"](38, "mat-button-toggle", 9);
+          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵtext"](39, "Digitalized");
           _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementEnd"]()()()()()();
-          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementStart"](37, "mat-dialog-actions")(38, "button", 11);
-          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵlistener"]("click", function PropertiesDialogComponent_Template_button_click_38_listener() {
+          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementStart"](40, "mat-dialog-actions")(41, "button", 11);
+          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵlistener"]("click", function PropertiesDialogComponent_Template_button_click_41_listener() {
             return ctx.close();
           });
-          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵtext"](39, "Cancel");
+          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵtext"](42, "Cancel");
           _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementEnd"]();
-          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementStart"](40, "button", 12);
-          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵlistener"]("click", function PropertiesDialogComponent_Template_button_click_40_listener() {
+          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementStart"](43, "button", 12);
+          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵlistener"]("click", function PropertiesDialogComponent_Template_button_click_43_listener() {
             return ctx.save();
           });
-          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵtext"](41, " Save ");
+          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵtext"](44, " Save ");
           _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementEnd"]()();
         }
         if (rf & 2) {
           _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵadvance"]();
           _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵproperty"]("formGroup", ctx.form);
-          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵadvance"](20);
+          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵadvance"](23);
           _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵclassProp"]("isSelected", ctx.pointInTime() === null);
           _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵproperty"]("value", null);
           _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵadvance"](2);
@@ -11416,15 +11435,15 @@ class DomManipulationService {
     return renderedNumberRegistry;
   }
   getNumberDomForActivity(activity) {
-    const numberText = activity.parentElement?.getElementsByClassName(src_app_tools_modeler_diagram_js_features_diagramJSConstants__WEBPACK_IMPORTED_MODULE_4__.LABEL_NUMBER_CSS_CLASS)[0] ?? '';
-    const circle = numberText?.previousSibling ?? '';
+    const numberText = activity.parentElement?.getElementsByClassName(src_app_tools_modeler_diagram_js_features_diagramJSConstants__WEBPACK_IMPORTED_MODULE_4__.LABEL_NUMBER_CSS_CLASS)[0];
+    const circle = numberText?.previousSibling;
     return {
       numberBackgroundDom: circle,
       numberTextDom: numberText
     };
   }
   getLabelDomForActivity(activity) {
-    return activity.parentElement?.getElementsByClassName(src_app_tools_modeler_diagram_js_features_diagramJSConstants__WEBPACK_IMPORTED_MODULE_4__.LABEL_CSS_CLASS)[0] ?? '';
+    return activity.parentElement?.getElementsByClassName(src_app_tools_modeler_diagram_js_features_diagramJSConstants__WEBPACK_IMPORTED_MODULE_4__.LABEL_CSS_CLASS)[0];
   }
   removeHighlights() {
     const allActivities = this.elementRegistryService.getAllActivities();
@@ -12091,7 +12110,7 @@ function sanitizeForDesktop(str) {
 // CSS-Classes with semantic characters cannot be addressed properly
 function sanitizeForCss(name) {
   return name
-  // Replace any character that isn't a letter, digit, hyphen, or underscore
+  // Replace every character that isn't a letter, digit, hyphen, or underscore
   .replace(/[^a-zA-Z0-9_-]/g, '_')
   // Avoid a class name starting with a digit or a "-<digit>" sequence
   .replace(/^(-?\d)/, '_$1').toLowerCase();
