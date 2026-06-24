@@ -6507,7 +6507,7 @@ class HtmlPresentationService {
             panelClass: src_app_domain_entities_constants__WEBPACK_IMPORTED_MODULE_10__.SNACKBAR_ERROR
           });
         }
-        if (_this.replayService.currentSentence() < _this.replayService.maxSentenceNumber() - 1) {
+        if (_this.replayService.currentSentence() < _this.replayService.maxSentenceNumber()) {
           _this.replayService.nextSentence();
         }
       }
