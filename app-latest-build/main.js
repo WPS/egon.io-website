@@ -11415,7 +11415,7 @@ class DomManipulationService {
         domObject.style.display = _domain_replayConstants__WEBPACK_IMPORTED_MODULE_3__.DISPLAY_NONE;
       }
     });
-    this.highlightSentence(previousSentence ? replaySentence.objects.filter(o => !previousSentence.objects.includes(o)) : replaySentence.objects);
+    this.highlightSentence(replaySentence.objects.filter(o => replaySentence.highlightedObjects.includes(o.id)));
     replaySentence.objects.forEach(element => {
       const domObject = document.querySelector(QUERY_SELECTOR_PREFIX + element.id + QUERY_SELECTOR_POSTFIX);
       if (domObject) {
