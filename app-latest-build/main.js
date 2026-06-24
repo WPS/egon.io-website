@@ -11406,7 +11406,7 @@ class DomManipulationService {
       domObject.style.display = _domain_replayConstants__WEBPACK_IMPORTED_MODULE_3__.DISPLAY_BLOCK;
     });
   }
-  showSentence(replaySentence, previousSentence) {
+  showSentence(replaySentence) {
     this.removeHighlights();
     this.elementRegistryService.getAllBusinessObjectsFromCanvasNotIn(replaySentence.objects).forEach(element => {
       const domObject = document.querySelector(QUERY_SELECTOR_PREFIX + element.id + QUERY_SELECTOR_POSTFIX);
@@ -11592,7 +11592,7 @@ class ReplayService {
   }
   showCurrentSentence() {
     const story = this.determineStoryToShow();
-    this.domManipulationService.showSentence(story[this.currentSentenceSignal() - 1], this.currentSentenceSignal() > 1 ? story[this.currentSentenceSignal() - 2] : undefined);
+    this.domManipulationService.showSentence(story[this.currentSentenceSignal() - 1]);
   }
   startReplay(checkSequenceNumbers = false) {
     const {
