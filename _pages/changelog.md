@@ -15,6 +15,8 @@ toc_sticky: true
 > - The structure of `.egn` and `.egn.svg` files will change further during development. Hence, Domain Stories created with *latest build* will likely be incompatible with the v4.0.0.
 
 - `Feature`: To simplify file handling, ‘title’ and ‘file name’ are now separate attributes [See 236](https://github.com/WPS/egon.io/issues/236)
+- `Feature`: Groups can be shown/hidden at any time during replay [See 269](https://github.com/WPS/egon.io/issues/269)
+- Description is hidden by default
 - `Fix`: When uploading a `.egn.svg` file to a digital whiteboard, the embedded `.egn` passes sanitation and is no longer removed from the file  [See 263](https://github.com/WPS/egon.io/issues/263)
 
 
