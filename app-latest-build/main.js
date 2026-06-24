@@ -2498,11 +2498,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! min-dash */ 81410);
 /* harmony import */ var _dsLabelUtil__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dsLabelUtil */ 54554);
 /* harmony import */ var src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/domain/entities/elementTypes */ 73190);
-/* harmony import */ var src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/utils/sanitizer */ 43515);
-/* harmony import */ var _util_util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../util/util */ 84029);
-/* harmony import */ var _domainStoryRules__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../domainStoryRules */ 63694);
-/* harmony import */ var _diagramJSConstants__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../diagramJSConstants */ 273);
-
+/* harmony import */ var _util_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../util/util */ 84029);
+/* harmony import */ var _domainStoryRules__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../domainStoryRules */ 63694);
+/* harmony import */ var _diagramJSConstants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../diagramJSConstants */ 273);
 
 
 
@@ -2543,7 +2541,7 @@ function DSLabelEditingProvider(eventBus, canvas, directEditing, modeling, resiz
   // listen to dblclick on non-root elements
   eventBus.on("element.dblclick", function (event) {
     activateDirectEdit(event.element);
-    if ((0,_util_util__WEBPACK_IMPORTED_MODULE_4__.is)(event.element, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTIVITY)) {
+    if ((0,_util_util__WEBPACK_IMPORTED_MODULE_3__.is)(event.element, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTIVITY)) {
       // if we edit an activity, we do not want the standard editing box
       numberStash = event.element.businessObject.number;
       stashUse = true;
@@ -2567,13 +2565,13 @@ function DSLabelEditingProvider(eventBus, canvas, directEditing, modeling, resiz
     let element = event.active.element;
     createAutocomplete(element);
   });
-  eventBus.on(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_6__.EVENT_CREATE_END, 500, function (event) {
+  eventBus.on(_diagramJSConstants__WEBPACK_IMPORTED_MODULE_5__.EVENT_CREATE_END, 500, function (event) {
     let element = event.shape,
       canExecute = event.context.canExecute;
     if (!canExecute) {
       return;
     }
-    if (!(0,_util_util__WEBPACK_IMPORTED_MODULE_4__.is)(element, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTIVITY)) {
+    if (!(0,_util_util__WEBPACK_IMPORTED_MODULE_3__.is)(element, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.ACTIVITY)) {
       activateDirectEdit(element);
     }
     let editingBox = document.getElementsByClassName("djs-direct-editing-content");
@@ -2601,7 +2599,7 @@ DSLabelEditingProvider.$inject = ["eventBus", "canvas", "directEditing", "modeli
  */
 DSLabelEditingProvider.prototype.activate = function (element) {
   // text
-  if ((0,_domainStoryRules__WEBPACK_IMPORTED_MODULE_5__.isBackground)(element)) {
+  if ((0,_domainStoryRules__WEBPACK_IMPORTED_MODULE_4__.isBackground)(element)) {
     return;
   }
   let text = (0,_dsLabelUtil__WEBPACK_IMPORTED_MODULE_1__.getLabel)(element);
@@ -2615,7 +2613,7 @@ DSLabelEditingProvider.prototype.activate = function (element) {
   let bounds = this.getEditingBBox(element);
   (0,min_dash__WEBPACK_IMPORTED_MODULE_0__.assign)(context, bounds);
   let options = {};
-  if ((0,_util_util__WEBPACK_IMPORTED_MODULE_4__.is)(element, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.TEXTANNOTATION)) {
+  if ((0,_util_util__WEBPACK_IMPORTED_MODULE_3__.is)(element, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.TEXTANNOTATION)) {
     (0,min_dash__WEBPACK_IMPORTED_MODULE_0__.assign)(options, {
       resizable: true,
       autoResize: true
@@ -2655,7 +2653,7 @@ DSLabelEditingProvider.prototype.getEditingBBox = function (element) {
     fontWeight: this._textRenderer.getDefaultStyle().fontWeight
   };
   // adjust for groups
-  if ((0,_util_util__WEBPACK_IMPORTED_MODULE_4__.is)(element, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.GROUP)) {
+  if ((0,_util_util__WEBPACK_IMPORTED_MODULE_3__.is)(element, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.GROUP)) {
     (0,min_dash__WEBPACK_IMPORTED_MODULE_0__.assign)(bounds, {
       minWidth: bbox.width / 2.5 > 125 ? bbox.width / 2.5 : 125,
       maxWidth: bbox.width,
@@ -2692,7 +2690,7 @@ DSLabelEditingProvider.prototype.getEditingBBox = function (element) {
     });
   }
   // text annotations
-  if ((0,_util_util__WEBPACK_IMPORTED_MODULE_4__.is)(element, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.TEXTANNOTATION)) {
+  if ((0,_util_util__WEBPACK_IMPORTED_MODULE_3__.is)(element, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.TEXTANNOTATION)) {
     (0,min_dash__WEBPACK_IMPORTED_MODULE_0__.assign)(bounds, {
       width: bbox.width,
       height: bbox.height,
@@ -2716,7 +2714,7 @@ DSLabelEditingProvider.prototype.getEditingBBox = function (element) {
 };
 DSLabelEditingProvider.prototype.update = function (element, newLabel, activeContextText, bounds) {
   let newBounds, bbox;
-  if ((0,_util_util__WEBPACK_IMPORTED_MODULE_4__.is)(element, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.TEXTANNOTATION)) {
+  if ((0,_util_util__WEBPACK_IMPORTED_MODULE_3__.is)(element, src_app_domain_entities_elementTypes__WEBPACK_IMPORTED_MODULE_2__.ElementTypes.TEXTANNOTATION)) {
     bbox = this._canvas.getAbsoluteBBox(element);
     newBounds = {
       x: element.x,
@@ -2725,7 +2723,7 @@ DSLabelEditingProvider.prototype.update = function (element, newLabel, activeCon
       height: element.height / bbox.height * bounds.height
     };
   }
-  this._modeling.updateLabel(element, (0,src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_3__.sanitizeTextForSVGExport)(newLabel), newBounds);
+  this._modeling.updateLabel(element, newLabel, newBounds);
 };
 
 /***/ },
@@ -3923,8 +3921,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ headlineAndDescriptionUpdateHandler)
 /* harmony export */ });
-/* harmony import */ var src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/utils/sanitizer */ 43515);
-
 function headlineAndDescriptionUpdateHandler(commandStack, propertiesService) {
   commandStack.registerHandler("story.updateHeadlineAndDescriptionAndScope", handlerFunction);
   function handlerFunction() {
@@ -3932,7 +3928,7 @@ function headlineAndDescriptionUpdateHandler(commandStack, propertiesService) {
       ctx.oldTitle = propertiesService.getTitle();
       ctx.oldDescription = propertiesService.getDescription();
       ctx.oldScope = propertiesService.getScope();
-      propertiesService.updateTitleAndDescriptionAndScope((0,src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_0__.sanitizeTextForSVGExport)(ctx.newTitle), (0,src_app_utils_sanitizer__WEBPACK_IMPORTED_MODULE_0__.sanitizeTextForSVGExport)(ctx.newDescription), ctx.newScope, false);
+      propertiesService.updateTitleAndDescriptionAndScope(ctx.newTitle, ctx.newDescription, ctx.newScope, false);
     };
     this.revert = function (ctx) {
       propertiesService.updateTitleAndDescriptionAndScope(ctx.oldTitle, ctx.oldDescription, ctx.oldScope, false);
@@ -4819,7 +4815,7 @@ class Dictionary {
     return this.entries.length <= 0;
   }
   has(key) {
-    return this.entries.some(entry => entry.key === key);
+    return this.keysArray().includes(key);
   }
   set(key, value) {
     if (!this.has(key)) {
@@ -4844,15 +4840,14 @@ class Dictionary {
     this.entries = this.entries.filter(entry => entry.key !== key);
   }
   get(key) {
-    const found = this.entries.filter(entry => entry.key === key);
-    if (found.length < 1) {
+    const found = this.find(key);
+    if (!found) {
       throw new Error(`Key ${key} not found in dictionary`);
     }
-    return found[0].value;
+    return found;
   }
   find(key) {
-    const found = this.entries.filter(entry => entry.key === key);
-    return found[0] ? found[0].value : null;
+    return this.entries.find(entry => entry.key === key)?.value;
   }
   /** Convert to a plain key-value object. */
   toRecord() {
