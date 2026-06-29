@@ -4926,8 +4926,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 var PointInTime;
 (function (PointInTime) {
-  PointInTime["AS_IS"] = "as_is";
-  PointInTime["TO_BE"] = "to_be";
+  PointInTime["AS_IS"] = "as-is";
+  PointInTime["TO_BE"] = "to-be";
 })(PointInTime || (PointInTime = {}));
 var DomainPurity;
 (function (DomainPurity) {
@@ -4936,17 +4936,17 @@ var DomainPurity;
 })(DomainPurity || (DomainPurity = {}));
 var Granularity_Grain;
 (function (Granularity_Grain) {
-  Granularity_Grain["COARSE"] = "coarse";
-  Granularity_Grain["MEDIUM"] = "medium";
-  Granularity_Grain["FINE"] = "fine";
+  Granularity_Grain["COARSE"] = "coarse-grained";
+  Granularity_Grain["MEDIUM"] = "medium-grained";
+  Granularity_Grain["FINE"] = "fine-grained";
 })(Granularity_Grain || (Granularity_Grain = {}));
 var Granularity_Goal;
 (function (Granularity_Goal) {
-  Granularity_Goal["CLOUD"] = "cloud";
-  Granularity_Goal["KITE"] = "kite";
-  Granularity_Goal["SEA"] = "sea";
-  Granularity_Goal["FISH"] = "fisch";
-  Granularity_Goal["CLAM"] = "clam";
+  Granularity_Goal["CLOUD"] = "cloud-level";
+  Granularity_Goal["KITE"] = "kite-level";
+  Granularity_Goal["SEA"] = "sea-level";
+  Granularity_Goal["FISH"] = "fish-level";
+  Granularity_Goal["CLAM"] = "clam-level";
 })(Granularity_Goal || (Granularity_Goal = {}));
 
 /***/ },
@@ -11114,7 +11114,7 @@ class PropertiesComponent {
       viewValue: 'fish'
     }, {
       value: src_app_domain_entities_scope__WEBPACK_IMPORTED_MODULE_9__.Granularity_Goal.CLAM,
-      viewValue: 'clam?'
+      viewValue: 'clam'
     }];
     this.PointInTimeValues = [{
       value: src_app_domain_entities_scope__WEBPACK_IMPORTED_MODULE_9__.PointInTime.TO_BE,
@@ -11168,7 +11168,7 @@ class PropertiesComponent {
       selectors: [["app-properties-dialog"]],
       decls: 40,
       vars: 1,
-      consts: [[3, "formGroup"], [1, "wrapper"], [1, "TitleAndDescription"], ["color", "accent"], ["matInput", "", "type", "text", "formControlName", "title"], ["maxlength", "2000", "matInput", "", "formControlName", "description", 1, "description", 3, "keydown.enter", "keyup.enter"], [1, "Scope"], ["formControlName", "pointInTime"], [3, "value"], ["formControlName", "domainPurity"], ["formControlName", "granularity"], ["label", "as coarse/medium/fine"], ["label", "as goal level"]],
+      consts: [[3, "formGroup"], [1, "wrapper"], [1, "TitleAndDescription"], ["color", "accent"], ["matInput", "", "type", "text", "formControlName", "title"], ["maxlength", "2000", "matInput", "", "formControlName", "description", 1, "description", 3, "keydown.enter", "keyup.enter"], [1, "Scope"], ["formControlName", "pointInTime"], [3, "value"], ["formControlName", "domainPurity"], ["formControlName", "granularity"], ["label", "as coarse/medium/fine:"], ["label", "as goal level:"]],
       template: function PropertiesComponent_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵelementStart"](0, "form", 0)(1, "div", 1)(2, "div", 2)(3, "mat-form-field", 3)(4, "mat-label");
